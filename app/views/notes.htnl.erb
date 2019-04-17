@@ -2,7 +2,39 @@
 
 2 - open project (subl .) and add gem 'devise' to the Gemfile and run bundle install in the terminal
 
-3 - run rails generate devise:install in the terminal.  Insert config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } into the routes/environments/development folder.
+3 - run rails generate devise:install in the terminal.  Insert config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } into the routes/environments/development folder.  Then go to routes rb and copy the override functions from another project.
 
 4 - create your devise model and controllers: rails g devise:controllers users and rails g devise User for the model.
 
+5 - create the postgres DB in the command line: rake db:create
+
+6 - fill in the migration table for users
+
+7 - rake db:migrate in the terminal
+
+8 - rails s in the console starts the server and will open up the login page.
+
+
+Pages For CC
+
+Home Page - sessions new
+
+This page will have a banner of some sort, a nav bar, an explanation of what the site aims to do for sports bettors.  Maybe a flow chart with little text.
+
+On the NAV BAR: Home, My Profile, Enter Picks, Matchup Analytics
+
+Models:  User, Matchup, Selection, elements needed for social platform.
+
+If I write a function that can score user selections on the fly then they do not need to be graded.  User will not have to hit a button to score their picks.  The selection must hold the matchup id.  This way I can do double headers.  Use Home/Away attributes as identifiers.
+
+For User records: call the function and pass the User object through it, have it spit out the user record.  Have functions for all the splits.  Record in a sport, last ten, in point spread ranges, on certain teams, in division games, conf games, out of conf games, when they pick the road team or home team.  They will have all these percentages in their personal profile, but maybe in their public profiles to others show their three best and their three worst.
+
+Have a message board and a pm system maybe.  Promote conversation between people at sports books across the country.
+
+Have sports bettors follow one another.  Can search for the profiles of others.  When there click a button which creates a new model(Fan?) where the one being followed is the Star and the one following is the Fan.  When Star makes picks, those picks appear on the fan's feed.
+
+A message board that allows people to make things public like the buzz from one sports book to another or the biggest line moving games and maybe a chat room.
+
+Create our own network that connects sports bettors.  Have an idea on what I need.  Should be able to put the logic together rather quickly the design and the mobile design specifically will take the longest.  I have to picture these web pages and see how it is best to display information on the cell phone.
+
+Stat heavy pages: User Profile, matchup analytics.
