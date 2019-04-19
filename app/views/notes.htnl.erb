@@ -15,7 +15,7 @@
 8 - rails s in the console starts the server and will open up the login page.
 
 
-Pages For CC
+4/17/19 - Pages For CC
 
 Home Page - sessions new
 
@@ -38,3 +38,52 @@ A message board that allows people to make things public like the buzz from one 
 Create our own network that connects sports bettors.  Have an idea on what I need.  Should be able to put the logic together rather quickly the design and the mobile design specifically will take the longest.  I have to picture these web pages and see how it is best to display information on the cell phone.
 
 Stat heavy pages: User Profile, matchup analytics.
+
+Create a platform where handicappers can follow each other.  Probably needs to be a follow button for each category.  Handicappers can follow specific situations of other handicappers.  The selections of the handicappers you follow will appear on your feed in your profile.
+
+You can't see your percentages, but you can see everybody elses and they can see yours.
+
+How would the follow/fade work?  We'll need a migration with a Model called Tag.  Tag will take the id of the current user(:follower), the id of the handicapper being tagged(:star), it will also take the situation(game situation), and it will take the brand(fade or follow).  Need to be two buttons Fade and Follow next to each category.  When they are in fade or follow mode need to give them a stop button so they can unfollow the situation.  Need to create the new model on the profile page of the star.  This way I can grab the :follower_id, :star_id, :situation, and :brand.
+
+Toughest thing may be the design to make the process of follow/unfollow neat and clean.  This can be done.  Loop through tag models and in the models where the follower_id is the current_user then display appropriate picks for them.  If current_user is the star then count them and get the user names of the :follower and display it for them.  How many people following you and who they are.
+
+If the current_user matches the url id then it will display one thing, but if they do not match then it will display another(the follow/unfollow process)
+
+So, now the site will have a follow/unfollow process that will allow handicapers to set up their own private database of information and then in their profile I can display their information for them.  If any of their faders are in action then list it and list them by how many faders are on it, same for the followers.  And if their faders/followers are on the opposite sides then it is a key game for the handicapper.
+
+I still think entering in your picks should unlock the platform.  It is so important for people to get their information in.  Have to get them to do it.  Have to motivate them.
+
+Gonna have to explain the platform to people.  How it works.  Three major moving parts:  User Selections, Matchup analysis, Private Consensus, Private Message also.
+
+Have to get that core 100 there entering picks so handicappers have someone to fade/follow.
+
+Models:
+
+User
+
+:admin
+:username
+:agent, set a default to me but recruit agents in sportsbooks.
+
+Matchup
+
+:all the things I plan on collecting in a game matchup.
+
+Selection
+
+:user_id
+:matchup_id
+:selection
+
+Tag
+
+:follower_id - current_user.id
+:star_id - id of user being followed
+:situation - game situation
+:brand - fade or follow, depends on what button is selected
+
+Contact
+
+:sender_id - current_user.id
+:username - name of recipient
+:message - body of message 
