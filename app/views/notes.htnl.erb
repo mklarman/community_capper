@@ -59,31 +59,49 @@ Have to get that core 100 there entering picks so handicappers have someone to f
 
 Models:
 
-User
+User - has_many selections, has_many tags, has_many contacts
 
 :admin
 :username
 :agent, set a default to me but recruit agents in sportsbooks.
 
-Matchup
+Matchup - has many selections
 
 :all the things I plan on collecting in a game matchup.
 
-Selection
+Selection - belongs to User, belongs to Matchup
 
 :user_id
 :matchup_id
 :selection
 
-Tag
+Tag - belongs_to user
 
 :follower_id - current_user.id
 :star_id - id of user being followed
 :situation - game situation
 :brand - fade or follow, depends on what button is selected
 
-Contact
+Contact - belongs to user
 
 :sender_id - current_user.id
 :username - name of recipient
 :message - body of message 
+
+You reach the homepage and the home page gives you an idea of what the site is - social platform that allows sports bettors to follow each other and build connections.  Handicappers will be able to fade or follow other handicappers in very specific game situations.  Handicappers can search through the profiles of other handicappers and choose to fade or follow any handicapper in an array of different situations.  That then populates your feed with the picks of these handicappers when they select a game in a situation you have faded/followed.  Your feed is then analyzed and organized for you and you are alerted to the strongest plays given the handicappers you are following.
+
+So the fade follow process will involve grabbing the id of the star, the current user is the follower.
+
+Need an index page that allows users to enter usernames, maybe have a directory of all names, let them look names up or let them just browse.  Have the stats of the first player on the screen and maybe an arrow that let them slides through from one profile to the next or a box where they can enter a username.
+
+Have to see if I can grab both ids.
+
+For the fade/follow need to build an index page with a grid.  Display the stats of the star and have the fade/follow buttons.
+
+For the selections, they will need to click on the matchup and go to the matchup show page where I can grab all the data for selection: sport, date, matchup_id, current_user id, pick, spread.  On matchup edit is where we can do the complete analysis and consensus stuff.
+
+The site will revolve around the selection/matchup process and also the fade/follow process.  Users will be able to build a feed with very unique information based on the selections of others, and then there is a global look at the entire community in regards to each matchup, plus have the average margin of victory stats(AMV) for a bunch of different game situations.
+
+The feed analysis, the AMV stats, the global consensus.
+
+Need to create a dummy project and set up the User, tag models and see if I can capture both ids and the game situation.  Once I can do that then need to figure out the process of making selections.  
