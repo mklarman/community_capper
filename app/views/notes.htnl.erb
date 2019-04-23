@@ -114,11 +114,11 @@ In order to surf through profiles, make a directory with links.  You can click o
 
 PAGES
 
-Home - sessions new
+Home - sessions new - I need to learn design.  I need to take some free CSS courses.  The front needs to hold our message and look professional.  I have to set out time for that.  List/explain the features of the site: Private Consensus Construction, AMV stats, Network Consensus.  Gonna have to learn how to do some things.  It can't look cartoonish.
 
-Welcome About - about us.  The mission.  How the site works.
+Welcome About - about us.  The mission.  How the site works.  Learn how to add screenshots maybe.  This is the page that will instruct the user on how to use the site.
 
-User Profile - shows their feed and their list of followers and who they follow along with their winning percentage and record in each sport, alos give them their id# maybe.  Results of their own private consensus.
+User Profile - Organize their private consensus.  Private Message information/function.  Give them some personal stats.  Controls to delete a tag/unfollow.  Show them how many followers they have and how many faders they have.  
 
 Matchup Index - a page that will list all matchups that are yet to be played in each sport.  This code will have to take into account start times which I will have to control.
 
@@ -133,4 +133,12 @@ Welcome Index - Capper Index.  This will be where the current user can enter a n
 2) Test them to make sure you are saving information
 
 3) Tackle the fade/follow logic first
+
+If I capture the user id through js then how do I pass it to ruby?  I can create an IndexRequest model that takes in a request and the current_user.id.  Then we acces the last request and search for that user, find them and then run all the functions on that handicapper's selections and display the information.
+
+What functions?
+
+Sort winners and losers in their selections for each sport and overall.
+
+Sort winners and losers for the various categories.  Point Spread Ranges, game times, weather.  Next to each record have the fade/follow options.  Pressing these options will create a new tag that will have the sport and the situation and the star id(grab this from last indexRequest) and the follower id.  Explore js options.  In the add event listener look up the user id within a Ruby loop and get the user that way then perform the functions.  Really don't wanna save IndexRequests.  I think it can be done in js and not save the requests.
 
