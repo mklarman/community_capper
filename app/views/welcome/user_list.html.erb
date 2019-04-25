@@ -1,0 +1,47 @@
+<% @user_email %>
+
+
+<div>
+	
+	<input type="text" name="" id="id_value"><input type="submit" name="" value="SEARCH" id="sub_search">
+
+	<script>
+
+		var user_obj = new Object()
+
+		var search = document.getElementById("sub_search")
+
+		search.addEventListener("click", function(){
+
+			var userId = document.getElementById("id_value").value
+
+			<% User.all.each do |u| %>
+
+				if (userId == "<%= u.id %>" ){
+
+					user_obj.email = "<%= u.email %>"
+
+					<% self.return_email(u) %>
+
+					console.log(user_obj)
+
+				}
+
+
+
+
+
+
+			<% end %>
+
+	
+
+		})
+
+
+
+	</script>
+
+
+
+</div>

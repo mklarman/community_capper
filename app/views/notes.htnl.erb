@@ -140,5 +140,27 @@ What functions?
 
 Sort winners and losers in their selections for each sport and overall.
 
-Sort winners and losers for the various categories.  Point Spread Ranges, game times, weather.  Next to each record have the fade/follow options.  Pressing these options will create a new tag that will have the sport and the situation and the star id(grab this from last indexRequest) and the follower id.  Explore js options.  In the add event listener look up the user id within a Ruby loop and get the user that way then perform the functions.  Really don't wanna save IndexRequests.  I think it can be done in js and not save the requests.
+Sort winners and losers for the various categories.  Point Spread Ranges, game times, weather.  Next to each record have the fade/follow options.  Pressing these options will create a new tag that will have the sport and the situation and the star id (grab this from last indexRequest) and the follower id.  Explore js options.  In the add event listener look up the user id within a Ruby loop and get the user that way then perform the functions.  Really don't wanna save IndexRequests.  I think it can be done in js and not save the requests.
+
+Fade/Follow
+
+Search Page - welcome/search
+
+A js box where the user can input a number from 1 - user.length.  When they click submit and start a function that does...
+
+1 - grabs the value of the number
+
+2 - loop through all Users in ruby code.  Ask if the ruby id is == to the input value.  If it is then run the helper functions on that user object in ruby and popualate all the variables.
+
+3 - display variables using a loop and add the fade/follow buttons and add event listeners.
+
+I ran a quick test and I can run helper functions inside of a js if statement and I can populate the variables.
+
+Picks will be made on matchup show - need the new selection form on this page and make the teams clickable.  That click sends that team into the selection form and maybe have an option for none.
+
+Picks will use the Selection and the Matchup models.  I fill out the matchups.  Those matchups appear on the matchup/index.  The user clicks on the matchup and goes to the matchup show page where we display certain stats about the game but not all.  The user is able to make a selection on the game.  The selection will capture the matchup_id, the selection, the spread.
+
+The AMV stats will also use the matchup. 
+
+
 

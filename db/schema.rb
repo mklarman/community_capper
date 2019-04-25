@@ -10,10 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190422154520) do
+ActiveRecord::Schema.define(version: 20190425140539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "matchups", force: :cascade do |t|
+    t.string "date"
+    t.string "sport"
+    t.string "fav"
+    t.string "dog"
+    t.string "fav_field"
+    t.string "dog_field"
+    t.string "spread"
+    t.string "fav_ml"
+    t.string "dog_ml"
+    t.string "total"
+    t.string "game_type"
+    t.string "field_type"
+    t.string "road_start_time"
+    t.string "home_start_time"
+    t.string "weather"
+    t.string "home_d"
+    t.string "home_o"
+    t.string "road_d"
+    t.string "road_o"
+    t.string "home_pitcher"
+    t.string "away_pitcher"
+    t.string "home_score"
+    t.string "road_score"
+    t.string "winner"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "selections", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "matchup_id"
+    t.string "pick"
+    t.string "situation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "tags", force: :cascade do |t|
     t.string "date"
