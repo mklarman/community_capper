@@ -1,4 +1,19 @@
-<% @user_email %>
+<% @star_id %>
+
+<div class="hid">
+
+
+	<%= form_for @tag do |t| %>
+
+		<div><%= t.text_field :user_id, value: current_user.id %></div>
+		<div><%= t.text_field :star_id %></div>
+		<div><%= t.submit %></div>
+
+
+	<% end %>
+
+
+</div>
 
 
 <div>
@@ -19,11 +34,7 @@
 
 				if (userId == "<%= u.id %>" ){
 
-					user_obj.email = "<%= u.email %>"
-
-					<% self.return_email(u) %>
-
-					console.log(user_obj)
+					tag_star_id.value = userId
 
 				}
 
@@ -45,3 +56,12 @@
 
 
 </div>
+
+<% current_user.tags.each do |t| %>
+
+	<%= t.star_id %>
+
+
+<% end %>
+
+

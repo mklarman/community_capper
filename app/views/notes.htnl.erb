@@ -160,7 +160,19 @@ Picks will be made on matchup show - need the new selection form on this page an
 
 Picks will use the Selection and the Matchup models.  I fill out the matchups.  Those matchups appear on the matchup/index.  The user clicks on the matchup and goes to the matchup show page where we display certain stats about the game but not all.  The user is able to make a selection on the game.  The selection will capture the matchup_id, the selection, the spread.
 
-The AMV stats will also use the matchup. 
+The AMV stats will also use the matchup.
+
+The hardest part will be the fade/follow logic and how that plays into the private consensus/users_profile.
+
+Need to create a tag and then go to the respective profiles of each user in the tag and see what comes up when I call the current_user tags.
+
+To create the tags. Hide the tag form on the index page and see if you can embedd both the star_id and current_user id.  I think I can do this.
+
+Do I want to put an active field in matchups so I can list the proper ones and not list the old ones.
+
+4/26/19
+
+I have the basic fade/follow logic completed.  Users will be able to fade or follower other handicappers now with a click of a button.  Now I have to lay out the stats on the page, and run my checks to make sure they do not select the same category twice. 
 
 
 

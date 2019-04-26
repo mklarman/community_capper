@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20190425140539) do
 
   create_table "tags", force: :cascade do |t|
     t.string "date"
-    t.string "follower_id"
+    t.string "user_id"
     t.string "star_id"
     t.string "situation"
     t.string "brand"

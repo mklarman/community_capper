@@ -1,0 +1,18 @@
+<div class="hid">
+
+
+	<%= form_for @tag do |t| %>
+
+		<div>FOLLOWER: <%= t.text_field :follower_id, value: current_user.id %></div>
+		<div>STAR: <%= t.text_field :star_id %></div>
+		<div>DATE: <%= t.text_field :date %></div>
+		<div>BRAND: <%= t.text_field :brand %></div>
+		<div>SITUATION: <%= t.text_field :situation %></div>
+
+		<div><%= t.submit %></div>
+
+
+	<% end %>
+
+
+</div>
