@@ -126,7 +126,7 @@ Matchup Show - this page will show matchup information and this will be the page
 
 Matchup Edit - this will show the AMV stats and the global consensus stats for the game but this is the page where I will enter the scores as well under an admin if statement.
 
-Welcome Index - Capper Index.  This will be where the current user can enter a number into a field and get returned the stats of the user whose id they have entered.  This is the page with the fade/follow logic.
+Welcome - users_list.  This will be where the current user can enter a number into a field and get returned the stats of the user whose id they have entered.  This is the page with the fade/follow logic.
 
 1) Create the rest of the models and controllers
 
@@ -172,7 +172,34 @@ Do I want to put an active field in matchups so I can list the proper ones and n
 
 4/26/19
 
-I have the basic fade/follow logic completed.  Users will be able to fade or follower other handicappers now with a click of a button.  Now I have to lay out the stats on the page, and run my checks to make sure they do not select the same category twice. 
+I have the basic fade/follow logic completed.  Users will be able to fade or follower other handicappers now with a click of a button.  Now I have to lay out the stats on the page, and run my checks to make sure they do not select the same category twice.
+
+5/2/19
+
+Helper Functions Needed:
+
+User_profile_helper
+
+1) Find the people that the user follows(stars)
+2) seperate the stars into fades and follows
+3) Analysis for the fades - count the times teams chosen
+4) analysis for the follows - count the times teams chosen.
+
+Matchup_show
+
+1) Teams AMV in spread situation
+2) Teams AMV vs opponent
+3) Teams AMV in location
+4) Teams AMV in start time
+5) Teams AMV in game_type
+6) Teams AMV in field_type
+7) Teams AMV vs team rankings
+
+For baseball
+
+1) Teams AMV vs pitcher; Teams AMV with pitcher on the mound.
+2) Teams Record with pitcher on the mound
+3) Teams AVG run let up when pitcher starts
 
 
 

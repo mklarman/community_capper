@@ -14,7 +14,7 @@ class WelcomeController < ApplicationController
 
 	def tag_params
 
-		params.require(:tag).permit(:date, :follower_id, :star_id, :situation, :brand)
+		params.require(:tag).permit(:date, :user_id, :star_id, :situation, :brand)
 
 	end	
 end

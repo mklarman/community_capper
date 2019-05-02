@@ -28,6 +28,14 @@ class MatchupsController < ApplicationController
 
 	end
 
+	def show
+
+		@matchup = Matchup.find_by_id(params[:id])
+		@selection = Selection.new
+
+
+	end
+
 	def update
 
 		@matchup = Matchup.find_by_id(params[:id])
@@ -47,7 +55,7 @@ class MatchupsController < ApplicationController
 
 	def matchup_params
 
-		params.require(:matchup).permit(:date, :sport, :fav, :dog, :fav_field, :dog_field, :spread, :fav_ml, :dog_ml, :total, :game_type, :field_type, :road_start_time, :home_start_time, :weather, :home_d, :home_o, :road_d, :road_o, :home_pitcher, :away_picther, :home_score, :road_score, :winner)
+		params.require(:matchup).permit(:date, :sport, :fav, :dog, :fav_field, :dog_field, :spread, :fav_ml, :dog_ml, :total, :game_type, :field_type, :road_start_time, :home_start_time, :weather, :home_d, :home_o, :road_d, :road_o, :home_pitcher, :away_pitcher, :home_score, :road_score, :winner)
 
 	end
 
