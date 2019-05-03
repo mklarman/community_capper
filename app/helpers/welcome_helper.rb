@@ -2,8 +2,6 @@ module WelcomeHelper
 
 	def get_todays_matchups
 
-		@current_matchups = []
-
 		Matchup.all.each do |m|
 
 			if m.date == @my_date
@@ -18,10 +16,6 @@ module WelcomeHelper
 	end
 
 	def get_stars
-
-		@stars = []
-		@star_users = []
-		@star_situations = []
 
 		current_user.tags.each do |t|
 
@@ -69,8 +63,6 @@ module WelcomeHelper
 	end
 
 	def sort_stars
-
-		@faders = []
 
 		current_user.tags.each do |t|
 
@@ -120,11 +112,6 @@ module WelcomeHelper
 	end
 
 	def count_star_picks
-
-		@pick_holder = []
-		@counted_faders = []
-		@counted_followers = []
-		@follower_picks = []
 
 		@faders.each do |f|
 
@@ -199,6 +186,79 @@ module WelcomeHelper
 
 	end
 
+	def collect_data
 
+		@counted_faders.each do |f|
+
+			@fade_data = Hash.new
+			@fade_data[:pick] = f[:pick]
+			@fade_data[:count] = f[:count]
+			@fade_data[:user_names] = []
+
+			@faders.each do |fade|
+
+				if f.class == Hash && fade.class == Hash
+
+					if f[:pick] == fade[:selection]
+
+						User.all.each do |u|
+
+							if u.id.to_s == fade[:user_id]
+
+								@fade_data[:user_names].push(u.username)
+
+							end
+
+
+						end
+
+					end
+
+				end
+
+
+			end
+
+			@fade_info.push(@fade_data)
+
+
+		end
+
+		@counted_followers.each do |f|
+
+			@follow_data = Hash.new
+			@follow_data[:pick] = f[:pick]
+			@follow_data[:count] = f[:count]
+			@follow_data[:user_names] = []
+
+			@followers.each do |foll|
+
+				if f.class == Hash && foll.class == Hash
+
+					if f[:pick] == foll[:selection]
+
+						User.all.each do |u|
+
+							if u.id.to_s == fade[:user_id]
+
+								@follow_data[:user_names].push(u.username)
+
+							end
+
+
+						end
+
+					end
+
+				end
+
+
+			end
+
+			@follow_info.push(@follow_data)
+
+		end
+
+	end
 
 end
