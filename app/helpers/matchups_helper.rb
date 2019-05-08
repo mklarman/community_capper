@@ -118,29 +118,23 @@ module MatchupsHelper
 
 						@road_fave_under3.push(m)
 
-
 					elsif m.spread.to_f >= 3 || m.spread.to_f < 7
 
 						@road_fave_under7.push(m)
 					
-
 					elsif m.spread.to_f >= 7 || m.spread.to_f < 10
 
 						@road_fave_under10.push(m)
 					
-
 					elsif m.spread.to_f >= 10 || m.spread.to_f < 14
 
 						@road_fave_under14.push(m)
-
 
 					else
 
 						@road_fave_14_or_more.push(m)
 
-
 					end
-
 				
 				else
 
@@ -983,17 +977,13 @@ module MatchupsHelper
 
 					end
 
-
 				end
-
 
 			end
 
 		end
 
-		sum = @road_situation_amv.inject(0){|sum,x| sum + x }
-
-		sum = sum.to_f
+		sum = @road_situation_amv.inject(0){|sum,x| sum + x }.to_f
 
 		games = @road_situation.length.to_f
 

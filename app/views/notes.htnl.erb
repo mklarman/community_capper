@@ -77,10 +77,7 @@ Selection - belongs to User, belongs to Matchup
 
 Tag - belongs_to user
 
-:follower_id - current_user.id
-:star_id - id of user being followed
-:situation - game situation
-:brand - fade or follow, depends on what button is selected
+
 
 Contact - belongs to user
 
@@ -200,6 +197,224 @@ For baseball
 1) Teams AMV vs pitcher; Teams AMV with pitcher on the mound.
 2) Teams Record with pitcher on the mound
 3) Teams AVG run let up when pitcher starts
+
+5/8/19
+
+Addition:
+
+Set the site up so that statisticians can log what has happened after every play.  This would require to click on a matchup and go to a page where you can get the matchup id.  When there, there is a play by play form for the sport.  This form is associated with the Matchup.  Need a new controller, model to handle this: GameLog.
+
+What sports can we log play by play?  MLB, NFL.  Does it make sense for the other sports?  Not right now.
+
+What would the form look like?  Combined form that uses an if statement in the view so can customize for sport.
+
+MLB:
+
+Pitcher: Name
+Batter: Name
+Throws: Left/Right
+Bats: Left/Right/Switch
+Pitcher_team:
+Batter_team:
+Home: Batter/Pitcher
+score: number
+inning: number
+outs: number
+Bases: first and third, etc
+pitch_count: number
+pitches_in_at-bat: number
+batter's_count:
+Last_Pitch: Slider, curveball, etc
+result: ball, swinging strike, taking strike, walk, strike out swinging, strike out looking, single, double, tripe, hr, hit by pitch, fielder's choice, reach on error.
+runs_scored_on_play: number
+
+NFL:
+
+home:
+away:
+home_score:
+away_score:
+quarter:
+play_type: run or pass
+result: yards gained or lost, fumble, interception, sack, 
+points:  
+
+For College BBall and College FBall, have to track the small schools.  Create a model for them then create the schools, then for each school create the game tickets which are the stats for the game for the teams.  I then can do whatever I want mathematically with the info.  Could be a real edge.
+
+For Coll football:
+
+School:
+team_name
+sport:
+conf:
+
+GameTicket for Col football
+
+
+
+
+For College basketball figure out how yards gained and points relate.  Add up how many yards each team has gained and divide by the total points they scored, do the same for their opponents.  Now for each team you have have the number of points they score per yard and the number of points they let up per yard.  Now I can mathematically make a prediction on the score by multiplying the ratio by the avg yards gained/given up.  Do it on the road and at home.
+
+GameTicket for Col basketball
+
+See what stats I can get.  A break down of how each team scores: from 3, from perimeter, in paint and also that exact breakdown for points they let up.
+
+
+
+I think I need a teams controller and then I can make GameLogs for the teams and then I can conjure any stats I want.  For what sports?  NFL, Col Football, Col BBall, NBA, MLB.  I can benefit for all.  Plus the more I collect in the game logs the less I have to collect in the matchup.  The more I can show on the matchup page.
+
+Tools on the site: Game Log algorithms(AMV stats and PPY/PPP stats), private and global consensus for NBA and NFL.
+
+Game Log algorithms will use Team, GameLog, and Matchup.  Matchup will contain the names of the Team that's how I will find the GameLog which will contain the team ID.  On a matchup show page I can show what stats I want by searching through game logs for the teams in the matchup.  Matchup would only need Home Team, Away Team, Fav Team, Dog Team, spread, fav score, dog score, spread_wimner.
+
+The private and global consensus will use the matchup, selection, and tag models.
+
+MODELS
+
+USER
+
+:username
+:agent
+:statter
+:admin
+
+TEAM
+
+:sport
+:team_name
+:city_or_school
+:matchup_abbr
+
+MATCHUP
+
+:date
+:sport
+:home_team
+:road_team
+:fav_team
+:dog_team
+:spread
+:fav_score
+:dog_score
+:spread_winner
+
+SELECTION
+
+:user_id
+:matchup_id
+:selection
+:spread
+:situation
+
+TAG
+
+:follower_id - current_user.id
+:star_id - id of user being followed
+:situation - game situation
+:brand - fade or follow, depends on what button is selected
+
+
+
+NBAGAMELOG
+
+:team_id
+:date
+:team_name
+:opp
+:home - true/false
+:spread
+:situation
+:team_possessions
+:opp_possessions
+:team_pts_in_paint
+:opp_pts_in_paint
+:team_pts_perim
+:opp_pts_perim
+:team_pts_from3
+:opp_pts_from3
+:team_turn_over
+:opp_turn_over
+:team_score
+:opp_score
+:spread_result
+
+NFLGAMELOG
+
+:team_id
+:date
+:team_name
+:opp
+:spread
+:team_possessions
+:opp_possessions
+:run_yards_for
+:run_yards_against
+:pass_yards_for
+:pass_yards_against
+:team_turn_overs
+:opp_turn_overs
+:team_score
+:opp_score
+:spread_result
+
+MLBGAMELOG
+
+:team_id
+:date
+:team_name
+:opp
+:home
+:spread
+:team_starting_pitcher
+:opp_starting_pitcher
+:team_hits
+:team_errors
+:opp_hits
+:opp_errors
+:team_runs
+:opp_runs
+:spread_result
+
+CBBGAMELOG
+
+team_id:
+date:
+opp:
+opp_conf:
+home: true/false
+opp_pts_off_3:
+opp_pts_in-paint:
+home_pts_off_3:
+home_pts_in-paint:
+:opp_possessions
+:team_possessions
+:opp_turn_overs
+:team_turn_overs
+opp_score:
+home_score:
+spread_result:
+
+CFBGAMELOG
+
+team_id:
+date:
+opp:
+Home: true or false
+opp_conf:
+rush yards gained:
+rush yards given up:
+pass yards gained:
+pass yards given up:
+team_turn_overs:
+opp_turn_overs:
+score:
+opp_score:
+spread_result:
+
+
+
+
+
 
 
 
