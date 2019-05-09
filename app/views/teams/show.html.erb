@@ -1,0 +1,60 @@
+
+
+<%= form_for @mlb_game_log do |m| %>
+
+	<%= m.hidden_field :team_id, value: @team.id %>
+	<%= m.hidden_field :team_name, value: @team.team_name %>
+	<div>Date: <%= m.text_field :date %></div>
+	<div>Opponent: <%= m.text_field :opp %></div>
+	<div>Home: <%= m.text_field :home %></div>
+	<div>Money_Line: <%= m.text_field :spread %></div>
+
+	<div>Team's Starter <%= m.text_field :team_starting_pitcher %></div>
+
+	<div>Situation: <%= m.text_field :team_pitcher_throws %></div>
+
+	<div>Situation: <%= m.text_field :team_starter_pitches %></div>
+
+	<div>Situation: <%= m.text_field :team_bullpen_picthes %></div>
+
+
+	<div>Situation: <%= m.text_field :runs_by_team_starter %></div>
+
+	<div>Situation: <%= m.text_field :runs_by_team_bullpen %></div>
+
+	<div>Situation: <%= m.text_field :at_bats_for %></div>
+
+	<div>Situation: <%= m.text_field :at_bats_against %></div>
+
+	<div>Situation: <%= m.text_field :team_hits %></div>
+
+	<div>Situation: <%= m.text_field :team_errors %></div>
+
+	<div>Situation: <%= m.text_field :team_runs %></div>
+
+	<div>Situation: <%= m.text_field :opp_starting_pitcher %></div>
+
+	<div>Situation: <%= m.text_field :opp_pitcher_throws %></div>
+
+	<div>Situation: <%= m.text_field :opp_starter_pitches %></div>
+
+	<div>Situation: <%= m.text_field :opp_bullpen_picthes %></div>
+
+	<div>Situation: <%= m.text_field :runs_by_opp_starter %></div>
+
+	<div>Situation: <%= m.text_field :runs_by_opp_bullpen %></div>
+
+	<div>Situation: <%= m.text_field :opp_hits %></div>
+
+	<div>Situation: <%= m.text_field :opp_errors %></div>
+
+	<div>Situation: <%= m.text_field :opp_runs %></div>
+
+	<div>Situation: <%= m.text_field :spread_result %></div>
+
+	<div><%= m.submit %></div>
+
+
+
+<% end %>
+

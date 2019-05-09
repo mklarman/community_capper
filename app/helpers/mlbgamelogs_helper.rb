@@ -1,0 +1,2 @@
+module MlbgamelogsHelper
+end

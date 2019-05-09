@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190425140539) do
+ActiveRecord::Schema.define(version: 20190509183352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,39 @@ ActiveRecord::Schema.define(version: 20190425140539) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "mlb_game_logs", force: :cascade do |t|
+    t.string "team_id"
+    t.string "date"
+    t.string "team_name"
+    t.string "opp"
+    t.string "home"
+    t.string "spread"
+    t.string "situation"
+    t.string "team_starting_pitcher"
+    t.string "opp_starting_pitcher"
+    t.string "opp_pitcher_throws"
+    t.string "team_pitcher_throws"
+    t.string "team_starter_pitches"
+    t.string "opp_starter_pitches"
+    t.string "team_bullpen_picthes"
+    t.string "opp_bullpen_picthes"
+    t.string "runs_by_opp_starter"
+    t.string "runs_by_team_starter"
+    t.string "runs_by_opp_bullpen"
+    t.string "runs_by_team_bullpen"
+    t.string "at_bats_for"
+    t.string "at_bats_against"
+    t.string "team_hits"
+    t.string "team_errors"
+    t.string "opp_hits"
+    t.string "opp_errors"
+    t.string "team_runs"
+    t.string "opp_runs"
+    t.string "spread_result"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "selections", force: :cascade do |t|
     t.integer "user_id"
     t.integer "matchup_id"
@@ -59,6 +92,16 @@ ActiveRecord::Schema.define(version: 20190425140539) do
     t.string "star_id"
     t.string "situation"
     t.string "brand"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "sport"
+    t.string "city_or_school_name"
+    t.string "team_name"
+    t.string "div_or_conf"
+    t.string "matchup_abbr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

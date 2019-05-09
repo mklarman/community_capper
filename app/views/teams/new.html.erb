@@ -1,0 +1,17 @@
+HELLO
+
+
+ <%= form_for @team do |t| %>
+
+ 	<div>Sport: <%= t.text_field :sport %></div>
+ 	<div>City/School: <%= t.text_field :city_or_school_name %></div>
+ 	<div>Team Name: <%= t.text_field :team_name %></div>
+ 	<div>Division/Conf: <%= t.text_field :div_or_conf %></div>
+ 	<div>Matchup ID: <%= t.text_field :matchup_abbr %></div>
+ 	<%= t.submit %>
+	
+
+
+ <% end %>
+
+ <div><%= link_to "Teams", teams_path %></div>
