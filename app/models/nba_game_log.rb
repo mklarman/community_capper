@@ -1,0 +1,2 @@
+class NbaGameLog < ApplicationRecord
+end

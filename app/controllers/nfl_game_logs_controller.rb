@@ -1,0 +1,2 @@
+class NflGameLogsController < ApplicationController
+end

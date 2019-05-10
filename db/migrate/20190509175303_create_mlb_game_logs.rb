@@ -27,6 +27,7 @@ class CreateMlbGameLogs < ActiveRecord::Migration[5.1]
 		t.string :team_errors
 		t.string :opp_hits
 		t.string :opp_errors
+		t.string :innings
 		t.string :team_runs
 		t.string :opp_runs
 		t.string :spread_result

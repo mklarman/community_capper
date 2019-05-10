@@ -1,0 +1,2 @@
+class CfbGameLog < ApplicationRecord
+end

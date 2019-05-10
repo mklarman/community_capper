@@ -10,10 +10,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190510150255) do
+ActiveRecord::Schema.define(version: 20190510162649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cbb_game_logs", force: :cascade do |t|
+    t.string "date"
+    t.string "opp"
+    t.string "home"
+    t.string "spread"
+    t.string "possessions_for"
+    t.string "possessions_against"
+    t.string "field_goals_made_for"
+    t.string "field_goals_made_against"
+    t.string "three_pointers_made"
+    t.string "three_pointers_made_against"
+    t.string "points_in_the_paint_for"
+    t.string "points_in_the_paint_against"
+    t.string "rebounds_for"
+    t.string "rebounds_against"
+    t.string "assists_for"
+    t.string "assists_against"
+    t.string "steals_for"
+    t.string "steals_against"
+    t.string "turn_overs_for"
+    t.string "opp_turn_overs"
+    t.string "score"
+    t.string "opp_score"
+    t.string "spread_result"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cfb_game_logs", force: :cascade do |t|
+    t.string "date"
+    t.string "home"
+    t.string "opp"
+    t.string "spread"
+    t.string "rush_yards_for"
+    t.string "rush_yards_against"
+    t.string "pass_yards_for"
+    t.string "pass_yards_against"
+    t.string "plays_for"
+    t.string "plays_against"
+    t.string "turn_overs"
+    t.string "opp_turn_overs"
+    t.string "sacks_for"
+    t.string "sacks_against"
+    t.string "scoring_plays_for"
+    t.string "scoring_plays_against"
+    t.string "score"
+    t.string "opp_score"
+    t.string "spread_result"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "matchups", force: :cascade do |t|
     t.string "date"
@@ -70,12 +122,64 @@ ActiveRecord::Schema.define(version: 20190510150255) do
     t.string "team_errors"
     t.string "opp_hits"
     t.string "opp_errors"
+    t.string "innings"
     t.string "team_runs"
     t.string "opp_runs"
     t.string "spread_result"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "innings"
+  end
+
+  create_table "nba_game_logs", force: :cascade do |t|
+    t.string "date"
+    t.string "opp"
+    t.string "home"
+    t.string "spread"
+    t.string "possessions_for"
+    t.string "possessions_against"
+    t.string "field_goals_made_for"
+    t.string "field_goals_made_against"
+    t.string "three_pointers_made"
+    t.string "three_pointers_made_against"
+    t.string "points_in_the_paint_for"
+    t.string "points_in_the_paint_against"
+    t.string "rebounds_for"
+    t.string "rebounds_against"
+    t.string "assists_for"
+    t.string "assists_against"
+    t.string "steals_for"
+    t.string "steals_against"
+    t.string "turn_overs_for"
+    t.string "opp_turn_overs"
+    t.string "score"
+    t.string "opp_score"
+    t.string "spread_result"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "nfl_game_logs", force: :cascade do |t|
+    t.string "date"
+    t.string "home"
+    t.string "opp"
+    t.string "spread"
+    t.string "rush_yards_for"
+    t.string "rush_yards_against"
+    t.string "pass_yards_for"
+    t.string "pass_yards_against"
+    t.string "plays_for"
+    t.string "plays_against"
+    t.string "turn_overs"
+    t.string "opp_turn_overs"
+    t.string "sacks_for"
+    t.string "sacks_against"
+    t.string "scoring_plays_for"
+    t.string "scoring_plays_against"
+    t.string "score"
+    t.string "opp_score"
+    t.string "spread_result"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "selections", force: :cascade do |t|
@@ -120,6 +224,7 @@ ActiveRecord::Schema.define(version: 20190510150255) do
     t.inet "last_sign_in_ip"
     t.string "username"
     t.string "agent"
+    t.boolean "statter", default: false
     t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

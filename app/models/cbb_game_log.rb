@@ -1,0 +1,2 @@
+class CbbGameLog < ApplicationRecord
+end

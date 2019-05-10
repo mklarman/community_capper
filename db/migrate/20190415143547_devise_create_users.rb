@@ -34,6 +34,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
 
       t.string :username
       t.string :agent
+      t.boolean :statter, default: false
       t.boolean :admin, default: false
 
 

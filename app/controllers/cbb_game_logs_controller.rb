@@ -1,0 +1,2 @@
+class CbbGameLogsController < ApplicationController
+end
