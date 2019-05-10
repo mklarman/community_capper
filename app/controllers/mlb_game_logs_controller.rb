@@ -1,4 +1,5 @@
-class MlbgamelogsController < ApplicationController
+class MlbGameLogsController < ApplicationController
+
 	def new
 
 		@mlb_game_log = MlbGameLog.new
@@ -12,7 +13,7 @@ class MlbgamelogsController < ApplicationController
 
 		if mlb_game_log.save
 
-			redirect_to teams_path
+			redirect_back(fallback_location: teams_path)
 
 		else
 
@@ -30,9 +31,3 @@ class MlbgamelogsController < ApplicationController
 
 	end
 end
-
-
-		
-		
-		
-		
