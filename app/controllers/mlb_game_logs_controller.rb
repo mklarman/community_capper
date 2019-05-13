@@ -13,7 +13,7 @@ class MlbGameLogsController < ApplicationController
 
 		if mlb_game_log.save
 
-			redirect_back(fallback_location: teams_path)
+			redirect_to teams_path
 
 		else
 
