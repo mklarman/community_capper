@@ -1,10 +1,13 @@
+<% @my_date %>
+<% self.get_time %>
+
 <div style="margin-bottom: 5%; font-size: 25px;"><%=@team.team_name%></div>
 
 <%= form_for @mlb_game_log do |m| %>
 
 	<%= m.hidden_field :team_id, value: @team.id %>
 	<%= m.hidden_field :team_name, value: @team.team_name %>
-	<div>Date: <%= m.text_field :date %></div>
+	<div>Date: <%= m.text_field :date, value: @my_date %></div>
 	<div>Opponent: <%= m.text_field :opp %></div>
 	<div>Home: <%= m.text_field :home %></div>
 	<div>Money_Line: <%= m.text_field :spread %></div>
