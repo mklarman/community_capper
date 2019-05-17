@@ -990,4 +990,50 @@ module MatchupsHelper
 		@situation_amv =  sum / games
 
 	end
+
+	def define_home_away
+
+		Team.all.each do |t|
+
+			if @matchup.fav == t.matchup_abbr
+
+				if @matchup.fav_field == "home"
+
+					@home_team = t
+
+
+				else
+
+					if @matchup.fav_field == "away"
+
+						@road_team = t
+
+					end
+
+
+				end
+
+
+			end
+
+			if @matchup.dog == t.matchup_abbr
+
+				if @matchup.dog_field == "home"
+
+
+					@home_team = t
+
+				else
+
+					@road_team = t
+
+
+				end
+
+			end
+
+		end
+
+
+	end
 end

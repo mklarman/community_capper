@@ -1,0 +1,58 @@
+<% @home_team %>
+<% @road_team %>
+
+<% self.define_home_away %>
+
+<% @home_innings %>
+<% @home_runs_scored %>
+<% @home_runs_against %>
+<% @home_hits_for %>
+<% @home_hits_against %>
+<% @home_all_starters_pitches %>
+<% @home_all_bullpen_pitches %>
+<% @home_pitches_total %>
+<% @home_at_bats_total %>
+<% @home_at_bats_per_nine %>
+<% @home_errors %>
+<% @home_all_opp_starter_pitches %>
+<% @home_all_opp_bullpen_pitches %>
+<% @home_all_opp_pitches %>
+
+<% @road_innings %>
+<% @road_runs_scored %>
+<% @road_runs_against %>
+<% @road_hits_for %>
+<% @road_hits_against %>
+<% @road_all_starters_pitches %>
+<% @road_all_bullpen_pitches %>
+<% @road_pitches_total %>
+<% @road_at_bats_total %>
+<% @road_at_bats_per_nine %>
+<% @road_errors %>
+<% @road_all_opp_starter_pitches %>
+<% @road_all_opp_bullpen_pitches %>
+<% @road_all_opp_pitches %>
+
+<% self.load_home_team_stats(@home_team) %>
+
+<div>Innings: <%= @home_innings %></div>
+<div>Runs Scored: <%= @home_runs_scored %></div>
+<div>Runs Against: <%= @home_runs_against %></div>
+<div>Hits For: <%= @home_hits_for %></div>
+<div>Hits Against:<%= @home_hits_against %></div>
+<div>Starters Pitches Thrown: <%= @home_all_starters_pitches %></div>
+<div>Bullpen Pitches Thrown: <%= @home_all_bullpen_pitches %></div>
+<div>Total Pitches: <%= @home_pitches_total %></div>
+<div>Total At-Bats: <%= @home_at_bats_total %></div>
+<div>At-Bats Per Nine Innings: <%= (@home_at_bats_total.to_f / @home_innings) * 9 %></div>
+<div> Opponent Starters Pitches: <%= @home_all_opp_starter_pitches %></div>
+<div>Opponent Bullpen Pitches: <%= @home_all_opp_bullpen_pitches %></div>
+<div>All Opp Pitches: <%= @home_all_opp_pitches %></div>
+
+<div>Runs Per At-Bat: <%= (@home_runs_scored.to_f / @home_at_bats_total).round(2) %></div>
+
+<div>Starter Lengh Percentage: <%= ((@home_all_starters_pitches.to_f / @home_pitches_total) * 100).round(2).to_s + "%" %></div>
+
+<% @bull_pen_freq = 100 - ((@home_all_starters_pitches.to_f / @home_pitches_total) * 100).round(2) %>
+
+<div>Bullpen Length Percentage: <%= @bull_pen_freq.to_s + "%" %></div> 

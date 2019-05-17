@@ -36,6 +36,12 @@ class MatchupsController < ApplicationController
 
 	end
 
+	def edit
+
+		@matchup = Matchup.find_by_id(params[:id])
+
+	end
+
 	def update
 
 		@matchup = Matchup.find_by_id(params[:id])
@@ -50,6 +56,7 @@ class MatchupsController < ApplicationController
 		end
 
 	end
+
 
 	private
 

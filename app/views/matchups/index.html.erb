@@ -1,0 +1,7 @@
+
+
+<% @matchups.all.each do |m| %>
+
+	<%= link_to m.fav, edit_matchup_path(m.id) %> 
+
+<% end %>
