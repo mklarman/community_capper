@@ -35,6 +35,10 @@
 
 <% self.load_home_team_stats(@home_team) %>
 
+<% @home_runs_scored_per_pitch = (@home_runs_scored.to_f / @home_all_opp_pitches.to_f).round(3) %>
+
+<% @home_runs_against_per_pitch = (@home_runs_against.to_f / @home_pitches_total.to_f).round(3) %>
+
 <div>Innings: <%= @home_innings %></div>
 <div>Runs Scored: <%= @home_runs_scored %></div>
 <div>Runs Against: <%= @home_runs_against %></div>
@@ -56,3 +60,6 @@
 <% @bull_pen_freq = 100 - ((@home_all_starters_pitches.to_f / @home_pitches_total) * 100).round(2) %>
 
 <div>Bullpen Length Percentage: <%= @bull_pen_freq.to_s + "%" %></div> 
+
+<div>Runs Scored Per Pitch: <%= @home_runs_scored_per_pitch %></div>
+<div>Opp Runs Per Pitch: <%= @home_runs_against_per_pitch %></div>
