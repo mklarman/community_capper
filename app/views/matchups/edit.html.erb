@@ -35,7 +35,15 @@
 
 <% self.load_home_team_stats(@home_team) %>
 
+<%= @home_opp_starter_workload = ((@home_all_opp_starters_pitches.to_f / @home_all_opp_pitches) * 100).round(2).to_s + "%" %>
+
+<% @home_opp_bull_pen_freq = 100 - @home_opp_starter_workload.to_i %>
+
+<% @home_pitches_forced_per_9 = ((@home_all_opp_pitches.to_f / @home_innings) * 9).round(1) %>
+
 <% @home_runs_scored_per_pitch = (@home_runs_scored.to_f / @home_all_opp_pitches.to_f).round(3) %>
+
+<% @home_bull_pen_freq = 100 - ((@home_all_starters_pitches.to_f / @home_pitches_total) * 100).round(2) %>
 
 <% @home_runs_against_per_pitch = (@home_runs_against.to_f / @home_pitches_total.to_f).round(3) %>
 
@@ -43,29 +51,42 @@
 
 <% @home_opp_runs_per_hit = (@home_hits_against.to_f / @home_runs_against.to_f).round(2) %>
 
+<div style="font-size: 20px;"><%= @home_team.matchup_abbr + " Offensive Analysis" %></div>
+
 <div>Innings Played: <%= @home_innings %></div>
-<div>Runs For: <%= @home_runs_scored %></div>
-<div>Runs Against: <%= @home_runs_against %></div>
-<div>Hits For: <%= @home_hits_for %></div>
-<div>Hits Against:<%= @home_hits_against %></div>
-<div>Pitches By Team Starters: <%= @home_all_starters_pitches %></div>
-<div>Pitches By Team Bullpen: <%= @home_all_bullpen_pitches %></div>
-<div>Total Pitches: <%= @home_pitches_total %></div>
 <div>Total At-Bats: <%= @home_at_bats_total %></div>
 <div>At-Bats Per Nine Innings: <%= (@home_at_bats_total.to_f / @home_innings) * 9 %></div>
-<div>Pitches By Opp Starters: <%= @home_all_opp_starter_pitches %></div>
-<div>Pitches By Opp Bullpen: <%= @home_all_opp_bullpen_pitches %></div>
-<div>All Opp Pitches: <%= @home_all_opp_pitches %></div>
+<div>Runs For: <%= @home_runs_scored %></div>
+<div>Hits For: <%= @home_hits_for %></div>
+<div>Pitches Faced Opp Starters: <%= @home_all_opp_starter_pitches %></div>
+<div>Pitches Faced Opp Bullpen: <%= @home_all_opp_bullpen_pitches %></div>
+<div>Total Pitches Faced: <%= @home_all_opp_pitches %>
+
+<div>Pitches Forced Per Nine Innings: <%= @home_pitches_forced_per_9 %> </div>
+
+<div>Opp Starter Workload Per Game: <%= @home_opp_starter_workload %></div>
+
+<div>Opp Bullpen Workload Per Game:<%= @home_opp_bull_pen_freq %> </div>
 
 <div>Runs Per At-Bat: <%= (@home_runs_scored.to_f / @home_at_bats_total).round(2) %></div>
 
-<div>Starter Workload: <%= ((@home_all_starters_pitches.to_f / @home_pitches_total) * 100).round(2).to_s + "%" %></div>
-
-<% @bull_pen_freq = 100 - ((@home_all_starters_pitches.to_f / @home_pitches_total) * 100).round(2) %>
-
-<div>Bullpen Workload: <%= @bull_pen_freq.to_s + "%" %></div> 
-
 <div>Runs Scored Per Pitch: <%= @home_runs_scored_per_pitch %></div>
-<div>Opp Runs Per Pitch: <%= @home_runs_against_per_pitch %></div>
+
 <div>HIT:RUN Ratio: <%= @home_runs_per_hit %></div>
+
+
+<div style="font-size: 20px;"><%= @home_team.matchup_abbr + " Pitching Analysis" %></div>
+
+<div>Pitches By Team Starters: <%= @home_all_starters_pitches %></div>
+<div>Pitches By Team Bullpen: <%= @home_all_bullpen_pitches %></div>
+<div>Total Pitches: <%= @home_pitches_total %></div>
+<div>Starter Workload: <%= ((@home_all_starters_pitches.to_f / @home_pitches_total) * 100).round(2).to_s + "%" %></div>
+<div>Bullpen Workload: <%= @home_bull_pen_freq.to_s + "%" %></div>
+
+<div>Hits Against:<%= @home_hits_against %></div> 
+
+<div>Runs Against: <%= @home_runs_against %></div>
+
+<div>Opp Runs Per Pitch: <%= @home_runs_against_per_pitch %></div>
+
 <div>OPP HIT:RUN Ratio: <%= @home_opp_runs_per_hit %></div>
