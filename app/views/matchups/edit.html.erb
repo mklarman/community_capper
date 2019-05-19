@@ -37,7 +37,7 @@
 
 <%= @home_opp_starter_workload = ((@home_all_opp_starter_pitches.to_f / @home_all_opp_pitches) * 100).round(2).to_s + "%" %>
 
-<% @home_opp_bull_pen_freq = 100 - @home_opp_starter_workload.to_i %>
+<% @home_opp_bull_pen_freq = 100.0 - @home_opp_starter_workload.to_f %>
 
 <% @home_pitches_forced_per_9 = ((@home_all_opp_pitches.to_f / @home_innings) * 9).round(1) %>
 
