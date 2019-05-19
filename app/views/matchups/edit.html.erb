@@ -3,6 +3,9 @@
 
 <% self.define_home_away %>
 
+<%= @home_team.matchup_abbr %>
+<%= @road_team.matchup_abbr %>
+
 <% @home_innings %>
 <% @home_runs_scored %>
 <% @home_runs_against %>
@@ -148,3 +151,5 @@
 <div>Opp Runs Per Pitch: <%= @road_runs_against_per_pitch %></div>
 
 <div>OPP HIT:RUN Ratio: <%= @road_opp_runs_per_hit %></div>
+
+
