@@ -39,27 +39,33 @@
 
 <% @home_runs_against_per_pitch = (@home_runs_against.to_f / @home_pitches_total.to_f).round(3) %>
 
-<div>Innings: <%= @home_innings %></div>
-<div>Runs Scored: <%= @home_runs_scored %></div>
+<% @home_runs_per_hit = (@home_hits_for.to_f / @home_runs_scored.to_f).round(2) %>
+
+<% @home_opp_runs_per_hit = (@home_hits_against.to_f / @home_runs_against.to_f).round(2) %>
+
+<div>Innings Played: <%= @home_innings %></div>
+<div>Runs For: <%= @home_runs_scored %></div>
 <div>Runs Against: <%= @home_runs_against %></div>
 <div>Hits For: <%= @home_hits_for %></div>
 <div>Hits Against:<%= @home_hits_against %></div>
-<div>Starters Pitches Thrown: <%= @home_all_starters_pitches %></div>
-<div>Bullpen Pitches Thrown: <%= @home_all_bullpen_pitches %></div>
+<div>Pitches By Team Starters: <%= @home_all_starters_pitches %></div>
+<div>Pitches By Team Bullpen: <%= @home_all_bullpen_pitches %></div>
 <div>Total Pitches: <%= @home_pitches_total %></div>
 <div>Total At-Bats: <%= @home_at_bats_total %></div>
 <div>At-Bats Per Nine Innings: <%= (@home_at_bats_total.to_f / @home_innings) * 9 %></div>
-<div> Opponent Starters Pitches: <%= @home_all_opp_starter_pitches %></div>
-<div>Opponent Bullpen Pitches: <%= @home_all_opp_bullpen_pitches %></div>
+<div>Pitches By Opp Starters: <%= @home_all_opp_starter_pitches %></div>
+<div>Pitches By Opp Bullpen: <%= @home_all_opp_bullpen_pitches %></div>
 <div>All Opp Pitches: <%= @home_all_opp_pitches %></div>
 
 <div>Runs Per At-Bat: <%= (@home_runs_scored.to_f / @home_at_bats_total).round(2) %></div>
 
-<div>Starter Lengh Percentage: <%= ((@home_all_starters_pitches.to_f / @home_pitches_total) * 100).round(2).to_s + "%" %></div>
+<div>Starter Workload: <%= ((@home_all_starters_pitches.to_f / @home_pitches_total) * 100).round(2).to_s + "%" %></div>
 
 <% @bull_pen_freq = 100 - ((@home_all_starters_pitches.to_f / @home_pitches_total) * 100).round(2) %>
 
-<div>Bullpen Length Percentage: <%= @bull_pen_freq.to_s + "%" %></div> 
+<div>Bullpen Workload: <%= @bull_pen_freq.to_s + "%" %></div> 
 
 <div>Runs Scored Per Pitch: <%= @home_runs_scored_per_pitch %></div>
 <div>Opp Runs Per Pitch: <%= @home_runs_against_per_pitch %></div>
+<div>HIT:RUN Ratio: <%= @runs_per_hit %></div>
+<div>OPP HIT:RUN Ratio: <%= @home_opp_runs_per_hit %></div>
