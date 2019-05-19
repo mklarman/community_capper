@@ -129,6 +129,61 @@ module ApplicationHelper
 
 	end
 
+	def load_road_team_stats(team_obj)
+
+		starter_pitches = 0
+		bullpen_pitches = 0
+		runs_for = 0
+		runs_against = 0
+		hits_for = 0
+		hits_against = 0
+		at_bats_for = 0
+		at_bats_against = 0
+		innings = 0
+		opp_starter_pitches = 0
+		opp_bullpen_pitches = 0
+
+		MlbGameLog.all.each do |m|
+
+			if m.team_id.to_i == team_obj.id
+
+				starter_pitches += m.team_starter_pitches.to_i
+				bullpen_pitches += m.team_bullpen_picthes.to_i
+				runs_for += m.team_runs.to_i
+				runs_against += m.opp_runs.to_i
+				hits_for += m.team_hits.to_i
+				hits_against += m.opp_hits.to_i
+				at_bats_for += m.at_bats_for.to_i
+				at_bats_against += m.at_bats_against.to_i
+				innings += m.innings.to_i
+				opp_starter_pitches += m.opp_starter_pitches.to_i
+				opp_bullpen_pitches += m.opp_bullpen_picthes.to_i
+				
+
+			end
+
+			
+
+
+		end
+
+		@road_innings = innings 
+		@road_runs_scored  = runs_for
+		@road_runs_against = runs_against
+		@road_hits_for = hits_for
+		@road_hits_against = hits_against
+		@road_all_starters_pitches = starter_pitches 
+		@road_all_bullpen_pitches = bullpen_pitches 
+		@road_pitches_total = @home_all_starters_pitches + @home_all_bullpen_pitches 
+		@road_at_bats_total = at_bats_for
+		@road_at_bats_per_nine = at_bats_for.to_f/innings
+		@road_errors 
+		@road_all_opp_starter_pitches = opp_starter_pitches
+		@road_all_opp_bullpen_pitches = opp_bullpen_pitches
+		@home_all_opp_pitches = opp_starter_pitches + opp_bullpen_pitches
+
+	end
+
 	def get_pitches_needed(team_obj)
 
 		@team_pitches_per_nine

@@ -34,8 +34,9 @@
 <% @road_all_opp_pitches %>
 
 <% self.load_home_team_stats(@home_team) %>
+<% self.load_road_team_stats(@road_team) %>
 
-<%= @home_opp_starter_workload = ((@home_all_opp_starter_pitches.to_f / @home_all_opp_pitches) * 100).round(2).to_s + "%" %>
+<% @home_opp_starter_workload = ((@home_all_opp_starter_pitches.to_f / @home_all_opp_pitches) * 100).round(2).to_s + "%" %>
 
 <% @home_opp_bull_pen_freq = 100.0 - @home_opp_starter_workload.to_f %>
 
@@ -90,3 +91,60 @@
 <div>Opp Runs Per Pitch: <%= @home_runs_against_per_pitch %></div>
 
 <div>OPP HIT:RUN Ratio: <%= @home_opp_runs_per_hit %></div>
+
+
+<% @road_opp_starter_workload = ((@road_all_opp_starter_pitches.to_f / @road_all_opp_pitches) * 100).round(2).to_s + "%" %>
+
+<% @road_opp_bull_pen_freq = 100.0 - @road_opp_starter_workload.to_f %>
+
+<% @road_pitches_forced_per_9 = ((@road_all_opp_pitches.to_f / @road_innings) * 9).round(1) %>
+
+<% @road_runs_scored_per_pitch = (@road_runs_scored.to_f / @road_all_opp_pitches.to_f).round(3) %>
+
+<% @road_bull_pen_freq = 100 - ((@road_all_starters_pitches.to_f / @road_pitches_total) * 100).round(2) %>
+
+<% @road_runs_against_per_pitch = (@road_runs_against.to_f / @road_pitches_total.to_f).round(3) %>
+
+<% @road_runs_per_hit = (@road_hits_for.to_f / @road_runs_scored.to_f).round(2) %>
+
+<% @road_opp_runs_per_hit = (@road_hits_against.to_f / @road_runs_against.to_f).round(2) %>
+
+<div style="font-size: 20px;"><%= @road_team.matchup_abbr + " Offensive Analysis" %></div>
+
+<div>Innings Played: <%= @road_innings %></div>
+<div>Total At-Bats: <%= @road_at_bats_total %></div>
+<div>At-Bats Per Nine Innings: <%= (@road_at_bats_total.to_f / @road_innings).round(2) * 9 %></div>
+<div>Runs For: <%= @road_runs_scored %></div>
+<div>Hits For: <%= @road_hits_for %></div>
+<div>Pitches Faced By Opp Starters: <%= @road_all_opp_starter_pitches %></div>
+<div>Pitches Faced By Opp Bullpen: <%= @road_all_opp_bullpen_pitches %></div>
+<div>Total Pitches Faced: <%= @road_all_opp_pitches %>
+
+<div>Pitches Forced Per Nine Innings: <%= @road_pitches_forced_per_9 %> </div>
+
+<div>Opp Starter Workload Per Game: <%= @road_opp_starter_workload %></div>
+
+<div>Opp Bullpen Workload Per Game:<%= @road_opp_bull_pen_freq %> </div>
+
+<div>Runs Per At-Bat: <%= (@road_runs_scored.to_f / @road_at_bats_total).round(2) %></div>
+
+<div>Runs Scored Per Pitch: <%= @road_runs_scored_per_pitch %></div>
+
+<div>HIT:RUN Ratio: <%= @road_runs_per_hit %></div>
+
+
+<div style="font-size: 20px; margin-top: 20px;"><%= @road_team.matchup_abbr + " Pitching Analysis" %></div>
+
+<div>Pitches By Team Starters: <%= @road_all_starters_pitches %></div>
+<div>Pitches By Team Bullpen: <%= @road_all_bullpen_pitches %></div>
+<div>Total Pitches: <%= @road_pitches_total %></div>
+<div>Starter Workload: <%= ((@road_all_starters_pitches.to_f / @road_pitches_total) * 100).round(2).to_s + "%" %></div>
+<div>Bullpen Workload: <%= @road_bull_pen_freq.to_s + "%" %></div>
+
+<div>Hits Against:<%= @road_hits_against %></div> 
+
+<div>Runs Against: <%= @road_runs_against %></div>
+
+<div>Opp Runs Per Pitch: <%= @road_runs_against_per_pitch %></div>
+
+<div>OPP HIT:RUN Ratio: <%= @road_opp_runs_per_hit %></div>
