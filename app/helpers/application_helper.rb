@@ -174,7 +174,7 @@ module ApplicationHelper
 		@road_hits_against = @hits_against
 		@road_all_starters_pitches = @starter_pitches 
 		@road_all_bullpen_pitches = @bullpen_pitches 
-		@road_pitches_total = @home_all_starters_pitches + @home_all_bullpen_pitches 
+		@road_pitches_total = @road_all_starters_pitches + @road_all_bullpen_pitches 
 		@road_at_bats_total = @at_bats_for
 		@road_at_bats_per_nine = @at_bats_for.to_f/@innings
 		@road_errors 

@@ -2,6 +2,8 @@
 
 <% @matchups.all.each do |m| %>
 
-	<%= link_to m.fav, edit_matchup_path(m.id) %> 
+	<% @link_tab = m.fav + " " + m.fav_ml + " " + m.dog %>
+
+	<div><%= link_to @link_tab, edit_matchup_path(m.id) %> </div>
 
 <% end %>
