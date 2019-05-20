@@ -42,6 +42,12 @@ class MatchupsController < ApplicationController
 
 	end
 
+	def team_stats
+
+		@teams = Team.all
+
+	end
+
 	def update
 
 		@matchup = Matchup.find_by_id(params[:id])

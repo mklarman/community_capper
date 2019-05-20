@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
 	get "users/profile" => "welcome#users_show"
 	get "users/search" => "welcome#user_list"
+  get "team/stats" => "matchups#team_stats"
   
   	
 
