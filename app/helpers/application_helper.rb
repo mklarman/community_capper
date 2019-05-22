@@ -312,134 +312,138 @@ module ApplicationHelper
 
 		Team.all.each do |t|
 
-			starter_pitches = 0
-			bullpen_pitches = 0
-			runs_for = 0
-			runs_against = 0
-			hits_for = 0
-			hits_against = 0
-			at_bats_for = 0
-			at_bats_against = 0
-			innings = 0
-			opp_starter_pitches = 0
-			opp_bullpen_pitches = 0
-			team_errors = 0
-			opp_errors = 0
+			if t.div_or_conf == "NL East" || t.div_or_conf == "NL Central" || t.div_or_conf == "NL West"
 
-			team_stats = Hash.new
+				starter_pitches = 0
+				bullpen_pitches = 0
+				runs_for = 0
+				runs_against = 0
+				hits_for = 0
+				hits_against = 0
+				at_bats_for = 0
+				at_bats_against = 0
+				innings = 0
+				opp_starter_pitches = 0
+				opp_bullpen_pitches = 0
+				team_errors = 0
+				opp_errors = 0
 
-			team_stats[:team_name] = t.team_name
-			team_stats[:runs_for] = 0
-			team_stats[:at_bats_for] = 0
-			team_stats[:at_bats_per_nine] = 0
-			team_stats[:runs_per_ab] = 0
-			team_stats[:hits_per_nine] = 0
-			team_stats[:hits_per_run] = 0
-			team_stats[:runs_per_inning] = 0
-			team_stats[:pitches_seen_per_game] = 0
-			team_stats[:runs_for_per_pitch] = 0
-			team_stats[:starter_workload] = 0
-			team_stats[:bullpen_workload] = 0
-			team_stats[:opp_starter_workload] = 0
-			team_stats[:opp_bullpen_workload] = 0
-			team_stats[:quality_at_bats_per_run] = 0
-			team_stats[:opp_quality_at_bats_per_run] = 0
-			
-			team_stats[:runs_against] = 0
-			team_stats[:at_bats_against] = 0
-			team_stats[:at_bats_against_per_nine] = 0
-			team_stats[:runs_against_per_ab] = 0
-			team_stats[:opp_hits_per_nine] = 0
-			team_stats[:opp_hits_per_run] = 0
-			team_stats[:opp_runs_per_inning] = 0
-			team_stats[:team_pitches_per_game] = 0
-			team_stats[:opp_runs_per_pitch] = 0
+				team_stats = Hash.new
+
+				team_stats[:team_name] = t.team_name
+				team_stats[:runs_for] = 0
+				team_stats[:at_bats_for] = 0
+				team_stats[:at_bats_per_nine] = 0
+				team_stats[:runs_per_ab] = 0
+				team_stats[:hits_per_nine] = 0
+				team_stats[:hits_per_run] = 0
+				team_stats[:runs_per_inning] = 0
+				team_stats[:pitches_seen_per_game] = 0
+				team_stats[:runs_for_per_pitch] = 0
+				team_stats[:starter_workload] = 0
+				team_stats[:bullpen_workload] = 0
+				team_stats[:opp_starter_workload] = 0
+				team_stats[:opp_bullpen_workload] = 0
+				team_stats[:quality_at_bats_per_run] = 0
+				team_stats[:opp_quality_at_bats_per_run] = 0
+				
+				team_stats[:runs_against] = 0
+				team_stats[:at_bats_against] = 0
+				team_stats[:at_bats_against_per_nine] = 0
+				team_stats[:runs_against_per_ab] = 0
+				team_stats[:opp_hits_per_nine] = 0
+				team_stats[:opp_hits_per_run] = 0
+				team_stats[:opp_runs_per_inning] = 0
+				team_stats[:team_pitches_per_game] = 0
+				team_stats[:opp_runs_per_pitch] = 0
 
 
-			MlbGameLog.all.each do |m|
+				MlbGameLog.all.each do |m|
 
-				if t.id == m.team_id.to_i
+					if t.id == m.team_id.to_i
 
-					starter_pitches += m.team_starter_pitches.to_i
-					bullpen_pitches += m.team_bullpen_picthes.to_i
-					runs_for += m.team_runs.to_i
-					runs_against += m.opp_runs.to_i
-					hits_for += m.team_hits.to_i
-					hits_against += m.opp_hits.to_i
-					at_bats_for += m.at_bats_for.to_i
-					at_bats_against += m.at_bats_against.to_i
-					innings += m.innings.to_i
-					opp_starter_pitches += m.opp_starter_pitches.to_i
-					opp_bullpen_pitches += m.opp_bullpen_picthes.to_i
-					team_errors += m.team_errors.to_i
-					opp_errors += m.opp_errors.to_i
+						starter_pitches += m.team_starter_pitches.to_i
+						bullpen_pitches += m.team_bullpen_picthes.to_i
+						runs_for += m.team_runs.to_i
+						runs_against += m.opp_runs.to_i
+						hits_for += m.team_hits.to_i
+						hits_against += m.opp_hits.to_i
+						at_bats_for += m.at_bats_for.to_i
+						at_bats_against += m.at_bats_against.to_i
+						innings += m.innings.to_i
+						opp_starter_pitches += m.opp_starter_pitches.to_i
+						opp_bullpen_pitches += m.opp_bullpen_picthes.to_i
+						team_errors += m.team_errors.to_i
+						opp_errors += m.opp_errors.to_i
+							
+
+						runs_per_at_bat = (runs_for.to_f / at_bats_for.to_f).round(2)
+						hits_needed_per_run = (hits_for.to_f / runs_for.to_f).round(2)
+						runs_per_inning = (runs_for.to_f / innings.to_f).round(2)
+						pitches_seen_per_game = ((opp_starter_pitches.to_f + opp_bullpen_pitches.to_f) / innings.to_f).round(2) * 9 
+						runs_per_pitch_by_opp = (runs_for.to_f / pitches_seen_per_game).round(2)
+						at_bats_per_nine = (at_bats_for.to_f/innings.to_f).round(2) * 9
+						hits_per_nine = (hits_for.to_f / innings.to_f).round(2) * 9
+
+						runs_against_per_at_bat = (runs_against.to_f / at_bats_against.to_f).round(2)
+						opp_hits_needed_per_run = (hits_against.to_f / runs_against.to_f).round(2)
+						opp_runs_per_inning = (runs_against.to_f / innings.to_f).round(2)
+						opp_at_bats_per_nine = ((at_bats_against.to_f/innings.to_f).round(2) * 9).round(2)
+						opp_hits_per_nine = ((hits_against.to_f / innings.to_f).round(2) * 9).round(2)
+
+						pitches_thrown_per_game = ((starter_pitches.to_f + bullpen_pitches.to_f) / innings.to_f).round(2) * 9
+						opp_runs_per_pitch = (runs_against.to_f / pitches_thrown_per_game).round(2)
+
+						starter_freq = ((starter_pitches.to_f / (starter_pitches + bullpen_pitches).to_f) * 100).round(2)
+						starter_freq_to_string = starter_freq.to_s + "%"
+						bullpen_freq = 100.0 - starter_freq
+						bullpen_freq_to_string = bullpen_freq.to_s + "%"
+
+						opp_starter_freq = ((opp_starter_pitches.to_f / (opp_starter_pitches + opp_bullpen_pitches).to_f) * 100).round(2)
+						opp_bullpen_freq = 100.0 - opp_starter_freq
+						opp_starter_freq_to_s = opp_starter_freq.to_s + "%"
+						opp_bullpen_freq_to_s = opp_bullpen_freq.to_s + "%"
+
+						good_at_bats_per_run = (at_bats_for.to_f - (innings * 3) / runs_for.to_f).round(2)
+
+						opp_good_at_bats_per_run = (at_bats_against.to_f - (innings * 3) / runs_against.to_f).round(2)  
+
+						
+						team_stats[:runs_for] = runs_for.to_f
+						team_stats[:at_bats_for] = at_bats_for.to_f
+						team_stats[:at_bats_per_nine] = at_bats_per_nine.to_f
+						team_stats[:runs_per_ab] = runs_per_at_bat.to_f
+						team_stats[:hits_per_nine] = hits_per_nine.to_f
+						team_stats[:hits_per_run] = hits_needed_per_run.to_f
+						team_stats[:runs_per_inning] = runs_per_inning.to_f
+						team_stats[:pitches_seen_per_game] = pitches_seen_per_game.to_f
+						team_stats[:runs_for_per_pitch] = runs_per_pitch_by_opp
+						team_stats[:starter_workload] = starter_freq_to_string
+						team_stats[:bullpen_workload] = bullpen_freq_to_string
+						team_stats[:opp_starter_workload] = opp_starter_freq_to_s
+						team_stats[:opp_bullpen_workload] = opp_bullpen_freq_to_s
+						team_stats[:quality_at_bats_per_run] = good_at_bats_per_run
+						team_stats[:opp_quality_at_bats_per_run] = opp_good_at_bats_per_run
+						
+						team_stats[:runs_against] = runs_against
+						team_stats[:at_bats_against] = at_bats_against
+						team_stats[:at_bats_against_per_nine] = opp_at_bats_per_nine
+						team_stats[:runs_against_per_ab] = runs_against_per_at_bat
+						team_stats[:opp_hits_per_nine] = opp_hits_per_nine
+						team_stats[:opp_hits_per_run] = opp_hits_needed_per_run
+						team_stats[:opp_runs_per_inning] = opp_runs_per_inning
+						team_stats[:team_pitches_per_game] = pitches_thrown_per_game
+						team_stats[:opp_runs_per_pitch] = opp_runs_per_pitch
+
 						
 
-					runs_per_at_bat = (runs_for.to_f / at_bats_for.to_f).round(2)
-					hits_needed_per_run = (hits_for.to_f / runs_for.to_f).round(2)
-					runs_per_inning = (runs_for.to_f / innings.to_f).round(2)
-					pitches_seen_per_game = ((opp_starter_pitches.to_f + opp_bullpen_pitches.to_f) / innings.to_f).round(2) * 9 
-					runs_per_pitch_by_opp = (runs_for.to_f / pitches_seen_per_game).round(2)
-					at_bats_per_nine = (at_bats_for.to_f/innings.to_f).round(2) * 9
-					hits_per_nine = (hits_for.to_f / innings.to_f).round(2) * 9
-
-					runs_against_per_at_bat = (runs_against.to_f / at_bats_against.to_f).round(2)
-					opp_hits_needed_per_run = (hits_against.to_f / runs_against.to_f).round(2)
-					opp_runs_per_inning = (runs_against.to_f / innings.to_f).round(2)
-					opp_at_bats_per_nine = ((at_bats_against.to_f/innings.to_f).round(2) * 9).round(2)
-					opp_hits_per_nine = ((hits_against.to_f / innings.to_f).round(2) * 9).round(2)
-
-					pitches_thrown_per_game = ((starter_pitches.to_f + bullpen_pitches.to_f) / innings.to_f).round(2) * 9
-					opp_runs_per_pitch = (runs_against.to_f / pitches_thrown_per_game).round(2)
-
-					starter_freq = ((starter_pitches.to_f / (starter_pitches + bullpen_pitches).to_f) * 100).round(2)
-					starter_freq_to_string = starter_freq.to_s + "%"
-					bullpen_freq = 100.0 - starter_freq
-					bullpen_freq_to_string = bullpen_freq.to_s + "%"
-
-					opp_starter_freq = ((opp_starter_pitches.to_f / (opp_starter_pitches + opp_bullpen_pitches).to_f) * 100).round(2)
-					opp_bullpen_freq = 100.0 - opp_starter_freq
-					opp_starter_freq_to_s = opp_starter_freq.to_s + "%"
-					opp_bullpen_freq_to_s = opp_bullpen_freq.to_s + "%"
-
-					good_at_bats_per_run = (at_bats_for.to_f - (innings * 3) / runs_for.to_f).round(2)
-
-					opp_good_at_bats_per_run = (at_bats_against.to_f - (innings * 3) / runs_against.to_f).round(2)  
-
-					
-					team_stats[:runs_for] = runs_for.to_f
-					team_stats[:at_bats_for] = at_bats_for.to_f
-					team_stats[:at_bats_per_nine] = at_bats_per_nine.to_f
-					team_stats[:runs_per_ab] = runs_per_at_bat.to_f
-					team_stats[:hits_per_nine] = hits_per_nine.to_f
-					team_stats[:hits_per_run] = hits_needed_per_run.to_f
-					team_stats[:runs_per_inning] = runs_per_inning.to_f
-					team_stats[:pitches_seen_per_game] = pitches_seen_per_game.to_f
-					team_stats[:runs_for_per_pitch] = runs_per_pitch_by_opp
-					team_stats[:starter_workload] = starter_freq_to_string
-					team_stats[:bullpen_workload] = bullpen_freq_to_string
-					team_stats[:opp_starter_workload] = opp_starter_freq_to_s
-					team_stats[:opp_bullpen_workload] = opp_bullpen_freq_to_s
-					team_stats[:quality_at_bats_per_run] = good_at_bats_per_run
-					team_stats[:opp_quality_at_bats_per_run] = opp_good_at_bats_per_run
-					
-					team_stats[:runs_against] = runs_against
-					team_stats[:at_bats_against] = at_bats_against
-					team_stats[:at_bats_against_per_nine] = opp_at_bats_per_nine
-					team_stats[:runs_against_per_ab] = runs_against_per_at_bat
-					team_stats[:opp_hits_per_nine] = opp_hits_per_nine
-					team_stats[:opp_hits_per_run] = opp_hits_needed_per_run
-					team_stats[:opp_runs_per_inning] = opp_runs_per_inning
-					team_stats[:team_pitches_per_game] = pitches_thrown_per_game
-					team_stats[:opp_runs_per_pitch] = opp_runs_per_pitch
-
-					
+					end
 
 				end
 
-			end
+				@team_holder.push(team_stats)
 
-			@team_holder.push(team_stats)
+			end
 
 
 		end
@@ -567,8 +571,6 @@ module ApplicationHelper
 		end
 
 		team_runs_against.each do |r|
-
-			@test.push(r)
 
 			team_holder.each do |t|
 
