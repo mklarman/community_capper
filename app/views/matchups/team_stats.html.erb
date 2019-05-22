@@ -9,12 +9,11 @@
 <% @hits_per_run_standings = [] %>
 <% @pitches_faced_standings = [] %>
 <% @runs_per_pitch_standings = [] %>
-<% @runs_per_pitch_standings = [] %>
 <% @starter_workload_standings = [] %>
 <% @bullpen_workload_standings = [] %>
 <% @quality_at_bats_per_run_standings = [] %>
+<% @runs_against_per_ab_standings = [] %>
 <% @runs_against_per_nine_standings = [] %>
-<% @hits_against_per_nine_standings = [] %>
 <% @hits_against_per_nine_standings = [] %>
 <% @hits_against_per_run_against_standings = [] %>
 <% @starter_workload_against_standings = [] %>
@@ -23,5 +22,25 @@
 
 
 <% self.get_team_rankings %>
+<% self.sort_teams_by_category(@team_holder) %>
 
-<%= @team_holder %>
+<div>TEAMS: <%= @team_holder %></div>
+
+<div>RUNS FOR: <%= @runs_for_standings %></div>
+<%= @runs_against_standings %>
+<div>AB For: <%= @at_bats_for_standings %></div>
+<%= @at_bats_against_standings %> 
+<%= @runs_per_at_bat_standings %>
+<%= @hits_per_nine_standings %>
+<%= @hits_per_run_standings %>
+<%= @pitches_faced_standings %>
+<%= @runs_per_pitch_standings %>
+<%= @starter_workload_standings %>
+<%= @bullpen_workload_standings %>
+<%= @quality_at_bats_per_run_standings %>
+<%= @runs_against_per_ab_standings %>
+<%= @runs_against_per_nine_standings %>
+<%= @hits_against_per_nine_standings %>
+<%= @hits_against_per_run_against_standings %>
+<%= @starter_workload_against_standings %>
+<%= @bullpen_workload_against_standings %>

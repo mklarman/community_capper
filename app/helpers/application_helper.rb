@@ -326,6 +326,10 @@ module ApplicationHelper
 			team_errors = 0
 			opp_errors = 0
 
+			team_stats = Hash.new
+
+			team_stats[:team_name] = t.team_name
+
 
 			MlbGameLog.all.each do |m|
 
@@ -377,17 +381,13 @@ module ApplicationHelper
 
 					opp_good_at_bats_per_run = (at_bats_against.to_f - (innings * 3) / runs_against.to_f).round(2)  
 
-
-
-					team_stats = Hash.new
-
-					team_stats[:team_name] = m.team_name
+					
 					team_stats[:runs_for] = runs_for.to_f
 					team_stats[:at_bats_for] = at_bats_for.to_f
-					team_stats[:at_bats_per_nine] = at_bats_per_nine
-					team_stats[:runs_per_ab] = runs_per_at_bat
-					team_stats[:hits_per_nine] = hits_per_nine
-					team_stats[:hits_per_run] = hits_needed_per_run
+					team_stats[:at_bats_per_nine] = at_bats_per_nine.to_f
+					team_stats[:runs_per_ab] = runs_per_at_bat.to_f
+					team_stats[:hits_per_nine] = hits_per_nine.to_f
+					team_stats[:hits_per_run] = hits_needed_per_run.to_f
 					team_stats[:runs_per_inning] = runs_per_inning
 					team_stats[:pitches_seen_per_game] = pitches_seen_per_game
 					team_stats[:runs_for_per_pitch] = runs_per_pitch_by_opp
@@ -450,7 +450,7 @@ module ApplicationHelper
 				team_runs_for.push(t[:runs_for])
 				team_runs_against.push(t[:runs_against])
 				team_at_bats_for.push(t[:at_bats_per_nine])
-				team_at_bats_against.push(t[:at_bats_against])
+				team_at_bats_against.push(t[:at_bats_against_per_nine])
 				team_runs_per_at_bat.push(t[:runs_per_ab])
 				
 				team_hits_per_nine.push(t[:hits_per_nine])
@@ -468,7 +468,6 @@ module ApplicationHelper
 				
 				team_quality_at_bats_per_run.push(t[:quality_at_bats_per_run])
 				
-				team_at_bats_against.push(t[:at_bats_against_per_nine])
 				
 				team_runs_against_per_ab.push(t[:runs_against_per_ab])
 				
@@ -514,8 +513,8 @@ module ApplicationHelper
 		team_hits_against_per_run_against = team_hits_against_per_run_against.sort
 		team_hits_against_per_run_against = team_hits_against_per_run_against.reverse
 		team_starter_workload_against = team_starter_workload_against.sort
-		team_bullpen_workload_against = team_starter_bullpen_against.sort
-		team_bullpen_workload_against = team_starter_bullpen_against.reverse
+		team_bullpen_workload_against = team_bullpen_workload_against.sort
+		team_bullpen_workload_against = team_bullpen_workload_against.reverse
 
 		team_runs_for.each do |r|
 
@@ -528,7 +527,7 @@ module ApplicationHelper
 						team_data = Hash.new
 						team_data[:team] = t[:team_name]
 						team_data[:runs_for] = t[:runs_for]
-						@runs_for_standings.push(team_data)
+						@runs_for_standings.push(team_data) unless @runs_for_standings.include?(team_data)
 
 					end
 
@@ -551,7 +550,7 @@ module ApplicationHelper
 						team_data = Hash.new
 						team_data[:team] = t[:team_name]
 						team_data[:runs_against] = t[:runs_against]
-						@runs_for_against.push(team_data)
+						@runs_against_standings.push(team_data) unless @runs_against_standings.include?(team_data)
 
 					end
 
@@ -563,7 +562,7 @@ module ApplicationHelper
 
 		end
 
-		team_at_bats_for.each do |b|
+		team_at_bats_for.each do |r|
 
 			team_holder.each do |t|
 
@@ -574,7 +573,7 @@ module ApplicationHelper
 						team_data = Hash.new
 						team_data[:team] = t[:team_name]
 						team_data[:at_bats_for] = t[:at_bats_per_nine]
-						@at_bats_for_standings.push(team_data)
+						@at_bats_for_standings.push(team_data) unless @at_bats_for_standings.include?(team_data)
 
 					end
 
@@ -587,7 +586,7 @@ module ApplicationHelper
 
 		end
 
-		team_at_bats_against.each do |b|
+		team_at_bats_against.each do |r|
 
 			team_holder.each do |t|
 
@@ -598,7 +597,259 @@ module ApplicationHelper
 						team_data = Hash.new
 						team_data[:team] = t[:team_name]
 						team_data[:at_bats_against] = t[:at_bats_against_per_nine]
-						@at_bats_against_standings.push(team_data)
+						@at_bats_against_standings.push(team_data) unless @at_bats_against_standings.include?(team_data)
+
+					end
+
+				end
+
+			end
+
+		end
+
+		team_runs_per_at_bat.each do |r| 
+
+			team_holder.each do |t|
+
+				if t.class == Hash
+
+					if r == t[:runs_per_ab]
+
+						team_data = Hash.new
+						team_data[:team] = t[:team_name]
+						team_data[:runs_per_ab] = t[:runs_per_ab]
+						@runs_per_at_bat_standings.push(team_data) unless @runs_per_at_bat_standings.include?(team_data)
+
+					end
+
+				end
+
+			end
+
+		end
+
+		team_hits_per_nine.each do |r| 
+
+			team_holder.each do |t|
+
+				if t.class == Hash
+
+					if r == t[:hits_per_nine]
+
+						team_data = Hash.new
+						team_data[:team] = t[:team_name]
+						team_data[:hits_per_nine] = t[:hits_per_nine]
+						@hits_per_nine_standings.push(team_data) unless @hits_per_nine_standings.include?(team_data)
+
+					end
+
+				end
+
+			end
+
+		end
+
+		team_hits_per_run.push.each do |r| 
+
+			team_holder.each do |t|
+
+				if t.class == Hash
+
+					if r == t[:hits_per_run]
+
+						team_data = Hash.new
+						team_data[:team] = t[:team_name]
+						team_data[:hits_per_run] = t[:hits_per_run]
+						@hits_per_run_standings.push(team_data) unless @hits_per_run_standings.include?(team_data)
+
+					end
+
+				end
+
+			end
+
+		end
+
+		team_pitches_faced_per_game.each do |r| 
+
+			team_holder.each do |t|
+
+				if t.class == Hash
+
+					if r == t[:pitches_seen_per_game]
+
+						team_data = Hash.new
+						team_data[:team] = t[:team_name]
+						team_data[:pitches_seen_per_game] = t[:pitches_seen_per_game]
+						@pitches_faced_standings.push(team_data) unless @pitches_faced_standings.include?(team_data)
+
+					end
+
+				end
+
+			end
+
+		end
+
+		team_runs_per_pitch.each do |r| 
+
+			team_holder.each do |t|
+
+				if t.class == Hash
+
+					if r == t[:runs_for_per_pitch]
+
+						team_data = Hash.new
+						team_data[:team] = t[:team_name]
+						team_data[:runs_for_per_pitch] = t[:runs_for_per_pitch]
+						@runs_per_pitch_standings.push(team_data) unless @runs_per_pitch_standings.include?(team_data)
+
+					end
+
+				end
+
+			end
+
+		end
+
+		team_starter_workload.each do |r| 
+
+			team_holder.each do |t|
+
+				if t.class == Hash
+
+					if r == t[:starter_workload]
+
+						team_data = Hash.new
+						team_data[:team] = t[:team_name]
+						team_data[:starter_workload] = t[:starter_workload].to_s + "%"
+						@starter_workload_standings.push(team_data) unless @starter_workload_standings.include?(team_data)
+
+					end
+
+				end
+
+			end
+
+		end
+
+		team_bullpen_workload.each do |r| 
+
+			team_holder.each do |t|
+
+				if t.class == Hash
+
+					if r == t[:bullpen_workload]
+
+						team_data = Hash.new
+						team_data[:team] = t[:team_name]
+						team_data[:bullpen_workload] = t[:bullpen_workload].to_s + "%"
+						@bullpen_workload_standings.push(team_data) unless @bullpen_workload_standings.include?(team_data)
+
+					end
+
+				end
+
+			end
+
+		end
+
+		team_runs_against_per_ab.each do |r| 
+
+			team_holder.each do |t|
+
+				if t.class == Hash
+
+					if r == t[:runs_against_per_ab]
+
+						team_data = Hash.new
+						team_data[:team] = t[:team_name]
+						team_data[:runs_against_per_ab] = t[:runs_against_per_ab]
+						@runs_against_per_ab_standings.push(team_data) unless @runs_against_per_ab_standings.include?(team_data)
+
+					end
+
+				end
+
+			end
+
+		end
+
+		team_hits_against_per_nine.each do |r| 
+
+			team_holder.each do |t|
+
+				if t.class == Hash
+
+					if r == t[:opp_hits_per_nine]
+
+						team_data = Hash.new
+						team_data[:team] = t[:team_name]
+						team_data[:opp_hits_per_nine] = t[:opp_hits_per_nine]
+						@hits_against_per_nine_standings.push(team_data) unless @hits_against_per_nine_standings.include?(team_data)
+
+					end
+
+				end
+
+			end
+
+		end
+
+		team_hits_against_per_run_against.each do |r| 
+
+			team_holder.each do |t|
+
+				if t.class == Hash
+
+					if r == t[:opp_hits_per_run]
+
+						team_data = Hash.new
+						team_data[:team] = t[:team_name]
+						team_data[:opp_hits_per_run] = t[:opp_hits_per_run]
+						@hits_against_per_run_against_standings.push(team_data) unless @hits_against_per_run_against_standings.include?(team_data)
+
+					end
+
+				end
+
+			end
+
+		end
+
+		team_starter_workload_against.each do |r| 
+
+			team_holder.each do |t|
+
+				if t.class == Hash
+
+					if r == t[:opp_starter_workload]
+
+						team_data = Hash.new
+						team_data[:team] = t[:team_name]
+						team_data[:opp_starter_workload] = t[:opp_starter_workload].to_s + "%"
+						@starter_workload_against_standings.push(team_data) unless @starter_workload_against_standings.include?(team_data)
+
+					end
+
+				end
+
+			end
+
+		end
+
+		team_bullpen_workload_against.each do |r| 
+
+			team_holder.each do |t|
+
+				if t.class == Hash
+
+					if r == t[:opp_bullpen_workload]
+
+						team_data = Hash.new
+						team_data[:team] = t[:team_name]
+						team_data[:opp_bullpen_workload] = t[:opp_bullpen_workload].to_s + "%"
+						@bullpen_workload_against_standings.push(team_data) unless @bullpen_workload_against_standings.include?(team_data)
 
 					end
 
