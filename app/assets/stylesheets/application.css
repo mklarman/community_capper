@@ -18,3 +18,14 @@
 
 	display: none;
 }
+
+.stat_display{
+
+	display: inline-block;
+	margin-right: 5%;
+	height: 100%
+	border: 1px solid black;
+	text-align: top;
+
+	margin-top: 5%;
+}

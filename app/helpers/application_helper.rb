@@ -329,6 +329,31 @@ module ApplicationHelper
 			team_stats = Hash.new
 
 			team_stats[:team_name] = t.team_name
+			team_stats[:runs_for] = 0
+			team_stats[:at_bats_for] = 0
+			team_stats[:at_bats_per_nine] = 0
+			team_stats[:runs_per_ab] = 0
+			team_stats[:hits_per_nine] = 0
+			team_stats[:hits_per_run] = 0
+			team_stats[:runs_per_inning] = 0
+			team_stats[:pitches_seen_per_game] = 0
+			team_stats[:runs_for_per_pitch] = 0
+			team_stats[:starter_workload] = 0
+			team_stats[:bullpen_workload] = 0
+			team_stats[:opp_starter_workload] = 0
+			team_stats[:opp_bullpen_workload] = 0
+			team_stats[:quality_at_bats_per_run] = 0
+			team_stats[:opp_quality_at_bats_per_run] = 0
+			
+			team_stats[:runs_against] = 0
+			team_stats[:at_bats_against] = 0
+			team_stats[:at_bats_against_per_nine] = 0
+			team_stats[:runs_against_per_ab] = 0
+			team_stats[:opp_hits_per_nine] = 0
+			team_stats[:opp_hits_per_run] = 0
+			team_stats[:opp_runs_per_inning] = 0
+			team_stats[:team_pitches_per_game] = 0
+			team_stats[:opp_runs_per_pitch] = 0
 
 
 			MlbGameLog.all.each do |m|
@@ -388,8 +413,8 @@ module ApplicationHelper
 					team_stats[:runs_per_ab] = runs_per_at_bat.to_f
 					team_stats[:hits_per_nine] = hits_per_nine.to_f
 					team_stats[:hits_per_run] = hits_needed_per_run.to_f
-					team_stats[:runs_per_inning] = runs_per_inning
-					team_stats[:pitches_seen_per_game] = pitches_seen_per_game
+					team_stats[:runs_per_inning] = runs_per_inning.to_f
+					team_stats[:pitches_seen_per_game] = pitches_seen_per_game.to_f
 					team_stats[:runs_for_per_pitch] = runs_per_pitch_by_opp
 					team_stats[:starter_workload] = starter_freq_to_string
 					team_stats[:bullpen_workload] = bullpen_freq_to_string
@@ -408,11 +433,13 @@ module ApplicationHelper
 					team_stats[:team_pitches_per_game] = pitches_thrown_per_game
 					team_stats[:opp_runs_per_pitch] = opp_runs_per_pitch
 
-					@team_holder.push(team_stats)
+					
 
 				end
 
 			end
+
+			@team_holder.push(team_stats)
 
 
 		end
@@ -430,7 +457,7 @@ module ApplicationHelper
 		team_hits_per_run = []
 		team_pitches_faced_per_game = []
 		team_runs_per_pitch = []
-		team_starter_workload = []
+		
 		team_bullpen_workload = []
 		team_quality_at_bats_per_run = []
 
@@ -461,9 +488,9 @@ module ApplicationHelper
 				
 				team_runs_per_pitch.push(t[:runs_for_per_pitch])
 				
-				team_starter_workload.push(t[:starter_workload].to_i)
+				@team_starter_workload.push(t[:starter_workload].to_f)
 				
-				team_bullpen_workload.push(t[:bullpen_workload].to_i)
+				team_bullpen_workload.push(t[:bullpen_workload].to_f)
 				
 				
 				team_quality_at_bats_per_run.push(t[:quality_at_bats_per_run])
@@ -477,8 +504,8 @@ module ApplicationHelper
 				team_hits_against_per_run_against.push(t[:opp_hits_per_run])
 				
 
-				team_starter_workload_against.push(t[:opp_starter_workload].to_i)
-				team_bullpen_workload_against.push(t[:opp_bullpen_workload].to_i)
+				team_starter_workload_against.push(t[:opp_starter_workload].to_f)
+				team_bullpen_workload_against.push(t[:opp_bullpen_workload].to_f)
 
 
 
@@ -503,8 +530,8 @@ module ApplicationHelper
 		team_pitches_faced_per_game = team_pitches_faced_per_game.reverse
 		team_runs_per_pitch = team_runs_per_pitch.sort
 		team_runs_per_pitch = team_runs_per_pitch.reverse
-		team_starter_workload = team_starter_workload.sort
-		team_starter_workload = team_starter_workload.reverse
+		@team_starter_workload = @team_starter_workload.sort
+		@team_starter_workload = @team_starter_workload.reverse
 		team_bullpen_workload = team_bullpen_workload.sort
 		team_quality_at_bats_per_run = team_quality_at_bats_per_run.sort
 		team_at_bats_against = team_at_bats_against.sort
@@ -540,6 +567,8 @@ module ApplicationHelper
 		end
 
 		team_runs_against.each do |r|
+
+			@test.push(r)
 
 			team_holder.each do |t|
 
@@ -712,13 +741,13 @@ module ApplicationHelper
 
 		end
 
-		team_starter_workload.each do |r| 
+		@team_starter_workload.each do |r| 
 
 			team_holder.each do |t|
 
 				if t.class == Hash
 
-					if r == t[:starter_workload]
+					if r == t[:starter_workload].to_f
 
 						team_data = Hash.new
 						team_data[:team] = t[:team_name]
@@ -739,7 +768,7 @@ module ApplicationHelper
 
 				if t.class == Hash
 
-					if r == t[:bullpen_workload]
+					if r == t[:bullpen_workload].to_f
 
 						team_data = Hash.new
 						team_data[:team] = t[:team_name]
@@ -753,6 +782,8 @@ module ApplicationHelper
 			end
 
 		end
+
+
 
 		team_runs_against_per_ab.each do |r| 
 
@@ -823,7 +854,7 @@ module ApplicationHelper
 
 				if t.class == Hash
 
-					if r == t[:opp_starter_workload]
+					if r == t[:opp_starter_workload].to_f
 
 						team_data = Hash.new
 						team_data[:team] = t[:team_name]
@@ -844,7 +875,7 @@ module ApplicationHelper
 
 				if t.class == Hash
 
-					if r == t[:opp_bullpen_workload]
+					if r == t[:opp_bullpen_workload].to_f
 
 						team_data = Hash.new
 						team_data[:team] = t[:team_name]
