@@ -383,7 +383,7 @@ module ApplicationHelper
 						hits_needed_per_run = (hits_for.to_f / runs_for.to_f).round(2)
 						runs_per_inning = (runs_for.to_f / innings.to_f).round(2)
 						pitches_seen_per_game = ((opp_starter_pitches.to_f + opp_bullpen_pitches.to_f) / innings.to_f).round(2) * 9 
-						runs_per_pitch_by_opp = (runs_for.to_f / pitches_seen_per_game.to_f ).round(2)
+						runs_per_pitch_by_opp = (runs_for.to_f / (opp_starter_pitches.to_f + opp_bullpen_pitches.to_f).round(2)
 						at_bats_per_nine = (at_bats_for.to_f/innings.to_f).round(2) * 9
 						hits_per_nine = (hits_for.to_f / innings.to_f).round(2) * 9
 
