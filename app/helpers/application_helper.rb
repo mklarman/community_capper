@@ -402,7 +402,7 @@ module ApplicationHelper
 						bullpen_freq_to_string = bullpen_freq.to_s + "%"
 
 						opp_starter_freq = ((opp_starter_pitches.to_f / (opp_starter_pitches + opp_bullpen_pitches).to_f) * 100).round(2)
-						opp_bullpen_freq = 100.0 - opp_starter_freq
+						opp_bullpen_freq = (100.00 - opp_starter_freq).round(2)
 						opp_starter_freq_to_s = opp_starter_freq.to_s + "%"
 						opp_bullpen_freq_to_s = opp_bullpen_freq.to_s + "%"
 
