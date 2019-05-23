@@ -411,7 +411,7 @@ module ApplicationHelper
 						opp_good_at_bats_per_run = (at_bats_against.to_f - (innings * 3) / runs_against.to_f).round(2)  
 
 						
-						team_stats[:runs_for] = runs_for.to_f
+						team_stats[:runs_for] = ((runs_for.to_f / innings.to_f) * 9).round(2)
 						team_stats[:at_bats_for] = at_bats_for.to_f
 						team_stats[:at_bats_per_nine] = at_bats_per_nine.to_f
 						team_stats[:runs_per_ab] = runs_per_at_bat.to_f
@@ -427,7 +427,7 @@ module ApplicationHelper
 						team_stats[:quality_at_bats_per_run] = good_at_bats_per_run
 						team_stats[:opp_quality_at_bats_per_run] = opp_good_at_bats_per_run
 						
-						team_stats[:runs_against] = runs_against
+						team_stats[:runs_against] = ((runs_against.to_f / innings.to_f) * 9).round(2)
 						team_stats[:at_bats_against] = at_bats_against
 						team_stats[:at_bats_against_per_nine] = opp_at_bats_per_nine
 						team_stats[:runs_against_per_ab] = runs_against_per_at_bat
