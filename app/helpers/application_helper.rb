@@ -398,7 +398,7 @@ module ApplicationHelper
 
 						starter_freq = ((starter_pitches.to_f / (starter_pitches + bullpen_pitches).to_f) * 100).round(2)
 						starter_freq_to_string = starter_freq.to_s + "%"
-						bullpen_freq = 100.0 - starter_freq
+						bullpen_freq = (100.0 - starter_freq).round(2)
 						bullpen_freq_to_string = bullpen_freq.to_s + "%"
 
 						opp_starter_freq = ((opp_starter_pitches.to_f / (opp_starter_pitches + opp_bullpen_pitches).to_f) * 100).round(2)
