@@ -443,7 +443,7 @@ module ApplicationHelper
 
 				end
 
-				@test.push([team_stats[:team_name], team_stats[:pitches_seen_per_game], team_stats[:runs_for]])
+				
 
 				@team_holder.push(team_stats)
 
@@ -465,7 +465,6 @@ module ApplicationHelper
 		team_hits_per_run = []
 		team_pitches_faced_per_game = []
 		team_runs_per_pitch = []
-		
 		team_bullpen_workload = []
 		team_quality_at_bats_per_run = []
 
@@ -757,7 +756,7 @@ module ApplicationHelper
 
 						team_data = Hash.new
 						team_data[:team] = t[:team_name]
-						team_data[:starter_workload] = t[:starter_workload].to_s + "%"
+						team_data[:starter_workload] = t[:starter_workload].to_s 
 						@starter_workload_standings.push(team_data) unless @starter_workload_standings.include?(team_data)
 
 					end
@@ -778,7 +777,7 @@ module ApplicationHelper
 
 						team_data = Hash.new
 						team_data[:team] = t[:team_name]
-						team_data[:bullpen_workload] = t[:bullpen_workload].to_s + "%"
+						team_data[:bullpen_workload] = t[:bullpen_workload].to_s 
 						@bullpen_workload_standings.push(team_data) unless @bullpen_workload_standings.include?(team_data)
 
 					end
@@ -864,7 +863,7 @@ module ApplicationHelper
 
 						team_data = Hash.new
 						team_data[:team] = t[:team_name]
-						team_data[:opp_starter_workload] = t[:opp_starter_workload].to_s + "%"
+						team_data[:opp_starter_workload] = t[:opp_starter_workload].to_s 
 						@starter_workload_against_standings.push(team_data) unless @starter_workload_against_standings.include?(team_data)
 
 					end
@@ -885,7 +884,7 @@ module ApplicationHelper
 
 						team_data = Hash.new
 						team_data[:team] = t[:team_name]
-						team_data[:opp_bullpen_workload] = t[:opp_bullpen_workload].to_s + "%"
+						team_data[:opp_bullpen_workload] = t[:opp_bullpen_workload].to_s 
 						@bullpen_workload_against_standings.push(team_data) unless @bullpen_workload_against_standings.include?(team_data)
 
 					end
