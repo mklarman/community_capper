@@ -282,31 +282,7 @@ module ApplicationHelper
 
 	end
 
-	def get_at_bats_against_per_nine
-
-
-		@at_bats_against_per_nine
-
-		@at_bats = 0
-		@innings = 0
-
-		MlbGameLog.all.each do |m|
-
-			if m.team_id.to_i == team_obj.id
-
-				@at_bats += m.at_bats_against.to_i
-				@innings += m.innings.to_i
-
-			end
-
-
-		end
-
-		@at_bats = @at_bats.to_f/@innings.to_f
-
-		@at_bats_against_per_nine = @at_bats * 9.0
-
-	end
+	
 
 	def get_team_rankings
 
@@ -316,6 +292,7 @@ module ApplicationHelper
 
 				starter_pitches = 0
 				bullpen_pitches = 0
+				@bullpen_runs = 0
 				runs_for = 0
 				runs_against = 0
 				hits_for = 0
@@ -356,6 +333,7 @@ module ApplicationHelper
 				team_stats[:opp_runs_per_inning] = 0
 				team_stats[:team_pitches_per_game] = 0
 				team_stats[:opp_runs_per_pitch] = 0
+				team_stats[:bullpen_runs_per_pitch] = 0
 
 
 
@@ -368,6 +346,7 @@ module ApplicationHelper
 						bullpen_pitches += m.team_bullpen_picthes.to_i
 						runs_for += m.team_runs.to_i
 						runs_against += m.opp_runs.to_i
+						@bullpen_runs += m.runs_by_team_bullpen.to_i
 						hits_for += m.team_hits.to_i
 						hits_against += m.opp_hits.to_i
 						at_bats_for += m.at_bats_for.to_i
@@ -400,11 +379,13 @@ module ApplicationHelper
 						starter_freq_to_string = starter_freq.to_s + "%"
 						bullpen_freq = (100.0 - starter_freq).round(2)
 						bullpen_freq_to_string = bullpen_freq.to_s + "%"
+						bullpen_rpp = (@bullpen_runs.to_f / bullpen_pitches.to_f).round(3)
 
 						opp_starter_freq = ((opp_starter_pitches.to_f / (opp_starter_pitches + opp_bullpen_pitches).to_f) * 100).round(2)
 						opp_bullpen_freq = (100.00 - opp_starter_freq).round(2)
 						opp_starter_freq_to_s = opp_starter_freq.to_s + "%"
 						opp_bullpen_freq_to_s = opp_bullpen_freq.to_s + "%"
+
 
 						good_at_bats_per_run = (at_bats_for.to_f - (innings * 3) / runs_for.to_f).round(2)
 
@@ -436,6 +417,7 @@ module ApplicationHelper
 						team_stats[:opp_runs_per_inning] = opp_runs_per_inning
 						team_stats[:team_pitches_per_game] = pitches_thrown_per_game
 						team_stats[:opp_runs_per_pitch] = opp_runs_per_pitch
+						team_stats[:bullpen_runs_per_pitch] = bullpen_rpp
 
 						
 
@@ -467,6 +449,7 @@ module ApplicationHelper
 		team_runs_per_pitch = []
 		team_bullpen_workload = []
 		team_quality_at_bats_per_run = []
+		team_bullpen_rpp = []
 
 		team_at_bats_against = []
 		team_runs_against_per_ab = []
@@ -486,6 +469,7 @@ module ApplicationHelper
 				team_at_bats_for.push(t[:at_bats_per_nine])
 				team_at_bats_against.push(t[:at_bats_against_per_nine])
 				team_runs_per_at_bat.push(t[:runs_per_ab])
+				team_bullpen_rpp.push([:bullpen_runs_per_pitch])
 				
 				team_hits_per_nine.push(t[:hits_per_nine])
 				
@@ -537,6 +521,7 @@ module ApplicationHelper
 		team_pitches_faced_per_game = team_pitches_faced_per_game.reverse
 		team_runs_per_pitch = team_runs_per_pitch.sort
 		team_runs_per_pitch = team_runs_per_pitch.reverse
+		team_bullpen_rpp = team_bullpen_rpp.sort
 		@team_starter_workload = @team_starter_workload.sort
 		@team_starter_workload = @team_starter_workload.reverse
 		team_bullpen_workload = team_bullpen_workload.sort
@@ -608,6 +593,30 @@ module ApplicationHelper
 						team_data[:team] = t[:team_name]
 						team_data[:at_bats_for] = t[:at_bats_per_nine]
 						@at_bats_for_standings.push(team_data) unless @at_bats_for_standings.include?(team_data)
+
+					end
+
+
+				end
+
+			end
+
+
+
+		end
+
+		team_bullpen_rpp.each do |r|
+
+			team_holder.each do |t|
+
+				if t.class == Hash
+
+					if r == t[:bullpen_runs_per_pitch]
+
+						team_data = Hash.new
+						team_data[:team] = t[:team_name]
+						team_data[:bullpen_runs_per_pitch] = t[:bullpen_runs_per_pitch]
+						@bullpen_rpp_standings.push(team_data) unless @bullpen_rpp_standings.include?(team_data)
 
 					end
 

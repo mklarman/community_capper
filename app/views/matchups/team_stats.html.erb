@@ -1,5 +1,6 @@
 <% @team_holder = [] %>
 <% @test = [] %>
+<% @bullpen_runs %>
 
 <% @runs_for_standings = [] %>
 <% @runs_against_standings = [] %>
@@ -19,13 +20,14 @@
 <% @hits_against_per_run_against_standings = [] %>
 <% @starter_workload_against_standings = [] %>
 <% @bullpen_workload_against_standings = [] %>
+<% @bullpen_rpp_standings = [] %>
 
 <% @team_starter_workload = [] %>
 
 <% self.get_team_rankings %>
 <% self.sort_teams_by_category(@team_holder) %>
 
-<%= @team_starter_workload %>
+
 
 <div id="stats_container">
 	
@@ -562,21 +564,44 @@
 
 	</div>
 
+	<div class="stat_display">
+		
+		<div class="stat_heading">BULLPEN RUNS PER PITCH</div>
+		
+		<div class = "stat_nums">
+
+			<% @position %>	
+			
+			<% @bullpen_workload_against_standings.each do |r| %>
+
+				<% @position = @bullpen_workload_against_standings.index(r) + 1 %>
+				<% @position = @position.to_s + "." %>
+
+
+				<div class="stat_line">
+					
+					<% if r.class == Hash %>
+
+						<%= @position + " " + r[:team] + "  " + r[:bullpen_runs_per_pitch].to_s %> 
+
+					<% end %>
+
+
+				</div>
+
+			<% end %>
+
+		</div>
+
+
+
+	</div>
+
 
 </div>
-
-<% @test.each do |array| %>
-
-	<% array.each do |t| %>
-
-	<div><%= t %></div>
-
-	<% end %>
-	
-	
+<%= @bullpen_runs %>
 
 
-<% end %>
 
 
 
