@@ -566,7 +566,7 @@
 
 	<div class="stat_display">
 		
-		<div class="stat_heading">BULLPEN RUNS PER PITCH</div>
+		<div class="stat_heading">BULLPEN PITCHES PER RUN</div>
 		
 		<div class = "stat_nums">
 
@@ -582,7 +582,11 @@
 					
 					<% if r.class == Hash %>
 
-						<%= @position + " " + r[:team] + "  " + r[:bullpen_runs_per_pitch].to_s %> 
+						<% @pitches_per_run = (100.0 / (r[:bullpen_runs_per_pitch].to_f * 100)).round(2) %>
+
+						<% @pitches_per_run = @pitches_per_run.to_s %>
+
+						<%= @position + " " + r[:team] + "  " + @pitches_per_run %> 
 
 					<% end %>
 
