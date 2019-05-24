@@ -302,7 +302,7 @@
 
 	<div class="stat_display">
 		
-		<div class="stat_heading">RUNS SCORED PER PITCH</div>
+		<div class="stat_heading">PITCHES AGAINST PER RUN</div>
 		
 		<div class = "stat_nums">
 
@@ -318,7 +318,11 @@
 					
 					<% if r.class == Hash %>
 
-						<%= @position + " " + r[:team] + "  " + r[:runs_for_per_pitch].to_s %> 
+						<% pitches_against_per_run = (100.0 / (r[:runs_for_per_pitch].to_f * 100.0)).round(2) %>
+
+						<% pitches_against_per_run = pitches_against_per_run.to_s %>
+
+						<%= @position + " " + r[:team] + "  " + pitches_against_per_run %> 
 
 					<% end %>
 
