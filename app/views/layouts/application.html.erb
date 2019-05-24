@@ -10,7 +10,7 @@
 
   <body>
 
-    <% if current_user.admin == true %>
+    <% if current_user %>
 
     	<%= link_to "Sign Up", new_user_registration_path, class: 'link_tabs'  %>
     	<%= link_to "SEARCH", users_search_path %>
@@ -22,7 +22,6 @@
     	<%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'link_tabs'  %></div>
 
     <% end %>
-
 
   <%= yield %>
   </body>
