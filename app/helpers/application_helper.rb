@@ -356,6 +356,8 @@ module ApplicationHelper
 						opp_bullpen_pitches += m.opp_bullpen_picthes.to_i
 						team_errors += m.team_errors.to_i
 						opp_errors += m.opp_errors.to_i
+
+
 							
 
 						runs_per_at_bat = (runs_for.to_f / at_bats_for.to_f).round(2)
@@ -425,7 +427,7 @@ module ApplicationHelper
 
 				end
 
-				
+				@test.push([@bullpen_runs, team_stats[:bullpen_runs_per_pitch]])
 
 				@team_holder.push(team_stats)
 
@@ -469,7 +471,7 @@ module ApplicationHelper
 				team_at_bats_for.push(t[:at_bats_per_nine])
 				team_at_bats_against.push(t[:at_bats_against_per_nine])
 				team_runs_per_at_bat.push(t[:runs_per_ab])
-				team_bullpen_rpp.push([:bullpen_runs_per_pitch])
+				team_bullpen_rpp.push(t[:bullpen_runs_per_pitch])
 				
 				team_hits_per_nine.push(t[:hits_per_nine])
 				
@@ -503,8 +505,9 @@ module ApplicationHelper
 			end
 
 
-
 		end
+
+
 
 		team_runs_for = team_runs_for.sort
 		team_runs_for = team_runs_for.reverse
@@ -534,6 +537,8 @@ module ApplicationHelper
 		team_starter_workload_against = team_starter_workload_against.sort
 		team_bullpen_workload_against = team_bullpen_workload_against.sort
 		team_bullpen_workload_against = team_bullpen_workload_against.reverse
+
+		@test = team_bullpen_rpp
 
 		team_runs_for.each do |r|
 

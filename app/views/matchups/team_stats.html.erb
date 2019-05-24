@@ -572,9 +572,9 @@
 
 			<% @position %>	
 			
-			<% @bullpen_workload_against_standings.each do |r| %>
+			<% @bullpen_rpp_standings.each do |r| %>
 
-				<% @position = @bullpen_workload_against_standings.index(r) + 1 %>
+				<% @position = @bullpen_rpp_standings.index(r) + 1 %>
 				<% @position = @position.to_s + "." %>
 
 
@@ -599,7 +599,9 @@
 
 
 </div>
-<%= @bullpen_runs %>
+
+
+
 
 
 
