@@ -360,7 +360,7 @@ module ApplicationHelper
 
 							
 
-						runs_per_at_bat = (runs_for.to_f / at_bats_for.to_f).round(2)
+						runs_per_at_bat = (1.0 / (runs_for.to_f / at_bats_for.to_f)).round(2)
 						hits_needed_per_run = (hits_for.to_f / runs_for.to_f).round(2)
 						runs_per_inning = (runs_for.to_f / innings.to_f).round(2)
 						pitches_seen_per_game = ((opp_starter_pitches.to_f + opp_bullpen_pitches.to_f) / innings.to_f).round(2) * 9 
@@ -368,7 +368,7 @@ module ApplicationHelper
 						at_bats_per_nine = ((at_bats_for.to_f/innings.to_f) * 9).round(2)
 						hits_per_nine = (hits_for.to_f / innings.to_f).round(2) * 9
 
-						runs_against_per_at_bat = (runs_against.to_f / at_bats_against.to_f).round(2)
+						runs_against_per_at_bat = (1.0 / (runs_against.to_f / at_bats_against.to_f)).round(2)
 						opp_hits_needed_per_run = (hits_against.to_f / runs_against.to_f).round(2)
 						opp_runs_per_inning = (runs_against.to_f / innings.to_f).round(2)
 						opp_at_bats_per_nine = ((at_bats_against.to_f/innings.to_f).round(2) * 9).round(2)
@@ -538,7 +538,6 @@ module ApplicationHelper
 		team_bullpen_workload_against = team_bullpen_workload_against.sort
 		team_bullpen_workload_against = team_bullpen_workload_against.reverse
 
-		@test = team_bullpen_rpp
 
 		team_runs_for.each do |r|
 
@@ -616,11 +615,11 @@ module ApplicationHelper
 
 				if t.class == Hash
 
-					if r == t[:bullpen_runs_per_pitch]
+					if r.to_i == t[:bullpen_runs_per_pitch].to_i
 
 						team_data = Hash.new
 						team_data[:team] = t[:team_name]
-						team_data[:bullpen_runs_per_pitch] = t[:bullpen_runs_per_pitch]
+						team_data[:bullpen_rpp] = t[:bullpen_runs_per_pitch]
 						@bullpen_rpp_standings.push(team_data) unless @bullpen_rpp_standings.include?(team_data)
 
 					end

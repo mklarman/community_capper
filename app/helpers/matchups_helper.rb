@@ -1036,4 +1036,90 @@ module MatchupsHelper
 
 
 	end
+
+	def get_home_game_logs(team_id)
+
+		MlbGameLog.all.each do |m|
+
+			if m.team_id.to_i == team_id.to_i
+
+				@home_game_logs.push(m)
+
+			end
+
+		end
+
+	end
+
+	def get_away_game_logs(team_id)
+
+		MlbGameLog.all.each do |m|
+
+			if m.team_id.to_i == team_id.to_i
+
+				@away_game_logs.push(m)
+
+			end
+
+		end
+
+	end
+
+	def get_games_vs_team_home(team_abbr)
+
+		@home_game_logs.each do |h|
+
+			if h.opp == team_abbr
+
+				@home_vs_opp.push(h)
+
+			end
+
+		end
+
+
+	end
+
+	def get_games_vs_team_away(team_abbr)
+
+		@away_game_logs.each do |h|
+
+			if h.opp == team_abbr
+
+				@away_vs_opp.push(h)
+
+			end
+
+		end
+
+
+	end
+
+	def get_home_vs_pitcher(pitcher)
+
+		@home_game_logs.each do |h|
+
+			if h.opp_starting_pitcher == pitcher
+
+				@home_vs_pitcher.push(h)
+
+			end
+
+		end
+
+	end
+
+	def get_away_vs_pitcher(pitcher)
+
+		@away_game_logs.each do |h|
+
+			if h.opp_starting_pitcher == pitcher
+
+				@away_vs_pitcher.push(h)
+
+			end
+
+		end
+
+	end
 end
