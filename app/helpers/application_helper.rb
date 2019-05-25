@@ -516,7 +516,6 @@ module ApplicationHelper
 		team_at_bats_for = team_at_bats_for.reverse
 		team_at_bats_against = team_at_bats_against.sort
 		team_runs_per_at_bat = team_runs_per_at_bat.sort
-		team_runs_per_at_bat = team_runs_per_at_bat.reverse
 		team_hits_per_nine = team_hits_per_nine.sort
 		team_hits_per_nine = team_hits_per_nine.reverse
 		team_hits_per_run = team_hits_per_run.sort
@@ -531,6 +530,7 @@ module ApplicationHelper
 		team_quality_at_bats_per_run = team_quality_at_bats_per_run.sort
 		team_at_bats_against = team_at_bats_against.sort
 		team_runs_against_per_ab = team_runs_against_per_ab.sort
+		team_runs_against_per_ab = team_runs_against_per_ab.reverse
 		team_hits_against_per_nine = team_hits_against_per_nine.sort
 		team_hits_against_per_run_against = team_hits_against_per_run_against.sort
 		team_hits_against_per_run_against = team_hits_against_per_run_against.reverse
