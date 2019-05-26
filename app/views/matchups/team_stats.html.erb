@@ -592,11 +592,7 @@
 					
 					<% if r.class == Hash %>
 
-						<% @pitches_per_run = (1 / (r[:bullpen_rpp].to_f)).round(2) %>
-
-						<% @pitches_per_run = @pitches_per_run.to_s %>
-
-						<%= @position + " " + r[:team] + "  " + @pitches_per_run %> 
+						<%= @position + " " + r[:team] + "  " + r[:bullpen_rpp].to_s %> 
 
 					<% end %>
 
@@ -613,6 +609,8 @@
 
 
 </div>
+
+
 
 
 

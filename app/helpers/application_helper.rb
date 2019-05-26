@@ -619,7 +619,7 @@ module ApplicationHelper
 
 						team_data = Hash.new
 						team_data[:team] = t[:team_name]
-						team_data[:bullpen_rpp] = t[:bullpen_runs_per_pitch]
+						team_data[:bullpen_rpp] = (1.0/t[:bullpen_runs_per_pitch]).round(2)
 						@bullpen_rpp_standings.push(team_data) unless @bullpen_rpp_standings.include?(team_data)
 
 					end
