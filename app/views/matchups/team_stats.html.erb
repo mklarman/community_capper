@@ -24,10 +24,14 @@
 
 <% @team_starter_workload = [] %>
 
+
 <% self.get_team_rankings %>
 <% self.sort_teams_by_category(@team_holder) %>
 
+<%= @bullpen_rpp_standings %>
+
 <div style="margin: auto; font-size: 25px; text-align: center;">NATIONAL LEAGUE STATS SINCE MAY 13TH</div>
+
 
 
 
@@ -588,7 +592,7 @@
 					
 					<% if r.class == Hash %>
 
-						<% @pitches_per_run = (100.0 / (r[:bullpen_runs_per_pitch].to_f * 100)).round(2) %>
+						<% @pitches_per_run = (1 / (r[:bullpen_rpp].to_f)).round(2) %>
 
 						<% @pitches_per_run = @pitches_per_run.to_s %>
 
