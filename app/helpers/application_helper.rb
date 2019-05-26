@@ -537,6 +537,7 @@ module ApplicationHelper
 		team_starter_workload_against = team_starter_workload_against.sort
 		team_bullpen_workload_against = team_bullpen_workload_against.sort
 		team_bullpen_workload_against = team_bullpen_workload_against.reverse
+		
 
 
 		team_runs_for.each do |r|
@@ -615,12 +616,13 @@ module ApplicationHelper
 
 				if t.class == Hash
 
-					if r.to_i == t[:bullpen_runs_per_pitch].to_i
+					if r == t[:bullpen_runs_per_pitch]
 
 						team_data = Hash.new
 						team_data[:team] = t[:team_name]
 						team_data[:bullpen_rpp] = (1.0/t[:bullpen_runs_per_pitch]).round(2)
 						@bullpen_rpp_standings.push(team_data) unless @bullpen_rpp_standings.include?(team_data)
+
 
 					end
 
