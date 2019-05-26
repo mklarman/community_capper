@@ -1122,4 +1122,39 @@ module MatchupsHelper
 		end
 
 	end
+
+	def compute_home_vs_team
+
+		@starter_pitches = 0
+		@bullpen_pitches = 0
+		@runs_for = 0
+		@runs_against = 0
+		@hits_for = 0
+		@hits_against = 0
+		@at_bats_for = 0
+		@at_bats_against = 0
+		@innings = 0
+		@opp_starter_pitches = 0
+		@opp_bullpen_pitches = 0
+
+		@home_game_logs.each do |m|
+
+			@starter_pitches += m.team_starter_pitches.to_i
+			@bullpen_pitches += m.team_bullpen_picthes.to_i
+			@runs_for += m.team_runs.to_i
+			@runs_against += m.opp_runs.to_i
+			@hits_for += m.team_hits.to_i
+			@hits_against += m.opp_hits.to_i
+			@at_bats_for += m.at_bats_for.to_i
+			@at_bats_against += m.at_bats_against.to_i
+			@innings += m.innings.to_i
+			@opp_starter_pitches += m.opp_starter_pitches.to_i
+			@opp_bullpen_pitches += m.opp_bullpen_picthes.to_i
+
+		end
+
+		@home_runs_per_game = ((@runs_for.to_f / @innings.to_f) * 9).round(2)
+
+
+	end
 end
