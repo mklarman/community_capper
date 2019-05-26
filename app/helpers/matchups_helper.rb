@@ -1,5 +1,196 @@
 module MatchupsHelper
 
+	def define_home_away
+
+		Team.all.each do |t|
+
+			if @matchup.fav == t.matchup_abbr
+
+				if @matchup.fav_field == "home"
+
+					@home_team = t
+
+
+				else
+
+					if @matchup.fav_field == "away"
+
+						@road_team = t
+
+					end
+
+
+				end
+
+
+			end
+
+			if @matchup.dog == t.matchup_abbr
+
+				if @matchup.dog_field == "home"
+
+
+					@home_team = t
+
+				else
+
+					@road_team = t
+
+
+				end
+
+			end
+
+		end
+
+
+	end
+
+	def get_home_game_logs
+
+		@home_team.mlb_game_logs.each do |m|
+
+			@home_team_all_games.push(m)
+
+			if m.home.downcase == "true"
+
+				@home_team_home_games.push(m)
+
+			end
+
+			if m.opp == @road_team.matchup_abbr
+
+				@home_vs_opp.push(m)
+
+			end
+
+			if m.opp_starting_pitcher == @matchup.away_pitcher
+
+				@home_vs_pitcher.push(m)
+
+
+			end
+
+			@home_team.mlb_game_logs.last(10).each do |mlb|
+
+				if m == mlb
+
+					@home_last_ten.push(m)
+
+				end
+
+
+			end
+
+
+		end
+
+	end
+
+	def get_away_game_logs
+
+		@road_team.mlb_game_logs.each do |m|
+
+			@road_team_all_games.push(m)
+
+			if m.home.downcase == "false"
+
+				@road_team_road_games.push(m)
+
+			end
+
+			if m.opp == @home_team.matchup_abbr
+
+				@road_vs_opp.push(m)
+
+			end
+
+			if m.opp_starting_pitcher == @matchup.home_pitcher
+
+				@road_vs_pitcher.push(m)
+
+
+			end
+
+			@road_team.mlb_game_logs.last(10).each do |mlb|
+
+				if m == mlb
+
+					@road_last_ten.push(m)
+
+				end
+
+
+			end
+
+
+		end
+		
+
+	end
+
+	def compute_stats(array)
+
+		@starter_pitches = 0
+		@bullpen_pitches = 0
+		@runs_for = 0
+		@runs_against = 0
+		@hits_for = 0
+		@hits_against = 0
+		@at_bats_for = 0
+		@at_bats_against = 0
+		@innings = 0
+		@opp_starter_pitches = 0
+		@opp_bullpen_pitches = 0
+		@runs_by_bullpen = 0
+
+		@array.each do |m|
+
+			@starter_pitches += m.team_starter_pitches.to_i
+			@bullpen_pitches += m.team_bullpen_picthes.to_i
+			@runs_for += m.team_runs.to_i
+			@runs_against += m.opp_runs.to_i
+			@hits_for += m.team_hits.to_i
+			@hits_against += m.opp_hits.to_i
+			@at_bats_for += m.at_bats_for.to_i
+			@at_bats_against += m.at_bats_against.to_i
+			@innings += m.innings.to_i
+			@opp_starter_pitches += m.opp_starter_pitches.to_i
+			@opp_bullpen_pitches += m.opp_bullpen_picthes.to_i
+			@runs_by_bullpen += m.runs_by_team_bullpen
+
+		end
+
+		runs_per_game = ((@runs_for.to_f / @innings.to_f) * 9).round(2)
+		runs_against = ((@runs_against.to_f / @innings.to_f) * 9).round(2)
+		hits_per_game = ((@hits_for.to_f / @innings.to_f) * 9).round(2)
+		hits_against_per_game = ((@hits_against.to_f / @innings.to_f) * 9).round(2)
+		at_bats_per_game = ((@at_bats_for.to_f / @innings.to_f) * 9).round(2)
+		at_bats_against_per_game = ((@at_bats_against.to_f / @innings.to_f) * 9).round(2)
+		at_bats_per_run = (1.0 / (@runs_for.to_f / @at_bats_for.to_f )).round(2)
+
+
+	end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	def get_all_home_team_matchups (sport, team)
 
 		Matchup.all.each do |m|
@@ -991,79 +1182,8 @@ module MatchupsHelper
 
 	end
 
-	def define_home_away
-
-		Team.all.each do |t|
-
-			if @matchup.fav == t.matchup_abbr
-
-				if @matchup.fav_field == "home"
-
-					@home_team = t
 
 
-				else
-
-					if @matchup.fav_field == "away"
-
-						@road_team = t
-
-					end
-
-
-				end
-
-
-			end
-
-			if @matchup.dog == t.matchup_abbr
-
-				if @matchup.dog_field == "home"
-
-
-					@home_team = t
-
-				else
-
-					@road_team = t
-
-
-				end
-
-			end
-
-		end
-
-
-	end
-
-	def get_home_game_logs(team_id)
-
-		MlbGameLog.all.each do |m|
-
-			if m.team_id.to_i == team_id.to_i
-
-				@home_game_logs.push(m)
-
-			end
-
-		end
-
-	end
-
-	def get_away_game_logs(team_id)
-
-		MlbGameLog.all.each do |m|
-
-			if m.team_id.to_i == team_id.to_i
-
-				@away_game_logs.push(m)
-
-			end
-
-		end
-
-	end
 
 	def get_games_vs_team_home(team_abbr)
 
@@ -1120,41 +1240,6 @@ module MatchupsHelper
 			end
 
 		end
-
-	end
-
-	def compute_home_vs_team
-
-		@starter_pitches = 0
-		@bullpen_pitches = 0
-		@runs_for = 0
-		@runs_against = 0
-		@hits_for = 0
-		@hits_against = 0
-		@at_bats_for = 0
-		@at_bats_against = 0
-		@innings = 0
-		@opp_starter_pitches = 0
-		@opp_bullpen_pitches = 0
-
-		@home_game_logs.each do |m|
-
-			@starter_pitches += m.team_starter_pitches.to_i
-			@bullpen_pitches += m.team_bullpen_picthes.to_i
-			@runs_for += m.team_runs.to_i
-			@runs_against += m.opp_runs.to_i
-			@hits_for += m.team_hits.to_i
-			@hits_against += m.opp_hits.to_i
-			@at_bats_for += m.at_bats_for.to_i
-			@at_bats_against += m.at_bats_against.to_i
-			@innings += m.innings.to_i
-			@opp_starter_pitches += m.opp_starter_pitches.to_i
-			@opp_bullpen_pitches += m.opp_bullpen_picthes.to_i
-
-		end
-
-		@home_runs_per_game = ((@runs_for.to_f / @innings.to_f) * 9).round(2)
-
 
 	end
 end

@@ -1,7 +1,26 @@
+<% @test = [] %>
 <% @home_team %>
 <% @road_team %>
 
+<% @home_team_all_games = [] %>
+<% @home_team_home_games = [] %>
+<% @home_vs_opp = [] %>
+<% @home_vs_pitcher = [] %>
+<% @home_last_ten = [] %>
+
+<% @road_team_all_games = [] %>
+<% @road_team_road_games = [] %>
+<% @road_vs_opp = [] %>
+<% @road_vs_pitcher = [] %>
+<% @road_last_ten = [] %>
+
+
 <% self.define_home_away %>
+<% self.get_home_game_logs %>
+<% self.get_away_game_logs %>
+
+
+
 
 <%= @home_team.matchup_abbr %>
 <%= @road_team.matchup_abbr %>
@@ -38,6 +57,41 @@
 
 <% self.load_home_team_stats(@home_team) %>
 <% self.load_road_team_stats(@road_team) %>
+
+<div id="matchup_edit_banner"><%= @home_team.matchup_abbr + " " + @matchup.fav_ml + " vs " + @road_team.matchup_abbr + " " + @matchup.dog_ml %> </div>
+
+<div id="matchup_edit_cont">
+	
+	<div class="matchup_stats">
+
+		<div>
+			
+			<div id="overall_nums"></div>
+
+		</div>
+		<div>
+			
+
+		</div>
+		<div>
+			
+
+		</div>
+		
+
+
+	</div>
+	<div class="matchup_stats">
+		
+
+
+	</div>
+
+
+
+
+
+</div>
 
 <% @home_opp_starter_workload = ((@home_all_opp_starter_pitches.to_f / @home_all_opp_pitches) * 100).round(2).to_s + "%" %>
 
