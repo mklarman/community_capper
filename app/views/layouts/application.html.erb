@@ -14,16 +14,20 @@
 
     <%= link_to "Sign Up", new_user_registration_path, class: 'link_tabs'  %>
 
-    <% if current_user.admin == true %>
+    <% if current_user %>
 
-    	<%= link_to "Sign Up", new_user_registration_path, class: 'link_tabs'  %>
-    	<%= link_to "SEARCH", users_search_path %>
-      <%= link_to "NEW MATCHUP", new_matchup_path %>
-    	<%= link_to "New Tag", new_tag_path %>
-      <%= link_to "New Team", new_team_path %>
-      <%= link_to "All Teams", teams_path %>
-      <%= link_to "All Matchups", matchups_path %>
-    	<%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'link_tabs'  %></div>
+      <% if current_user.admin == true %>
+
+      	<%= link_to "Sign Up", new_user_registration_path, class: 'link_tabs'  %>
+      	<%= link_to "SEARCH", users_search_path %>
+        <%= link_to "NEW MATCHUP", new_matchup_path %>
+      	<%= link_to "New Tag", new_tag_path %>
+        <%= link_to "New Team", new_team_path %>
+        <%= link_to "All Teams", teams_path %>
+        <%= link_to "All Matchups", matchups_path %>
+      	<%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'link_tabs'  %></div>
+
+      <% end %>
 
     <% end %>
 
