@@ -29,3 +29,34 @@
 
 	margin-top: 5%;
 }
+
+.stat_cont{
+
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 2%;
+	margin-top: 5%;
+}
+
+.stat_label{
+
+	font-size: 20px;
+	margin-bottom: 5%;
+}
+
+.stat_data{
+
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+
+#index_matchup_banner{
+
+	height: 100%;
+	width: 100%;
+	font-size: 25px;
+	text-align: center;
+	margin-top: 5%;
+	margin-bottom: 5%;
+
+}

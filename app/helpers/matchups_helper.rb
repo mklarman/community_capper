@@ -9,6 +9,7 @@ module MatchupsHelper
 				if @matchup.fav_field == "home"
 
 					@home_team = t
+					@home_spread = @matchup.fav_ml
 
 
 				else
@@ -16,6 +17,7 @@ module MatchupsHelper
 					if @matchup.fav_field == "away"
 
 						@road_team = t
+						@road_spread = @matchup.fav_ml
 
 					end
 
@@ -29,12 +31,13 @@ module MatchupsHelper
 
 				if @matchup.dog_field == "home"
 
-
 					@home_team = t
+					@home_spread = @matchup.dog_ml
 
 				else
 
 					@road_team = t
+					@road_spread = @matchup.dog_ml
 
 
 				end
@@ -131,6 +134,12 @@ module MatchupsHelper
 
 	def compute_stats(array)
 
+		if array == @road_last_ten
+
+			@test = true 
+
+		end
+
 		@starter_pitches = 0
 		@bullpen_pitches = 0
 		@runs_for = 0
@@ -143,8 +152,11 @@ module MatchupsHelper
 		@opp_starter_pitches = 0
 		@opp_bullpen_pitches = 0
 		@runs_by_bullpen = 0
+		@runs_by_starter = 0
+		@runs_by_opp_bullpen = 0
+		@runs_by_opp_starter = 0
 
-		@array.each do |m|
+		array.each do |m|
 
 			@starter_pitches += m.team_starter_pitches.to_i
 			@bullpen_pitches += m.team_bullpen_picthes.to_i
@@ -157,20 +169,331 @@ module MatchupsHelper
 			@innings += m.innings.to_i
 			@opp_starter_pitches += m.opp_starter_pitches.to_i
 			@opp_bullpen_pitches += m.opp_bullpen_picthes.to_i
-			@runs_by_bullpen += m.runs_by_team_bullpen
+			@runs_by_bullpen += m.runs_by_team_bullpen.to_i
+			@runs_by_starter += m.runs_by_team_starter.to_i
+			@runs_by_opp_bullpen += m.runs_by_opp_bullpen.to_i
+			@runs_by_opp_starter += m.runs_by_opp_starter.to_i
 
 		end
 
 		runs_per_game = ((@runs_for.to_f / @innings.to_f) * 9).round(2)
 		runs_against = ((@runs_against.to_f / @innings.to_f) * 9).round(2)
-		hits_per_game = ((@hits_for.to_f / @innings.to_f) * 9).round(2)
+		hits_per_game = ((@hits_for.to_i / @innings.to_f).round(2) * 9).round(2)
 		hits_against_per_game = ((@hits_against.to_f / @innings.to_f) * 9).round(2)
 		at_bats_per_game = ((@at_bats_for.to_f / @innings.to_f) * 9).round(2)
 		at_bats_against_per_game = ((@at_bats_against.to_f / @innings.to_f) * 9).round(2)
 		at_bats_per_run = (1.0 / (@runs_for.to_f / @at_bats_for.to_f )).round(2)
+		run_diff = (@runs_for - @runs_against)
+		hits_needed_per_run = (@hits_for.to_f / @runs_for.to_f).round(2)
+		innings_per_run = (@innings.to_f / @runs_for.to_f).round(2)
+		pitches_seen_per_game = (((@opp_starter_pitches.to_f + @opp_bullpen_pitches.to_f) / @innings.to_f) * 9).round(2)
+		runs_per_pitch_by_opp = (1.0 / (@runs_for.to_f / (@opp_starter_pitches.to_f + @opp_bullpen_pitches.to_f))).round(3)
+		at_bats_per_nine = ((@at_bats_for.to_f/ @innings.to_f) * 9).round(2)
+		hits_per_nine = (@hits_for.to_f / @innings.to_f).round(2) * 9
+
+		runs_against_per_at_bat = (1.0 / (@runs_against.to_f / @at_bats_against.to_f)).round(2)
+		opp_hits_needed_per_run = (@hits_against.to_f / @runs_against.to_f).round(2)
+		opp_runs_per_inning = (@runs_against.to_f / @innings.to_f).round(2)
+		opp_at_bats_per_nine = ((@at_bats_against.to_f/ @innings.to_f).round(2) * 9).round(2)
+		opp_hits_per_nine = ((@hits_against.to_f / @innings.to_f).round(2) * 9).round(2)
+
+		pitches_thrown_per_game = (((@starter_pitches.to_f + @bullpen_pitches.to_f) / @innings.to_f) * 9).round(2)
+		
+		opp_runs_per_pitch = (1.0 / (@runs_against.to_f / pitches_thrown_per_game)).round(2)
+
+		starter_freq = ((@starter_pitches.to_f / (@starter_pitches + @bullpen_pitches).to_f) * 100).round(2)
+		starter_freq_to_string = starter_freq.to_s + "%"
+		bullpen_freq = (100.0 - starter_freq).round(2)
+		bullpen_freq_to_string = bullpen_freq.to_s + "%"
+		bullpen_rpp = (1.0 / (@runs_by_bullpen.to_f / @bullpen_pitches.to_f)).round(3)
+		starter_rpp = (1.0 / (@runs_by_starter.to_f / @starter_pitches.to_f)).round(3)
+
+		opp_bullpen_rpp = (1.0 / (@runs_by_opp_bullpen.to_f / @opp_bullpen_pitches.to_f)).round(3)
+		opp_starter_rpp = (1.0 / (@runs_by_opp_starter.to_f / @opp_starter_pitches.to_f)).round(3)
+
+		opp_starter_freq = ((@opp_starter_pitches.to_f / (@opp_starter_pitches + @opp_bullpen_pitches).to_f) * 100).round(2)
+		opp_bullpen_freq = (100.00 - opp_starter_freq).round(2)
+		opp_starter_freq_to_s = opp_starter_freq.to_s + "%"
+		opp_bullpen_freq_to_s = opp_bullpen_freq.to_s + "%"
+
+
+		good_at_bats_per_run = (@at_bats_for.to_f - (@innings * 3) / @runs_for.to_f).round(2)
+
+		opp_good_at_bats_per_run = (@at_bats_against.to_f - (@innings * 3) / @runs_against.to_f).round(2)
+
+		if array == @home_team_all_games
+
+			home_team_all = Hash.new
+
+			home_team_all[:run_diff] = run_diff
+			home_team_all[:runs_per_game] = runs_per_game
+			home_team_all[:runs_against_per_game] = runs_against
+			home_team_all[:hits_per_game] = hits_per_game.round(2)
+			home_team_all[:hits_against_per_game] = hits_against_per_game
+			home_team_all[:at_bats_per_game] = at_bats_per_game
+			home_team_all[:at_bats_against_per_game] = at_bats_against_per_game
+			home_team_all[:at_bats_per_run] = at_bats_per_run
+			home_team_all[:hits_needed_per_run] = hits_needed_per_run
+			home_team_all[:innings_per_run] = innings_per_run
+			home_team_all[:pitches_seen_per_game] = pitches_seen_per_game
+			home_team_all[:runs_per_pitch_by_opp] = runs_per_pitch_by_opp
+			home_team_all[:at_bats_per_nine] = at_bats_per_nine
+			home_team_all[:hits_per_nine] = hits_per_nine
+			home_team_all[:pitches_thrown_per_game] = pitches_thrown_per_game
+			home_team_all[:opp_runs_per_pitch] = opp_runs_per_pitch
+			home_team_all[:bullpen_rpp] = bullpen_rpp
+			home_team_all[:starter_rpp] = starter_rpp
+
+			@home_all_stats = home_team_all
+
+		end
+
+
+		if array == @home_team_home_games
+
+			home_team_home = Hash.new
+
+			home_team_home[:run_diff] = run_diff
+			home_team_home[:runs_per_game] = runs_per_game
+			home_team_home[:runs_against_per_game] = runs_against
+			home_team_home[:hits_per_game] = hits_per_game
+			home_team_home[:hits_against_per_game] = hits_against_per_game
+			home_team_home[:at_bats_per_game] = at_bats_per_game
+			home_team_home[:at_bats_against_per_game] = at_bats_against_per_game
+			home_team_home[:at_bats_per_run] = at_bats_per_run
+			home_team_home[:hits_needed_per_run] = hits_needed_per_run
+			home_team_home[:innings_per_run] = innings_per_run
+			home_team_home[:pitches_seen_per_game] = pitches_seen_per_game
+			home_team_home[:runs_per_pitch_by_opp] = runs_per_pitch_by_opp
+			home_team_home[:at_bats_per_nine] = at_bats_per_nine
+			home_team_home[:hits_per_nine] = hits_per_nine
+			home_team_home[:pitches_thrown_per_game] = pitches_thrown_per_game
+			home_team_home[:opp_runs_per_pitch] = opp_runs_per_pitch
+			home_team_home[:bullpen_rpp] = bullpen_rpp
+			home_team_home[:starter_rpp] = starter_rpp
+
+			@home_home_stats = home_team_home
+
+		end
+
+		if array == @home_vs_opp
+
+			home_team_opp = Hash.new
+
+			home_team_opp[:run_diff] = run_diff
+			home_team_opp[:runs_per_game] = runs_per_game
+			home_team_opp[:hits_per_game] = hits_per_game
+			home_team_opp[:at_bats_per_game] = at_bats_per_game
+			home_team_opp[:at_bats_per_run] = at_bats_per_run
+			home_team_opp[:hits_needed_per_run] = hits_needed_per_run
+			home_team_opp[:innings_per_run] = innings_per_run
+			home_team_opp[:pitches_seen_per_game] = pitches_seen_per_game
+			home_team_opp[:runs_per_pitch_by_opp] = runs_per_pitch_by_opp
+			home_team_opp[:at_bats_per_nine] = at_bats_per_nine
+			home_team_opp[:hits_per_nine] = hits_per_nine
+			home_team_opp[:pitches_thrown_per_game] = pitches_thrown_per_game
+			home_team_opp[:opp_runs_per_pitch] = opp_runs_per_pitch
+			home_team_opp[:bullpen_rpp] = bullpen_rpp
+			home_team_opp[:starter_rpp] = starter_rpp
+
+			@home_opp_stats = home_team_opp
+
+		end
+		
+		if array == @home_vs_pitcher
+
+			home_team_pitcher = Hash.new
+
+			home_team_pitcher[:run_diff] = run_diff
+			home_team_pitcher[:runs_per_game] = runs_per_game
+			home_team_pitcher[:hits_per_game] = hits_per_game
+			home_team_pitcher[:at_bats_per_game] = at_bats_per_game
+			home_team_pitcher[:at_bats_per_run] = at_bats_per_run
+			home_team_pitcher[:hits_needed_per_run] = hits_needed_per_run
+			home_team_pitcher[:innings_per_run] = innings_per_run
+			home_team_pitcher[:pitches_seen_per_game] = pitches_seen_per_game
+			home_team_pitcher[:runs_per_pitch_by_opp] = runs_per_pitch_by_opp
+			home_team_pitcher[:at_bats_per_nine] = at_bats_per_nine
+			home_team_pitcher[:hits_per_nine] = hits_per_nine
+			home_team_pitcher[:opp_starter_freq] = opp_starter_freq_to_s
+			home_team_pitcher[:opp_bullpen_freq] = opp_bullpen_freq_to_s
+			home_team_pitcher[:opp_bullpen_rpp] = opp_bullpen_rpp
+			home_team_pitcher[:opp_starter_rpp] = opp_starter_rpp
+
+			@home_pitcher_stats = home_team_pitcher
+
+		end
+		
+		if array == @home_last_ten
+
+			home_team_last_ten = Hash.new
+
+			home_team_last_ten[:run_diff] = run_diff
+			home_team_last_ten[:runs_per_game] = runs_per_game
+			home_team_last_ten[:runs_against_per_game] = runs_against
+			home_team_last_ten[:hits_per_game] = hits_per_game
+			home_team_last_ten[:hits_against_per_game] = hits_against_per_game
+			home_team_last_ten[:at_bats_per_game] = at_bats_per_game
+			home_team_last_ten[:at_bats_against_per_game] = at_bats_against_per_game
+			home_team_last_ten[:at_bats_per_run] = at_bats_per_run
+			home_team_last_ten[:hits_needed_per_run] = hits_needed_per_run
+			home_team_last_ten[:innings_per_run] = innings_per_run
+			home_team_last_ten[:pitches_seen_per_game] = pitches_seen_per_game
+			home_team_last_ten[:runs_per_pitch_by_opp] = runs_per_pitch_by_opp
+			home_team_last_ten[:at_bats_per_nine] = at_bats_per_nine
+			home_team_last_ten[:hits_per_nine] = hits_per_nine
+			home_team_last_ten[:pitches_thrown_per_game] = pitches_thrown_per_game
+			home_team_last_ten[:opp_runs_per_pitch] = opp_runs_per_pitch
+			home_team_last_ten[:starter_freq_to_string] = starter_freq_to_string
+			home_team_last_ten[:bullpen_freq_to_string] = bullpen_freq_to_string
+			home_team_last_ten[:bullpen_rpp] = bullpen_rpp
+			home_team_last_ten[:starter_rpp] = starter_rpp
+
+			@home_last_ten_stats = home_team_last_ten
+
+		end
+		
+		if array == @road_team_all_games
+
+			road_team_all = Hash.new
+
+			road_team_all[:run_diff] = run_diff
+			road_team_all[:runs_per_game] = runs_per_game
+			road_team_all[:runs_against_per_game] = runs_against
+			road_team_all[:hits_per_game] = hits_per_game
+			road_team_all[:hits_against_per_game] = hits_against_per_game
+			road_team_all[:at_bats_per_game] = at_bats_per_game
+			road_team_all[:at_bats_against_per_game] = at_bats_against_per_game
+			road_team_all[:at_bats_per_run] = at_bats_per_run
+			road_team_all[:hits_needed_per_run] = hits_needed_per_run
+			road_team_all[:innings_per_run] = innings_per_run
+			road_team_all[:pitches_seen_per_game] = pitches_seen_per_game
+			road_team_all[:runs_per_pitch_by_opp] = runs_per_pitch_by_opp
+			road_team_all[:at_bats_per_nine] = at_bats_per_nine
+			road_team_all[:hits_per_nine] = hits_per_nine
+			road_team_all[:pitches_thrown_per_game] = pitches_thrown_per_game
+			road_team_all[:opp_runs_per_pitch] = opp_runs_per_pitch
+			road_team_all[:bullpen_rpp] = bullpen_rpp
+			road_team_all[:starter_rpp] = starter_rpp
+
+			@road_all_stats = road_team_all
+
+		end
+		
+		if array == @road_team_road_games
+
+			road_team_road = Hash.new
+
+			road_team_road[:run_diff] = run_diff
+			road_team_road[:runs_per_game] = runs_per_game
+			road_team_road[:runs_against_per_game] = runs_against
+			road_team_road[:hits_per_game] = hits_per_game
+			road_team_road[:hits_against_per_game] = hits_against_per_game
+			road_team_road[:at_bats_per_game] = at_bats_per_game
+			road_team_road[:at_bats_against_per_game] = at_bats_against_per_game
+			road_team_road[:at_bats_per_run] = at_bats_per_run
+			road_team_road[:hits_needed_per_run] = hits_needed_per_run
+			road_team_road[:innings_per_run] = innings_per_run
+			road_team_road[:pitches_seen_per_game] = pitches_seen_per_game
+			road_team_road[:runs_per_pitch_by_opp] = runs_per_pitch_by_opp
+			road_team_road[:at_bats_per_nine] = at_bats_per_nine
+			road_team_road[:hits_per_nine] = hits_per_nine
+			road_team_road[:pitches_thrown_per_game] = pitches_thrown_per_game
+			road_team_road[:opp_runs_per_pitch] = opp_runs_per_pitch
+			road_team_road[:bullpen_rpp] = bullpen_rpp
+			road_team_road[:starter_rpp] = starter_rpp
+
+			@road_road_stats = road_team_road
+
+		end
+		
+		if array == @road_vs_opp
+
+			road_team_opp = Hash.new
+
+			road_team_opp[:run_diff] = run_diff
+			road_team_opp[:runs_per_game] = runs_per_game
+			road_team_opp[:hits_per_game] = hits_per_game
+			road_team_opp[:at_bats_per_game] = at_bats_per_game
+			road_team_opp[:at_bats_per_run] = at_bats_per_run
+			road_team_opp[:hits_needed_per_run] = hits_needed_per_run
+			road_team_opp[:innings_per_run] = innings_per_run
+			road_team_opp[:pitches_seen_per_game] = pitches_seen_per_game
+			road_team_opp[:runs_per_pitch_by_opp] = runs_per_pitch_by_opp
+			road_team_opp[:at_bats_per_nine] = at_bats_per_nine
+			road_team_opp[:hits_per_nine] = hits_per_nine
+			road_team_opp[:pitches_thrown_per_game] = pitches_thrown_per_game
+			road_team_opp[:opp_runs_per_pitch] = opp_runs_per_pitch
+			road_team_opp[:bullpen_rpp] = bullpen_rpp
+			road_team_opp[:starter_rpp] = starter_rpp
+
+			@road_opp_stats = road_team_opp
+
+		end
+
+		
+		if array == @road_vs_pitcher
+
+			road_team_pitcher = Hash.new
+
+			road_team_pitcher[:run_diff] = run_diff
+			road_team_pitcher[:runs_per_game] = runs_per_game
+			road_team_pitcher[:hits_per_game] = hits_per_game
+			road_team_pitcher[:at_bats_per_game] = at_bats_per_game
+			road_team_pitcher[:at_bats_per_run] = at_bats_per_run
+			road_team_pitcher[:hits_needed_per_run] = hits_needed_per_run
+			road_team_pitcher[:innings_per_run] = innings_per_run
+			road_team_pitcher[:pitches_seen_per_game] = pitches_seen_per_game
+			road_team_pitcher[:runs_per_pitch_by_opp] = runs_per_pitch_by_opp
+			road_team_pitcher[:at_bats_per_nine] = at_bats_per_nine
+			road_team_pitcher[:hits_per_nine] = hits_per_nine
+			road_team_pitcher[:opp_starter_freq] = opp_starter_freq_to_s
+			road_team_pitcher[:opp_bullpen_freq] = opp_bullpen_freq_to_s
+			road_team_pitcher[:bullpen_rpp] = bullpen_rpp
+			road_team_pitcher[:starter_rpp] = starter_rpp
+			road_team_pitcher[:opp_bullpen_rpp] = opp_bullpen_rpp
+			road_team_pitcher[:opp_starter_rpp] = opp_starter_rpp
+
+			@road_pitcher_stats = road_team_pitcher
+
+		end
+		
+		if array == @road_last_ten
+
+			road_team_last_ten = Hash.new
+
+			road_team_last_ten[:run_diff] = run_diff
+			road_team_last_ten[:runs_per_game] = runs_per_game
+			road_team_last_ten[:runs_against_per_game] = runs_against
+			road_team_last_ten[:hits_per_game] = hits_per_game
+			road_team_last_ten[:hits_against_per_game] = hits_against_per_game
+			road_team_last_ten[:at_bats_per_game] = at_bats_per_game
+			road_team_last_ten[:at_bats_against_per_game] = at_bats_against_per_game
+			road_team_last_ten[:at_bats_per_run] = at_bats_per_run
+			road_team_last_ten[:hits_needed_per_run] = hits_needed_per_run
+			road_team_last_ten[:innings_per_run] = innings_per_run
+			road_team_last_ten[:pitches_seen_per_game] = pitches_seen_per_game
+			road_team_last_ten[:runs_per_pitch_by_opp] = runs_per_pitch_by_opp
+			road_team_last_ten[:at_bats_per_nine] = at_bats_per_nine
+			road_team_last_ten[:hits_per_nine] = hits_per_nine
+			road_team_last_ten[:pitches_thrown_per_game] = pitches_thrown_per_game
+			road_team_last_ten[:opp_runs_per_pitch] = opp_runs_per_pitch
+			road_team_last_ten[:starter_freq_to_string] = starter_freq_to_string
+			road_team_last_ten[:bullpen_freq_to_string] = bullpen_freq_to_string
+			road_team_last_ten[:bullpen_rpp] = bullpen_rpp
+			road_team_last_ten[:starter_rpp] = starter_rpp
+
+			@road_last_ten_stats = road_team_last_ten
+
+
+		end
 
 
 	end
+
+	
+
+	
 
 
 

@@ -1,9 +1,9 @@
-
+<div id="index_matchup_banner">CLICK ON A MATCHUP BELOW</div>
 
 <% @matchups.all.each do |m| %>
 
 	<% @link_tab = m.fav + " " + m.fav_ml + " " + m.dog %>
 
-	<div><%= link_to @link_tab, edit_matchup_path(m.id) %> </div>
+	<div style="margin-bottom: 3%;"><%= link_to @link_tab, edit_matchup_path(m.id) %> </div>
 
 <% end %>
