@@ -1,8 +1,11 @@
+<% @my_date %>
+<% self.get_time %>
+
 <div>CREATE A MATCHUP</div>
 
 <%= form_for @matchup do |m| %>
 			
-	<div>Date: <%= m.text_field :date %></div>
+	<div>Date: <%= m.text_field :date, value: @my_date %></div>
 	<div>Sport: <%= m.text_field :sport %></div>
 	<div>Favorite: <%= m.text_field :fav %></div>
 	<div>Underdog: <%= m.text_field :dog %></div>
