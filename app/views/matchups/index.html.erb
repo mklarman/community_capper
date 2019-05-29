@@ -1,9 +1,20 @@
+<% @my_date %>
+<% @matchup_date %>
+<% self.get_time %>
+<% self.convert_my_date %>
+
+
 <div id="index_matchup_banner">CLICK ON A MATCHUP BELOW</div>
 
 <% @matchups.all.each do |m| %>
 
-	<% @link_tab = m.fav + " " + m.fav_ml + " " + m.dog %>
+	<% self.convert_date(m.date) %>
 
-	<div style="margin-bottom: 3%;"><%= link_to @link_tab, edit_matchup_path(m.id) %> </div>
+	<% if @my_date <= @matchup_date %>
+
+		<% @link_tab = m.fav + " " + m.fav_ml + " " + m.dog %>
+
+		<div style="margin-bottom: 3%;"><%= link_to @link_tab, edit_matchup_path(m.id) %> </div>
+	<% end %>
 
 <% end %>
