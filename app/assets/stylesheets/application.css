@@ -34,8 +34,9 @@
 
 	display: inline-block;
 	vertical-align: top;
-	margin-left: 2%;
+	margin-left: 8%;
 	margin-top: 5%;
+	font-size: 20px;
 }
 
 .stat_label{
