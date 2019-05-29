@@ -245,7 +245,7 @@
 			
 			<div class="stat_data">RUNS AG/GM: <%= @home_with_pitcher_stats[:runs_against_per_game] %> </div>
 			
-			<div class="stat_data">RUNS/GM BY<%= " " + @matchup.home_pitcher %> <%= @home_with_pitcher_stats[:starter_run_avg] %> </div>
+			<div class="stat_data">RUNS/GM BY<%= " " + @matchup.home_pitcher.upcase %> <%= @home_with_pitcher_stats[:starter_run_avg] %> </div>
 
 			<div class="stat_data">RUNS BY BULLPEN: <%= @home_with_pitcher_stats[:bullpen_run_avg] %> </div>
 
@@ -497,11 +497,11 @@
 			
 			<div class="stat_data">RUNS AG/GM: <%= @road_with_pitcher_stats[:runs_against_per_game] %> </div>
 			
-			<div class="stat_data">RUNS/GM BY<%= " " + @matchup.home_pitcher %> <%= @road_with_pitcher_stats[:starter_run_avg] %> </div>
+			<div class="stat_data">RUNS/GM BY<%= " " + @matchup.away_pitcher %> <%= @road_with_pitcher_stats[:starter_run_avg] %> </div>
 
 			<div class="stat_data">RUNS BY BULLPEN: <%= @road_with_pitcher_stats[:bullpen_run_avg] %> </div>
 
-			<div class="stat_data"><%= @matchup.home_pitcher + " Pitches/Run" %> <%= @road_with_pitcher_stats[:starter_rpp] %> </div>
+			<div class="stat_data"><%= @matchup.away_pitcher.upcase + " Pitches/Run" %> <%= @road_with_pitcher_stats[:starter_rpp] %> </div>
 			
 			<div class="stat_data">BULLPEN PITCHES/RUN <%= @road_with_pitcher_stats[:bullpen_rpp] %> </div>
 
