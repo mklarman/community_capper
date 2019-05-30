@@ -68,502 +68,414 @@
 
 		<div class="stat_cont">
 
-			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " OVERALL STATS" %></div>
+			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " RUNS FOR" %></div>
 
-			<div class="stat_data">Games: <%= @home_all_stats[:games] %></div>
-			
-			<div class="stat_data">AT-BATS/9: <%= @home_all_stats[:at_bats_per_game] %></div>
-			
-			<div class="stat_data">AT-BATS/RUN: <%= @home_all_stats[:at_bats_per_run] %></div>
+			<div class="stat_data"><%= "Last " + @road_team_all_games.length.to_s + " " + "Games: " + @road_all_stats[:runs_per_game].to_s %></div>
 
-			<div class="stat_data">AT-BATS AG/9: <%= @home_all_stats[:at_bats_against_per_game] %> </div>
-			
-			<div class="stat_data">HITS/GM: <%= @home_all_stats[:hits_per_game] %> </div>
-			
-			<div class="stat_data">HITS AGAINST/GM: <%= @home_all_stats[:hits_against_per_game] %> </div>
-			
-			<div class="stat_data">HITS/RUN: <%= @home_all_stats[:hits_needed_per_run] %> </div>
-			
-			<div class="stat_data">RUNS/9: <%= @home_all_stats[:runs_per_game] %> </div>
-			
+			<div class="stat_data"><%= "ON THE ROAD: " + @road_road_stats[:runs_per_game].to_s + " (" + @road_team_road_games.length.to_s + " " + "gm/s" + ')' %></div>
 
-			<div class="stat_data">RUNS AGAINST/9: <%= @home_all_stats[:runs_against_per_game] %> </div>
-			
-			<div class="stat_data">RUN DIFF: <%= @home_all_stats[:run_diff] %> </div>
+			<div class="stat_data"><%= "Vs. " + @home_team.matchup_abbr.upcase + ": " + @road_opp_stats[:runs_per_game].to_s + " (" + @road_vs_opp.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">OPP PITCHES/GM: <%= @home_all_stats[:pitches_seen_per_game] %> </div>
+			<div class="stat_data"><%= "Vs. " + @matchup.home_pitcher.upcase + ": " + @road_pitcher_stats[:runs_per_game].to_s + " (" + @road_vs_pitcher.length.to_s + " " + "gm/s)" %></div>
 
-			
-			<div class="stat_data">INNINGS BTWN RUNS: <%= @home_all_stats[:innings_per_run] %> </div>
-			
-			<div class="stat_data">PITCHES BTWN RUNS: <%= @home_all_stats[:runs_per_pitch_by_opp] %> </div>
-	
-			
-			<div class="stat_data">TEAM PITCHES/GM: <%= @home_all_stats[:pitches_thrown_per_game] %> </div>
-			
-			<div class="stat_data">BULLPEN PITCH/RUN <%= @home_all_stats[:bullpen_rpp] %> </div>
-			
-			<div class="stat_data">STARTERS PITCH/RUN <%= @home_all_stats[:starter_rpp] %> </div>
-			
-			<div class="stat_data">OPP PITCHES/RUN: <%= @home_all_stats[:bullpen_rpp] %> </div>
+			<div class="stat_data"><%= "WITH " + @matchup.away_pitcher.upcase + ": " + @road_with_pitcher_stats[:runs_per_game].to_s + " (" + @road_with_pitcher.length.to_s + " " + "gm/s)" %></div>
 
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @road_last_ten_stats[:runs_per_game].to_s %></div>
 		</div>
 
 		<div class="stat_cont">
 
-			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " HOME STATS" %></div>
+			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " RUNS AGAINST" %></div>
 
-			<div class="stat_data">Games: <%= @home_home_stats[:games] %></div>
-			
-			<div class="stat_data">AT-BATS/9: <%= @home_home_stats[:at_bats_per_game] %></div>
-			
-			<div class="stat_data">AT-BATS/RUN: <%= @home_home_stats[:at_bats_per_run] %></div>
+			<div class="stat_data"><%= "Last " + @road_team_all_games.length.to_s + " " + "Games: " + @road_all_stats[:runs_against_per_game].to_s %></div>
 
-			<div class="stat_data">AT-BATS AG/9: <%= @home_home_stats[:at_bats_against_per_game] %> </div>
-			
-			<div class="stat_data">HITS/GM: <%= @home_home_stats[:hits_per_game] %> </div>
-			
-			<div class="stat_data">HITS AGAINST/GM: <%= @home_home_stats[:hits_against_per_game] %> </div>
-			
-			<div class="stat_data">HITS/RUN: <%= @home_home_stats[:hits_needed_per_run] %> </div>
-			
-			<div class="stat_data">RUNS/9: <%= @home_home_stats[:runs_per_game] %> </div>
-			
+			<div class="stat_data"><%= "ON THE ROAD: " + @road_road_stats[:runs_against_per_game].to_s + " (" + @road_team_road_games.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">RUNS AGAINST/9: <%= @home_home_stats[:runs_against_per_game] %> </div>
-			
-			<div class="stat_data">RUN DIFF: <%= @home_home_stats[:run_diff] %> </div>
+			<div class="stat_data"><%= "Vs. " + @home_team.matchup_abbr.upcase + ": " + @road_opp_stats[:runs_against_per_game].to_s + " (" + @road_vs_opp.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">OPP PITCHES/GM: <%= @home_home_stats[:pitches_seen_per_game] %> </div>
 
-			
-			<div class="stat_data">INNINGS BTWN RUNS: <%= @home_home_stats[:innings_per_run] %> </div>
-			
-			<div class="stat_data">PITCHES BTWN RUNS: <%= @home_home_stats[:runs_per_pitch_by_opp] %> </div>
-	
-			
-			<div class="stat_data">TEAM PITCHES/GM: <%= @home_home_stats[:pitches_thrown_per_game] %> </div>
-			
-			<div class="stat_data">BULLPEN PITCH/RUN <%= @home_home_stats[:bullpen_rpp] %> </div>
-			
-			<div class="stat_data">STARTERS PITCH/RUN <%= @home_home_stats[:starter_rpp] %> </div>
-			
-			<div class="stat_data">OPP PITCHES/RUN: <%= @home_home_stats[:bullpen_rpp] %> </div>
+			<div class="stat_data"><%= "WITH " + @matchup.away_pitcher.upcase + ": " + @road_with_pitcher_stats[:runs_against_per_game].to_s + " (" + @road_with_pitcher.length.to_s + " " + "gm/s)" %></div>
 
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @road_last_ten_stats[:runs_against_per_game].to_s %></div>
 		</div>
 
 		<div class="stat_cont">
 
-			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " " + "vs" + " " + @road_team.matchup_abbr.upcase %></div>
+			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " RUN DIFFERENTIAL" %></div>
 
-			<div class="stat_data">Games: <%= @home_opp_stats[:games] %></div>
-			
-			<div class="stat_data">AT-BATS/9: <%= @home_opp_stats[:at_bats_per_game] %></div>
-			
-			<div class="stat_data">AT-BATS/RUN: <%= @home_opp_stats[:at_bats_per_run] %></div>
-			
-			<div class="stat_data">HITS/GM: <%= @home_opp_stats[:hits_per_game] %> </div>
-			
-			<div class="stat_data">HITS AGAINST/GM: <%= @home_opp_stats[:hits_against_per_game] %> </div>
+			<div class="stat_data"><%= "Last " + @road_team_all_games.length.to_s + " " + "Games: " + @road_all_stats[:run_diff].to_s %></div>
 
-			
-			<div class="stat_data">HITS/RUN: <%= @home_opp_stats[:hits_needed_per_run] %> </div>
-			
-			<div class="stat_data">RUNS/9: <%= @home_opp_stats[:runs_per_game] %> </div>
-			
-			
-			<div class="stat_data">RUN DIFF: <%= @home_opp_stats[:run_diff] %> </div>
+			<div class="stat_data"><%= "AT HOME: " + @road_road_stats[:run_diff].to_s + " (" + @road_team_road_games.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">OPP PITCHES/GM: <%= @home_opp_stats[:pitches_seen_per_game] %> </div>
+			<div class="stat_data"><%= "Vs. " + @home_team.matchup_abbr.upcase + ": " + @road_opp_stats[:run_diff].to_s + " (" + @road_vs_opp.length.to_s + " " + "gm/s)" %></div>
 
-			
-			<div class="stat_data">INNINGS BTWN RUNS: <%= @home_opp_stats[:innings_per_run] %> </div>
-			
-			<div class="stat_data">PITCHES BTWN RUNS: <%= @home_opp_stats[:runs_per_pitch_by_opp] %> </div>
-	
-			
-			<div class="stat_data">TEAM PITCHES/GM: <%= @home_opp_stats[:pitches_thrown_per_game] %> </div>
-			
-			<div class="stat_data">BULLPEN PITCH/RUN <%= @home_opp_stats[:bullpen_rpp] %> </div>
-			
-			<div class="stat_data">STARTERS PITCH/RUN <%= @home_opp_stats[:starter_rpp] %> </div>
-			
-			<div class="stat_data">OPP PITCHES/RUN: <%= @home_opp_stats[:bullpen_rpp] %> </div>
+			<div class="stat_data"><%= "Vs. " + @matchup.home_pitcher.upcase + ": " + @road_pitcher_stats[:run_diff].to_s + " (" + @road_vs_pitcher.length.to_s + " " + "gm/s)" %></div>
 
+			<div class="stat_data"><%= "WITH " + @matchup.away_pitcher.upcase + ": " + @road_with_pitcher_stats[:run_diff].to_s + " (" + @road_with_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @road_last_ten_stats[:run_diff].to_s %></div>
 		</div>
 
 		<div class="stat_cont">
 
-			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " " + "vs" + " " + @matchup.away_pitcher %></div>
+			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " RECORD" %></div>
 
-			<div class="stat_data">Games: <%= @home_pitcher_stats[:games] %></div>
-			
-			<div class="stat_data">AT-BATS/9: <%= @home_pitcher_stats[:at_bats_per_game] %></div>
-			
-			<div class="stat_data">AT-BATS/RUN: <%= @home_pitcher_stats[:at_bats_per_run] %></div>
-			
-			<div class="stat_data">HITS/GM: <%= @home_pitcher_stats[:hits_per_game] %> </div>
-			
-			<div class="stat_data">HITS/9: <%= @home_pitcher_stats[:hits_per_game] %> </div>
-			
-			<div class="stat_data">HITS/RUN: <%= @home_pitcher_stats[:hits_needed_per_run] %> </div>
-			
-			<div class="stat_data">RUNS/9: <%= @home_pitcher_stats[:runs_per_game] %> </div>
-			
-			<div class="stat_data">RUN DIFF: <%= @home_pitcher_stats[:run_diff] %> </div>
+			<div class="stat_data"><%= "Last " + @road_team_all_games.length.to_s + " " + "Games: " + @road_all_stats[:record].to_s %></div>
 
-			<div class="stat_data">OPP PITCHES/GM: <%= @home_pitcher_stats[:pitches_seen_per_game] %> </div>
+			<div class="stat_data"><%= "ON THE ROAD: " + @road_road_stats[:record].to_s + " (" + @road_team_road_games.length.to_s + " " + "gm/s)" %></div>
 
-			
-			<div class="stat_data">INNINGS BTWN RUNS: <%= @home_pitcher_stats[:innings_per_run] %> </div>
-			
-			<div class="stat_data">PITCHES BTWN RUNS: <%= @home_pitcher_stats[:runs_per_pitch_by_opp] %> </div>
-			
-			<div class="stat_data">STARTER PITCH %/GM: <%= @home_pitcher_stats[:opp_starter_freq] %> </div>
-			
-			<div class="stat_data">BULLPEN PITCH %/GM: <%= @home_pitcher_stats[:opp_bullpen_freq] %> </div>
-			
-			<div class="stat_data"><%= @road_team.matchup_abbr.upcase + " BULLPEN RUNS/PITCH:" + @home_pitcher_stats[:opp_bullpen_freq] %> </div>
+			<div class="stat_data"><%= "Vs. " + @home_team.matchup_abbr.upcase + ": " + @road_opp_stats[:record].to_s + " (" + @road_vs_opp.length.to_s + " " + "gm/s)" %></div>
 
+			<div class="stat_data"><%= "Vs. " + @matchup.home_pitcher.upcase + ": " + @road_pitcher_stats[:record].to_s + " (" + @road_vs_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "WITH " + @matchup.away_pitcher.upcase + ": " + @road_with_pitcher_stats[:record].to_s + " (" + @road_with_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @road_last_ten_stats[:record].to_s %></div>
 		</div>
 
 		<div class="stat_cont">
 
-			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " " + "with" + " " + @matchup.home_pitcher %></div>
+			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " HITS PER 9" %></div>
 
-			<div class="stat_data">Games: <%= @home_with_pitcher_stats[:games] %></div>
-			
-			<div class="stat_data">RUNN DIFF: <%= @home_with_pitcher_stats[:run_diff] %></div>
-			
-			<div class="stat_data"><%= @matchup.home_pitcher.upcase + " AVG. PITCH COUNT: " %> <%= @home_with_pitcher_stats[:starter_pitch_avg] %></div>
-			
-			<div class="stat_data">BULLPEN PITCH COUNT: <%= @home_with_pitcher_stats[:bullpen_pitch_avg] %> </div>
-			
-			<div class="stat_data">AB's AGAINST: <%= @home_with_pitcher_stats[:at_bats_against_per_game] %> </div>
-			
-			<div class="stat_data">HITS AG/GM: <%= @home_with_pitcher_stats[:hits_against_per_game] %> </div>
-			
-			<div class="stat_data">RUNS AG/GM: <%= @home_with_pitcher_stats[:runs_against_per_game] %> </div>
-			
-			<div class="stat_data">RUNS/GM BY<%= " " + @matchup.home_pitcher.upcase %> <%= @home_with_pitcher_stats[:starter_run_avg] %> </div>
+			<div class="stat_data"><%= "Last " + @road_team_all_games.length.to_s + " " + "Games: " + @road_all_stats[:hits_per_game].to_s %></div>
 
-			<div class="stat_data">RUNS BY BULLPEN: <%= @home_with_pitcher_stats[:bullpen_run_avg] %> </div>
+			<div class="stat_data"><%= "ON THE ROAD: " + @road_road_stats[:hits_per_game].to_s + " (" + @road_team_road_games.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data"><%= @matchup.home_pitcher + " Pitches/Run" %> <%= @home_with_pitcher_stats[:starter_rpp] %> </div>
-			
-			<div class="stat_data">BULLPEN PITCHES/RUN <%= @home_with_pitcher_stats[:bullpen_rpp] %> </div>
+			<div class="stat_data"><%= "Vs. " + @home_team.matchup_abbr.upcase + ": " + @road_opp_stats[:hits_per_game].to_s + " (" + @road_vs_opp.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">OPP RUNS/PITCH <%= @home_with_pitcher_stats[:opp_runs_per_pitch] %> </div>
+			<div class="stat_data"><%= "Vs. " + @matchup.home_pitcher.upcase + ": " + @road_pitcher_stats[:hits_per_game].to_s + " (" + @road_vs_pitcher.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">RUNS FOR: <%= @home_with_pitcher_stats[:runs_per_game] %> </div>
-			
-			<div class="stat_data">% OF PITCHES BY OPP STARTER: <%= @home_with_pitcher_stats[:opp_starter_freq] %> </div>
-			
-			<div class="stat_data">% OF PITCHES BY OPP BULLPEN: <%= @home_with_pitcher_stats[:opp_bullpen_freq] %> </div>
-
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @road_last_ten_stats[:hits_per_game].to_s %></div>
 		</div>
 
 		<div class="stat_cont">
 
-			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " LAST 10 STATS" %></div>
-			
-			<div class="stat_data">AT-BATS/9: <%= @home_last_ten_stats[:at_bats_per_game] %></div>
-			
-			<div class="stat_data">AT-BATS/RUN: <%= @home_last_ten_stats[:at_bats_per_run] %></div>
+			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " HITS AGAINST PER 9" %></div>
 
-			<div class="stat_data">AT-BATS AG/9: <%= @home_last_ten_stats[:at_bats_against_per_game] %> </div>
-			
-			<div class="stat_data">HITS/GM: <%= @home_last_ten_stats[:hits_per_game] %> </div>
-			
-			<div class="stat_data">HITS AGAINST/GM: <%= @home_last_ten_stats[:hits_against_per_game] %> </div>
-			
-			<div class="stat_data">HITS AGAINST/GM: <%= @home_last_ten_stats[:hits_against_per_game] %> </div>
+			<div class="stat_data"><%= "Last " + @road_team_all_games.length.to_s + " " + "Games: " + @road_all_stats[:hits_against_per_game].to_s %></div>
 
-			<div class="stat_data">HITS/9: <%= @home_last_ten_stats[:hits_per_nine] %> </div>
-			
-			<div class="stat_data">HITS/RUN: <%= @home_last_ten_stats[:hits_needed_per_run] %> </div>
-			
-			<div class="stat_data">RUNS/9: <%= @home_last_ten_stats[:runs_per_game] %> </div>
-			
+			<div class="stat_data"><%= "ON THE ROAD: " + @road_road_stats[:hits_against_per_game].to_s + " (" + @road_team_road_games.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">RUNS AGAINST/9: <%= @home_last_ten_stats[:runs_against_per_game] %> </div>
-			
-			<div class="stat_data">RUN DIFF: <%= @home_last_ten_stats[:run_diff] %> </div>
+			<div class="stat_data"><%= "Vs. " + @home_team.matchup_abbr.upcase + ": " + @road_opp_stats[:hits_against_per_game].to_s + " (" + @home_vs_opp.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">OPP PITCHES/GM: <%= @home_last_ten_stats[:pitches_seen_per_game] %> </div>
+			<div class="stat_data"><%= "WITH " + @matchup.away_pitcher.upcase + ": " + @road_with_pitcher_stats[:hits_against_per_game].to_s + " (" + @road_with_pitcher.length.to_s + " " + "gm/s)" %></div>
 
-			
-			<div class="stat_data">INNINGS BTWN RUNS: <%= @home_last_ten_stats[:innings_per_run] %> </div>
-			
-			<div class="stat_data">PITCHES BTWN RUNS: <%= @home_last_ten_stats[:runs_per_pitch_by_opp] %> </div>
-	
-			
-			<div class="stat_data">TEAM PITCHES/GM: <%= @home_last_ten_stats[:pitches_thrown_per_game] %> </div>
-			
-			<div class="stat_data">BULLPEN PITCH/RUN <%= @home_last_ten_stats[:bullpen_rpp] %> </div>
-			
-			<div class="stat_data">STARTERS PITCH/RUN <%= @home_last_ten_stats[:starter_rpp] %> </div>
-			
-			<div class="stat_data">OPP PITCHES/RUN: <%= @home_last_ten_stats[:bullpen_rpp] %> </div>
-
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @road_last_ten_stats[:hits_against_per_game].to_s %></div>
 		</div>
-			
 
-	</div>
+		<div class="stat_cont">
+
+			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " OPP PITCHES/GAME" %></div>
+
+			<div class="stat_data"><%= "Last " + @road_team_all_games.length.to_s + " " + "Games: " + @road_all_stats[:pitches_seen_per_game].to_s %></div>
+
+			<div class="stat_data"><%= "ON THE ROAD: " + @road_road_stats[:pitches_seen_per_game].to_s + " (" + @road_team_road_games.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "Vs. " + @home_team.matchup_abbr.upcase + ": " + @road_opp_stats[:pitches_seen_per_game].to_s + " (" + @road_vs_opp.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "GMS WITH " + @matchup.home_pitcher.upcase + ": " + @road_pitcher_stats[:pitches_seen_per_game].to_s + " (" + @road_vs_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @road_last_ten_stats[:pitches_seen_per_game].to_s %></div>
+		</div>
+
+		<div class="stat_cont">
+
+			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " PITCHES/GAME" %></div>
+
+			<div class="stat_data"><%= "Last " + @road_team_all_games.length.to_s + " " + "Games: " + @road_all_stats[:pitches_thrown_per_game].to_s %></div>
+
+			<div class="stat_data"><%= "ON THE ROAD: " + @road_road_stats[:pitches_thrown_per_game].to_s + " (" + @road_team_road_games.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "Vs. " + @home_team.matchup_abbr.upcase + ": " + @road_opp_stats[:pitches_thrown_per_game].to_s + " (" + @road_vs_opp.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "GMS WITH " + @matchup.away_pitcher.upcase + ": " + @road_with_pitcher_stats[:pitches_thrown_per_game].to_s + " (" + @road_with_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @road_last_ten_stats[:pitches_thrown_per_game].to_s %></div>
+		</div>
+
+		<div class="stat_cont">
+
+			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " PITCHES/RUN" %></div>
+
+			<div class="stat_data"><%= "Last " + @road_team_all_games.length.to_s + " " + "Games: " + @road_all_stats[:runs_per_pitch_by_opp].to_s %></div>
+
+			<div class="stat_data"><%= "AT HOME: " + @road_road_stats[:runs_per_pitch_by_opp].to_s + " (" + @road_team_road_games.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "Vs. " + @home_team.matchup_abbr.upcase + ": " + @road_opp_stats[:runs_per_pitch_by_opp].to_s + " (" + @road_vs_opp.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "GMS WITH " + @matchup.home_pitcher.upcase + ": " + @road_pitcher_stats[:runs_per_pitch_by_opp].to_s + " (" + @road_vs_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @road_last_ten_stats[:runs_per_pitch_by_opp].to_s %></div>
+		</div>
+
+		<div class="stat_cont">
+
+			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " OPP PITCHES/RUN" %></div>
+
+			<div class="stat_data"><%= "Last " + @road_team_all_games.length.to_s + " " + "Games: " + @road_all_stats[:opp_runs_per_pitch].to_s %></div>
+
+			<div class="stat_data"><%= "AT HOME: " + @road_road_stats[:opp_runs_per_pitch].to_s + " (" + @road_team_road_games.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "Vs. " + @home_team.matchup_abbr.upcase + ": " + @road_opp_stats[:opp_runs_per_pitch].to_s + " (" + @road_vs_opp.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "GMS WITH " + @matchup.away_pitcher.upcase + ": " + @road_with_pitcher_stats[:opp_runs_per_pitch].to_s + " (" + @road_with_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @road_last_ten_stats[:opp_runs_per_pitch].to_s %></div>
+		</div>
+
+		<div class="stat_cont">
+
+			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " BULLPEN PITCH/RUN" %></div>
+
+			<div class="stat_data"><%= "Last " + @road_team_all_games.length.to_s + " " + "Games: " + @road_all_stats[:bullpen_rpp].to_s %></div>
+
+			<div class="stat_data"><%= "AT HOME: " + @road_road_stats[:bullpen_rpp].to_s + " (" + @road_team_road_games.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "Vs. " + @home_team.matchup_abbr.upcase + ": " + @road_opp_stats[:bullpen_rpp].to_s + " (" + @road_vs_opp.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "GMS WITH " + @matchup.away_pitcher.upcase + ": " + @road_with_pitcher_stats[:bullpen_rpp].to_s + " (" + @road_with_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @road_last_ten_stats[:bullpen_rpp].to_s %></div>
+		</div>
+
+		<div class="stat_cont">
+
+			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " STARTER PITCH/RUN" %></div>
+
+			<div class="stat_data"><%= "Last " + @road_team_all_games.length.to_s + " " + "Games: " + @road_all_stats[:starter_rpp].to_s %></div>
+
+			<div class="stat_data"><%= "AT HOME: " + @road_road_stats[:starter_rpp].to_s + " (" + @road_team_road_games.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "Vs. " + @home_team.matchup_abbr.upcase + ": " + @road_opp_stats[:starter_rpp].to_s + " (" + @road_vs_opp.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "GMS WITH " + @matchup.away_pitcher.upcase + ": " + @road_with_pitcher_stats[:starter_rpp].to_s + " (" + @road_with_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @road_last_ten_stats[:starter_rpp].to_s %></div>
+		</div>
+
+		<div class="stat_cont">
+
+			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " INNINGS/RUN" %></div>
+
+			<div class="stat_data"><%= "Last " + @road_team_all_games.length.to_s + " " + "Games: " + @road_all_stats[:innings_per_run].to_s %></div>
+
+			<div class="stat_data"><%= "AT HOME: " + @road_road_stats[:innings_per_run].to_s + " (" + @road_team_road_games.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "Vs. " + @home_team.matchup_abbr.upcase + ": " + @road_opp_stats[:innings_per_run].to_s + " (" + @road_vs_opp.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "GMS WITH " + @matchup.home_pitcher.upcase + ": " + @road_pitcher_stats[:innings_per_run].to_s + " (" + @road_vs_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @road_last_ten_stats[:innings_per_run].to_s %></div>
+		</div>
+
+	</div>			
 	
 	<div class="matchup_stats" style="background: blue; color: white;">
 
 		<div class="stat_cont">
 
-			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " OVERALL STATS" %></div>
+			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " RUNS FOR" %></div>
 
-			<div class="stat_data">Games: <%= @road_all_stats[:games] %></div>
-			
-			<div class="stat_data">AT-BATS/9: <%= @road_all_stats[:at_bats_per_game] %></div>
-			
-			<div class="stat_data">AT-BATS/RUN: <%= @road_all_stats[:at_bats_per_run] %></div>
+			<div class="stat_data"><%= "Last " + @home_team_all_games.length.to_s + " " + "Games: " + @home_all_stats[:runs_per_game].to_s %></div>
 
-			<div class="stat_data">AT-BATS AG/9: <%= @road_all_stats[:at_bats_against_per_game] %> </div>
-			
-			<div class="stat_data">HITS/GM: <%= @road_all_stats[:hits_per_game] %> </div>
-			
-			<div class="stat_data">HITS AGAINST/GM: <%= @road_all_stats[:hits_against_per_game] %> </div>
-			
-			<div class="stat_data">HITS/RUN: <%= @road_all_stats[:hits_needed_per_run] %> </div>
-			
-			<div class="stat_data">RUNS/9: <%= @road_all_stats[:runs_per_game] %> </div>
-			
+			<div class="stat_data"><%= "AT HOME: " + @home_home_stats[:runs_per_game].to_s + " (" + @home_team_home_games.length.to_s + " " + "gm/s" + ')' %></div>
 
-			<div class="stat_data">RUNS AGAINST/9: <%= @road_all_stats[:runs_against_per_game] %> </div>
-			
-			<div class="stat_data">RUN DIFF: <%= @road_all_stats[:run_diff] %> </div>
+			<div class="stat_data"><%= "Vs. " + @road_team.matchup_abbr.upcase + ": " + @home_opp_stats[:runs_per_game].to_s + " (" + @home_vs_opp.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">OPP PITCHES/GM: <%= @road_all_stats[:pitches_seen_per_game] %> </div>
+			<div class="stat_data"><%= "Vs. " + @matchup.away_pitcher.upcase + ": " + @home_pitcher_stats[:runs_per_game].to_s + " (" + @home_vs_pitcher.length.to_s + " " + "gm/s)" %></div>
 
-			
-			<div class="stat_data">INNINGS BTWN RUNS: <%= @road_all_stats[:innings_per_run] %> </div>
-			
-			<div class="stat_data">PITCHES BTWN RUNS: <%= @road_all_stats[:runs_per_pitch_by_opp] %> </div>
-	
-			
-			<div class="stat_data">TEAM PITCHES/GM: <%= @road_all_stats[:pitches_thrown_per_game] %> </div>
-			
-			<div class="stat_data">BULLPEN PITCH/RUN <%= @road_all_stats[:bullpen_rpp] %> </div>
-			
-			<div class="stat_data">STARTERS PITCH/RUN <%= @road_all_stats[:starter_rpp] %> </div>
-			
-			<div class="stat_data">OPP PITCHES/RUN: <%= @road_all_stats[:bullpen_rpp] %> </div>
+			<div class="stat_data"><%= "WITH " + @matchup.home_pitcher.upcase + ": " + @home_with_pitcher_stats[:runs_per_game].to_s + " (" + @home_with_pitcher.length.to_s + " " + "gm/s)" %></div>
 
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @home_last_ten_stats[:runs_per_game].to_s %></div>
 		</div>
 
 		<div class="stat_cont">
 
-			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " ROAD STATS" %></div>
+			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " RUNS AGAINST" %></div>
 
-			<div class="stat_data">Games: <%= @road_road_stats[:games] %></div>
-			
-			<div class="stat_data">AT-BATS/9: <%= @road_road_stats[:at_bats_per_game] %></div>
-			
-			<div class="stat_data">AT-BATS/RUN: <%= @road_road_stats[:at_bats_per_run] %></div>
+			<div class="stat_data"><%= "Last " + @home_team_all_games.length.to_s + " " + "Games: " + @home_all_stats[:runs_against_per_game].to_s %></div>
 
-			<div class="stat_data">AT-BATS AG/9: <%= @road_road_stats[:at_bats_against_per_game] %> </div>
-			
-			<div class="stat_data">HITS/GM: <%= @road_road_stats[:hits_per_game] %> </div>
-			
-			<div class="stat_data">HITS AGAINST/GM: <%= @road_road_stats[:hits_against_per_game] %> </div>
-		
-			
-			<div class="stat_data">HITS/RUN: <%= @road_road_stats[:hits_needed_per_run] %> </div>
-			
-			<div class="stat_data">RUNS/9: <%= @road_road_stats[:runs_per_game] %> </div>
-			
+			<div class="stat_data"><%= "AT HOME: " + @home_home_stats[:runs_against_per_game].to_s + " (" + @home_team_home_games.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">RUNS AGAINST/9: <%= @road_road_stats[:runs_against_per_game] %> </div>
-			
-			<div class="stat_data">RUN DIFF: <%= @road_road_stats[:run_diff] %> </div>
+			<div class="stat_data"><%= "Vs. " + @road_team.matchup_abbr.upcase + ": " + @home_opp_stats[:runs_against_per_game].to_s + " (" + @home_vs_opp.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">OPP PITCHES/GM: <%= @road_road_stats[:pitches_seen_per_game] %> </div>
 
-			
-			<div class="stat_data">INNINGS BTWN RUNS: <%= @road_road_stats[:innings_per_run] %> </div>
-			
-			<div class="stat_data">PITCHES BTWN RUNS: <%= @road_road_stats[:runs_per_pitch_by_opp] %> </div>
-	
-			
-			<div class="stat_data">TEAM PITCHES/GM: <%= @road_road_stats[:pitches_thrown_per_game] %> </div>
-			
-			<div class="stat_data">BULLPEN PITCH/RUN <%= @road_road_stats[:bullpen_rpp] %> </div>
-			
-			<div class="stat_data">STARTERS PITCH/RUN <%= @road_road_stats[:starter_rpp] %> </div>
-			
-			<div class="stat_data">OPP PITCHES/RUN: <%= @road_road_stats[:bullpen_rpp] %> </div>
+			<div class="stat_data"><%= "WITH " + @matchup.home_pitcher.upcase + ": " + @home_with_pitcher_stats[:runs_against_per_game].to_s + " (" + @home_with_pitcher.length.to_s + " " + "gm/s)" %></div>
 
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @home_last_ten_stats[:runs_against_per_game].to_s %></div>
 		</div>
 
 		<div class="stat_cont">
 
-			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " vs " + " " + @home_team.matchup_abbr.upcase %></div>
+			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " RUN DIFFERENTIAL" %></div>
 
-			<div class="stat_data">Games: <%=  @road_opp_stats[:games] %></div>
-			
-			<div class="stat_data">AT-BATS/9: <%= @road_opp_stats[:at_bats_per_game] %></div>
-			
-			<div class="stat_data">AT-BATS/RUN: <%= @road_opp_stats[:at_bats_per_run] %></div>
+			<div class="stat_data"><%= "Last " + @home_team_all_games.length.to_s + " " + "Games: " + @home_all_stats[:run_diff].to_s %></div>
 
-			<div class="stat_data">AT-BATS AG/9: <%= @road_opp_stats[:at_bats_against_per_game] %> </div>
-			
-			<div class="stat_data">HITS/GM: <%= @road_opp_stats[:hits_per_game] %> </div>
-			
-			<div class="stat_data">HITS AGAINST/GM: <%= @road_opp_stats[:hits_against_per_game] %> </div>
-			
-			
-			<div class="stat_data">HITS/RUN: <%= @road_opp_stats[:hits_needed_per_run] %> </div>
-			
-			<div class="stat_data">RUNS/9: <%= @road_opp_stats[:runs_per_game] %> </div>
-			
+			<div class="stat_data"><%= "AT HOME: " + @home_home_stats[:run_diff].to_s + " (" + @home_team_home_games.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">RUNS AGAINST/9: <%= @road_opp_stats[:runs_against_per_game] %> </div>
-			
-			<div class="stat_data">RUN DIFF: <%= @road_opp_stats[:run_diff] %> </div>
+			<div class="stat_data"><%= "Vs. " + @road_team.matchup_abbr.upcase + ": " + @home_opp_stats[:run_diff].to_s + " (" + @home_vs_opp.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">OPP PITCHES/GM: <%= @road_opp_stats[:pitches_seen_per_game] %> </div>
+			<div class="stat_data"><%= "Vs. " + @matchup.away_pitcher.upcase + ": " + @home_pitcher_stats[:run_diff].to_s + "(" + @home_vs_pitcher.length.to_s + " " + "gm/s)" %></div>
 
-			
-			<div class="stat_data">INNINGS BTWN RUNS: <%= @road_opp_stats[:innings_per_run] %> </div>
-			
-			<div class="stat_data">PITCHES BTWN RUNS: <%= @road_opp_stats[:runs_per_pitch_by_opp] %> </div>
-	
-			
-			<div class="stat_data">TEAM PITCHES/GM: <%= @road_opp_stats[:pitches_thrown_per_game] %> </div>
-			
-			<div class="stat_data">BULLPEN PITCH/RUN <%= @road_opp_stats[:bullpen_rpp] %> </div>
-			
-			<div class="stat_data">STARTERS PITCH/RUN <%= @road_opp_stats[:starter_rpp] %> </div>
-			
-			<div class="stat_data">OPP PITCHES/RUN: <%= @road_opp_stats[:bullpen_rpp] %> </div>
+			<div class="stat_data"><%= "WITH " + @matchup.home_pitcher.upcase + ": " + @home_with_pitcher_stats[:run_diff].to_s + " (" + @home_with_pitcher.length.to_s + " " + "gm/s)" %></div>
 
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @home_last_ten_stats[:run_diff].to_s %></div>
 		</div>
 
 		<div class="stat_cont">
 
-			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " " + "vs" + " " + @matchup.home_pitcher %></div>
+			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " RECORD" %></div>
 
-			<div class="stat_data">Games: <%=  @road_pitcher_stats[:games] %></div>
-			
-			<div class="stat_data">AT-BATS/9: <%= @road_pitcher_stats[:at_bats_per_game] %></div>
-			
-			<div class="stat_data">AT-BATS/RUN: <%= @road_pitcher_stats[:at_bats_per_run] %></div>
-			
-			<div class="stat_data">HITS/GM: <%= @road_pitcher_stats[:hits_per_game] %> </div>
-			
-			<div class="stat_data">HITS/9: <%= @road_pitcher_stats[:hits_per_nine] %> </div>
-			
-			<div class="stat_data">HITS/RUN: <%= @road_pitcher_stats[:hits_needed_per_run] %> </div>
-			
-			<div class="stat_data">RUNS/9: <%= @road_pitcher_stats[:runs_per_game] %> </div>
-			
-			<div class="stat_data">RUN DIFF: <%= @road_pitcher_stats[:run_diff] %> </div>
+			<div class="stat_data"><%= "Last " + @home_team_all_games.length.to_s + " " + "Games: " + @home_all_stats[:record].to_s %></div>
 
-			<div class="stat_data">OPP PITCHES/GM: <%= @road_pitcher_stats[:pitches_seen_per_game] %> </div>
+			<div class="stat_data"><%= "AT HOME: " + @home_home_stats[:record].to_s + " (" + @home_team_home_games.length.to_s + " " + "gm/s)" %></div>
 
-			
-			<div class="stat_data">INNINGS BTWN RUNS: <%= @road_pitcher_stats[:innings_per_run] %> </div>
-			
-			<div class="stat_data">PITCHES BTWN RUNS: <%= @road_pitcher_stats[:runs_per_pitch_by_opp] %> </div>
-			
-			<div class="stat_data">STARTER PITCH %/GM: <%= @road_pitcher_stats[:opp_starter_freq] %> </div>
-			
-			<div class="stat_data">BULLPEN PITCH %/GM: <%= @road_pitcher_stats[:opp_bullpen_freq] %> </div>
-			
-			<div class="stat_data"><%= @road_team.matchup_abbr.upcase + " BULLPEN RUNS/PITCH:" + @road_pitcher_stats[:opp_bullpen_freq] %> </div>
+			<div class="stat_data"><%= "Vs. " + @road_team.matchup_abbr.upcase + ": " + @home_opp_stats[:record].to_s + " (" + @home_vs_opp.length.to_s + " " + "gm/s)" %></div>
 
+			<div class="stat_data"><%= "Vs. " + @matchup.away_pitcher.upcase + ": " + @home_pitcher_stats[:record].to_s + " (" + @home_vs_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "WITH " + @matchup.home_pitcher.upcase + ": " + @home_with_pitcher_stats[:record].to_s + " (" + @home_with_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @home_last_ten_stats[:record].to_s %></div>
 		</div>
 
 		<div class="stat_cont">
 
-			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " " + "with" + " " + @matchup.away_pitcher %></div>
+			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " HITS PER 9" %></div>
 
-			<div class="stat_data">Games: <%= @road_with_pitcher_stats[:games] %></div>
-			
-			<div class="stat_data">RUNN DIFF: <%= @road_with_pitcher_stats[:run_diff] %></div>
-			
-			<div class="stat_data"><%= @matchup.away_pitcher.upcase + " avg. pitch count: " %> <%= @road_with_pitcher_stats[:starter_pitch_avg] %></div>
-			
-			<div class="stat_data">BULLPEN PITCH COUNT: <%= @road_with_pitcher_stats[:bullpen_pitch_avg] %> </div>
-			
-			<div class="stat_data">AB's AGAINST: <%= @road_with_pitcher_stats[:at_bats_against_per_game] %> </div>
-			
-			<div class="stat_data">HITS AG/GM: <%= @road_with_pitcher_stats[:hits_against_per_game] %> </div>
-			
-			<div class="stat_data">RUNS AG/GM: <%= @road_with_pitcher_stats[:runs_against_per_game] %> </div>
-			
-			<div class="stat_data">RUNS/GM BY<%= " " + @matchup.away_pitcher %> <%= @road_with_pitcher_stats[:starter_run_avg] %> </div>
+			<div class="stat_data"><%= "Last " + @home_team_all_games.length.to_s + " " + "Games: " + @home_all_stats[:hits_per_game].to_s %></div>
 
-			<div class="stat_data">RUNS BY BULLPEN: <%= @road_with_pitcher_stats[:bullpen_run_avg] %> </div>
+			<div class="stat_data"><%= "AT HOME: " + @home_home_stats[:hits_per_game].to_s + " (" + @home_team_home_games.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data"><%= @matchup.away_pitcher.upcase + " Pitches/Run" %> <%= @road_with_pitcher_stats[:starter_rpp] %> </div>
-			
-			<div class="stat_data">BULLPEN PITCHES/RUN <%= @road_with_pitcher_stats[:bullpen_rpp] %> </div>
+			<div class="stat_data"><%= "Vs. " + @road_team.matchup_abbr.upcase + ": " + @home_opp_stats[:hits_per_game].to_s + " (" + @home_vs_opp.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">OPP RUNS/PITCH <%= @road_with_pitcher_stats[:opp_runs_per_pitch] %> </div>
+			<div class="stat_data"><%= "Vs. " + @matchup.away_pitcher.upcase + ": " + @home_pitcher_stats[:hits_per_game].to_s + " (" + @home_vs_pitcher.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">RUNS FOR: <%= @road_with_pitcher_stats[:runs_per_game] %> </div>
-			
-			<div class="stat_data">% OF PITCHES BY OPP STARTER: <%= @road_with_pitcher_stats[:opp_starter_freq] %> </div>
-			
-			<div class="stat_data">% OF PITCHES BY OPP BULLPEN: <%= @road_with_pitcher_stats[:opp_bullpen_freq] %> </div>
-
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @home_last_ten_stats[:hits_per_game].to_s %></div>
 		</div>
 
 		<div class="stat_cont">
 
-			<div class="stat_label"><%= @road_team.matchup_abbr.upcase + " LAST 10 STATS" %></div>
-			
-			<div class="stat_data">AT-BATS/9: <%= @road_last_ten_stats[:at_bats_per_game] %></div>
-			
-			<div class="stat_data">AT-BATS/RUN: <%= @road_last_ten_stats[:at_bats_per_run] %></div>
+			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " HITS AGAINST PER 9" %></div>
 
-			<div class="stat_data">AT-BATS AG/9: <%= @road_last_ten_stats[:at_bats_against_per_game] %> </div>
-			
-			<div class="stat_data">HITS/GM: <%= @road_last_ten_stats[:hits_per_game] %> </div>
-		
-			
-			<div class="stat_data">HITS AGAINST/GM: <%= @road_last_ten_stats[:hits_against_per_game] %> </div>
+			<div class="stat_data"><%= "Last " + @home_team_all_games.length.to_s + " " + "Games: " + @home_all_stats[:hits_against_per_game].to_s %></div>
 
-			
-			<div class="stat_data">HITS/RUN: <%= @road_last_ten_stats[:hits_needed_per_run] %> </div>
-			
-			<div class="stat_data">RUNS/9: <%= @road_last_ten_stats[:runs_per_game] %> </div>
-			
+			<div class="stat_data"><%= "AT HOME: " + @home_home_stats[:hits_against_per_game].to_s + " (" + @home_team_home_games.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">RUNS AGAINST/9: <%= @road_last_ten_stats[:runs_against_per_game] %> </div>
-			
-			<div class="stat_data">RUN DIFF: <%= @road_last_ten_stats[:run_diff] %> </div>
+			<div class="stat_data"><%= "Vs. " + @road_team.matchup_abbr.upcase + ": " + @home_opp_stats[:hits_against_per_game].to_s + " (" + @home_vs_opp.length.to_s + " " + "gm/s)" %></div>
 
-			<div class="stat_data">OPP PITCHES/GM: <%= @road_last_ten_stats[:pitches_seen_per_game] %> </div>
+			<div class="stat_data"><%= "WITH " + @matchup.home_pitcher.upcase + ": " + @home_with_pitcher_stats[:hits_against_per_game].to_s + " (" + @home_with_pitcher.length.to_s + " " + "gm/s)" %></div>
 
-			
-			<div class="stat_data">INNINGS BTWN RUNS: <%= @road_last_ten_stats[:innings_per_run] %> </div>
-			
-			<div class="stat_data">PITCHES BTWN RUNS: <%= @road_last_ten_stats[:runs_per_pitch_by_opp] %> </div>
-	
-			
-			<div class="stat_data">TEAM PITCHES/GM: <%= @road_last_ten_stats[:pitches_thrown_per_game] %> </div>
-			
-			<div class="stat_data">BULLPEN PITCH/RUN <%= @road_last_ten_stats[:bullpen_rpp] %> </div>
-			
-			<div class="stat_data">STARTERS PITCH/RUN <%= @road_last_ten_stats[:starter_rpp] %> </div>
-			
-			<div class="stat_data">OPP PITCHES/RUN: <%= @road_last_ten_stats[:bullpen_rpp] %> </div>
-
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @home_last_ten_stats[:hits_against_per_game].to_s %></div>
 		</div>
 
+		<div class="stat_cont">
+
+			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " OPP PITCHES/GAME" %></div>
+
+			<div class="stat_data"><%= "Last " + @home_team_all_games.length.to_s + " " + "Games: " + @home_all_stats[:pitches_seen_per_game].to_s %></div>
+
+			<div class="stat_data"><%= "AT HOME: " + @home_home_stats[:pitches_seen_per_game].to_s + " (" + @home_team_home_games.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "Vs. " + @road_team.matchup_abbr.upcase + ": " + @home_opp_stats[:pitches_seen_per_game].to_s + " (" + @home_vs_opp.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "GMS WITH " + @matchup.away_pitcher.upcase + ": " + @home_pitcher_stats[:pitches_seen_per_game].to_s + " (" + @home_vs_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @home_last_ten_stats[:pitches_seen_per_game].to_s %></div>
+		</div>
+
+		<div class="stat_cont">
+
+			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " PITCHES/GAME" %></div>
+
+			<div class="stat_data"><%= "Last " + @home_team_all_games.length.to_s + " " + "Games: " + @home_all_stats[:pitches_thrown_per_game].to_s %></div>
+
+			<div class="stat_data"><%= "AT HOME: " + @home_home_stats[:pitches_thrown_per_game].to_s + " (" + @home_team_home_games.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "Vs. " + @road_team.matchup_abbr.upcase + ": " + @home_opp_stats[:pitches_thrown_per_game].to_s + " (" + @home_vs_opp.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "GMS WITH " + @matchup.home_pitcher.upcase + ": " + @home_with_pitcher_stats[:pitches_thrown_per_game].to_s + " (" + @home_with_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @home_last_ten_stats[:pitches_thrown_per_game].to_s %></div>
+		</div>
+
+		<div class="stat_cont">
+
+			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " PITCHES/RUN" %></div>
+
+			<div class="stat_data"><%= "Last " + @home_team_all_games.length.to_s + " " + "Games: " + @home_all_stats[:runs_per_pitch_by_opp].to_s %></div>
+
+			<div class="stat_data"><%= "AT HOME: " + @home_home_stats[:runs_per_pitch_by_opp].to_s + " (" + @home_team_home_games.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "Vs. " + @road_team.matchup_abbr.upcase + ": " + @home_opp_stats[:runs_per_pitch_by_opp].to_s + " (" + @home_vs_opp.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "GMS WITH " + @matchup.away_pitcher.upcase + ": " + @home_pitcher_stats[:runs_per_pitch_by_opp].to_s + " (" + @home_vs_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @home_last_ten_stats[:runs_per_pitch_by_opp].to_s %></div>
+		</div>
+
+		<div class="stat_cont">
+
+			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " OPP PITCHES/RUN" %></div>
+
+			<div class="stat_data"><%= "Last " + @home_team_all_games.length.to_s + " " + "Games: " + @home_all_stats[:opp_runs_per_pitch].to_s %></div>
+
+			<div class="stat_data"><%= "AT HOME: " + @home_home_stats[:opp_runs_per_pitch].to_s + " (" + @home_team_home_games.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "Vs. " + @road_team.matchup_abbr.upcase + ": " + @home_opp_stats[:opp_runs_per_pitch].to_s + " (" + @home_vs_opp.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "GMS WITH " + @matchup.home_pitcher.upcase + ": " + @home_with_pitcher_stats[:opp_runs_per_pitch].to_s + " (" + @home_with_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @home_last_ten_stats[:opp_runs_per_pitch].to_s %></div>
+		</div>
+
+		<div class="stat_cont">
+
+			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " BULLPEN PITCH/RUN" %></div>
+
+			<div class="stat_data"><%= "Last " + @home_team_all_games.length.to_s + " " + "Games: " + @home_all_stats[:bullpen_rpp].to_s %></div>
+
+			<div class="stat_data"><%= "AT HOME: " + @home_home_stats[:bullpen_rpp].to_s + " (" + @home_team_home_games.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "Vs. " + @road_team.matchup_abbr.upcase + ": " + @home_opp_stats[:bullpen_rpp].to_s + " (" + @home_vs_opp.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "GMS WITH " + @matchup.home_pitcher.upcase + ": " + @home_with_pitcher_stats[:bullpen_rpp].to_s + " (" + @home_with_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @home_last_ten_stats[:bullpen_rpp].to_s %></div>
+		</div>
+
+		<div class="stat_cont">
+
+			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " STARTER PITCH/RUN" %></div>
+
+			<div class="stat_data"><%= "Last " + @home_team_all_games.length.to_s + " " + "Games: " + @home_all_stats[:starter_rpp].to_s %></div>
+
+			<div class="stat_data"><%= "AT HOME: " + @home_home_stats[:starter_rpp].to_s + " (" + @home_team_home_games.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "Vs. " + @road_team.matchup_abbr.upcase + ": " + @home_opp_stats[:starter_rpp].to_s + " (" + @home_vs_opp.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "GMS WITH " + @matchup.home_pitcher.upcase + ": " + @home_with_pitcher_stats[:starter_rpp].to_s + " (" + @home_with_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @home_last_ten_stats[:starter_rpp].to_s %></div>
+		</div>
+
+		<div class="stat_cont">
+
+			<div class="stat_label"><%= @home_team.matchup_abbr.upcase + " INNINGS/RUN" %></div>
+
+			<div class="stat_data"><%= "Last " + @home_team_all_games.length.to_s + " " + "Games: " + @home_all_stats[:innings_per_run].to_s %></div>
+
+			<div class="stat_data"><%= "AT HOME: " + @home_home_stats[:innings_per_run].to_s + " (" + @home_team_home_games.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "Vs. " + @road_team.matchup_abbr.upcase + ": " + @home_opp_stats[:innings_per_run].to_s + " (" + @home_vs_opp.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "GMS WITH " + @matchup.away_pitcher.upcase + ": " + @home_pitcher_stats[:innings_per_run].to_s + " (" + @home_vs_pitcher.length.to_s + " " + "gm/s)" %></div>
+
+			<div class="stat_data"><%= "LAST TEN GAMES: " + @home_last_ten_stats[:innings_per_run].to_s %></div>
+		</div>			
 
 
 	</div>
-
-
-
 
 
 </div>

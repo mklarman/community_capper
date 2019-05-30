@@ -148,12 +148,6 @@ module MatchupsHelper
 
 	def compute_stats(array)
 
-		if array == @road_last_ten
-
-			@test = true 
-
-		end
-
 		@starter_pitches = 0
 		@bullpen_pitches = 0
 		@runs_for = 0
@@ -169,8 +163,20 @@ module MatchupsHelper
 		@runs_by_starter = 0
 		@runs_by_opp_bullpen = 0
 		@runs_by_opp_starter = 0
+		@wins = 0
+		@losses = 0
 
 		array.each do |m|
+
+			if m.spread_result.downcase == "win"
+
+				@wins += 1
+
+			elsif m.spread_result.downcase == "loss"
+
+				@losses += 1
+
+			end
 
 			@starter_pitches += m.team_starter_pitches.to_i
 			@bullpen_pitches += m.team_bullpen_picthes.to_i
@@ -236,6 +242,8 @@ module MatchupsHelper
 		opp_starter_freq_to_s = opp_starter_freq.to_s + "%"
 		opp_bullpen_freq_to_s = opp_bullpen_freq.to_s + "%"
 
+		team_record = @wins.to_s + " " + "-" + " " + @losses.to_s
+
 
 		good_at_bats_per_run = (@at_bats_for.to_f - (@innings * 3) / @runs_for.to_f).round(2)
 
@@ -247,6 +255,7 @@ module MatchupsHelper
 
 
 			home_team_all[:games] = array.length
+			home_team_all[:record] = team_record
 			home_team_all[:run_diff] = run_diff
 			home_team_all[:runs_per_game] = runs_per_game
 			home_team_all[:runs_against_per_game] = runs_against
@@ -275,6 +284,7 @@ module MatchupsHelper
 			home_team_with_pitcher = Hash.new
 
 			home_team_with_pitcher[:games] = array.length
+			home_team_with_pitcher[:record] = team_record
 			home_team_with_pitcher[:run_diff] = run_diff
 			home_team_with_pitcher[:starter_pitch_avg] = starter_pitch_avg
 			home_team_with_pitcher[:bullpen_pitch_avg] = bullpen_pitch_avg
@@ -286,6 +296,8 @@ module MatchupsHelper
 			home_team_with_pitcher[:bullpen_rpp] = bullpen_rpp
 			home_team_with_pitcher[:starter_rpp] = starter_rpp
 			home_team_with_pitcher[:opp_runs_per_pitch] = opp_runs_per_pitch
+			home_team_with_pitcher[:innings_per_run] = innings_per_run
+			home_team_with_pitcher[:pitches_thrown_per_game] = pitches_thrown_per_game
 			
 
 			home_team_with_pitcher[:runs_per_game] = runs_per_game
@@ -302,6 +314,7 @@ module MatchupsHelper
 			home_team_home = Hash.new
 
 			home_team_home[:games] = array.length
+			home_team_home[:record] = team_record
 			home_team_home[:run_diff] = run_diff
 			home_team_home[:runs_per_game] = runs_per_game
 			home_team_home[:runs_against_per_game] = runs_against
@@ -330,9 +343,12 @@ module MatchupsHelper
 			home_team_opp = Hash.new
 
 			home_team_opp[:games] = array.length
+			home_team_opp[:record] = team_record
 			home_team_opp[:run_diff] = run_diff
 			home_team_opp[:runs_per_game] = runs_per_game
+			home_team_opp[:runs_against_per_game] = runs_against
 			home_team_opp[:hits_per_game] = hits_per_game
+			home_team_opp[:hits_against_per_game] = hits_against_per_game
 			home_team_opp[:at_bats_per_game] = at_bats_per_game
 			home_team_opp[:at_bats_per_run] = at_bats_per_run
 			home_team_opp[:hits_needed_per_run] = hits_needed_per_run
@@ -355,6 +371,7 @@ module MatchupsHelper
 			home_team_pitcher = Hash.new
 
 			home_team_pitcher[:games] = array.length
+			home_team_pitcher[:record] = team_record
 			home_team_pitcher[:run_diff] = run_diff
 			home_team_pitcher[:runs_per_game] = runs_per_game
 			home_team_pitcher[:hits_per_game] = hits_per_game
@@ -379,6 +396,7 @@ module MatchupsHelper
 
 			home_team_last_ten = Hash.new
 
+			home_team_last_ten[:record] = team_record
 			home_team_last_ten[:run_diff] = run_diff
 			home_team_last_ten[:runs_per_game] = runs_per_game
 			home_team_last_ten[:runs_against_per_game] = runs_against
@@ -409,6 +427,7 @@ module MatchupsHelper
 			road_team_all = Hash.new
 
 			road_team_all[:games] = array.length
+			road_team_all[:record] = team_record
 			road_team_all[:run_diff] = run_diff
 			road_team_all[:runs_per_game] = runs_per_game
 			road_team_all[:runs_against_per_game] = runs_against
@@ -437,6 +456,7 @@ module MatchupsHelper
 			road_team_road = Hash.new
 
 			road_team_road[:games] = array.length
+			road_team_road[:record] = team_record
 			road_team_road[:run_diff] = run_diff
 			road_team_road[:runs_per_game] = runs_per_game
 			road_team_road[:runs_against_per_game] = runs_against
@@ -465,9 +485,12 @@ module MatchupsHelper
 			road_team_opp = Hash.new
 
 			road_team_opp[:games] = array.length
+			road_team_opp[:record] = team_record
 			road_team_opp[:run_diff] = run_diff
 			road_team_opp[:runs_per_game] = runs_per_game
+			road_team_opp[:runs_against_per_game] = runs_against
 			road_team_opp[:hits_per_game] = hits_per_game
+			road_team_opp[:hits_against_per_game] = hits_against_per_game
 			road_team_opp[:at_bats_per_game] = at_bats_per_game
 			road_team_opp[:at_bats_per_run] = at_bats_per_run
 			road_team_opp[:hits_needed_per_run] = hits_needed_per_run
@@ -491,6 +514,7 @@ module MatchupsHelper
 			road_team_pitcher = Hash.new
 
 			road_team_pitcher[:games] = array.length
+			road_team_pitcher[:record] = team_record
 			road_team_pitcher[:run_diff] = run_diff
 			road_team_pitcher[:runs_per_game] = runs_per_game
 			road_team_pitcher[:hits_per_game] = hits_per_game
@@ -518,6 +542,7 @@ module MatchupsHelper
 			road_team_with_pitcher = Hash.new
 
 			road_team_with_pitcher[:games] = array.length
+			road_team_with_pitcher[:record] = team_record
 			road_team_with_pitcher[:run_diff] = run_diff
 			road_team_with_pitcher[:starter_pitch_avg] = starter_pitch_avg
 			road_team_with_pitcher[:bullpen_pitch_avg] = bullpen_pitch_avg
@@ -529,6 +554,8 @@ module MatchupsHelper
 			road_team_with_pitcher[:bullpen_rpp] = bullpen_rpp
 			road_team_with_pitcher[:starter_rpp] = starter_rpp
 			road_team_with_pitcher[:opp_runs_per_pitch] = opp_runs_per_pitch
+			road_team_with_pitcher[:innings_per_run] = innings_per_run
+			road_team_with_pitcher[:pitches_thrown_per_game] = pitches_thrown_per_game
 			
 
 			road_team_with_pitcher[:runs_per_game] = runs_per_game
@@ -543,6 +570,7 @@ module MatchupsHelper
 
 			road_team_last_ten = Hash.new
 
+			road_team_last_ten[:record] = team_record
 			road_team_last_ten[:run_diff] = run_diff
 			road_team_last_ten[:runs_per_game] = runs_per_game
 			road_team_last_ten[:runs_against_per_game] = runs_against
