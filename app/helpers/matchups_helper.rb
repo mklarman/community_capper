@@ -148,6 +148,9 @@ module MatchupsHelper
 
 	def compute_stats(array)
 
+		@test
+		@runs_per = 0
+
 		@starter_pitches = 0
 		@bullpen_pitches = 0
 		@runs_for = 0
@@ -157,6 +160,7 @@ module MatchupsHelper
 		@at_bats_for = 0
 		@at_bats_against = 0
 		@innings = 0
+		@innings_game = 0
 		@opp_starter_pitches = 0
 		@opp_bullpen_pitches = 0
 		@runs_by_bullpen = 0
@@ -187,6 +191,7 @@ module MatchupsHelper
 			@at_bats_for += m.at_bats_for.to_i
 			@at_bats_against += m.at_bats_against.to_i
 			@innings += m.innings.to_i
+			@innings_game += m.innings.to_i
 			@opp_starter_pitches += m.opp_starter_pitches.to_i
 			@opp_bullpen_pitches += m.opp_bullpen_picthes.to_i
 			@runs_by_bullpen += m.runs_by_team_bullpen.to_i
@@ -194,12 +199,15 @@ module MatchupsHelper
 			@runs_by_opp_bullpen += m.runs_by_opp_bullpen.to_i
 			@runs_by_opp_starter += m.runs_by_opp_starter.to_i
 
+			@runs_per += m.innings.to_i 
+
 		end
 
-		runs_per_game = ((@runs_for.to_f / @innings.to_f) * 9).round(2)
-		runs_against = ((@runs_against.to_f / @innings.to_f) * 9).round(2)
-		hits_per_game = ((@hits_for.to_i / @innings.to_f).round(2) * 9).round(2)
-		hits_against_per_game = ((@hits_against.to_f / @innings.to_f) * 9).round(2)
+
+		runs_per_game = ((@runs_for.to_f / @runs_per.to_f) * 9).round(2)
+		runs_against = ((@runs_against.to_f / @runs_per.to_f) * 9).round(2)
+		hits_per_game = ((@hits_for.to_i / @runs_per.to_f).round(2) * 9).round(2)
+		hits_against_per_game = ((@hits_against.to_f / @runs_per.to_f) * 9).round(2)
 		at_bats_per_game = ((@at_bats_for.to_f / @innings.to_f) * 9).round(2)
 		at_bats_against_per_game = ((@at_bats_against.to_f / @innings.to_f) * 9).round(2)
 		at_bats_per_run = (1.0 / (@runs_for.to_f / @at_bats_for.to_f )).round(2)
@@ -217,9 +225,17 @@ module MatchupsHelper
 		opp_at_bats_per_nine = ((@at_bats_against.to_f/ @innings.to_f).round(2) * 9).round(2)
 		opp_hits_per_nine = ((@hits_against.to_f / @innings.to_f).round(2) * 9).round(2)
 
-		pitches_thrown_per_game = (((@starter_pitches.to_f + @bullpen_pitches.to_f) / @innings.to_f) * 9).round(2)
+		pitches_thrown_per_game = (((@starter_pitches.to_f + @bullpen_pitches.to_f) / @runs_per.to_f) * 9).round(2)
+
+		combined_pitches = @starter_pitches + @bullpen_pitches
 		
-		opp_runs_per_pitch = (1.0 / (@runs_against.to_f / pitches_thrown_per_game)).round(2)
+		opp_runs_per_pitch = (pitches_thrown_per_game.to_f / @runs_against.to_f).round(2)
+
+	
+		@test = (combined_pitches / @runs_against.to_f).round(2)
+
+		opp_runs_per_pitch = @test
+		
 
 		starter_freq = ((@starter_pitches.to_f / (@starter_pitches + @bullpen_pitches).to_f) * 100).round(2)
 		starter_freq_to_string = starter_freq.to_s + "%"
@@ -276,6 +292,8 @@ module MatchupsHelper
 			home_team_all[:starter_rpp] = starter_rpp
 
 			@home_all_stats = home_team_all
+			@home_all_stats[:opp_runs_per_pitch] = home_team_all[:opp_runs_per_pitch]
+			
 
 		end
 

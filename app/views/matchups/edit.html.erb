@@ -1,4 +1,10 @@
 <% @test = [] %>
+<% @test2 = [] %>
+<% @test3 = [] %>
+<% @test4 = [] %>
+<% @test5 = [] %>
+<% @test6 = [] %>
+<% @runs_per = [] %>
 <% @home_team %>
 <% @road_team %>
 <% @home_spread %>
@@ -55,6 +61,10 @@
 <% self.compute_stats(@road_vs_pitcher) %></div>
 <% self.compute_stats(@road_with_pitcher) %></div>
 <% self.compute_stats(@road_last_ten) %>
+
+<% self.compute_stats(@home_team_all_games) %></div>
+
+
 
 
 
@@ -479,6 +489,20 @@
 
 
 </div>
+
+
+
+<%= @test %>
+<%= @test2 %>
+
+
+
+
+
+
+
+
+
 
 
 
