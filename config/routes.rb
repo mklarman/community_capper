@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 	get "users/profile" => "welcome#users_show"
 	get "users/search" => "welcome#user_list"
   get "team/stats" => "matchups#team_stats"
+  get "team/last_three" => "matchups#last_three"
+  get "team/last_ten" => "matchups#last_ten"
+  get "team/last_thirty" => "matchups#last_thirty"
   
   	
 

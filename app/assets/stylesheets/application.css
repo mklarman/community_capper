@@ -61,3 +61,17 @@
 	margin-bottom: 5%;
 
 }
+
+.nav_links{
+
+	margin-right: 3%;
+	margin-top: 2%;
+}
+
+#admin_panel{
+
+	height: 100%;
+	width: 100%;
+
+	text-align: center;
+}

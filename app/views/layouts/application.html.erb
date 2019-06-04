@@ -11,27 +11,40 @@
   <body>
 
     
+    <div class="nav_links"> <%= link_to "Sign Up", new_user_registration_path, class: 'link_tabs'  %></div>
+    
+     <div class="nav_links"><%= link_to "STATS BY MATCHUPS", matchups_path %></div>
+     
+     <div class="nav_links"> <%= link_to "NL OVERVIEW", team_stats_path %></div>
+    
+    
+     <div class="nav_links"><%= link_to "NL TEAMS LAST THREE", team_last_three_path %></div>
+     
+     <div class="nav_links"><%= link_to "NL TEAMS LAST TEN", team_last_ten_path %></div>
+     
+     <div class="nav_links"><%= link_to "NL TEAMS LAST THIRTY", team_last_thirty_path %></div>
 
-    <%= link_to "Sign Up", new_user_registration_path, class: 'link_tabs'  %>
+    
 
-    <%= link_to "NL MATCHUPS", matchups_path %>
+    <div id="admin_panel">
 
-    <% if current_user %>
+      <% if current_user %>
 
-      <% if current_user.admin == true %>
+        <% if current_user.admin == true %>
 
-      	<%= link_to "Sign Up", new_user_registration_path, class: 'link_tabs'  %>
-      	<%= link_to "SEARCH", users_search_path %>
-        <%= link_to "NEW MATCHUP", new_matchup_path %>
-      	<%= link_to "New Tag", new_tag_path %>
-        <%= link_to "New Team", new_team_path %>
-        <%= link_to "All Teams", teams_path %>
-        <%= link_to "All Matchups", matchups_path %>
-      	<%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'link_tabs'  %></div>
+        	
+        	<%= link_to "SEARCH", users_search_path %>
+          <%= link_to "NEW MATCHUP", new_matchup_path %>
+        	<%= link_to "New Tag", new_tag_path %>
+          <%= link_to "New Team", new_team_path %>
+          <%= link_to "All Teams", teams_path %>
+          <%= link_to "All Matchups", matchups_path %>
+        	<%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'link_tabs'  %></div>
+
+        <% end %>
 
       <% end %>
-
-    <% end %>
+    </div>
 
   <%= yield %>
   </body>

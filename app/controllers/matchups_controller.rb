@@ -48,6 +48,24 @@ class MatchupsController < ApplicationController
 
 	end
 
+	def last_three
+
+		@teams = Team.all
+
+	end
+
+	def last_ten
+
+		@teams = Team.all
+
+	end
+
+	def last_thirty
+
+		@teams = Team.all
+
+	end
+
 	def update
 
 		@matchup = Matchup.find_by_id(params[:id])
