@@ -66,6 +66,8 @@
 
 	margin-right: 3%;
 	margin-top: 2%;
+	display: inline-block;
+
 }
 
 #admin_panel{
@@ -73,5 +75,13 @@
 	height: 100%;
 	width: 100%;
 
+	text-align: center;
+	margin-top: 3%;
+}
+
+#link_cont{
+
+	margin: auto;
+	
 	text-align: center;
 }
