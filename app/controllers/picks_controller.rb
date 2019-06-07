@@ -35,7 +35,7 @@ class PicksController < ApplicationController
 
 		if @pick.update(pick_params)
 
-			redirect_back(fallback_location: users_profile_path)
+			redirect_to picks_path
 		else
 
 			redirect_back(fallback_location: users_search_path)
