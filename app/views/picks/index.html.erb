@@ -1,0 +1,57 @@
+<% @winners = [] %>
+<% @losers = [] %>
+<% @update = [] %>
+<% @complete = [] %>
+
+<% if current_user.admin == true %>
+
+	<div id="pick_form">
+	
+		<%= form_for @pick do |p| %>
+
+			<div>Sport: <%= p.text_field :sport %></div>
+		 	<div>Type: <%= p.text_field :cat %></div>
+		 	<div>Pick: <%= p.text_field :pick %></div>
+		 	<div>Line: <%= p.text_field :line %></div>
+		 	<div>Reason: <%= p.text_field :reason %></div>
+		 	<div>Line Movement: <%= p.text_field :line_movement %></div>
+		 	<div>Consensus: <%= p.text_field :consensus %></div>
+		 	<div>Result: <%= p.text_field :result %></div>
+		 	<%= p.submit %>
+
+
+
+		<% end %>
+
+	</div>
+
+	<% @picks.all.each do |p| %>
+
+		<% if p.result.length == 0 %>
+
+			<% @update.push(p) %>
+
+		<% else %>
+
+			<% @complete.push(p) %>
+
+		<% end %>
+
+
+	<% end %>
+
+	<% @update.each do |u| %>
+
+		<% info = u.pick + " " + u.line %>
+
+		<%= link_to info, edit_pick_path(u.id) %>
+
+	<% end %>
+
+
+
+
+
+
+<% end %>
+

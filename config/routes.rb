@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 	resources :selections
   resources :teams
   resources :mlb_game_logs
+  resources :picks
 
 	get "users/profile" => "welcome#users_show"
 	get "users/search" => "welcome#user_list"
