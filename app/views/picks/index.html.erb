@@ -40,11 +40,13 @@
 
 	<% end %>
 
+	UPDATE PICKS
+
 	<% @update.each do |u| %>
 
 		<% info = u.pick + " " + u.line %>
 
-		<%= link_to info, edit_pick_path(u.id) %>
+		<div><%= link_to info, edit_pick_path(u.id) %></div>
 
 	<% end %>
 
