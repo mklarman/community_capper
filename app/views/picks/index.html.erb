@@ -122,9 +122,8 @@
 
 	<% z = x + y %>
 
-	<%= x %>
-	<%= y %>
-	<%= z %>
+	<% prcnt = x/z %>
+	<%= prcnt %>
 
 	<% @against_percentage = x / z %>
 	<% @with_percentage = @wit_wins / (@wit_wins + @wit_losses) %>
