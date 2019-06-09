@@ -81,6 +81,8 @@
 
 	<% @against_moves.each do |a| %>
 
+		<%= a.result %>
+
 		<% if a.result == "win" %>
 
 			<% @ag_wins += 1 %>
