@@ -9,8 +9,11 @@
 <% @ag_losses = 0 %>
 <% @wit_wins = 0 %>
 <% @wit_losses = 0 %>
+<% @no_losses = 0 %>
+<% @no_wins = 0 %>
 <% @against_percentage %>
 <% @with_percentage %>
+<% @no_percentage %>
 
 <% if current_user.admin == true %>
 
@@ -117,23 +120,41 @@
 
 	<% end %>
 
+	<% @no_moves.each do |a| %>
+
+		<% if a.result == "win" %>
+
+			<% @no_wins += 1 %>
+
+
+		<% elsif a.result == "loss" %>
+
+			<% @no_losses += 1 %>
+
+
+		<% end %>
+
+	<% end %>
+
 	<% x = @ag_wins.to_i %>
 	<% y = @ag_losses.to_i %>
 
 	<% z = x + y %>
 
-	<% prcnt = x/z %>
-	<%= prcnt %>
 
 	<% @against_percentage = (x.to_f / z.to_f).round(2) %>
 	<% @with_percentage = @wit_wins.to_f / (@wit_wins.to_f + @wit_losses.to_f) %>
+	
+	<% @no_percentage = @no_wins.to_f / (@no_wins.to_f + @no_losses.to_f) %>
 
 	<% @against_percentage = (@against_percentage * 100).round(2) %>
 	<% @with_percentage = (@with_percentage * 100).round(2) %>
+	<% @no_percentage = (@no_percentage * 100).round(2) %>
 	
 	<div>AGAINST WIN PERCENTAGE: <%= @against_percentage.to_s + "%" %></div>
 
 	<div>WITH WIN PERCENTAGE: <%= @with_percentage.to_s + "%" %></div>
+	<div>NONE WIN PERCENTAGE: <%= @no_percentage.to_s + "%" %></div>
 
 
 
