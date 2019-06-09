@@ -99,8 +99,9 @@
 
 	<% @against_percentage = @ag_wins / (@ag_wins + @ag_losses) %>
 
-	<%= @against_percentage %>
-	<%= @against_moves.length %>
+	<% @against_percentage = @against_percentage * 100 %>
+	<div>AGAINST WIN PERCENTAGE: <%= @against_percentage.to_s + "%" %></div>
+
 
 
 
