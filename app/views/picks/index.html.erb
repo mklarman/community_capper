@@ -117,10 +117,16 @@
 
 	<% end %>
 
-	<% x = @ag_wins / (@ag_wins + @ag_losses) %>
-	<%= x %>
+	<% x = @ag_wins.to_i %>
+	<% y = @ag_losses.to_i %>
 
-	<% @against_percentage = @ag_wins / (@ag_wins + @ag_losses) %>
+	<% z = x + y %>
+
+	<%= x %>
+	<%= y %>
+	<%= z %>
+
+	<% @against_percentage = x / z %>
 	<% @with_percentage = @wit_wins / (@wit_wins + @wit_losses) %>
 
 	<% @against_percentage = @against_percentage * 100 %>
