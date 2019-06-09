@@ -5,8 +5,8 @@
 <% @against_moves = [] %>
 <% @with_moves = [] %>
 <% @no_moves = [] %>
-<% @ag_wins %>
-<% @ag_losses %>
+<% @ag_wins = 0 %>
+<% @ag_losses = 0 %>
 <% @against_percentage %>
 
 <% if current_user.admin == true %>
@@ -95,7 +95,7 @@
 
 	<% end %>
 
-	<% @against_percentage = @ag_wins / @ag_wins + @ag_losses %>
+	<% @against_percentage = @ag_wins / (@ag_wins + @ag_losses) %>
 
 	<%= @against_percentage %>
 
