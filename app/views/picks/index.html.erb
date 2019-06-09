@@ -2,6 +2,12 @@
 <% @losers = [] %>
 <% @update = [] %>
 <% @complete = [] %>
+<% @against_moves = [] %>
+<% @with_moves = [] %>
+<% @no_moves = [] %>
+<% @ag_wins %>
+<% @ag_losses %>
+<% @against_percentage %>
 
 <% if current_user.admin == true %>
 
@@ -53,7 +59,49 @@
 
 
 
+	<% @complete.each do |c| %>
+
+		<% if c.line_movement == "against" %>
+
+			<% @against_moves.push(c) %>
+
+		<% elsif c.line_movement == "with" %>
+
+			<% @with_moves.push(c) %>
+
+
+		<% elsif c.line_movement == "none" %>
+
+			<% @no_moves.push(c) %>
+
+
+		<% end %>
+
+	<% end %>
+
+	<% @against_moves.each do |a| %>
+
+		<% if a.result == "win" %>
+
+			<% @ag_wins += 1 %>
+
+
+		<% elsif a.result == "loss" %>
+
+			<% @ag_losses += 1 %>
+
+
+		<% end %>
+
+	<% end %>
+
+	<% @against_percentage = @ag_wins / @ag_wins + @ag_losses %>
+
+	<%= @against_percentage %>
+
 
 
 <% end %>
+
+
 
