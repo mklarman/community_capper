@@ -125,11 +125,11 @@
 	<% prcnt = x/z %>
 	<%= prcnt %>
 
-	<% @against_percentage = x.to_f / z.to_f %>
+	<% @against_percentage = (x.to_f / z.to_f).round(2) %>
 	<% @with_percentage = @wit_wins.to_f / (@wit_wins.to_f + @wit_losses.to_f) %>
 
-	<% @against_percentage = @against_percentage * 100 %>
-	<% @with_percentage = @with_percentage * 100 %>
+	<% @against_percentage = (@against_percentage * 100).round(2) %>
+	<% @with_percentage = (@with_percentage * 100).round(2) %>
 	
 	<div>AGAINST WIN PERCENTAGE: <%= @against_percentage.to_s + "%" %></div>
 
