@@ -117,12 +117,10 @@
 
 	<% end %>
 
-
-	AGW:<%= @ag_wins %>
-	AGL:<%= @ag_losses %>
+	<% x = @ag_wins / (@ag_wins + @ag_losses) %>
+	<%= x %>
 
 	<% @against_percentage = @ag_wins / (@ag_wins + @ag_losses) %>
-	<%= @against_percentage %>
 	<% @with_percentage = @wit_wins / (@wit_wins + @wit_losses) %>
 
 	<% @against_percentage = @against_percentage * 100 %>
