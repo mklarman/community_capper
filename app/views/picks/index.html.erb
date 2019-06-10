@@ -5,12 +5,33 @@
 <% @against_moves = [] %>
 <% @with_moves = [] %>
 <% @no_moves = [] %>
+<% @low_ag = [] %>
+<% @high_ag = [] %>
+<% @high_wit = [] %>
+<% @low_wit = [] %>
+<% @high_no = [] %>
+<% @low_no = [] %>
 <% @ag_wins = 0 %>
 <% @ag_losses = 0 %>
 <% @wit_wins = 0 %>
 <% @wit_losses = 0 %>
 <% @no_losses = 0 %>
 <% @no_wins = 0 %>
+
+<% @low_ag_wins = 0 %>
+<% @low_wit_wins = 0 %>
+<% @low_no_wins = 0 %>
+<% @high_no_wins = 0 %>
+<% @high_wit_wins = 0 %>
+<% @high_ag_wins = 0 %>
+
+<% @low_ag_losses = 0 %>
+<% @low_wit_losses = 0 %>
+<% @low_no_losses = 0 %>
+<% @high_no_losses = 0 %>
+<% @high_wit_losses = 0 %>
+<% @high_ag_losses = 0 %>
+
 <% @against_percentage %>
 <% @with_percentage %>
 <% @no_percentage %>
@@ -71,14 +92,44 @@
 
 			<% @against_moves.push(c) %>
 
+			<% if c.consensus == "low" %>
+
+				<% @low_ag.push(c) %>
+
+			<% elsif c.consensus == "high" %>
+
+				<% @high_ag.push(c) %>
+
+			<% end %>
+
 		<% elsif c.line_movement == "with" %>
 
 			<% @with_moves.push(c) %>
+
+			<% if c.consensus == "low" %>
+
+				<% @low_wit.push(c) %>
+
+			<% elsif c.consensus == "high" %>
+
+				<% @high_wit.push(c) %>
+
+			<% end %>
 
 
 		<% elsif c.line_movement == "none" %>
 
 			<% @no_moves.push(c) %>
+
+			<% if c.consensus == "low" %>
+
+				<% @low_no.push(c) %>
+
+			<% elsif c.consensus == "high" %>
+
+				<% @high_no.push(c) %>
+
+			<% end %>
 
 
 		<% end %>
@@ -141,20 +192,154 @@
 
 	<% z = x + y %>
 
+	<% @low_ag.each do |l| %>
+
+		<% if l.result == "win" %>
+
+			<% @low_ag_wins += 1 %>
+
+		<% elsif l.result == "loss" %>
+
+			<% @low_ag_losses += 1 %>
+
+		<% end %>
+
+
+	<% end %>
+
+	<% @high_ag.each do |l| %>
+
+		<% if l.result == "win" %>
+
+			<% @high_ag_wins += 1 %>
+
+		<% elsif l.result == "loss" %>
+
+			<% @high_ag_losses += 1 %>
+
+		<% end %>
+
+
+	<% end %>
+
+	<% @low_wit.each do |l| %>
+
+		<% if l.result == "win" %>
+
+			<% @low_wit_wins += 1 %>
+
+		<% elsif l.result == "loss" %>
+
+			<% @low_wit_losses += 1 %>
+
+		<% end %>
+
+
+	<% end %>
+
+	<% @high_wit.each do |l| %>
+
+		<% if l.result == "win" %>
+
+			<% @high_wit_wins += 1 %>
+
+		<% elsif l.result == "loss" %>
+
+			<% @high_wit_losses += 1 %>
+
+		<% end %>
+
+
+	<% end %>
+
+	<% @high_no.each do |l| %>
+
+		<% if l.result == "win" %>
+
+			<% @high_no_wins += 1 %>
+
+		<% elsif l.result == "loss" %>
+
+			<% @high_no_losses += 1 %>
+
+		<% end %>
+
+
+	<% end %>
+
+	<% @low_no.each do |l| %>
+
+		<% if l.result == "win" %>
+
+			<% @low_no_wins += 1 %>
+
+		<% elsif l.result == "loss" %>
+
+			<% @low_no_losses += 1 %>
+
+		<% end %>
+
+
+	<% end %>
+
 
 	<% @against_percentage = (x.to_f / z.to_f).round(2) %>
 	<% @with_percentage = @wit_wins.to_f / (@wit_wins.to_f + @wit_losses.to_f) %>
 	
 	<% @no_percentage = @no_wins.to_f / (@no_wins.to_f + @no_losses.to_f) %>
 
+	<% @low_ag_prcnt = @low_ag_wins.to_f / (@low_ag_wins + @low_ag_losses) %>
+	<% @low_ag_prcnt = (@low_ag_prcnt * 100).round(2) %>
+	<% @low_ag_prcnt = @low_ag_prcnt.to_s + "%" %> 
+
+	<% @high_ag_prcnt = @high_ag_wins.to_f / (@high_ag_wins + @high_ag_losses) %>
+	<% @high_ag_prcnt = (@high_ag_prcnt * 100).round(2) %>
+	<% @high_ag_prcnt = @high_ag_prcnt.to_s + "%" %>
+
+	<% @low_wit_prcnt = @low_wit_wins.to_f / (@low_wit_wins + @low_wit_losses) %>
+	<% @low_wit_prcnt = (@low_wit_prcnt * 100).round(2) %>
+	<% @low_wit_prcnt = @low_wit_prcnt.to_s + "%" %> 
+
+	<% @high_wit_prcnt = @high_wit_wins.to_f / (@high_wit_wins + @high_wit_losses) %>
+	<% @high_wit_prcnt = (@high_wit_prcnt * 100).round(2) %>
+	<% @high_wit_prcnt = @high_wit_prcnt.to_s + "%" %>
+
+	<% @high_no_prcnt = @high_no_wins.to_f / (@high_no_wins + @high_no_losses) %>
+	<% @high_no_prcnt = (@high_no_prcnt * 100).round(2) %>
+	<% @high_no_prcnt = @high_no_prcnt.to_s + "%" %>
+
+	<% @low_no_prcnt = @low_no_wins.to_f / (@low_no_wins + @low_no_losses) %>
+	<% @low_no_prcnt = (@low_no_prcnt * 100).round(2) %>
+	<% @low_no_prcnt = @low_no_prcnt.to_s + "%" %> 
+
 	<% @against_percentage = (@against_percentage * 100).round(2) %>
 	<% @with_percentage = (@with_percentage * 100).round(2) %>
 	<% @no_percentage = (@no_percentage * 100).round(2) %>
 	
-	<div>AGAINST WIN PERCENTAGE: <%= @against_percentage.to_s + "%" %></div>
+	<div style="margin-top: 10px; margin-bottom: 10px;">AGAINST WIN PERCENTAGE: <%= @against_percentage.to_s + "%" %>
 
-	<div>WITH WIN PERCENTAGE: <%= @with_percentage.to_s + "%" %></div>
-	<div>NONE WIN PERCENTAGE: <%= @no_percentage.to_s + "%" %></div>
+		<div> LOW - AG: <%= @low_ag_prcnt + " " + "(" + @low_ag_wins.to_s + " - " + @low_ag_losses.to_s + ")"  %></div>
+		<div> high - AG: <%= @high_ag_prcnt  + " " + "(" + @high_ag_wins.to_s + " - " + @high_ag_losses.to_s + ")"   %></div>
+		
+
+	</div>
+
+	<div style="margin-top: 10px; margin-bottom: 10px;">WITH WIN PERCENTAGE: <%= @with_percentage.to_s + "%" %>
+
+		<div> LOW - WIT: <%= @low_wit_prcnt + " " + "(" + @low_wit_wins.to_s + " - " + @low_wit_losses.to_s + ")"   %></div>
+		
+		<div> high - WIT: <%= @high_wit_prcnt + " " + "(" + @high_wit_wins.to_s + " - " + @high_wit_losses.to_s + ")"   %></div>
+
+	</div>
+	
+	<div style="margin-top: 10px; margin-bottom: 10px;">NONE WIN PERCENTAGE: <%= @no_percentage.to_s + "%" %>
+		
+		<div> LOW - NO: <%= @low_no_prcnt + " " + "(" + @low_no_wins.to_s + " - " + @low_no_losses.to_s + ")"  %></div>
+		
+		<div> high - NO: <%= @high_no_prcnt + " " + "(" + @high_no_wins.to_s + " - " + @high_no_losses.to_s + ")" %></div>
+
+
+	</div>
 
 
 
