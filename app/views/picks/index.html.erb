@@ -73,13 +73,15 @@
 
 	<% end %>
 
-	UPDATE PICKS
+	<div style=" margin-left: 45%">UPDATE PICKS
 
 	<% @update.each do |u| %>
 
 		<% info = u.pick + " " + u.line %>
 
 		<div><%= link_to info, edit_pick_path(u.id) %></div>
+
+	</div>
 
 	<% end %>
 
@@ -316,7 +318,7 @@
 	<% @with_percentage = (@with_percentage * 100).round(2) %>
 	<% @no_percentage = (@no_percentage * 100).round(2) %>
 	
-	<div style="margin-top: 10px; margin-bottom: 10px;">AGAINST WIN PERCENTAGE: <%= @against_percentage.to_s + "%" %>
+	<div style="margin-top: 3%; margin-bottom: 3%;">AGAINST WIN PERCENTAGE: <%= @against_percentage.to_s + "%" %>
 
 		<div> LOW - AG: <%= @low_ag_prcnt + " " + "(" + @low_ag_wins.to_s + " - " + @low_ag_losses.to_s + ")"  %></div>
 		<div> high - AG: <%= @high_ag_prcnt  + " " + "(" + @high_ag_wins.to_s + " - " + @high_ag_losses.to_s + ")"   %></div>
@@ -324,7 +326,7 @@
 
 	</div>
 
-	<div style="margin-top: 10px; margin-bottom: 10px;">WITH WIN PERCENTAGE: <%= @with_percentage.to_s + "%" %>
+	<div style="margin-top: 3%; margin-bottom: 3%;">WITH WIN PERCENTAGE: <%= @with_percentage.to_s + "%" %>
 
 		<div> LOW - WIT: <%= @low_wit_prcnt + " " + "(" + @low_wit_wins.to_s + " - " + @low_wit_losses.to_s + ")"   %></div>
 		
