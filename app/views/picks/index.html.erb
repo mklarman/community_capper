@@ -395,6 +395,20 @@
 
 	<% @under_plays.each do |p| %>
 
+		<% if p.line_movement == "against" %>
+
+			<% @under_ag.push(p) %>
+
+		<% elsif p.line_movement == "with" %>
+
+			<% @under_wit.push(p) %>
+
+		<% elsif p.line_movement == "none" %>
+
+			<% @under_no.push(p) %>
+
+		<% end %>
+
 		<% if p.result.downcase == "win" %>
 
 			<% @under_wins += 1 %>
@@ -635,7 +649,7 @@
 		<div> OVR-WIT: <%= @over_wit_prcnt + " " + @over_wit_record %></div>
 		<div> OVR-NO: <%= @over_no_prcnt + " " + @over_no_record %></div>
 
-		<div> UND-AG: <%= @under_ag_prcnt + " " + @under_ag_record %></div>
+		<div> UND-AG: <%= @unders_prcnt + " " + @under_ag_record %></div>
 		<div> UND-WIT: <%= @under_wit_prcnt + " " + @under_wit_record %></div>
 		<div> UND-NO: <%= @under_no_prcnt + " " + @under_no_record %></div>
 
