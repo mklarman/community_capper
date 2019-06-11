@@ -85,3 +85,18 @@
 	
 	text-align: center;
 }
+
+.total_heading{
+
+	font-size: 20px;
+	margin-top: 1%;
+	margin-bottom: 1%;
+}
+
+.total_stats{
+
+	font-size: 17px;
+	margin-left: 2%;
+	margin-top: 1%;
+	margin-bottom: 1%;
+}

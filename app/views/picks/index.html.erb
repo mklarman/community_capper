@@ -641,17 +641,27 @@
 
 	<div style="margin-top: 10px; margin-bottom: 10px;">TOTALS WIN PERCENTAGE: <%= @totals_prcnt %>
 		
-		<div> OVERS: <%= @overs_prcnt + " " + @overs_record %></div>
-		
-		<div> UNDERS: <%= @unders_prcnt + " " + @unders_record %></div>
-		
-		<div> OVR-AG: <%= @over_ag_prcnt + " " + @over_ag_record %></div>
-		<div> OVR-WIT: <%= @over_wit_prcnt + " " + @over_wit_record %></div>
-		<div> OVR-NO: <%= @over_no_prcnt + " " + @over_no_record %></div>
+		<div class = "total_heading"> ALL OVERS PLAYS: <%= @overs_prcnt + " " + @overs_record %>
+			
+			<div class = "total_stats"> OVR-AG: <%= @over_ag_prcnt + " " + @over_ag_record %></div>
+			
+			<div class = "total_stats"> OVR-WIT: <%= @over_wit_prcnt + " " + @over_wit_record %></div>
+			
+			<div class = "total_stats"> OVR-NO: <%= @over_no_prcnt + " " + @over_no_record %></div>
 
-		<div> UND-AG: <%= @unders_prcnt + " " + @under_ag_record %></div>
-		<div> UND-WIT: <%= @under_wit_prcnt + " " + @under_wit_record %></div>
-		<div> UND-NO: <%= @under_no_prcnt + " " + @under_no_record %></div>
+
+
+		</div>
+		
+		<div class = "total_heading"> UNDERS: <%= @unders_prcnt + " " + @unders_record %>
+		
+		
+
+			<div class = "total_stats"> UND-AG: <%= @unders_prcnt + " " + @under_ag_record %></div>
+			<div class = "total_stats"> UND-WIT: <%= @under_wit_prcnt + " " + @under_wit_record %></div>
+			<div class = "total_stats"> UND-NO: <%= @under_no_prcnt + " " + @under_no_record %></div>
+
+		</div>
 
 
 	</div>
