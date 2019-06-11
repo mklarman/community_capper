@@ -16,6 +16,13 @@
 <% @over_plays = [] %>
 <% @under_plays = [] %>
 
+<% @over_ag = [] %>
+<% @over_wit = [] %>
+<% @over_no = [] %>
+<% @under_ag = [] %>
+<% @under_wit = [] %>
+<% @under_no = [] %>
+
 
 <% @ag_wins = 0 %>
 <% @ag_losses = 0 %>
@@ -44,9 +51,26 @@
 
 <% @over_wins = 0 %>
 <% @over_losses = 0 %>
-
 <% @under_wins = 0 %>
 <% @under_losses = 0 %>
+
+<% @over_ag_wins = 0 %>
+<% @over_ag_losses = 0 %>
+
+<% @over_wit_wins = 0 %>
+<% @over_wit_losses = 0 %>
+
+<% @over_no_wins = 0 %>
+<% @over_no_losses = 0 %>
+
+<% @under_ag_wins = 0 %>
+<% @under_ag_losses = 0 %>
+
+<% @under_wit_wins = 0 %>
+<% @under_wit_losses = 0 %>
+
+<% @under_no_wins = 0 %>
+<% @under_no_losses = 0 %>
 
 
 <% @against_percentage %>
@@ -340,6 +364,20 @@
 
 	<% @over_plays.each do |p| %>
 
+		<% if p.line_movement == "against" %>
+
+			<% @over_ag.push(p) %>
+
+		<% elsif p.line_movement == "with" %>
+
+			<% @over_wit.push(p) %>
+
+		<% elsif p.line_movement == "none" %>
+
+			<% @over_no.push(p) %>
+
+		<% end %>
+
 		<% if p.result.downcase == "win" %>
 
 			<% @over_wins += 1 %>
@@ -372,8 +410,143 @@
 
 	<% end %>
 
+	<% @over_ag.each do |p| %>
+
+		<% if p.result.downcase == "win" %>
+
+			<% @over_ag_wins += 1 %>
+
+		<% elsif p.result.downcase == "loss" %>
+
+			<% @over_ag_losses += 1 %>
+
+
+		<% end %>
+
+
+
+	<% end %>
+
+	<% @over_wit.each do |p| %>
+
+		<% if p.result.downcase == "win" %>
+
+			<% @over_wit_wins += 1 %>
+
+		<% elsif p.result.downcase == "loss" %>
+
+			<% @over_wit_losses += 1 %>
+
+
+		<% end %>
+
+
+
+	<% end %>
+
+	<% @over_no.each do |p| %>
+
+		<% if p.result.downcase == "win" %>
+
+			<% @over_no_wins += 1 %>
+
+		<% elsif p.result.downcase == "loss" %>
+
+			<% @over_no_losses += 1 %>
+
+
+		<% end %>
+
+
+
+	<% end %>
+
+	<% @under_no.each do |p| %>
+
+		<% if p.result.downcase == "win" %>
+
+			<% @under_no_wins += 1 %>
+
+		<% elsif p.result.downcase == "loss" %>
+
+			<% @under_no_losses += 1 %>
+
+
+		<% end %>
+
+
+
+	<% end %>
+
+	<% @under_wit.each do |p| %>
+
+		<% if p.result.downcase == "win" %>
+
+			<% @under_wit_wins += 1 %>
+
+		<% elsif p.result.downcase == "loss" %>
+
+			<% @under_wit_losses += 1 %>
+
+
+		<% end %>
+
+
+
+	<% end %>
+
+	<% @under_ag.each do |p| %>
+
+		<% if p.result.downcase == "win" %>
+
+			<% @under_ag_wins += 1 %>
+
+		<% elsif p.result.downcase == "loss" %>
+
+			<% @under_ag_losses += 1 %>
+
+
+		<% end %>
+
+
+
+	<% end %>
+
+
 
 	
+	<% @over_ag_prcnt = (@over_ag_wins.to_f / (@over_ag_wins.to_f + @over_ag_losses.to_f) * 100).round(2) %>
+
+	<% @over_wit_prcnt = (@over_wit_wins.to_f / (@over_wit_wins.to_f + @over_wit_losses.to_f) * 100).round(2) %>
+
+	<% @over_no_prcnt = (@over_no_wins.to_f / (@over_no_wins.to_f + @over_no_losses.to_f) * 100).round(2) %>
+
+	<% @under_ag_prcnt = (@under_ag_wins.to_f / (@under_ag_wins.to_f + @under_ag_losses.to_f) * 100).round(2) %>
+
+	<% @under_wit_prcnt = (@under_wit_wins.to_f / (@under_wit_wins.to_f + @under_wit_losses.to_f) * 100).round(2) %>
+
+	<% @under_no_prcnt = (@over_no_wins.to_f / (@under_no_wins.to_f + @under_no_losses.to_f) * 100).round(2) %>
+
+	<% @over_ag_prcnt = @over_ag_prcnt.to_s + "%" %>
+	<% @over_wit_prcnt = @over_wit_prcnt.to_s + "%" %>
+	<% @over_no_prcnt = @over_no_prcnt.to_s + "%" %>
+
+	<% @under_ag_prcnt = @under_ag_prcnt.to_s + "%" %>
+	<% @under_wit_prcnt = @under_wit_prcnt.to_s + "%" %>
+	<% @under_no_prcnt = @under_no_prcnt.to_s + "%" %>
+
+	<% @over_ag_record = "(" + @over_ag_wins.to_s + " - " + @over_ag_losses.to_s + ")" %>
+
+	<% @over_wit_record = "(" + @over_wit_wins.to_s + " - " + @over_wit_losses.to_s + ")" %>
+
+	<% @over_no_record = "(" + @over_no_wins.to_s + " - " + @over_no_losses.to_s + ")" %>
+
+	<% @under_ag_record = "(" + @under_ag_wins.to_s + " - " + @under_ag_losses.to_s + ")" %>
+
+	<% @under_wit_record = "(" + @under_wit_wins.to_s + " - " + @under_wit_losses.to_s + ")" %>
+
+	<% @under_no_record = "(" + @under_no_wins.to_s + " - " + @under_no_losses.to_s + ")" %>
+
 
 
 	<% @totals_prcnt = ((@total_wins.to_f / (@total_wins.to_f + @total_losses.to_f)) * 100).round(2) %>
@@ -457,6 +630,14 @@
 		<div> OVERS: <%= @overs_prcnt + " " + @overs_record %></div>
 		
 		<div> UNDERS: <%= @unders_prcnt + " " + @unders_record %></div>
+		
+		<div> OVR-AG: <%= @over_ag_prcnt + " " + @over_ag_record %></div>
+		<div> OVR-WIT: <%= @over_wit_prcnt + " " + @over_wit_record %></div>
+		<div> OVR-NO: <%= @over_no_prcnt + " " + @over_no_record %></div>
+
+		<div> UND-AG: <%= @under_ag_prcnt + " " + @under_ag_record %></div>
+		<div> UND-WIT: <%= @under_wit_prcnt + " " + @under_wit_record %></div>
+		<div> UND-NO: <%= @under_no_prcnt + " " + @under_no_record %></div>
 
 
 	</div>
