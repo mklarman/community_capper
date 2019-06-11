@@ -11,12 +11,19 @@
 <% @low_wit = [] %>
 <% @high_no = [] %>
 <% @low_no = [] %>
+<% @totals = [] %>
+<% @sides = [] %>
+
 <% @ag_wins = 0 %>
 <% @ag_losses = 0 %>
 <% @wit_wins = 0 %>
 <% @wit_losses = 0 %>
 <% @no_losses = 0 %>
 <% @no_wins = 0 %>
+<% @total_wins = 0 %>
+<% @total_losses = 0 %>
+<% @sides_wins = 0 %>
+<% @sides_losses = 0 %>
 
 <% @low_ag_wins = 0 %>
 <% @low_wit_wins = 0 %>
@@ -90,6 +97,17 @@
 
 
 	<% @complete.each do |c| %>
+
+		<% if c.cat == "total" %>
+
+			<% @totals.push(c) %>
+
+		
+		<% elsif c.cat == "side" %>
+
+			<% @sides.push(c) %>
+		
+		<% end %>
 
 		<% if c.line_movement == "against" %>
 
@@ -284,6 +302,26 @@
 
 
 	<% end %>
+
+	<% @totals.each do |t| %>
+
+		<% if t.result == "win" %>
+
+			<% @total_wins += %>
+
+		<% elsif t.result == "loss" %>
+
+			<% @total_losses += %>
+
+		<% end %>
+
+
+	<% end %>
+
+	<%= @total_wins %>
+	<%= @total_losses %>
+
+
 
 
 	<% @against_percentage = (x.to_f / z.to_f).round(2) %>
