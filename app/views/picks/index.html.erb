@@ -13,6 +13,9 @@
 <% @low_no = [] %>
 <% @totals = [] %>
 <% @sides = [] %>
+<% @over_plays = [] %>
+<% @under_plays = [] %>
+
 
 <% @ag_wins = 0 %>
 <% @ag_losses = 0 %>
@@ -38,6 +41,13 @@
 <% @high_no_losses = 0 %>
 <% @high_wit_losses = 0 %>
 <% @high_ag_losses = 0 %>
+
+<% @over_wins = 0 %>
+<% @over_losses = 0 %>
+
+<% @under_wins = 0 %>
+<% @under_losses = 0 %>
+
 
 <% @against_percentage %>
 <% @with_percentage %>
@@ -305,6 +315,16 @@
 
 	<% @totals.each do |t| %>
 
+		<% if t.pick[0].upcase == "O" %>
+
+			<% @over_plays.push(t) %>
+
+		<% elsif t.pick[0].upcase == "U" %>
+
+			<% @under_plays.push(t) %>
+
+		<% end %>
+
 		<% if t.result == "win" %>
 
 			<% @total_wins += 1 %>
@@ -318,11 +338,61 @@
 
 	<% end %>
 
-	<%= @total_wins %>
-	<%= @total_losses %>
+	<% @over_plays.each do |p| %>
+
+		<% if p.result.downcase == "win" %>
+
+			<% @over_wins += 1 %>
+
+		<% elsif p.result.downcase == "loss" %>
+
+			<% @over_losses += 1 %>
+
+
+		<% end %>
 
 
 
+	<% end %>
+
+	<% @under_plays.each do |p| %>
+
+		<% if p.result.downcase == "win" %>
+
+			<% @under_wins += 1 %>
+
+		<% elsif p.result.downcase == "loss" %>
+
+			<% @under_losses += 1 %>
+
+
+		<% end %>
+
+
+
+	<% end %>
+
+
+	
+
+
+	<% @totals_prcnt = ((@total_wins.to_f / (@total_wins.to_f + @total_losses.to_f)) * 100).round(2) %>
+
+	<% @totals_prcnt = @totals_prcnt.to_s + "%" %>
+	
+	<% @totals_record = "(" + @total_wins.to_s + " - " + @total_losses.to_s + ")" %>
+
+	<% @overs_prcnt = (@over_wins.to_f / (@over_wins.to_f + @over_losses.to_f) * 100).round(2) %>
+
+	<% @overs_prcnt = @overs_prcnt.to_s + "%" %>
+
+	<% @overs_record = "(" + @over_wins.to_s + " - " + @over_losses.to_s + ")" %>
+
+	<% @unders_record = "(" + @under_wins.to_s + " - " + @under_losses.to_s + ")" %>
+
+	<% @unders_prcnt = (@under_wins.to_f / (@under_wins.to_f + @under_losses.to_f) * 100).round(2) %>
+
+	<% @unders_prcnt = @unders_prcnt.to_s + "%" %>
 
 	<% @against_percentage = (x.to_f / z.to_f).round(2) %>
 	<% @with_percentage = @wit_wins.to_f / (@wit_wins.to_f + @wit_losses.to_f) %>
@@ -378,6 +448,15 @@
 		<div> LOW - NO: <%= @low_no_prcnt + " " + "(" + @low_no_wins.to_s + " - " + @low_no_losses.to_s + ")"  %></div>
 		
 		<div> high - NO: <%= @high_no_prcnt + " " + "(" + @high_no_wins.to_s + " - " + @high_no_losses.to_s + ")" %></div>
+
+
+	</div>
+
+	<div style="margin-top: 10px; margin-bottom: 10px;">TOTALS WIN PERCENTAGE: <%= @totals_prcnt %>
+		
+		<div> OVERS: <%= @overs_prcnt + " " + @overs_record %></div>
+		
+		<div> UNDERS: <%= @unders_prcnt + " " + @unders_record %></div>
 
 
 	</div>
