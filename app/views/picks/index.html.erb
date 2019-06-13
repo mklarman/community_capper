@@ -673,7 +673,7 @@
 	<% @sides_sd_wit_prcnt = @sides_sd_wit_prcnt.to_s + "%" %>
 
 
-	<% @sides_sd_no_record = "(" + @sides_sd_no_wins.to_s + " - " + @sides_sd_no_losses.to_s + ")" %>
+	<% @sides_sd_no_record = "(" + @side_sd_no_wins.to_s + " - " + @side_sd_no_losses.to_s + ")" %>
 
 	<% @sides_sd_no_prcnt = (@side_sd_no_wins.to_f / (@side_sd_no_wins.to_f + @side_sd_no_losses.to_f) * 100).round(2) %>
 
@@ -826,7 +826,7 @@
 				
 				<div class = "total_stats"> SD/WIT <%= @sides_sd_wit_prcnt + " " + @sides_sd_wit_record %></div>
 
-				<div class = "total_stats"> SD/NO <%= @side_sd_no_prcnt + " " + @sides_sd_no_record %></div>
+				<div class = "total_stats"> SD/NO <%= @sides_sd_no_prcnt + " " + @sides_sd_no_record %></div>
 
 			</div>
 
