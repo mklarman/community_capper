@@ -23,6 +23,12 @@
 <% @under_wit = [] %>
 <% @under_no = [] %>
 
+<% @sides_ts = [] %>
+<% @sides_rd = [] %>
+<% @sides_ct = [] %>
+<% @sides_rd = [] %>
+<% @sides_sd = [] %>
+
 
 <% @ag_wins = 0 %>
 <% @ag_losses = 0 %>
@@ -71,6 +77,18 @@
 
 <% @under_no_wins = 0 %>
 <% @under_no_losses = 0 %>
+
+<% @side_wins = 0 %>
+<% @side_losses = 0 %>
+
+<% @side_sd_ag_losses = 0 %>
+<% @side_sd_ag_wins = 0 %>
+
+<% @side_sd_wit_losses = 0 %>
+<% @side_sd_wit_wins = 0 %>
+
+<% @side_sd_no_losses = 0 %>
+<% @side_sd_no_wins = 0 %>
 
 
 <% @against_percentage %>
@@ -526,9 +544,144 @@
 
 	<% end %>
 
+	<% @sides.each do |s| %>
 
+		<% if s.reason == "s/d" %>
+
+
+			<% @sides_sd.push(s) %>
+
+
+		<% end %>
+
+		<% if s.reason == "t/s" %>
+
+
+			<% @sides_ts.push(s) %>
+
+
+		<% end %>
+
+		<% if s.reason == "r/d" %>
+
+
+			<% @sides_rd.push(s) %>
+
+
+		<% end %>
+
+		<% if s.reason == "c/t" %>
+
+
+			<% @sides_ct.push(s) %>
+
+
+		<% end %>
+
+
+
+	<% end %>
+
+	<% @sides_sd.each do |s| %>
+
+		<% if s.result == "win" %>
+
+			<% @side_wins += 1 %>
+		
+		<% elsif s.result == "loss" %>
+
+			<% @side_losses += 1 %>
+
+		<% end %>
+
+		<% if s.line_movement == "against" %>
+
+			<% if s.result == "win" %>
+
+				<% @side_sd_ag_wins += 1 %>
+
+			<% elsif s.result == "loss" %>
+
+				<% @side_sd_ag_losses += 1 %>
+
+			<% end %>
+
+		<% elsif s.line_movement == "with" %>
+
+			<% if s.result == "win" %>
+
+				<% @side_sd_wit_wins += 1 %>
+
+			<% elsif s.result == "loss" %>
+
+				<% @side_sd_wit_losses += 1 %>
+
+			<% end %>
+
+
+		<% elsif s.line_movement == "none" %>
+
+			<% if s.result == "win" %>
+
+				<% @side_sd_no_wins += 1 %>
+
+			<% elsif s.result == "loss" %>
+
+				<% @side_sd_no_losses += 1 %>
+
+			<% end %>
+
+
+
+		<% end %>
+
+
+	<% end %>
+
+	<% @sides_record = "(" + @side_wins.to_s + " - " + @side_losses.to_s + ")" %>
+
+	<% @sides_prcnt = (@side_wins.to_f / (@side_losses.to_f + @side_wins.to_f) * 100).round(2) %>
+
+	<% @sides_prcnt = @sides_prcnt.to_s + "%" %>
+
+	<% @sides_sd_win_total = @side_sd_ag_wins + @side_sd_wit_wins + @side_sd_no_wins %>
+
+	<% @sides_sd_loss_total = @side_sd_ag_losses + @side_sd_wit_losses + @side_sd_no_losses %>
+
+	<% @sides_sd_record = "(" + @sides_sd_win_total.to_s + " - " + @sides_sd_loss_total.to_s + ")" %>
+
+	<% @sides_sd_prcnt = (@sides_sd_win_total.to_f / (@sides_sd_win_total.to_f + @sides_sd_loss_total.to_f) * 100).round(2) %>
+
+	<% @sides_sd_prcnt = @sides_sd_prcnt.to_s + "%" %>
+
+	<% @sides_sd_ag_prcnt = (@sides_sd_ag_wins.to_f / (@sides_sd_ag_wins.to_f + @sides_sd_ag_losses.to_f) * 100).round(2) %>
+
+	<% @sides_sd_ag_prcnt = @sides_sd_ag_prcnt.to_s + "%" %>
 
 	
+	<% @sides_sd_ag_record = "(" + @sides_sd_ag_wins.to_s + " - " + @sides_sd_ag_losses.to_s + ")" %>
+
+	<% @sides_sd_ag_prcnt = (@sides_sd_ag_wins.to_f / (@sides_sd_ag_wins.to_f + @sides_sd_ag_losses.to_f) * 100).round(2) %>
+
+	<% @sides_sd_ag_prcnt = @sides_sd_ag_prcnt.to_s + "%" %>
+
+	
+	<% @sides_sd_wit_record = "(" + @sides_sd_wit_wins.to_s + " - " + @sides_sd_wit_losses.to_s + ")" %>
+
+	<% @sides_sd_wit_prcnt = (@sides_sd_wit_wins.to_f / (@sides_sd_wit_wins.to_f + @sides_sd_wit_losses.to_f) * 100).round(2) %>
+
+	<% @sides_sd_wit_prcnt = @sides_sd_wit_prcnt.to_s + "%" %>
+
+
+	<% @sides_sd_no_record = "(" + @sides_sd_no_wins.to_s + " - " + @sides_sd_no_losses.to_s + ")" %>
+
+	<% @sides_sd_no_prcnt = (@sides_sd_no_wins.to_f / (@sides_sd_no_wins.to_f + @sides_sd_no_losses.to_f) * 100).round(2) %>
+
+	<% @sides_sd_no_prcnt = @sides_sd_no_prcnt.to_s + "%" %>
+	
+	
+
+
 	<% @over_ag_prcnt = (@over_ag_wins.to_f / (@over_ag_wins.to_f + @over_ag_losses.to_f) * 100).round(2) %>
 
 	<% @over_wit_prcnt = (@over_wit_wins.to_f / (@over_wit_wins.to_f + @over_wit_losses.to_f) * 100).round(2) %>
@@ -660,6 +813,22 @@
 			<div class = "total_stats"> UND-AG: <%= @under_ag_prcnt + " " + @under_ag_record %></div>
 			<div class = "total_stats"> UND-WIT: <%= @under_wit_prcnt + " " + @under_wit_record %></div>
 			<div class = "total_stats"> UND-NO: <%= @under_no_prcnt + " " + @under_no_record %></div>
+
+		</div>
+
+		<div class = "total_heading"> SIDES: <%= @sides_prcnt + " " + @sides_record %>
+		
+		
+
+			<div class = "total_stats"> S/D: <%= @sides_sd_prcnt + " " + @sides_sd_record %>
+				
+				<div class = "total_stats"> SD/AG: <%= @sides_sd_ag_prcnt + " " + @sides_sd_ag_record %></div>
+				
+				<div class = "total_stats"> SD/WIT <%= @sides_sd_wit_prcnt + " " + @sides_sd_wit_record %></div>
+
+				<div class = "total_stats"> SD/NO <%= @sides_sd_no_prcnt + " " + @sides_sd_no_record %></div>
+
+			</div>
 
 		</div>
 
