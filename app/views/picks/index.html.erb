@@ -670,6 +670,32 @@
 
 	<% end %>
 
+	<% @loss_counter = 0 %>
+	<% @win_counter = 0 %>
+
+	<% @sides.each do |s| %>
+
+		<div><%= s.line.to_s + " " + s.result %></div>
+
+		<% if s.result == "loss" %>
+
+			<% @loss_counter += 1 %>
+
+		<% elsif s.result == "win" %>
+
+			<% @win_counter += 1 %>
+
+		<% end %>
+
+	<% end %>
+
+	<% @s_record = "(" + @win_counter.to_s + " - " + @loss_counter.to_s + ")" %>
+
+	<% @s_prcnt = (@win_counter.to_f / (@win_counter.to_f + @loss_counter.to_f) * 100).round(2) %>
+
+	<% @s_prcnt = @s_prcnt.to_s + "%" %>
+
+
 	<% @side_dog_record = "(" + @side_dog_winners.to_s + " - " + @side_dog_losers.to_s + ")" %>
 
 	<% @side_fav_record = "(" + @side_fav_winners.to_s + " - " + @side_fav_losers.to_s + ")" %>
@@ -860,7 +886,7 @@
 
 		</div>
 
-		<div class = "total_heading"> SIDES: <%= @sides_prcnt + " " + @sides_record %>
+		<div class = "total_heading"> SIDES: <%= @s_prcnt + " " + @s_record %>
 		
 		
 
@@ -890,27 +916,7 @@
 
 <% end %>
 
-<% @loss_counter = 0 %>
-<% @win_counter = 0 %>
 
-<% @sides.each do |s| %>
-
-	<div><%= s.line.to_s + " " + s.result %></div>
-
-	<% if s.result == "loss" %>
-
-		<% @loss_counter += 1 %>
-
-	<% elsif s.result == "win" %>
-
-		<% @win_counter += 1 %>
-
-	<% end %>
-
-<% end %>
-
-<div>WINS: <%=@win_counter %></div>
-<div>LOSSES: <%=@loss_counter %></div>
 
 
 
