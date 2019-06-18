@@ -675,8 +675,6 @@
 
 	<% @sides.each do |s| %>
 
-		<div><%= s.line.to_s + " " + s.result %></div>
-
 		<% if s.result == "loss" %>
 
 			<% @loss_counter += 1 %>
