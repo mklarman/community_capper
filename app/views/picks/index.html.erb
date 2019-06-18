@@ -890,11 +890,27 @@
 
 <% end %>
 
+<% @loss_counter = 0 %>
+<% @win_counter = 0 %>
+
 <% @sides.each do |s| %>
 
 	<div><%= s.line.to_s + " " + s.result %></div>
 
+	<% if s.result == "loss" %>
+
+		<% @loss_counter += 1 %>
+
+	<% elsif s.result == "win" %>
+
+		<% @win_counter += 1 %>
+
+	<% end %>
+
 <% end %>
+
+<div>WINS: <%=@win_counter %></div>
+<div>LOSSES: <%=@loss_counter %></div>
 
 
 
