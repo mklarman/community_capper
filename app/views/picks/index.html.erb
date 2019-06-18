@@ -41,6 +41,12 @@
 <% @sides_wins = 0 %>
 <% @sides_losses = 0 %>
 
+<% @side_dog_winners = 0 %>
+<% @side_dog_losers = 0 %>
+
+<% @side_fav_winners = 0 %>
+<% @side_fav_losers = 0 %>
+
 <% @low_ag_wins = 0 %>
 <% @low_wit_wins = 0 %>
 <% @low_no_wins = 0 %>
@@ -546,6 +552,32 @@
 
 	<% @sides.each do |s| %>
 
+		<% if s.line[0] == "+" %>
+
+			<% if s.result == "win" %>
+
+				<% @side_dog_winners += 1 %>
+
+			<% elsif s.result == "loss" %>
+
+				<% @side_dog_losers += 1 %>
+
+			<% end %>
+
+		<% else %>
+
+			<% if s.result == "win" %>
+
+				<% @side_fav_winners += 1 %>
+
+			<% elsif s.result == "loss" %>
+
+				<% @side_fav_losers += 1 %>
+
+			<% end %>
+
+		<% end %>
+
 		<% if s.reason == "s/d" %>
 
 
@@ -637,6 +669,18 @@
 
 
 	<% end %>
+
+	<% @side_dog_record = "(" + @side_dog_winners.to_s + " - " + @side_dog_losers.to_s + ")" %>
+
+	<% @side_fav_record = "(" + @side_fav_winners.to_s + " - " + @side_fav_losers.to_s + ")" %>
+
+	<% @side_dog_prcnt = (@side_dog_winners.to_f / (@side_dog_losers.to_f + @side_dog_winners.to_f) * 100).round(2) %>
+
+	<% @side_dog_prcnt = @side_dog_prcnt.to_s + "%" %>
+
+	<% @side_fav_prcnt = (@side_fav_winners.to_f / (@side_fav_losers.to_f + @side_fav_winners.to_f) * 100).round(2) %>
+
+	<% @side_fav_prcnt = @side_fav_prcnt.to_s + "%" %>
 
 	<% @sides_record = "(" + @side_wins.to_s + " - " + @side_losses.to_s + ")" %>
 
@@ -827,6 +871,10 @@
 				<div class = "total_stats"> SD/WIT <%= @sides_sd_wit_prcnt + " " + @sides_sd_wit_record %></div>
 
 				<div class = "total_stats"> SD/NO <%= @sides_sd_no_prcnt + " " + @sides_sd_no_record %></div>
+
+				<div class = "total_stats"> SIDE/DOGS <%= @side_dog_prcnt + " " + @side_dog_record %></div>
+
+				<div class = "total_stats"> SIDE/FAVS <%= @side_fav_prcnt + " " + @side_fav_record %></div>
 
 			</div>
 
