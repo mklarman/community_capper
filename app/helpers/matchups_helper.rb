@@ -1735,7 +1735,7 @@ module MatchupsHelper
 
 					else
 
-						rating = g.team_starter_pitches.to_i * 1.1
+						rating = (g.team_starter_pitches.to_i * 1.1).round(2)
 
 
 					end
