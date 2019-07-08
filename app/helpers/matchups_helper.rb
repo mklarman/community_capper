@@ -1727,7 +1727,7 @@ module MatchupsHelper
 
 			games.each do |g|
 
-				if g.runs_by_team_starter == 0
+				if g.runs_by_team_starter.to_i == 0
 
 					if g.team_starter_pitches.to_i <= 50
 
