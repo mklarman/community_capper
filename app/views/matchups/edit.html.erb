@@ -4,11 +4,15 @@
 <% @test4 = [] %>
 <% @test5 = [] %>
 <% @test6 = [] %>
+<% @nl_pitchers = [] %>
+<% @pitchers_and_ratings = [] %>
 <% @runs_per = [] %>
+<% @pitchers_in_matchup = [] %>
 <% @home_team %>
 <% @road_team %>
 <% @home_spread %>
 <% @road_spread %>
+
 
 <% @home_team_all_games = [] %>
 <% @home_team_home_games = [] %>
@@ -363,6 +367,50 @@
 	</div>			
 	
 </div>
+
+<% self.get_all_pitchers %>
+
+<% self.create_rating_objects %>
+
+<div>
+	
+	<% @pitchers_and_ratings.each do |p| %>
+
+		<% if p[:pitcher] == @matchup.home_pitcher || p[:pitcher] == @matchup.away_pitcher %>
+
+			<% @pitchers_in_matchup.push(p) %>
+
+		<% end %>
+
+	<% end %>
+
+	<div>
+
+		<% @pitchers_in_matchup.each do |p| %>
+
+			<div>
+
+				<div><%= p[:pitcher] %></div>
+				<div><%= p[:overall_rating] %></div>
+				<div><%= p[:home_rating] %></div>
+				<div><%= p[:away_rating] %></div>
+				<div><%= p[:last_three] %></div>
+				<div><%= p[:all_ratings] %></div>
+
+
+			</div>
+
+		<% end %>
+
+
+	<div>
+
+
+
+</div>
+
+<%= @pitchers_in_matchup %>
+
 
 
 

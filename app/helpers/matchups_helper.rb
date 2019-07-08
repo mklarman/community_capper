@@ -1692,4 +1692,101 @@ module MatchupsHelper
 		end
 
 	end
+
+	def get_all_pitchers
+
+		MlbGameLog.all.each do |m|
+
+			@nl_pitchers.push(m.team_starting_pitcher) unless @nl_pitchers.include?(m.team_starting_pitcher)
+
+
+		end
+
+
+	end
+
+	def create_rating_objects
+
+		@nl_pitchers.each do |n|
+
+			ratings = []
+
+			games = []
+
+			MlbGameLog.all.each do |m|
+
+				if m.team_starting_pitcher == n	
+
+					games.push(m)				
+
+				end
+
+				
+
+
+			end
+
+			games.each do |g|
+
+				rating = (g.team_starter_pitches.to_f / g.runs_by_team_starter.to_f).round(2)
+				ratings.push(rating)
+
+
+			end
+
+			avg_rating = ((ratings.inject(0){|sum,x| sum + x }).to_f / ratings.length.to_f).round(2)
+
+			counter = 0
+			home_counter = 0
+			away_counter = 0
+			home_games = 0
+			away_games = 0
+			
+			ratings.last(3).each do |r|
+
+				counter += r
+
+
+			end
+
+			last_three_rating = (counter.to_f / 3.0).round(2)
+
+			games.each do |g|
+
+				if g.home == "true"
+
+					home_counter += g.team_starter_pitches.to_f
+
+					home_games += g.runs_by_team_starter.to_f
+
+				elsif g.home == "false"
+
+					away_counter += g.team_starter_pitches.to_f
+
+					away_games += g.runs_by_team_starter.to_f
+
+				end
+
+			end
+
+			home_rating = (home_counter.to_f / home_games.to_f).round(2)
+			away_rating = (away_counter.to_f / away_games.to_f).round(2)
+
+
+
+			player_ratings = Hash.new
+			
+			player_ratings[:pitcher] = n
+			player_ratings[:all_ratings] = ratings
+			player_ratings[:home_rating] = home_rating
+			player_ratings[:away_rating] = away_rating
+			player_ratings[:last_three] = last_three_rating
+			player_ratings[:overall_rating] = avg_rating
+
+			@pitchers_and_ratings.push(player_ratings)
+
+
+		end
+
+	end
 end
