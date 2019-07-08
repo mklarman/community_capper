@@ -1754,7 +1754,9 @@ module MatchupsHelper
 
 			end
 
-			avg_rating = ((ratings.inject(0){|sum,x| sum + x }).to_f / ratings.length.to_f).round(2)
+			@test6 = ratings.length
+
+			avg_rating = ((ratings.inject(0){|sum,x| sum + x }).to_f / (ratings.length.to_f)).round(2)
 
 			counter = 0
 			home_counter = 0
