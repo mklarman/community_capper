@@ -1709,6 +1709,8 @@ module MatchupsHelper
 
 		@nl_pitchers.each do |n|
 
+			rating = 0
+
 			ratings = []
 
 			games = []
@@ -1721,14 +1723,28 @@ module MatchupsHelper
 
 				end
 
-				
-
-
 			end
 
 			games.each do |g|
 
-				rating = (g.team_starter_pitches.to_f / g.runs_by_team_starter.to_f).round(2)
+				if g.runs_by_team_starter == 0
+
+					if g.team_starter_pitches.to_i <= 50
+
+						rating = 50
+
+
+					end
+
+				else
+
+					rating = (g.team_starter_pitches.to_f / g.runs_by_team_starter.to_f).round(2)
+
+
+				end
+
+				
+
 				ratings.push(rating)
 
 
