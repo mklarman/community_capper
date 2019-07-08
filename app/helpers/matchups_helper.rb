@@ -1733,6 +1733,10 @@ module MatchupsHelper
 
 						rating = 50
 
+					else
+
+						rating = g.team_starter_pitches.to_i * 1.1
+
 
 					end
 
