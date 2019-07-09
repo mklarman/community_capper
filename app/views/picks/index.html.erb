@@ -40,6 +40,8 @@
 <% @total_losses = 0 %>
 <% @sides_wins = 0 %>
 <% @sides_losses = 0 %>
+<% @cr_wins = 0 %>
+<% @cr_losses = 0 %>
 
 <% @side_dog_winners = 0 %>
 <% @side_dog_losers = 0 %>
@@ -904,6 +906,17 @@
 
 		</div>
 
+		<div class = "total_heading">
+
+
+			<% self.get_picks %>
+
+			CORRECTION PLAYS: <%= @cr_wins.to_s + " - " + @cr_losses.to_s %>
+
+
+
+		</div>
+
 
 	</div>
 
@@ -914,7 +927,7 @@
 
 <% end %>
 
-<% @hi = "hi" %>
+
 
 
 

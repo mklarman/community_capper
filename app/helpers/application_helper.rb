@@ -1317,5 +1317,28 @@ module ApplicationHelper
 
 	end
 
+	def get_picks
+
+		Pick.all.each do |p|
+
+			if p.reason.downcase == "c/r"
+
+				if p.result == "win"
+
+					@cr_wins += 1
+
+				elsif p.result == "loss"
+
+					@cr_losses +=1
+
+				end
+
+			end
+
+
+		end
+
+	end
+
 
 end
