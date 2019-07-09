@@ -1,0 +1,128 @@
+<% @nl_pitchers = [] %>
+<% @pitchers_and_ratings =[] %>
+
+<% @phillies = [] %>
+<% @mets = [] %>
+<% @braves = [] %>
+<% @marlins = [] %>
+<% @nationals = [] %>
+<% @cubs = [] %>
+<% @pirates = [] %>
+<% @brewers = [] %>
+<% @cardinals = [] %>
+<% @reds = [] %>
+<% @giants = [] %>
+<% @padres = [] %>
+<% @dodgers = [] %>
+<% @rockies = [] %>
+<% @dbacks = [] %>
+
+<% @overall = [] %>
+<% @home_rating = [] %>
+<% @away_rating = [] %>
+<% @last_three = [] %>
+
+<% @overall_category = [] %>
+<% @home_category = [] %>
+<% @away_category = [] %>
+<% @last_three_category = [] %>
+
+<% self.get_all_pitchers %>
+
+<% self.create_rating_objects %>
+
+<% self.put_pitchers_on_teams %>
+
+<% self.rank_pitchers %>
+<%= @overall %>
+<% @overall_category.each do |o| %>
+
+	<div><%= "Hello" + o[:player] + " " + "Rating: " + o[:overall_rating].to_s + " " + "Ranking: " + o[:overall_ranking]%></div>
+
+
+<% end %>
+
+<div id="main_c">
+	
+	<div class="division_cont">NL EAST
+
+		<div class="team_cont"><div class="team_n">BRAVES</div>
+			
+
+		</div>
+		<div class="team_cont"><div class="team_n">NATIONALS</div>
+			
+
+		</div>
+		<div class="team_cont"><div class="team_n">PHILLIES</div>
+			
+
+		</div>
+		<div class="team_cont"><div class="team_n">METS</div>
+			
+
+		</div>
+		<div class="team_cont"><div class="team_n">MARLINS</div>
+			
+
+		</div>
+		
+
+	</div>
+	<div class="division_cont">NL CENTRAL
+
+		<div class="team_cont"><div class="team_n">BREWERS</div>
+			
+
+		</div>
+		<div class="team_cont"><div class="team_n">CUBS</div>
+			
+
+		</div>
+		<div class="team_cont"><div class="team_n">PIRATES</div>
+			
+
+		</div>
+		<div class="team_cont"><div class="team_n">REDS</div>
+			
+
+		</div>
+		<div class="team_cont"><div class="team_n">CARDINALS</div>
+			
+
+		</div>
+		
+
+	</div>
+	<div class="division_cont">NL WEST
+
+		<div class="team_cont"><div class="team_n">DODGERS</div>
+			
+
+		</div>
+		<div class="team_cont"><div class="team_n">ROCKIES</div>
+			
+
+		</div>
+		<div class="team_cont"><div class="team_n">DIAMONDBACKS</div>
+			
+
+		</div>
+		<div class="team_cont"><div class="team_n">PADRES</div>
+			
+
+		</div>
+		<div class="team_cont"><div class="team_n">GIANTS</div>
+			
+
+		</div>
+		
+
+	</div>
+
+
+
+
+
+</div>
+

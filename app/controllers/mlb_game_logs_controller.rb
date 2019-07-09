@@ -23,6 +23,12 @@ class MlbGameLogsController < ApplicationController
 
 	end
 
+	def index
+
+		@mlb = MlbGameLog.all
+
+	end
+
 	private
 
 	def mlb_game_log_params
