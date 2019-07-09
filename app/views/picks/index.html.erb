@@ -42,6 +42,10 @@
 <% @sides_losses = 0 %>
 <% @cr_wins = 0 %>
 <% @cr_losses = 0 %>
+<% @cr_total_wins = 0 %>
+<% @cr_total_losses = 0 %>
+<% @cr_side_losses = 0 %>
+<% @cr_side_wins = 0 %>
 
 <% @side_dog_winners = 0 %>
 <% @side_dog_losers = 0 %>
@@ -911,7 +915,9 @@
 
 			<% self.get_picks %>
 
-			CORRECTION PLAYS: <%= @cr_wins.to_s + " - " + @cr_losses.to_s %>
+			<div>CORRECTION PLAYS - ALL: <%= @cr_wins.to_s + " - " + @cr_losses.to_s %></div>
+			
+			<div>CORRECTION PLAYS - TOTALS: <%= @cr_total_wins.to_s + " - " + @cr_total_losses.to_s %></div>
 
 
 

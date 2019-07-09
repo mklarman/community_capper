@@ -1327,9 +1327,29 @@ module ApplicationHelper
 
 					@cr_wins += 1
 
+					if p.cat == "total"
+
+						@cr_total_wins +=1
+
+					else
+
+						@cr_side_wins +=1
+
+					end
+
 				elsif p.result == "loss"
 
 					@cr_losses +=1
+
+					if p.cat == "total"
+
+						@cr_total_losses +=1
+
+					else
+
+						@cr_side_losses +=1
+
+					end
 
 				end
 
