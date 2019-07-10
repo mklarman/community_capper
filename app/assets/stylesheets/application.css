@@ -109,8 +109,9 @@
 	margin-left: 5%;
 	margin-top: 5%;
 	height: 100%;
-	width: 20%;
+	width: 23%;
 	font-size: 25px;
+	border: 1px solid red;
 
 }
 
@@ -124,9 +125,27 @@
 
 .team_n{
 
-	margin-top: 3%;
-	margin-bottom: 3%;
-	font-size: 17px;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	font-size: 20px;
 	margin-right: 1%;
 	margin-left: 1%;
+	color: black;
+}
+
+.pitcher_name{
+
+	font-size: 15px;
+	color: red;
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+
+.numbers{
+
+	font-size: 16px;
+	color: blue;
+	margin-top: 1%;
+	margin-bottom: 1%;
+
 }

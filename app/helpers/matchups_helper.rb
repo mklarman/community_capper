@@ -1709,6 +1709,11 @@ module MatchupsHelper
 
 		@nl_pitchers.each do |n|
 
+			total_pitches = 0
+			bullpen_pitches = 0
+			runs_scored = 0
+			bullpen_runs = 0
+
 			rating = 0
 
 			ratings = []
@@ -1726,6 +1731,11 @@ module MatchupsHelper
 			end
 
 			games.each do |g|
+
+				total_pitches += g.team_starter_pitches.to_f
+				bullpen_pitches += g.team_bullpen_picthes.to_f
+				runs_scored += g.runs_by_team_starter.to_f
+				bullpen_runs += g.runs_by_team_bullpen.to_f
 
 				if g.runs_by_team_starter.to_i == 0
 
@@ -1754,7 +1764,18 @@ module MatchupsHelper
 
 			end
 
-			@test6 = ratings.length
+			true_rating = (total_pitches.to_f / runs_scored.to_f).round(2)
+
+			avg_pitch_count = (total_pitches.to_f / games.length.to_f).round(2)
+
+			bp_avg_pitch_count = (bullpen_pitches.to_f / games.length.to_f).round(2)
+
+			pitcher_freq = ((total_pitches.to_f / (total_pitches.to_f + bullpen_pitches.to_f)) * 100).round(2)
+			bullpen_freq = (100.0 - pitcher_freq).round(2)
+			pitcher_freq = pitcher_freq.to_s + "%"
+			bullpen_freq = bullpen_freq.to_s + "%"
+
+			pen_rating = (bullpen_pitches.to_f / bullpen_runs.to_f).round(2)
 
 			avg_rating = ((ratings.inject(0){|sum,x| sum + x }).to_f / (ratings.length.to_f)).round(2)
 
@@ -1804,6 +1825,14 @@ module MatchupsHelper
 			player_ratings[:away_rating] = away_rating
 			player_ratings[:last_three] = last_three_rating
 			player_ratings[:overall_rating] = avg_rating
+			player_ratings[:true_rating] = true_rating
+			player_ratings[:avg_pitch_count] = avg_pitch_count
+			player_ratings[:stamina] = pitcher_freq
+			player_ratings[:pen_pitch_count] = bp_avg_pitch_count
+			player_ratings[:pen_stamina] = bullpen_freq
+			player_ratings[:pen_rating] = pen_rating
+
+
 
 			@pitchers_and_ratings.push(player_ratings)
 

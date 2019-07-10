@@ -21,11 +21,18 @@
 <% @home_rating = [] %>
 <% @away_rating = [] %>
 <% @last_three = [] %>
+<% @true_rating = [] %>
+<% @pen_rating = [] %>
+<% @avg_pc = [] %>
+<% @p_pc = [] %>
+<% @stamina = [] %>
+<% @pen_stamina = [] %>
 
 <% @overall_category = [] %>
 <% @home_category = [] %>
 <% @away_category = [] %>
 <% @last_three_category = [] %>
+<% @pitcher_details = [] %>
 
 <% self.get_all_pitchers %>
 
@@ -34,85 +41,1057 @@
 <% self.put_pitchers_on_teams %>
 
 <% self.rank_pitchers %>
-<%= @overall %>
-<% @overall_category.each do |o| %>
-
-	<div><%= "Hello" + o[:player] + " " + "Rating: " + o[:overall_rating].to_s + " " + "Ranking: " + o[:overall_ranking]%></div>
 
 
-<% end %>
 
 <div id="main_c">
-	
-	<div class="division_cont">NL EAST
+
+	<div class="division_cont" style="color: green;">NL EAST
 
 		<div class="team_cont"><div class="team_n">BRAVES</div>
+
+			<% @braves.each do |b| %>
+
+				<% @pitcher_details.each do |p| %>
+
+					<% if b == p[:name] %>
+
+						<div class="pitcher_stats">
+							
+							<div class = "pitcher_name"><%= b.upcase %></div>
+
+							<% if p[:true_rating].nil? == false %>
+
+								<div class = "numbers">TRUE RATING: <%= p[:true_rating].to_s + " " + "RANK: " + p[:true_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:overall_rating].nil? == false %>
+
+								<div class = "numbers">AVG GAME RATING: <%= p[:overall_rating].to_s + " " + "RANK: " + p[:overall_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:last_three].nil? == false %>
+
+								<div class = "numbers">LAST 3 RATING: <%= p[:last_three].to_s + " " + "RANK: " + p[:last_three_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:home_rating].nil? == false %>
+
+								<div class = "numbers">HOME RATING: <%= p[:home_rating].to_s + " " + "RANK: " + p[:home_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:away_rating].nil? == false %>
+
+								<div class = "numbers">AWAY RATING: <%= p[:away_rating].to_s + " " + "RANK: " + p[:away_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:avg_pitch_count].nil? == false %>
+
+								<div class = "numbers">PITCHES/START<%= p[:avg_pitch_count].to_s + " " + "RANK: " + p[:av_pc_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:pen_pitch_count].nil? == false %>
+
+								<div class = "numbers">PEN PITCHES/START<%= p[:pen_pitch_count].to_s + " " + "RANK: " + p[:pen_pc_ranking] %></div>
+
+							<% end %>
+
+							<div class = "numbers">STARTER STAMINA: <%= p[:stamina].to_s + " " + "RANK: " + p[:stamina_ranking] %></div>
+
+							<div class = "numbers">PEN STAMINA: <%= p[:pen_stamina].to_s + " " + "RANK: " + p[:pen_stamina_ranking] %></div>
+
+
+						</div>
+
+					<% end %>
+
+				<% end %>
+
+			<% end %>
 			
 
 		</div>
 		<div class="team_cont"><div class="team_n">NATIONALS</div>
+
+			<% @nationals.each do |b| %>
+
+				<% @pitcher_details.each do |p| %>
+
+					<% if b == p[:name] %>
+
+						<div class="pitcher_stats">
+							
+							<div class = "pitcher_name"><%= b.upcase %></div>
+
+							<% if p[:true_rating].nil? == false %>
+
+								<div class = "numbers">TRUE RATING: <%= p[:true_rating].to_s + " " + "RANK: " + p[:true_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:overall_rating].nil? == false %>
+
+								<div class = "numbers">AVG GAME RATING: <%= p[:overall_rating].to_s + " " + "RANK: " + p[:overall_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:last_three].nil? == false %>
+
+								<div class = "numbers">LAST 3 RATING: <%= p[:last_three].to_s + " " + "RANK: " + p[:last_three_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:home_rating].nil? == false %>
+
+								<div class = "numbers">HOME RATING: <%= p[:home_rating].to_s + " " + "RANK: " + p[:home_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:away_rating].nil? == false %>
+
+								<div class = "numbers">AWAY RATING: <%= p[:away_rating].to_s + " " + "RANK: " + p[:away_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:avg_pitch_count].nil? == false %>
+
+								<div class = "numbers">PITCHES/START<%= p[:avg_pitch_count].to_s + " " + "RANK: " + p[:av_pc_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:pen_pitch_count].nil? == false %>
+
+								<div class = "numbers">PEN PITCHES/START<%= p[:pen_pitch_count].to_s + " " + "RANK: " + p[:pen_pc_ranking] %></div>
+
+							<% end %>
+
+							<div class = "numbers">STARTER STAMINA: <%= p[:stamina].to_s + " " + "RANK: " + p[:stamina_ranking] %></div>
+
+							<div class = "numbers">PEN STAMINA: <%= p[:pen_stamina].to_s + " " + "RANK: " + p[:pen_stamina_ranking] %></div>
+
+
+						</div>
+
+					<% end %>
+
+				<% end %>
+
+			<% end %>
 			
 
 		</div>
 		<div class="team_cont"><div class="team_n">PHILLIES</div>
+
+			<% @phillies.each do |b| %>
+
+				<% @pitcher_details.each do |p| %>
+
+					<% if b == p[:name] %>
+
+						<div class="pitcher_stats">
+							
+							<div class = "pitcher_name"><%= b.upcase %></div>
+
+							<% if p[:true_rating].nil? == false %>
+
+								<div class = "numbers">TRUE RATING: <%= p[:true_rating].to_s + " " + "RANK: " + p[:true_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:overall_rating].nil? == false %>
+
+								<div class = "numbers">AVG GAME RATING: <%= p[:overall_rating].to_s + " " + "RANK: " + p[:overall_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:last_three].nil? == false %>
+
+								<div class = "numbers">LAST 3 RATING: <%= p[:last_three].to_s + " " + "RANK: " + p[:last_three_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:home_rating].nil? == false %>
+
+								<div class = "numbers">HOME RATING: <%= p[:home_rating].to_s + " " + "RANK: " + p[:home_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:away_rating].nil? == false %>
+
+								<div class = "numbers">AWAY RATING: <%= p[:away_rating].to_s + " " + "RANK: " + p[:away_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:avg_pitch_count].nil? == false %>
+
+								<div class = "numbers">PITCHES/START<%= p[:avg_pitch_count].to_s + " " + "RANK: " + p[:av_pc_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:pen_pitch_count].nil? == false %>
+
+								<div class = "numbers">PEN PITCHES/START<%= p[:pen_pitch_count].to_s + " " + "RANK: " + p[:pen_pc_ranking] %></div>
+
+							<% end %>
+
+							<div class = "numbers">STARTER STAMINA: <%= p[:stamina].to_s + " " + "RANK: " + p[:stamina_ranking] %></div>
+
+							<div class = "numbers">PEN STAMINA: <%= p[:pen_stamina].to_s + " " + "RANK: " + p[:pen_stamina_ranking] %></div>
+
+
+						</div>
+
+					<% end %>
+
+				<% end %>
+
+			<% end %>
 			
 
 		</div>
 		<div class="team_cont"><div class="team_n">METS</div>
+
+			<% @mets.each do |b| %>
+
+				<% @pitcher_details.each do |p| %>
+
+					<% if b == p[:name] %>
+
+						<div class="pitcher_stats">
+							
+							<div class = "pitcher_name"><%= b.upcase %></div>
+
+							<% if p[:true_rating].nil? == false %>
+
+								<div class = "numbers">TRUE RATING: <%= p[:true_rating].to_s + " " + "RANK: " + p[:true_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:overall_rating].nil? == false %>
+
+								<div class = "numbers">AVG GAME RATING: <%= p[:overall_rating].to_s + " " + "RANK: " + p[:overall_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:last_three].nil? == false %>
+
+								<div class = "numbers">LAST 3 RATING: <%= p[:last_three].to_s + " " + "RANK: " + p[:last_three_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:home_rating].nil? == false %>
+
+								<div class = "numbers">HOME RATING: <%= p[:home_rating].to_s + " " + "RANK: " + p[:home_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:away_rating].nil? == false %>
+
+								<div class = "numbers">AWAY RATING: <%= p[:away_rating].to_s + " " + "RANK: " + p[:away_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:avg_pitch_count].nil? == false %>
+
+								<div class = "numbers">PITCHES/START<%= p[:avg_pitch_count].to_s + " " + "RANK: " + p[:av_pc_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:pen_pitch_count].nil? == false %>
+
+								<div class = "numbers">PEN PITCHES/START<%= p[:pen_pitch_count].to_s + " " + "RANK: " + p[:pen_pc_ranking] %></div>
+
+							<% end %>
+
+							<div class = "numbers">STARTER STAMINA: <%= p[:stamina].to_s + " " + "RANK: " + p[:stamina_ranking] %></div>
+
+							<div class = "numbers">PEN STAMINA: <%= p[:pen_stamina].to_s + " " + "RANK: " + p[:pen_stamina_ranking] %></div>
+
+
+						</div>
+
+					<% end %>
+
+				<% end %>
+
+			<% end %>
 			
 
 		</div>
 		<div class="team_cont"><div class="team_n">MARLINS</div>
+
+			<% @marlins.each do |b| %>
+
+				<% @pitcher_details.each do |p| %>
+
+					<% if b == p[:name] %>
+
+						<div class="pitcher_stats">
+							
+							<div class = "pitcher_name"><%= b.upcase %></div>
+
+							<% if p[:true_rating].nil? == false %>
+
+								<div class = "numbers">TRUE RATING: <%= p[:true_rating].to_s + " " + "RANK: " + p[:true_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:overall_rating].nil? == false %>
+
+								<div class = "numbers">AVG GAME RATING: <%= p[:overall_rating].to_s + " " + "RANK: " + p[:overall_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:last_three].nil? == false %>
+
+								<div class = "numbers">LAST 3 RATING: <%= p[:last_three].to_s + " " + "RANK: " + p[:last_three_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:home_rating].nil? == false %>
+
+								<div class = "numbers">HOME RATING: <%= p[:home_rating].to_s + " " + "RANK: " + p[:home_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:away_rating].nil? == false %>
+
+								<div class = "numbers">AWAY RATING: <%= p[:away_rating].to_s + " " + "RANK: " + p[:away_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:avg_pitch_count].nil? == false %>
+
+								<div class = "numbers">PITCHES/START<%= p[:avg_pitch_count].to_s + " " + "RANK: " + p[:av_pc_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:pen_pitch_count].nil? == false %>
+
+								<div class = "numbers">PEN PITCHES/START<%= p[:pen_pitch_count].to_s + " " + "RANK: " + p[:pen_pc_ranking] %></div>
+
+							<% end %>
+
+							<div class = "numbers">STARTER STAMINA: <%= p[:stamina].to_s + " " + "RANK: " + p[:stamina_ranking] %></div>
+
+							<div class = "numbers">PEN STAMINA: <%= p[:pen_stamina].to_s + " " + "RANK: " + p[:pen_stamina_ranking] %></div>
+
+
+						</div>
+
+					<% end %>
+
+				<% end %>
+
+			<% end %>
 			
 
 		</div>
 		
 
 	</div>
-	<div class="division_cont">NL CENTRAL
+	
+	
+	<div class="division_cont" style="color: orange;">NL CENTRAL
 
 		<div class="team_cont"><div class="team_n">BREWERS</div>
+
+			<% @brewers.each do |b| %>
+
+				<% @pitcher_details.each do |p| %>
+
+					<% if b == p[:name] %>
+
+						<div class="pitcher_stats">
+							
+							<div class = "pitcher_name"><%= b.upcase %></div>
+
+							<% if p[:true_rating].nil? == false %>
+
+								<div class = "numbers">TRUE RATING: <%= p[:true_rating].to_s + " " + "RANK: " + p[:true_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:overall_rating].nil? == false %>
+
+								<div class = "numbers">AVG GAME RATING: <%= p[:overall_rating].to_s + " " + "RANK: " + p[:overall_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:last_three].nil? == false %>
+
+								<div class = "numbers">LAST 3 RATING: <%= p[:last_three].to_s + " " + "RANK: " + p[:last_three_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:home_rating].nil? == false %>
+
+								<div class = "numbers">HOME RATING: <%= p[:home_rating].to_s + " " + "RANK: " + p[:home_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:away_rating].nil? == false %>
+
+								<div class = "numbers">AWAY RATING: <%= p[:away_rating].to_s + " " + "RANK: " + p[:away_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:avg_pitch_count].nil? == false %>
+
+								<div class = "numbers">PITCHES/START<%= p[:avg_pitch_count].to_s + " " + "RANK: " + p[:av_pc_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:pen_pitch_count].nil? == false %>
+
+								<div class = "numbers">PEN PITCHES/START<%= p[:pen_pitch_count].to_s + " " + "RANK: " + p[:pen_pc_ranking] %></div>
+
+							<% end %>
+
+							<div class = "numbers">STARTER STAMINA: <%= p[:stamina].to_s + " " + "RANK: " + p[:stamina_ranking] %></div>
+
+							<div class = "numbers">PEN STAMINA: <%= p[:pen_stamina].to_s + " " + "RANK: " + p[:pen_stamina_ranking] %></div>
+
+
+						</div>
+
+					<% end %>
+
+				<% end %>
+
+			<% end %>
 			
 
 		</div>
 		<div class="team_cont"><div class="team_n">CUBS</div>
+
+			<% @cubs.each do |b| %>
+
+				<% @pitcher_details.each do |p| %>
+
+					<% if b == p[:name] %>
+
+						<div class="pitcher_stats">
+							
+							<div class = "pitcher_name"><%= b.upcase %></div>
+
+							<% if p[:true_rating].nil? == false %>
+
+								<div class = "numbers">TRUE RATING: <%= p[:true_rating].to_s + " " + "RANK: " + p[:true_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:overall_rating].nil? == false %>
+
+								<div class = "numbers">AVG GAME RATING: <%= p[:overall_rating].to_s + " " + "RANK: " + p[:overall_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:last_three].nil? == false %>
+
+								<div class = "numbers">LAST 3 RATING: <%= p[:last_three].to_s + " " + "RANK: " + p[:last_three_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:home_rating].nil? == false %>
+
+								<div class = "numbers">HOME RATING: <%= p[:home_rating].to_s + " " + "RANK: " + p[:home_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:away_rating].nil? == false %>
+
+								<div class = "numbers">AWAY RATING: <%= p[:away_rating].to_s + " " + "RANK: " + p[:away_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:avg_pitch_count].nil? == false %>
+
+								<div class = "numbers">PITCHES/START<%= p[:avg_pitch_count].to_s + " " + "RANK: " + p[:av_pc_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:pen_pitch_count].nil? == false %>
+
+								<div class = "numbers">PEN PITCHES/START<%= p[:pen_pitch_count].to_s + " " + "RANK: " + p[:pen_pc_ranking] %></div>
+
+							<% end %>
+
+							<div class = "numbers">STARTER STAMINA: <%= p[:stamina].to_s + " " + "RANK: " + p[:stamina_ranking] %></div>
+
+							<div class = "numbers">PEN STAMINA: <%= p[:pen_stamina].to_s + " " + "RANK: " + p[:pen_stamina_ranking] %></div>
+
+
+						</div>
+
+					<% end %>
+
+				<% end %>
+
+			<% end %>
 			
 
 		</div>
 		<div class="team_cont"><div class="team_n">PIRATES</div>
+
+			<% @pirates.each do |b| %>
+
+				<% @pitcher_details.each do |p| %>
+
+					<% if b == p[:name] %>
+
+						<div class="pitcher_stats">
+							
+							<div class = "pitcher_name"><%= b.upcase %></div>
+
+							<% if p[:true_rating].nil? == false %>
+
+								<div class = "numbers">TRUE RATING: <%= p[:true_rating].to_s + " " + "RANK: " + p[:true_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:overall_rating].nil? == false %>
+
+								<div class = "numbers">AVG GAME RATING: <%= p[:overall_rating].to_s + " " + "RANK: " + p[:overall_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:last_three].nil? == false %>
+
+								<div class = "numbers">LAST 3 RATING: <%= p[:last_three].to_s + " " + "RANK: " + p[:last_three_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:home_rating].nil? == false %>
+
+								<div class = "numbers">HOME RATING: <%= p[:home_rating].to_s + " " + "RANK: " + p[:home_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:away_rating].nil? == false %>
+
+								<div class = "numbers">AWAY RATING: <%= p[:away_rating].to_s + " " + "RANK: " + p[:away_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:avg_pitch_count].nil? == false %>
+
+								<div class = "numbers">PITCHES/START<%= p[:avg_pitch_count].to_s + " " + "RANK: " + p[:av_pc_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:pen_pitch_count].nil? == false %>
+
+								<div class = "numbers">PEN PITCHES/START<%= p[:pen_pitch_count].to_s + " " + "RANK: " + p[:pen_pc_ranking] %></div>
+
+							<% end %>
+
+							<div class = "numbers">STARTER STAMINA: <%= p[:stamina].to_s + " " + "RANK: " + p[:stamina_ranking] %></div>
+
+							<div class = "numbers">PEN STAMINA: <%= p[:pen_stamina].to_s + " " + "RANK: " + p[:pen_stamina_ranking] %></div>
+
+
+						</div>
+
+					<% end %>
+
+				<% end %>
+
+			<% end %>
 			
 
 		</div>
 		<div class="team_cont"><div class="team_n">REDS</div>
+
+			<% @reds.each do |b| %>
+
+				<% @pitcher_details.each do |p| %>
+
+					<% if b == p[:name] %>
+
+						<div class="pitcher_stats">
+							
+							<div class = "pitcher_name"><%= b.upcase %></div>
+
+							<% if p[:true_rating].nil? == false %>
+
+								<div class = "numbers">TRUE RATING: <%= p[:true_rating].to_s + " " + "RANK: " + p[:true_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:overall_rating].nil? == false %>
+
+								<div class = "numbers">AVG GAME RATING: <%= p[:overall_rating].to_s + " " + "RANK: " + p[:overall_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:last_three].nil? == false %>
+
+								<div class = "numbers">LAST 3 RATING: <%= p[:last_three].to_s + " " + "RANK: " + p[:last_three_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:home_rating].nil? == false %>
+
+								<div class = "numbers">HOME RATING: <%= p[:home_rating].to_s + " " + "RANK: " + p[:home_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:away_rating].nil? == false %>
+
+								<div class = "numbers">AWAY RATING: <%= p[:away_rating].to_s + " " + "RANK: " + p[:away_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:avg_pitch_count].nil? == false %>
+
+								<div class = "numbers">PITCHES/START<%= p[:avg_pitch_count].to_s + " " + "RANK: " + p[:av_pc_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:pen_pitch_count].nil? == false %>
+
+								<div class = "numbers">PEN PITCHES/START<%= p[:pen_pitch_count].to_s + " " + "RANK: " + p[:pen_pc_ranking] %></div>
+
+							<% end %>
+
+							<div class = "numbers">STARTER STAMINA: <%= p[:stamina].to_s + " " + "RANK: " + p[:stamina_ranking] %></div>
+
+							<div class = "numbers">PEN STAMINA: <%= p[:pen_stamina].to_s + " " + "RANK: " + p[:pen_stamina_ranking] %></div>
+
+
+						</div>
+
+					<% end %>
+
+				<% end %>
+
+			<% end %>
 			
 
 		</div>
 		<div class="team_cont"><div class="team_n">CARDINALS</div>
+
+			<% @cardinals.each do |b| %>
+
+				<% @pitcher_details.each do |p| %>
+
+					<% if b == p[:name] %>
+
+						<div class="pitcher_stats">
+							
+							<div class = "pitcher_name"><%= b.upcase %></div>
+
+							<% if p[:true_rating].nil? == false %>
+
+								<div class = "numbers">TRUE RATING: <%= p[:true_rating].to_s + " " + "RANK: " + p[:true_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:overall_rating].nil? == false %>
+
+								<div class = "numbers">AVG GAME RATING: <%= p[:overall_rating].to_s + " " + "RANK: " + p[:overall_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:last_three].nil? == false %>
+
+								<div class = "numbers">LAST 3 RATING: <%= p[:last_three].to_s + " " + "RANK: " + p[:last_three_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:home_rating].nil? == false %>
+
+								<div class = "numbers">HOME RATING: <%= p[:home_rating].to_s + " " + "RANK: " + p[:home_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:away_rating].nil? == false %>
+
+								<div class = "numbers">AWAY RATING: <%= p[:away_rating].to_s + " " + "RANK: " + p[:away_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:avg_pitch_count].nil? == false %>
+
+								<div class = "numbers">PITCHES/START<%= p[:avg_pitch_count].to_s + " " + "RANK: " + p[:av_pc_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:pen_pitch_count].nil? == false %>
+
+								<div class = "numbers">PEN PITCHES/START<%= p[:pen_pitch_count].to_s + " " + "RANK: " + p[:pen_pc_ranking] %></div>
+
+							<% end %>
+
+							<div class = "numbers">STARTER STAMINA: <%= p[:stamina].to_s + " " + "RANK: " + p[:stamina_ranking] %></div>
+
+							<div class = "numbers">PEN STAMINA: <%= p[:pen_stamina].to_s + " " + "RANK: " + p[:pen_stamina_ranking] %></div>
+
+
+						</div>
+
+					<% end %>
+
+				<% end %>
+
+			<% end %>
 			
 
 		</div>
 		
 
 	</div>
-	<div class="division_cont">NL WEST
+	<div class="division_cont" style="color: gray;">NL WEST
 
 		<div class="team_cont"><div class="team_n">DODGERS</div>
+
+			<% @dodgers.each do |b| %>
+
+				<% @pitcher_details.each do |p| %>
+
+					<% if b == p[:name] %>
+
+						<div class="pitcher_stats">
+							
+							<div class = "pitcher_name"><%= b.upcase %></div>
+
+							<% if p[:true_rating].nil? == false %>
+
+								<div class = "numbers">TRUE RATING: <%= p[:true_rating].to_s + " " + "RANK: " + p[:true_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:overall_rating].nil? == false %>
+
+								<div class = "numbers">AVG GAME RATING: <%= p[:overall_rating].to_s + " " + "RANK: " + p[:overall_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:last_three].nil? == false %>
+
+								<div class = "numbers">LAST 3 RATING: <%= p[:last_three].to_s + " " + "RANK: " + p[:last_three_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:home_rating].nil? == false %>
+
+								<div class = "numbers">HOME RATING: <%= p[:home_rating].to_s + " " + "RANK: " + p[:home_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:away_rating].nil? == false %>
+
+								<div class = "numbers">AWAY RATING: <%= p[:away_rating].to_s + " " + "RANK: " + p[:away_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:avg_pitch_count].nil? == false %>
+
+								<div class = "numbers">PITCHES/START<%= p[:avg_pitch_count].to_s + " " + "RANK: " + p[:av_pc_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:pen_pitch_count].nil? == false %>
+
+								<div class = "numbers">PEN PITCHES/START<%= p[:pen_pitch_count].to_s + " " + "RANK: " + p[:pen_pc_ranking] %></div>
+
+							<% end %>
+
+							<div class = "numbers">STARTER STAMINA: <%= p[:stamina].to_s + " " + "RANK: " + p[:stamina_ranking] %></div>
+
+							<div class = "numbers">PEN STAMINA: <%= p[:pen_stamina].to_s + " " + "RANK: " + p[:pen_stamina_ranking] %></div>
+
+
+						</div>
+
+					<% end %>
+
+				<% end %>
+
+			<% end %>
 			
 
 		</div>
 		<div class="team_cont"><div class="team_n">ROCKIES</div>
+
+			<% @rockies.each do |b| %>
+
+				<% @pitcher_details.each do |p| %>
+
+					<% if b == p[:name] %>
+
+						<div class="pitcher_stats">
+							
+							<div class = "pitcher_name"><%= b.upcase %></div>
+
+							<% if p[:true_rating].nil? == false %>
+
+								<div class = "numbers">TRUE RATING: <%= p[:true_rating].to_s + " " + "RANK: " + p[:true_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:overall_rating].nil? == false %>
+
+								<div class = "numbers">AVG GAME RATING: <%= p[:overall_rating].to_s + " " + "RANK: " + p[:overall_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:last_three].nil? == false %>
+
+								<div class = "numbers">LAST 3 RATING: <%= p[:last_three].to_s + " " + "RANK: " + p[:last_three_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:home_rating].nil? == false %>
+
+								<div class = "numbers">HOME RATING: <%= p[:home_rating].to_s + " " + "RANK: " + p[:home_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:away_rating].nil? == false %>
+
+								<div class = "numbers">AWAY RATING: <%= p[:away_rating].to_s + " " + "RANK: " + p[:away_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:avg_pitch_count].nil? == false %>
+
+								<div class = "numbers">PITCHES/START<%= p[:avg_pitch_count].to_s + " " + "RANK: " + p[:av_pc_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:pen_pitch_count].nil? == false %>
+
+								<div class = "numbers">PEN PITCHES/START<%= p[:pen_pitch_count].to_s + " " + "RANK: " + p[:pen_pc_ranking] %></div>
+
+							<% end %>
+
+							<div class = "numbers">STARTER STAMINA: <%= p[:stamina].to_s + " " + "RANK: " + p[:stamina_ranking] %></div>
+
+							<div class = "numbers">PEN STAMINA: <%= p[:pen_stamina].to_s + " " + "RANK: " + p[:pen_stamina_ranking] %></div>
+
+
+						</div>
+
+					<% end %>
+
+				<% end %>
+
+			<% end %>
 			
 
 		</div>
 		<div class="team_cont"><div class="team_n">DIAMONDBACKS</div>
+
+			<% @dbacks.each do |b| %>
+
+				<% @pitcher_details.each do |p| %>
+
+					<% if b == p[:name] %>
+
+						<div class="pitcher_stats">
+							
+							<div class = "pitcher_name"><%= b.upcase %></div>
+
+							<% if p[:true_rating].nil? == false %>
+
+								<div class = "numbers">TRUE RATING: <%= p[:true_rating].to_s + " " + "RANK: " + p[:true_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:overall_rating].nil? == false %>
+
+								<div class = "numbers">AVG GAME RATING: <%= p[:overall_rating].to_s + " " + "RANK: " + p[:overall_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:last_three].nil? == false %>
+
+								<div class = "numbers">LAST 3 RATING: <%= p[:last_three].to_s + " " + "RANK: " + p[:last_three_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:home_rating].nil? == false %>
+
+								<div class = "numbers">HOME RATING: <%= p[:home_rating].to_s + " " + "RANK: " + p[:home_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:away_rating].nil? == false %>
+
+								<div class = "numbers">AWAY RATING: <%= p[:away_rating].to_s + " " + "RANK: " + p[:away_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:avg_pitch_count].nil? == false %>
+
+								<div class = "numbers">PITCHES/START<%= p[:avg_pitch_count].to_s + " " + "RANK: " + p[:av_pc_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:pen_pitch_count].nil? == false %>
+
+								<div class = "numbers">PEN PITCHES/START<%= p[:pen_pitch_count].to_s + " " + "RANK: " + p[:pen_pc_ranking] %></div>
+
+							<% end %>
+
+							<div class = "numbers">STARTER STAMINA: <%= p[:stamina].to_s + " " + "RANK: " + p[:stamina_ranking] %></div>
+
+							<div class = "numbers">PEN STAMINA: <%= p[:pen_stamina].to_s + " " + "RANK: " + p[:pen_stamina_ranking] %></div>
+
+
+						</div>
+
+					<% end %>
+
+				<% end %>
+
+			<% end %>
 			
 
 		</div>
 		<div class="team_cont"><div class="team_n">PADRES</div>
+
+			<% @padres.each do |b| %>
+
+				<% @pitcher_details.each do |p| %>
+
+					<% if b == p[:name] %>
+
+						<div class="pitcher_stats">
+							
+							<div class = "pitcher_name"><%= b.upcase %></div>
+
+							<% if p[:true_rating].nil? == false %>
+
+								<div class = "numbers">TRUE RATING: <%= p[:true_rating].to_s + " " + "RANK: " + p[:true_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:overall_rating].nil? == false %>
+
+								<div class = "numbers">AVG GAME RATING: <%= p[:overall_rating].to_s + " " + "RANK: " + p[:overall_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:last_three].nil? == false %>
+
+								<div class = "numbers">LAST 3 RATING: <%= p[:last_three].to_s + " " + "RANK: " + p[:last_three_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:home_rating].nil? == false %>
+
+								<div class = "numbers">HOME RATING: <%= p[:home_rating].to_s + " " + "RANK: " + p[:home_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:away_rating].nil? == false %>
+
+								<div class = "numbers">AWAY RATING: <%= p[:away_rating].to_s + " " + "RANK: " + p[:away_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:avg_pitch_count].nil? == false %>
+
+								<div class = "numbers">PITCHES/START<%= p[:avg_pitch_count].to_s + " " + "RANK: " + p[:av_pc_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:pen_pitch_count].nil? == false %>
+
+								<div class = "numbers">PEN PITCHES/START<%= p[:pen_pitch_count].to_s + " " + "RANK: " + p[:pen_pc_ranking] %></div>
+
+							<% end %>
+
+							<div class = "numbers">STARTER STAMINA: <%= p[:stamina].to_s + " " + "RANK: " + p[:stamina_ranking] %></div>
+
+							<div class = "numbers">PEN STAMINA: <%= p[:pen_stamina].to_s + " " + "RANK: " + p[:pen_stamina_ranking] %></div>
+
+
+						</div>
+
+					<% end %>
+
+				<% end %>
+
+			<% end %>
 			
 
 		</div>
 		<div class="team_cont"><div class="team_n">GIANTS</div>
+
+			<% @giants.each do |b| %>
+
+				<% @pitcher_details.each do |p| %>
+
+					<% if b == p[:name] %>
+
+						<div class="pitcher_stats">
+							
+							<div class = "pitcher_name"><%= b.upcase %></div>
+
+							<% if p[:true_rating].nil? == false %>
+
+								<div class = "numbers">TRUE RATING: <%= p[:true_rating].to_s + " " + "RANK: " + p[:true_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:overall_rating].nil? == false %>
+
+								<div class = "numbers">AVG GAME RATING: <%= p[:overall_rating].to_s + " " + "RANK: " + p[:overall_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:last_three].nil? == false %>
+
+								<div class = "numbers">LAST 3 RATING: <%= p[:last_three].to_s + " " + "RANK: " + p[:last_three_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:home_rating].nil? == false %>
+
+								<div class = "numbers">HOME RATING: <%= p[:home_rating].to_s + " " + "RANK: " + p[:home_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:away_rating].nil? == false %>
+
+								<div class = "numbers">AWAY RATING: <%= p[:away_rating].to_s + " " + "RANK: " + p[:away_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:avg_pitch_count].nil? == false %>
+
+								<div class = "numbers">PITCHES/START<%= p[:avg_pitch_count].to_s + " " + "RANK: " + p[:av_pc_ranking] %></div>
+
+							<% end %>
+
+							<% if p[:pen_pitch_count].nil? == false %>
+
+								<div class = "numbers">PEN PITCHES/START<%= p[:pen_pitch_count].to_s + " " + "RANK: " + p[:pen_pc_ranking] %></div>
+
+							<% end %>
+
+							<div class = "numbers">STARTER STAMINA: <%= p[:stamina].to_s + " " + "RANK: " + p[:stamina_ranking] %></div>
+
+							<div class = "numbers">PEN STAMINA: <%= p[:pen_stamina].to_s + " " + "RANK: " + p[:pen_stamina_ranking] %></div>
+
+
+						</div>
+
+					<% end %>
+
+				<% end %>
+
+			<% end %>
 			
 
 		</div>

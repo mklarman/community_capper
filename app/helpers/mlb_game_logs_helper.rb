@@ -106,6 +106,23 @@ module MlbGameLogsHelper
 
 			end
 
+			if p[:true_rating].nan? == false
+
+				@true_rating.push(p[:true_rating])
+
+			end
+
+			if p[:pen_rating].nan? == false
+
+				@pen_rating.push(p[:pen_rating])
+
+			end
+
+			@avg_pc.push(p[:avg_pitch_count])
+			@stamina.push(p[:stamina].to_f)
+			@p_pc.push(p[:pen_pitch_count])
+			@pen_stamina.push(p[:pen_stamina].to_f)
+
 
 		end
 
@@ -121,103 +138,198 @@ module MlbGameLogsHelper
 		@last_three = @last_three.sort
 		@last_three = @last_three.reverse
 
-		overall_r = 0
-		home_r = 0
-		away_r = 0
-		last_three_r = 0
+		@true_rating = @true_rating.sort
+		@true_rating = @true_rating.reverse
 
-		@overall.each do |o|
+		@pen_rating = @pen_rating.sort
+		@pen_rating = @pen_rating.reverse
 
-			@pitchers_and_ratings.each do |p|
+		@avg_pc = @avg_pc.sort
+		@avg_pc = @avg_pc.reverse
+
+		@stamina = @stamina.sort
+		@stamina = @stamina.reverse
+
+		@p_pc = @p_pc.sort
+
+		@pen_stamina = @pen_stamina.sort
+
+		@pitchers_and_ratings.each do |p|
+
+			pitcher = Hash.new
+			pitcher[:name] = p[:pitcher]
+
+			overall_r = 0
+			home_r = 0
+			away_r = 0
+			last_three_r = 0
+			true_r = 0
+			pen_r = 0
+			avg_pc = 0
+			bp_avg_pc = 0
+			p_freq = 0
+			bp_freq = 0
+
+
+			@overall.each do |o|
+
+				overall_r += 1
 
 				if o == p[:overall_rating]
 
-					overall_r += 1
+					pitcher[:overall_rating] = p[:overall_rating]
+					pitcher[:overall_ranking] = p[:overall_rating]
+					pitcher[:overall_ranking] = overall_r.to_s + " of " + @overall.length.to_s
 
-					pl_overall_ranking = Hash.new
-					pl_overall_ranking[:player] = p[:pitcher]
-					pl_overall_ranking[:overall_rating] = p[:overall_rating]
-					pl_overall_ranking[:overall_ranking] = overall_r.to_s + " / " + @overall.length.to_s
-
-					@overall_category.push(pl_overall_ranking)
 
 				end
 
 
 			end
 
+			@home_rating.each do |o|
 
-		end
-
-		@home_rating.each do |o|
-
-			@pitchers_and_ratings.each do |p|
+				home_r += 1
 
 				if o == p[:home_rating]
-
-					home_r += 1
-
-					pl_home_ranking = Hash.new
-					pl_home_ranking[:player] = p[:pitcher]
-					pl_home_ranking[:home_rating] = o
-					pl_home_ranking[:home_ranking] = home_r.to_s + " / " + @home_rating.length.to_s
-
-					@home_category.push(pl_home_ranking)
+		
+					pitcher[:home_rating] = o
+					pitcher[:home_ranking] = home_r.to_s + " of " + @home_rating.length.to_s
 
 				end
 
 
 			end
 
+			@away_rating.each do |o|
 
-		end
-
-		@away_rating.each do |o|
-
-			@pitchers_and_ratings.each do |p|
+				away_r += 1
 
 				if o == p[:away_rating]
 
-					away_r += 1
+					
+					pitcher[:away_rating] = o
+					pitcher[:away_ranking] = away_r.to_s + " / " + @away_rating.length.to_s
 
-					pl_away_ranking = Hash.new
-					pl_away_ranking[:player] = p[:pitcher]
-					pl_away_ranking[:away_rating] = o
-					pl_away_ranking[:away_ranking] = away_r.to_s + " / " + @away_rating.length.to_s
-
-					@away_category.push(pl_away_ranking)
 
 				end
 
 
 			end
 
+			@last_three.each do |o|
 
-		end
-
-		@last_three.each do |o|
-
-			@pitchers_and_ratings.each do |p|
+				last_three_r += 1
 
 				if o == p[:last_three]
 
-					last_three_r += 1
+						
 
-					pl_last_three_ranking = Hash.new
-					pl_last_three_ranking[:player] = p[:pitcher]
-					pl_last_three_ranking[:last_three] = o
-					pl_last_three_ranking[:last_three_ranking] = last_three_r.to_s + " / " + @last_three.length.to_s
+					
+					pitcher[:last_three] = o
+					pitcher[:last_three_ranking] = last_three_r.to_s + " of " + @last_three.length.to_s
 
-					@last_three_category.push(pl_last_three_ranking)
 
 				end
 
 
 			end
 
+			@true_rating.each do |o|
+
+				true_r += 1
+
+				if o == p[:true_rating]
+
+							
+					pitcher[:true_rating] = o
+					pitcher[:true_ranking] = true_r.to_s + " of " + @true_rating.length.to_s
+
+
+				end
+
+
+			end
+
+			@pen_rating.each do |o|
+
+				pen_r += 1
+
+				if o == p[:pen_rating]
+
+							
+					pitcher[:pen_rating] = o
+					pitcher[:pen_ranking] = pen_r.to_s + " of " + @pen_rating.length.to_s
+
+
+				end
+
+
+			end
+
+			@avg_pc.each do |o|
+
+				avg_pc += 1
+
+				if o == p[:avg_pitch_count]
+				
+					pitcher[:avg_pitch_count] = o
+					pitcher[:av_pc_ranking] = avg_pc.to_s + " of " + @avg_pc.length.to_s
+
+
+				end
+
+
+			end
+
+			@p_pc.each do |o|
+
+				bp_avg_pc += 1
+
+				if o == p[:pen_pitch_count]
+				
+					pitcher[:pen_pitch_count] = o
+					pitcher[:pen_pc_ranking] = bp_avg_pc.to_s + " of " + @p_pc.length.to_s
+
+
+				end
+
+
+			end
+
+			@stamina.each do |o|
+
+				p_freq += 1
+
+				if o == p[:stamina].to_f
+				
+					pitcher[:stamina] = o
+					pitcher[:stamina_ranking] = p_freq.to_s + " of " + @stamina.length.to_s
+
+
+				end
+
+
+			end
+
+			@pen_stamina.each do |o|
+
+				bp_freq += 1
+
+				if o == p[:pen_stamina].to_f
+				
+					pitcher[:pen_stamina] = o
+					pitcher[:pen_stamina_ranking] = bp_freq.to_s + " of " + @pen_stamina.length.to_s
+
+
+				end
+
+
+			end
+
+			@pitcher_details.push(pitcher)
 
 		end
-
 
 	end
 end
