@@ -111,7 +111,7 @@
 	height: 100%;
 	width: 23%;
 	font-size: 25px;
-	border: 1px solid red;
+	border: 1px solid black;
 
 }
 
@@ -145,7 +145,8 @@
 
 	font-size: 16px;
 	color: blue;
-	margin-top: 1%;
-	margin-bottom: 1%;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	border: 1px solid gray;
 
 }
