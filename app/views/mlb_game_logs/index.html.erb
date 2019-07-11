@@ -1105,3 +1105,17 @@
 
 </div>
 
+<% @check = [] %>
+
+<% MlbGameLog.all.each do |m| %>
+	
+	<% if m.team_starting_pitcher == "L.Sims" %>
+
+		@check.push(m)
+
+	<% end %>
+
+<% end %>
+
+<%= @check %>
+
