@@ -584,7 +584,81 @@ PHILLIES LINEUP VS METS STARTER   METS LINEUP VS PHILS STARTER
 
     For the football - I want a page that ranks the teams in various categories and then also want a matchup page that displays the stats for the matchup.  Set up a NCAAF tab which will take people to the NCAAF page which can describe what's being tracked and what stats they can view and then offer the links - UPCOMING MATCHUPS and TEAM RANKINGS.  From upcoming matchups, you can click on a matchup and get to the stats for that matchup.  For the team rankings, want to do last three, last 6, season.  Also home and away toggles.
 
-    I think it can all be done in two weeks, so I have some time but need to get it started.  
+    I think it can all be done in two weeks, so I have some time but need to get it started.
+
+    8/6/19
+
+    "date"
+    t.string "home"
+    t.string "opp"
+    t.string "spread"
+    t.string "rush_yards_for"
+    t.string "rush_yards_against"
+    t.string "pass_yards_for"
+    t.string "pass_yards_against"
+    t.string "plays_for"
+    t.string "plays_against"
+    t.string "turn_overs"
+    t.string "opp_turn_overs"
+    t.string "sacks_for"
+    t.string "sacks_against"
+    t.string "scoring_plays_for"
+    t.string "scoring_plays_against"
+    t.string "score"
+    t.string "opp_score"
+    t.string "spread_result"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+
+    Football Ratios:
+
+    Points For
+    Points against
+    Plays per point
+    Plays per point against
+    Rush Yards Per Game
+    Pass Yards Per Game  
+    Pass Yards Per Game against  
+    Run Yards Per Game against
+    Plays per game
+    Yards Per play
+    Plays per game against
+    Yards per play against
+    Points per minute
+    Points per minute against
+    Scoring Play Frequency
+    Scoring Play Frequency against
+    Turn Overs per game
+    Turn Overs per game against
+    Impact Plays per game
+    Margin of Victory
+
+    To set up the football pages, enter the matchup and then fill in a game log.  There will be a page that will rank the teams in the ratio chart for Home Results, Away Results, last three, last 6, season.  Then there will need to be a matchup page for CFB.  Click on the matchup and be brought to a page that shows the ranking of each team given their situtauion: Home or Away.
+
+    On the matchup page analyze the point scoring capabilities, ground game, pass game, turn over rates.  Margin of victory given the situation.
+
+    Steps:
+
+    1a) Create all the teams needed
+
+    1) write the code that will collect all the NFL/CFB teams
+    2) Put teams in an array and loop that array vs the game logs and create a hash that has the team and its game logs.
+    3) Loop through the array holding the hashes and on each teams game logs call the helper function that calculates all the ratios and insert the ratios into the team hash as well as push the ratio results to a name_array that will hold the values for the category
+    4) Sort the array so that the high/low is the lead number depending on what category is being sorted.
+    5) Loop through the category values and then loop through team hashes and ask if the value is equal to their corresponding ratio.  If it is then print it with the appropriate ranking.
+
+    
+
+    1) For matchups, call the code that ranks all the teams and then grab the rankings of the teams in the matchup according to their situation.
+
+    Attach game logs to teams.  Run helper function to compute team ratios and create a hash with info.  Store hashes in array and loop it, and push team rations to appropriate arrays.  Sort those arrays.  Loop through array storing team hashes and ask if the proper ratio equals the standings array ratios.
+
+    On the matchup page.  I want the teams ranking in the ratios given their situation.  So, for the home team their ranking vs all home teams.
+
+    Realistically, I think in about 15 - 20 hours can have it all set up.   
+
+
+
 
 
 
