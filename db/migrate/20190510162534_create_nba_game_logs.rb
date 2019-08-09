@@ -2,6 +2,7 @@ class CreateNbaGameLogs < ActiveRecord::Migration[5.1]
   def change
     create_table :nba_game_logs do |t|
 
+        t.string :team_id
     	t.string :date
     	t.string :opp
     	t.string :home

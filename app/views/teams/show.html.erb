@@ -3,64 +3,101 @@
 
 <div style="margin-bottom: 5%; font-size: 25px;"><%=@team.team_name%></div>
 
-<%= form_for @mlb_game_log do |m| %>
+<% if @team.sport == "MLB" %>
 
-	<%= m.hidden_field :team_id, value: @team.id %>
-	<%= m.hidden_field :team_name, value: @team.team_name %>
-	<div>Date: <%= m.text_field :date, value: @my_date %></div>
-	<div>Opponent: <%= m.text_field :opp %></div>
-	<div>Home: <%= m.text_field :home %></div>
-	<div>Money_Line: <%= m.text_field :spread %></div>
+	<%= form_for @mlb_game_log do |m| %>
 
-	<div>Team's Starter <%= m.text_field :team_starting_pitcher %></div>
+		<%= m.hidden_field :team_id, value: @team.id %>
+		<%= m.hidden_field :team_name, value: @team.team_name %>
+		<div>Date: <%= m.text_field :date, value: @my_date %></div>
+		<div>Opponent: <%= m.text_field :opp %></div>
+		<div>Home: <%= m.text_field :home %></div>
+		<div>Money_Line: <%= m.text_field :spread %></div>
 
-	<div>Team's Pitcher Throws: <%= m.text_field :team_pitcher_throws %></div>
+		<div>Team's Starter <%= m.text_field :team_starting_pitcher %></div>
 
-	<div>Team Starter Pitches: <%= m.text_field :team_starter_pitches %></div>
+		<div>Team's Pitcher Throws: <%= m.text_field :team_pitcher_throws %></div>
 
-	<div>Team Bullpen Pitches <%= m.text_field :team_bullpen_picthes %></div>
+		<div>Team Starter Pitches: <%= m.text_field :team_starter_pitches %></div>
+
+		<div>Team Bullpen Pitches <%= m.text_field :team_bullpen_picthes %></div>
 
 
-	<div>Runs By Team Starter: <%= m.text_field :runs_by_team_starter %></div>
+		<div>Runs By Team Starter: <%= m.text_field :runs_by_team_starter %></div>
 
-	<div>Runs By Bullpen: <%= m.text_field :runs_by_team_bullpen %></div>
+		<div>Runs By Bullpen: <%= m.text_field :runs_by_team_bullpen %></div>
 
-	<div>Team At-Bats: <%= m.text_field :at_bats_for %></div>
+		<div>Team At-Bats: <%= m.text_field :at_bats_for %></div>
 
-	<div>Team's At-Bats Against: <%= m.text_field :at_bats_against %></div>
+		<div>Team's At-Bats Against: <%= m.text_field :at_bats_against %></div>
 
-	<div>Team Hits: <%= m.text_field :team_hits %></div>
+		<div>Team Hits: <%= m.text_field :team_hits %></div>
 
-	<div>Team Errors: <%= m.text_field :team_errors %></div>
+		<div>Team Errors: <%= m.text_field :team_errors %></div>
 
-	<div>Team Runs Scored: <%= m.text_field :team_runs %></div>
+		<div>Team Runs Scored: <%= m.text_field :team_runs %></div>
 
-	<div>Opp Starter: <%= m.text_field :opp_starting_pitcher %></div>
+		<div>Opp Starter: <%= m.text_field :opp_starting_pitcher %></div>
 
-	<div>Opp Starter Throws: <%= m.text_field :opp_pitcher_throws %></div>
+		<div>Opp Starter Throws: <%= m.text_field :opp_pitcher_throws %></div>
 
-	<div>Opp Starter Pitch Count: <%= m.text_field :opp_starter_pitches %></div>
+		<div>Opp Starter Pitch Count: <%= m.text_field :opp_starter_pitches %></div>
 
-	<div>Opp Bullpen Pitch Count: <%= m.text_field :opp_bullpen_picthes %></div>
+		<div>Opp Bullpen Pitch Count: <%= m.text_field :opp_bullpen_picthes %></div>
 
-	<div>Opp Starter Runs Let Up: <%= m.text_field :runs_by_opp_starter %></div>
+		<div>Opp Starter Runs Let Up: <%= m.text_field :runs_by_opp_starter %></div>
 
-	<div>Opp Bullpen Runs: <%= m.text_field :runs_by_opp_bullpen %></div>
+		<div>Opp Bullpen Runs: <%= m.text_field :runs_by_opp_bullpen %></div>
 
-	<div>Opp Hits: <%= m.text_field :opp_hits %></div>
+		<div>Opp Hits: <%= m.text_field :opp_hits %></div>
 
-	<div>Opp Errors:<%= m.text_field :opp_errors %></div>
+		<div>Opp Errors:<%= m.text_field :opp_errors %></div>
 
-	<div>Opp_runs: <%= m.text_field :opp_runs %></div>
+		<div>Opp_runs: <%= m.text_field :opp_runs %></div>
+		
+		<div>Innings In Game <%= m.text_field :innings %></div>
+
+
+		<div>Spread Result: <%= m.text_field :spread_result %></div>
+
+		<div><%= m.submit %></div>
+
+	<% end %>
+
+<% elsif @team.sport == "NFL" %>
 	
-	<div>Innings In Game <%= m.text_field :innings %></div>
+	<%= form_for @nfl_game_log do |n| %>
 
 
-	<div>Spread Result: <%= m.text_field :spread_result %></div>
+		<%= n.hidden_field :team_id, value: @team.id %>
+		<%= n.hidden_field :team_name, value: @team.team_name %>
+		<div>Date: <%= n.text_field :date, value: @my_date %></div>
+		<div>Opponent: <%= n.text_field :opp %></div>
+		<div>Spread: <%= n.text_field :spread %></div>
+		<div>Run Plays For: <%= n.text_field :run_plays %></div>
+		<div>Rush Yards For: <%= n.text_field :rush_yards_for %></div>
+		<div>Run Plays Against: <%= n.text_field :run_plays_against %></div>
+		<div>Rush Yards Against: <%= n.text_field :rush_yards_against %></div>
+		<div>Pass Plays For: <%= n.text_field :pass_plays %></div>
+		<div>Pass Yards For: <%= n.text_field :pass_yards_for %></div>
+		<div>Pass Plays Against: <%= n.text_field :pass_plays_against %></div>
+		<div>Pass Yards Against: <%= n.text_field :pass_yards_against %></div>
+		<div>Plays For: <%= n.text_field :plays_for %></div>
+		<div>Plays Against: <%= n.text_field :plays_against %></div>
+		<div>Team Turn Overs: <%= n.text_field :turn_overs %></div>
+		<div>Opp Turn Overs: <%= n.text_field :opp_turn_overs %></div>
+		<div>Sacks For: <%= n.text_field :sacks_for %></div>
+		<div>Sacks Against: <%= n.text_field :sacks_against %></div>
+		<div>Scoring Plays For: <%= n.text_field :scoring_plays_for %></div>
+		<div>Scoring Plays Against: <%= n.text_field :scoring_plays_against %></div>
+		<div>Team Points: <%= n.text_field :score %></div>
+		<div>Opp Points: <%= n.text_field :opp_score %></div>
+		<div>Spread Result: <%= n.text_field :spread_result %></div>
 
-	<div><%= m.submit %></div>
+		<div><%= n.submit %></div>
 
 
+	<% end %>
 
 <% end %>
 

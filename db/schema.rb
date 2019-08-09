@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20190607133619) do
   enable_extension "plpgsql"
 
   create_table "cbb_game_logs", force: :cascade do |t|
+    t.string "team_id"
     t.string "date"
     t.string "opp"
     t.string "home"
@@ -44,6 +45,7 @@ ActiveRecord::Schema.define(version: 20190607133619) do
   end
 
   create_table "cfb_game_logs", force: :cascade do |t|
+    t.string "team_id"
     t.string "date"
     t.string "home"
     t.string "opp"
@@ -131,6 +133,7 @@ ActiveRecord::Schema.define(version: 20190607133619) do
   end
 
   create_table "nba_game_logs", force: :cascade do |t|
+    t.string "team_id"
     t.string "date"
     t.string "opp"
     t.string "home"
@@ -159,13 +162,18 @@ ActiveRecord::Schema.define(version: 20190607133619) do
   end
 
   create_table "nfl_game_logs", force: :cascade do |t|
+    t.string "team_id"
     t.string "date"
     t.string "home"
     t.string "opp"
     t.string "spread"
+    t.string "run_plays"
     t.string "rush_yards_for"
+    t.string "run_plays_against"
     t.string "rush_yards_against"
+    t.string "pass_plays"
     t.string "pass_yards_for"
+    t.string "pass_plays_against"
     t.string "pass_yards_against"
     t.string "plays_for"
     t.string "plays_against"

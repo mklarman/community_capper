@@ -2,6 +2,7 @@ class CreateCfbGameLogs < ActiveRecord::Migration[5.1]
   def change
     create_table :cfb_game_logs do |t|
 
+        t.string :team_id
     	t.string :date
     	t.string :home
     	t.string :opp
