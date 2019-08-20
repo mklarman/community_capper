@@ -1360,5 +1360,11 @@ module ApplicationHelper
 
 	end
 
+	def link_teams_and_logs
+
+		
+
+
+	end
 
 end

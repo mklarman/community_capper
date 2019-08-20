@@ -3,6 +3,8 @@
 
 <div style="margin-bottom: 5%; font-size: 25px;"><%=@team.team_name%></div>
 
+
+
 <% if @team.sport == "MLB" %>
 
 	<%= form_for @mlb_game_log do |m| %>
@@ -82,6 +84,38 @@
 		<div>Pass Plays For: <%= n.text_field :pass_plays %></div>
 		<div>Pass Yards For: <%= n.text_field :pass_yards_for %></div>
 		<div>Pass Plays Against: <%= n.text_field :pass_plays_against %></div>
+		<div>Pass Yards Against: <%= n.text_field :pass_yards_against %></div>
+		<div>Plays For: <%= n.text_field :plays_for %></div>
+		<div>Plays Against: <%= n.text_field :plays_against %></div>
+		<div>Team Turn Overs: <%= n.text_field :turn_overs %></div>
+		<div>Opp Turn Overs: <%= n.text_field :opp_turn_overs %></div>
+		<div>Sacks For: <%= n.text_field :sacks_for %></div>
+		<div>Sacks Against: <%= n.text_field :sacks_against %></div>
+		<div>Scoring Plays For: <%= n.text_field :scoring_plays_for %></div>
+		<div>Scoring Plays Against: <%= n.text_field :scoring_plays_against %></div>
+		<div>Team Points: <%= n.text_field :score %></div>
+		<div>Opp Points: <%= n.text_field :opp_score %></div>
+		<div>Spread Result: <%= n.text_field :spread_result %></div>
+
+		<div><%= n.submit %></div>
+
+
+	<% end %>
+
+	<% elsif @team.sport == "CFB" %>
+	
+	<%= form_for @cfb_game_log do |n| %>
+
+
+		<%= n.hidden_field :team_id, value: @team.id %>
+		<div>Date: <%= n.text_field :date, value: @my_date %></div>
+		<div>Home Team(T or F): <%= n.text_field :home %></div>
+		<div>Opponent: <%= n.text_field :opp %></div>
+		<div>Spread: <%= n.text_field :spread %></div>
+		<div>Rush Yards For: <%= n.text_field :rush_yards_for %></div>
+		<div>Rush Yards Against: <%= n.text_field :rush_yards_against %></div>
+		<div>Pass Yards For: <%= n.text_field :pass_yards_for %></div>
+		
 		<div>Pass Yards Against: <%= n.text_field :pass_yards_against %></div>
 		<div>Plays For: <%= n.text_field :plays_for %></div>
 		<div>Plays Against: <%= n.text_field :plays_against %></div>

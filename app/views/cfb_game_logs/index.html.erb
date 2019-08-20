@@ -1,0 +1,19 @@
+<% @cfb_teams = [] %>
+
+<% self.make_team_objects %>
+
+<% self.calc_stats %>
+
+<% @cfb_teams.each do |cfb| %>
+
+	<div>
+
+		<%= cfb[:rush_yards_for] %>
+		<%= cfb[:rush_yards_ag] %>
+
+
+	</div>
+
+
+<% end %>
+
