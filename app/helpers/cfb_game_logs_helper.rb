@@ -91,6 +91,99 @@ module CfbGameLogsHelper
 				cfb[:wins] = wins
 				cfb[:losses] = losses
 				cfb[:games] = games
+				cfb[:rush_yards_per_game] = (cfb[:rush_yards_for] / games.to_f).round(2)
+				cfb[:pass_yards_per_game] = (cfb[:pass_yards_for] / games.to_f).round(2)
+				cfb[:pass_yards_ag_per_game] = (cfb[:pass_yards_ag] / games.to_f).round(2)
+				cfb[:rush_yards_ag_per_game] = (cfb[:rush_yards_ag] / games.to_f).round(2)
+				cfb[:plays_per_game] = (cfb[:plays_for] / games.to_f).round(2)
+				cfb[:plays_ag_per_game] = (cfb[:plays_ag] / games.to_f).round(2)
+				cfb[:plus_minus] = cfb[:turn_overs] - cfb[:opp_turn_overs]
+				cfb[:sacks_per_game] = (cfb[:sacks] / games.to_f).round(2)
+				cfb[:sacks_ag_per_game] = (cfb[:sacks_ag] / games.to_f).round(2)
+				cfb[:scoring_plays_per_game] = (cfb[:scoring_plays_for] / games.to_f).round(2)
+				cfb[:scoring_plays_ag_per_game] = (cfb[:scoring_plays_ag] / games.to_f).round(2)
+				cfb[:scoring_diff] = cfb[:points_for] - cfb[:points_ag]
+				cfb[:record] = cfb[:wins].to_s + " - " + cfb[:losses].to_s
+				
+			end
+
+		end
+
+	end
+
+	def sort_for_rankings
+
+		@cfb_teams.each do |cfb|
+
+			@rush_yards_per_game.push(cfb[:rush_yards_per_game])
+			@rush_yards_ag_per_game.push(cfb[:rush_yards_ag_per_game])
+			@pass_yards_per_game.push(cfb[:pass_yards_per_game])
+			@pass_yards_ag_per_game.push(cfb[:pass_yards_ag_per_game])
+			@plays_per_game.push(cfb[:plays_per_game])
+			@plays_ag_per_game.push(cfb[:plays_ag_per_game])
+			@plus_minus.push(cfb[:plus_minus])
+			@sacks_per_game.push(cfb[:sacks_per_game])
+			@sacks_ag_per_game.push(cfb[:sacks_ag_per_game])
+			@scoring_plays_per_game.push(cfb[:scoring_plays_per_game])
+			@scoring_plays_ag_per_game.push(cfb[:scoring_plays_ag_per_game])
+			@scoring_diff.push(cfb[:scoring_diff])
+			@wins.push(cfb[:wins])
+
+		end
+
+		@rush_yards_per_game = @rush_yards_per_game.sort
+		@rush_yards_per_game = @rush_yards_per_game.reverse
+
+		@rush_yards_ag_per_game = @rush_yards_ag_per_game.sort
+
+		@pass_yards_per_game = @pass_yards_per_game.sort
+		@pass_yards_per_game = @pass_yards_per_game.reverse
+
+		@pass_yards_ag_per_game = @pass_yards_ag_per_game.sort
+
+		@plays_per_game = @plays_per_game.sort
+		@plays_per_game = @plays_per_game.reverse
+
+		@plays_ag_per_game = @plays_ag_per_game.sort
+
+		@plus_minus = @plus_minus.sort
+		@plus_minus = @plus_minus.reverse
+
+		@sacks_per_game = @sacks_per_game.sort
+		@sacks_per_game = @sacks_per_game.reverse
+
+		@sacks_ag_per_game = @sacks_ag_per_game.sort
+
+		@scoring_plays_per_game = @scoring_plays_per_game.sort
+		@scoring_plays_per_game = @scoring_plays_per_game.reverse
+
+		@scoring_plays_ag_per_game = @scoring_plays_ag_per_game.sort
+
+		@scoring_diff = @scoring_diff.sort
+		@scoring_diff = @scoring_diff.reverse
+
+		@wins = @wins.sort
+		@wins = @wins.reverse
+
+	end
+
+	def create_standings
+
+		@rush_yards_per_game.each do |r|
+
+			@cfb_teams.each do |cfb|
+
+				if cfb[:rush_yards_per_game] == r
+
+					rush_standings = Hash.new
+					rush_standings[:team] = cfb[:team_name]
+					rush_standings[:position] = (@rush_yards_per_game.index(r) + 1).to_s + "."
+					rush_standings[:rush_yards_per] = r
+
+					@rush_for.push(rush_standings)
+
+
+				end
 
 
 			end
@@ -98,6 +191,269 @@ module CfbGameLogsHelper
 
 		end
 
+		@pass_yards_per_game.each do |r|
+
+			@cfb_teams.each do |cfb|
+
+				if cfb[:pass_yards_per_game] == r
+
+					pass_standings = Hash.new
+					pass_standings[:team] = cfb[:team_name]
+					pass_standings[:position] = (@pass_yards_per_game.index(r) + 1).to_s + "."
+					pass_standings[:pass_yards_per] = r
+
+					@pass_for.push(pass_standings)
+
+
+				end
+
+
+			end
+
+
+		end
+
+		@pass_yards_ag_per_game.each do |r|
+
+			@cfb_teams.each do |cfb|
+
+				if cfb[:pass_yards_ag_per_game] == r
+
+					pass_standings = Hash.new
+					pass_standings[:team] = cfb[:team_name]
+					pass_standings[:position] = (@pass_yards_ag_per_game.index(r) + 1).to_s + "."
+					pass_standings[:pass_yards_ag_per] = r
+
+					@pass_ag.push(pass_standings)
+
+
+				end
+
+
+			end
+
+
+		end
+
+		@rush_yards_ag_per_game.each do |r|
+
+			@cfb_teams.each do |cfb|
+
+				if cfb[:rush_yards_ag_per_game] == r
+
+					rush_standings = Hash.new
+					rush_standings[:team] = cfb[:team_name]
+					rush_standings[:position] = (@rush_yards_ag_per_game.index(r) + 1).to_s + "."
+					rush_standings[:rush_yards_ag_per] = r
+
+					@rush_ag.push(rush_standings)
+
+
+				end
+
+
+			end
+
+
+		end
+
+		@plays_per_game.each do |r|
+
+			@cfb_teams.each do |cfb|
+
+				if cfb[:plays_per_game] == r
+
+					rush_standings = Hash.new
+					rush_standings[:team] = cfb[:team_name]
+					rush_standings[:position] = (@plays_per_game.index(r) + 1).to_s + "."
+					rush_standings[:plays_per_game] = r
+
+					@plays_for.push(rush_standings)
+
+
+				end
+
+
+			end
+
+
+		end
+
+		@plays_ag_per_game.each do |r|
+
+			@cfb_teams.each do |cfb|
+
+				if cfb[:plays_ag_per_game] == r
+
+					rush_standings = Hash.new
+					rush_standings[:team] = cfb[:team_name]
+					rush_standings[:position] = (@plays_ag_per_game.index(r) + 1).to_s + "."
+					rush_standings[:plays_ag_per_game] = r
+
+					@plays_ag.push(rush_standings)
+
+
+				end
+
+
+			end
+
+
+		end
+
+		@plus_minus.each do |r|
+
+			@cfb_teams.each do |cfb|
+
+				if cfb[:plus_minus] == r
+
+					rush_standings = Hash.new
+					rush_standings[:team] = cfb[:team_name]
+					rush_standings[:position] = (@plus_minus.index(r) + 1).to_s + "."
+					rush_standings[:plus_minus] = r
+
+					@pl_min.push(rush_standings)
+
+
+				end
+
+
+			end
+
+
+		end
+
+		@sacks_per_game.each do |r|
+
+			@cfb_teams.each do |cfb|
+
+				if cfb[:sacks_per_game] == r
+
+					rush_standings = Hash.new
+					rush_standings[:team] = cfb[:team_name]
+					rush_standings[:position] = (@sacks_per_game.index(r) + 1).to_s + "."
+					rush_standings[:sacks_per_game] = r
+
+					@sacks_for.push(rush_standings)
+
+
+				end
+
+
+			end
+
+
+		end
+
+		@sacks_ag_per_game.each do |r|
+
+			@cfb_teams.each do |cfb|
+
+				if cfb[:sacks_ag_per_game] == r
+
+					rush_standings = Hash.new
+					rush_standings[:team] = cfb[:team_name]
+					rush_standings[:position] = (@sacks_ag_per_game.index(r) + 1).to_s + "."
+					rush_standings[:sacks_ag_per_game] = r
+
+					@sacks_ag.push(rush_standings)
+
+
+				end
+
+
+			end
+
+
+		end
+
+		@scoring_plays_per_game.each do |r|
+
+			@cfb_teams.each do |cfb|
+
+				if cfb[:scoring_plays_per_game] == r
+
+					rush_standings = Hash.new
+					rush_standings[:team] = cfb[:team_name]
+					rush_standings[:position] = (@scoring_plays_per_game.index(r) + 1).to_s + "."
+					rush_standings[:scoring_plays_per_game] = r
+
+					@sc_pl_for.push(rush_standings)
+
+
+				end
+
+
+			end
+
+
+		end
+
+		@scoring_plays_ag_per_game.each do |r|
+
+			@cfb_teams.each do |cfb|
+
+				if cfb[:scoring_plays_ag_per_game] == r
+
+					rush_standings = Hash.new
+					rush_standings[:team] = cfb[:team_name]
+					rush_standings[:position] = (@scoring_plays_ag_per_game.index(r) + 1).to_s + "."
+					rush_standings[:scoring_plays_ag_per_game] = r
+
+					@sc_pl_ag.push(rush_standings)
+
+
+				end
+
+
+			end
+
+
+		end
+
+		@scoring_diff.each do |r|
+
+			@cfb_teams.each do |cfb|
+
+				if cfb[:scoring_diff] == r
+
+					rush_standings = Hash.new
+					rush_standings[:team] = cfb[:team_name]
+					rush_standings[:position] = (@scoring_diff.index(r) + 1).to_s + "."
+					rush_standings[:scoring_diff] = r
+
+					@score_diff.push(rush_standings)
+
+
+				end
+
+
+			end
+
+
+		end
+
+		@wins.each do |r|
+
+			@cfb_teams.each do |cfb|
+
+				if cfb[:wins] == r
+
+					rush_standings = Hash.new
+					rush_standings[:team] = cfb[:team_name]
+					rush_standings[:position] = (@wins.index(r) + 1).to_s + "."
+					rush_standings[:record] = cfb[:record]
+
+					@record.push(rush_standings)
+
+
+				end
+
+
+			end
+
+
+		end
 
 	end
 
