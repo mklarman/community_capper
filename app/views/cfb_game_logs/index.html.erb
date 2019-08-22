@@ -95,6 +95,293 @@
 
 	</div>
 
+	<div class="stat_display">
+		
+		<div class="stat_heading">PASS YARDS PER GAME</div>
+		
+		<div class = "stat_nums">
+			
+			<% @pass_for.each do |r| %>
+
+				<div class="stat_line">
+					
+					<% if r.class == Hash %>
+
+						<%= r[:position] + " " + r[:team] + "  " + r[:pass_yards_per].to_s %> 
+
+						
+					<% end %>
+
+
+				</div>
+
+			<% end %>
+
+		</div>
+
+	</div>
+
+	<div class="stat_display">
+		
+		<div class="stat_heading">PASS AGAINST PER GAME</div>
+		
+		<div class = "stat_nums">
+			
+			<% @pass_ag.each do |r| %>
+
+				<div class="stat_line">
+					
+					<% if r.class == Hash %>
+
+						<%= r[:position] + " " + r[:team] + "  " + r[:pass_yards_ag_per].to_s %> 
+
+
+						
+					<% end %>
+
+
+				</div>
+
+			<% end %>
+
+		</div>
+
+	</div>
+
+	<div class="stat_display">
+		
+		<div class="stat_heading">PLAYS PER GAME</div>
+		
+		<div class = "stat_nums">
+			
+			<% @plays_for.each do |r| %>
+
+				<div class="stat_line">
+					
+					<% if r.class == Hash %>
+
+						<%= r[:position] + " " + r[:team] + "  " + r[:plays_per_game].to_s %> 
+
+
+						
+					<% end %>
+
+
+				</div>
+
+			<% end %>
+
+		</div>
+
+	</div>
+
+	<div class="stat_display">
+		
+		<div class="stat_heading">PLAYS A/G PER GAME</div>
+		
+		<div class = "stat_nums">
+			
+			<% @plays_ag.each do |r| %>
+
+				<div class="stat_line">
+					
+					<% if r.class == Hash %>
+
+						<%= r[:position] + " " + r[:team] + "  " + r[:plays_ag_per_game].to_s %> 
+
+
+						
+					<% end %>
+
+
+				</div>
+
+			<% end %>
+
+		</div>
+
+	</div>
+
+	<div class="stat_display">
+		
+		<div class="stat_heading">SACKS PER GAME</div>
+		
+		<div class = "stat_nums">
+			
+			<% @sacks_for.each do |r| %>
+
+				<div class="stat_line">
+					
+					<% if r.class == Hash %>
+
+						<%= r[:position] + " " + r[:team] + "  " + r[:sacks_per_game].to_s %> 
+
+
+						
+					<% end %>
+
+
+				</div>
+
+			<% end %>
+
+		</div>
+
+	</div>
+
+	<div class="stat_display">
+		
+		<div class="stat_heading">SACKS LET UP PER GAME</div>
+		
+		<div class = "stat_nums">
+			
+			<% @sacks_ag.each do |r| %>
+
+				<div class="stat_line">
+					
+					<% if r.class == Hash %>
+
+						<%= r[:position] + " " + r[:team] + "  " + r[:sacks_ag_per_game].to_s %> 
+				
+					<% end %>
+
+
+				</div>
+
+			<% end %>
+
+		</div>
+
+	</div>
+
+	<div class="stat_display">
+		
+		<div class="stat_heading">SCORING PLAYS PER GAME</div>
+		
+		<div class = "stat_nums">
+			
+			<% @sc_pl_for.each do |r| %>
+
+				<div class="stat_line">
+					
+					<% if r.class == Hash %>
+
+						<%= r[:position] + " " + r[:team] + "  " + r[:scoring_plays_per_game].to_s %> 
+				
+					<% end %>
+
+
+				</div>
+
+			<% end %>
+
+		</div>
+
+	</div>
+
+	<div class="stat_display">
+		
+		<div class="stat_heading">SCORING PLAYS A/G PER GAME</div>
+		
+		<div class = "stat_nums">
+			
+			<% @sc_pl_ag.each do |r| %>
+
+				<div class="stat_line">
+					
+					<% if r.class == Hash %>
+
+						<%= r[:position] + " " + r[:team] + "  " + r[:scoring_plays_ag_per_game].to_s %> 
+				
+					<% end %>
+
+
+				</div>
+
+			<% end %>
+
+		</div>
+
+	</div>
+
+	<div class="stat_display">
+		
+		<div class="stat_heading">SCORING DIFFERENTIAL</div>
+		
+		<div class = "stat_nums">
+			
+			<% @score_diff.each do |r| %>
+
+				<div class="stat_line">
+					
+					<% if r.class == Hash %>
+
+						<%= r[:position] + " " + r[:team] + "  " + r[:scoring_diff].to_s %> 
+				
+					<% end %>
+
+
+				</div>
+
+			<% end %>
+
+		</div>
+
+	</div>
+
+	<div class="stat_display">
+		
+		<div class="stat_heading">PLUS/MINUS</div>
+		
+		<div class = "stat_nums">
+			
+			<% @pl_min.each do |r| %>
+
+				<div class="stat_line">
+					
+					<% if r.class == Hash %>
+
+						<%= r[:position] + " " + r[:team] + "  " + r[:plus_minus].to_s %> 
+				
+					<% end %>
+
+
+				</div>
+
+			<% end %>
+
+		</div>
+
+	</div>
+
+	<div class="stat_display">
+		
+		<div class="stat_heading">RECORD</div>
+		
+		<div class = "stat_nums">
+			
+			<% @record.each do |r| %>
+
+				<div class="stat_line">
+					
+					<% if r.class == Hash %>
+
+						<%= r[:position] + " " + r[:team] + "  " + r[:record].to_s %> 
+				
+					<% end %>
+
+
+				</div>
+
+			<% end %>
+
+		</div>
+
+	</div>
+
+
+
 </div>
+
 
 

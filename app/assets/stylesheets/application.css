@@ -32,6 +32,7 @@
 	height: 100%;
 	border: 1px solid black;
 	text-align: top;
+	vertical-align: top;
 
 	margin-top: 5%;
 }
