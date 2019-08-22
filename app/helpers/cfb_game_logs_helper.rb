@@ -180,7 +180,7 @@ module CfbGameLogsHelper
 					rush_standings[:position] = (@rush_yards_per_game.index(r) + 1).to_s + "."
 					rush_standings[:rush_yards_per] = r
 
-					@rush_for.push(rush_standings)
+					@rush_for.push(rush_standings) unless @rush_for.include?(rush_standings)
 
 
 				end
@@ -202,7 +202,7 @@ module CfbGameLogsHelper
 					pass_standings[:position] = (@pass_yards_per_game.index(r) + 1).to_s + "."
 					pass_standings[:pass_yards_per] = r
 
-					@pass_for.push(pass_standings)
+					@pass_for.push(pass_standings) unless @pass_for.include?(pass_standings)
 
 
 				end
@@ -224,7 +224,7 @@ module CfbGameLogsHelper
 					pass_standings[:position] = (@pass_yards_ag_per_game.index(r) + 1).to_s + "."
 					pass_standings[:pass_yards_ag_per] = r
 
-					@pass_ag.push(pass_standings)
+					@pass_ag.push(pass_standings) unless @pass_ag.include?(pass_standings)
 
 
 				end
@@ -246,7 +246,7 @@ module CfbGameLogsHelper
 					rush_standings[:position] = (@rush_yards_ag_per_game.index(r) + 1).to_s + "."
 					rush_standings[:rush_yards_ag_per] = r
 
-					@rush_ag.push(rush_standings)
+					@rush_ag.push(rush_standings) unless @rush_ag.include?(rush_standings)
 
 
 				end
@@ -268,7 +268,7 @@ module CfbGameLogsHelper
 					rush_standings[:position] = (@plays_per_game.index(r) + 1).to_s + "."
 					rush_standings[:plays_per_game] = r
 
-					@plays_for.push(rush_standings)
+					@plays_for.push(rush_standings) unless @plays_for.include?(rush_standings)
 
 
 				end
@@ -290,7 +290,7 @@ module CfbGameLogsHelper
 					rush_standings[:position] = (@plays_ag_per_game.index(r) + 1).to_s + "."
 					rush_standings[:plays_ag_per_game] = r
 
-					@plays_ag.push(rush_standings)
+					@plays_ag.push(rush_standings) unless @plays_ag.include?(rush_standings)
 
 
 				end
@@ -312,7 +312,7 @@ module CfbGameLogsHelper
 					rush_standings[:position] = (@plus_minus.index(r) + 1).to_s + "."
 					rush_standings[:plus_minus] = r
 
-					@pl_min.push(rush_standings)
+					@pl_min.push(rush_standings) unless @pl_min.include?(rush_standings)
 
 
 				end
@@ -334,7 +334,7 @@ module CfbGameLogsHelper
 					rush_standings[:position] = (@sacks_per_game.index(r) + 1).to_s + "."
 					rush_standings[:sacks_per_game] = r
 
-					@sacks_for.push(rush_standings)
+					@sacks_for.push(rush_standings) unless @sacks_for.include?(rush_standings)
 
 
 				end
@@ -356,7 +356,7 @@ module CfbGameLogsHelper
 					rush_standings[:position] = (@sacks_ag_per_game.index(r) + 1).to_s + "."
 					rush_standings[:sacks_ag_per_game] = r
 
-					@sacks_ag.push(rush_standings)
+					@sacks_ag.push(rush_standings) unless @sacks_ag.include?(rush_standings)
 
 
 				end
@@ -378,7 +378,7 @@ module CfbGameLogsHelper
 					rush_standings[:position] = (@scoring_plays_per_game.index(r) + 1).to_s + "."
 					rush_standings[:scoring_plays_per_game] = r
 
-					@sc_pl_for.push(rush_standings)
+					@sc_pl_for.push(rush_standings) unless @sc_pl_for.include?(rush_standings)
 
 
 				end
@@ -400,7 +400,7 @@ module CfbGameLogsHelper
 					rush_standings[:position] = (@scoring_plays_ag_per_game.index(r) + 1).to_s + "."
 					rush_standings[:scoring_plays_ag_per_game] = r
 
-					@sc_pl_ag.push(rush_standings)
+					@sc_pl_ag.push(rush_standings) unless @sc_pl_ag.include?(rush_standings)
 
 
 				end
@@ -422,7 +422,7 @@ module CfbGameLogsHelper
 					rush_standings[:position] = (@scoring_diff.index(r) + 1).to_s + "."
 					rush_standings[:scoring_diff] = r
 
-					@score_diff.push(rush_standings)
+					@score_diff.push(rush_standings) unless @score_diff.include?(rush_standings)
 
 
 				end
@@ -444,7 +444,7 @@ module CfbGameLogsHelper
 					rush_standings[:position] = (@wins.index(r) + 1).to_s + "."
 					rush_standings[:record] = cfb[:record]
 
-					@record.push(rush_standings)
+					@record.push(rush_standings) unless @record.include?(rush_standings)
 
 
 				end
