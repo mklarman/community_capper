@@ -19,6 +19,12 @@
 	display: none;
 }
 
+.cfb_stat_cont{
+
+	height: 100%;
+	width: 100%;
+}
+
 .stat_display{
 
 	display: inline-block;

@@ -115,19 +115,19 @@ module CfbGameLogsHelper
 
 		@cfb_teams.each do |cfb|
 
-			@rush_yards_per_game.push(cfb[:rush_yards_per_game])
-			@rush_yards_ag_per_game.push(cfb[:rush_yards_ag_per_game])
-			@pass_yards_per_game.push(cfb[:pass_yards_per_game])
-			@pass_yards_ag_per_game.push(cfb[:pass_yards_ag_per_game])
-			@plays_per_game.push(cfb[:plays_per_game])
-			@plays_ag_per_game.push(cfb[:plays_ag_per_game])
-			@plus_minus.push(cfb[:plus_minus])
-			@sacks_per_game.push(cfb[:sacks_per_game])
-			@sacks_ag_per_game.push(cfb[:sacks_ag_per_game])
-			@scoring_plays_per_game.push(cfb[:scoring_plays_per_game])
-			@scoring_plays_ag_per_game.push(cfb[:scoring_plays_ag_per_game])
-			@scoring_diff.push(cfb[:scoring_diff])
-			@wins.push(cfb[:wins])
+			@rush_yards_per_game.push(cfb[:rush_yards_per_game]) unless cfb[:rush_yards_per_game].nil?
+			@rush_yards_ag_per_game.push(cfb[:rush_yards_ag_per_game]) unless cfb[:rush_yards_ag_per_game].nil?
+			@pass_yards_per_game.push(cfb[:pass_yards_per_game]) unless cfb[:pass_yards_per_game].nil?
+			@pass_yards_ag_per_game.push(cfb[:pass_yards_ag_per_game]) unless cfb[:pass_yards_ag_per_game].nil?
+			@plays_per_game.push(cfb[:plays_per_game]) unless cfb[:plays_per_game].nil?
+			@plays_ag_per_game.push(cfb[:plays_ag_per_game]) unless cfb[:plays_ag_per_game].nil?
+			@plus_minus.push(cfb[:plus_minus]) unless cfb[:plus_minus].nil?
+			@sacks_per_game.push(cfb[:sacks_per_game]) unless cfb[:sacks_per_game].nil?
+			@sacks_ag_per_game.push(cfb[:sacks_ag_per_game]) unless cfb[:sacks_ag_per_game].nil?
+			@scoring_plays_per_game.push(cfb[:scoring_plays_per_game]) unless cfb[:scoring_plays_per_game].nil?
+			@scoring_plays_ag_per_game.push(cfb[:scoring_plays_ag_per_game]) unless cfb[:scoring_plays_ag_per_game].nil?
+			@scoring_diff.push(cfb[:scoring_diff]) unless cfb[:scoring_diff].nil?
+			@wins.push(cfb[:wins]) unless cfb[:wins].nil?
 
 		end
 
