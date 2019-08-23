@@ -25,8 +25,6 @@ module NflGameLogsHelper
 
 	def calc_pro_stats
 
-		@test2 = @pro_teams.length
-
 		@pro_teams.each do |cfb|
 
 			rush_for = 0
@@ -155,8 +153,12 @@ module NflGameLogsHelper
 
 		end
 
-		@run_plays_per_game = @run_plays_per_game.sort   
+
+		@run_plays_per_game = @run_plays_per_game.sort
+
 		@run_plays_per_game = @run_plays_per_game.reverse
+
+
 
 		@run_plays_ag_per_game = @run_plays_ag_per_game.sort
 
@@ -296,12 +298,12 @@ module NflGameLogsHelper
 
 			@pro_teams.each do |cfb|
 
-				if cfb[:run_plays_for] == r
+				if cfb[:run_plays_per_game] == r
 
 					rush_standings = Hash.new
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@run_plays_per_game.index(r) + 1).to_s + "."
-					rush_standings[:run_plays_for] = r
+					rush_standings[:run_plays_per_game] = r
 
 					@run_pl_for.push(rush_standings) unless @run_pl_for.include?(rush_standings)
 
@@ -318,12 +320,12 @@ module NflGameLogsHelper
 
 			@pro_teams.each do |cfb|
 
-				if cfb[:run_plays_ag] == r
+				if cfb[:run_plays_ag_per_game] == r
 
 					rush_standings = Hash.new
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@run_plays_ag_per_game.index(r) + 1).to_s + "."
-					rush_standings[:run_plays_ag] = r
+					rush_standings[:run_plays_ag_per_game] = r
 
 					@run_pl_ag.push(rush_standings) unless @run_pl_ag.include?(rush_standings)
 
@@ -340,12 +342,12 @@ module NflGameLogsHelper
 
 			@pro_teams.each do |cfb|
 
-				if cfb[:pass_plays_for] == r
+				if cfb[:pass_plays_per_game] == r
 
 					rush_standings = Hash.new
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@pass_plays_per_game.index(r) + 1).to_s + "."
-					rush_standings[:pass_plays_for] = r
+					rush_standings[:pass_plays_per_game] = r
 
 					@pass_pl_for.push(rush_standings) unless @pass_pl_for.include?(rush_standings)
 
@@ -362,12 +364,12 @@ module NflGameLogsHelper
 
 			@pro_teams.each do |cfb|
 
-				if cfb[:pass_plays_ag] == r
+				if cfb[:pass_plays_ag_per_game] == r
 
 					rush_standings = Hash.new
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@pass_plays_ag_per_game.index(r) + 1).to_s + "."
-					rush_standings[:pass_plays_ag] = r
+					rush_standings[:pass_plays_ag_per_game] = r
 
 					@pass_pl_ag.push(rush_standings) unless @pass_pl_ag.include?(rush_standings)
 
