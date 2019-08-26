@@ -1,5 +1,55 @@
 module NflGameLogsHelper
 
+	def get_fav_and_dog
+
+		if @matchup.sport == "CFB"
+
+			Team.all.each do |t|
+
+				if t.matchup_abbr == @matchup.fav 
+
+					@cfb_fav = t
+
+				end
+
+				if t.matchup_abbr == @matchup.dog 
+
+					@cfb_dog = t
+
+				end
+
+
+
+			end
+
+
+		elsif @matchup.sport == "NFL"
+
+			Team.all.each do |t|
+
+				if t.matchup_abbr == @matchup.fav 
+
+					@nfl_fav = t
+
+				end
+
+				if t.matchup_abbr == @matchup.dog 
+
+					@nfl_dog = t
+
+				end
+
+
+
+			end
+
+
+
+		end
+
+
+	end
+
 	def make_pro_team_objects
 
 		Team.all.each do |t|
@@ -120,8 +170,6 @@ module NflGameLogsHelper
 				cfb[:scoring_plays_ag_per_game] = (cfb[:scoring_plays_ag] / games.to_f).round(2)
 				cfb[:scoring_diff] = cfb[:points_for] - cfb[:points_ag]
 				cfb[:record] = cfb[:wins].to_s + " - " + cfb[:losses].to_s
-
-				@test1.push(cfb[:run_plays_per_game])
 				
 			end
 
@@ -216,6 +264,7 @@ module NflGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@rush_yards_per_game.index(r) + 1).to_s + "."
 					rush_standings[:rush_yards_per] = r
+					rush_standings[:id] = cfb[:id]
 
 					@rush_for.push(rush_standings) unless @rush_for.include?(rush_standings)
 
@@ -238,6 +287,7 @@ module NflGameLogsHelper
 					pass_standings[:team] = cfb[:team_name]
 					pass_standings[:position] = (@pass_yards_per_game.index(r) + 1).to_s + "."
 					pass_standings[:pass_yards_per] = r
+					pass_standings[:id] = cfb[:id]
 
 					@pass_for.push(pass_standings) unless @pass_for.include?(pass_standings)
 
@@ -260,6 +310,7 @@ module NflGameLogsHelper
 					pass_standings[:team] = cfb[:team_name]
 					pass_standings[:position] = (@pass_yards_ag_per_game.index(r) + 1).to_s + "."
 					pass_standings[:pass_yards_ag_per] = r
+					pass_standings[:id] = cfb[:id]
 
 					@pass_ag.push(pass_standings) unless @pass_ag.include?(pass_standings)
 
@@ -282,6 +333,7 @@ module NflGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@rush_yards_ag_per_game.index(r) + 1).to_s + "."
 					rush_standings[:rush_yards_ag_per] = r
+					rush_standings[:id] = cfb[:id]
 
 					@rush_ag.push(rush_standings) unless @rush_ag.include?(rush_standings)
 
@@ -304,6 +356,7 @@ module NflGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@run_plays_per_game.index(r) + 1).to_s + "."
 					rush_standings[:run_plays_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@run_pl_for.push(rush_standings) unless @run_pl_for.include?(rush_standings)
 
@@ -326,6 +379,7 @@ module NflGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@run_plays_ag_per_game.index(r) + 1).to_s + "."
 					rush_standings[:run_plays_ag_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@run_pl_ag.push(rush_standings) unless @run_pl_ag.include?(rush_standings)
 
@@ -348,6 +402,7 @@ module NflGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@pass_plays_per_game.index(r) + 1).to_s + "."
 					rush_standings[:pass_plays_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@pass_pl_for.push(rush_standings) unless @pass_pl_for.include?(rush_standings)
 
@@ -370,6 +425,7 @@ module NflGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@pass_plays_ag_per_game.index(r) + 1).to_s + "."
 					rush_standings[:pass_plays_ag_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@pass_pl_ag.push(rush_standings) unless @pass_pl_ag.include?(rush_standings)
 
@@ -392,6 +448,7 @@ module NflGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@plays_per_game.index(r) + 1).to_s + "."
 					rush_standings[:plays_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@plays_for.push(rush_standings) unless @plays_for.include?(rush_standings)
 
@@ -414,6 +471,7 @@ module NflGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@plays_ag_per_game.index(r) + 1).to_s + "."
 					rush_standings[:plays_ag_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@plays_ag.push(rush_standings) unless @plays_ag.include?(rush_standings)
 
@@ -436,6 +494,7 @@ module NflGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@plus_minus.index(r) + 1).to_s + "."
 					rush_standings[:plus_minus] = r
+					rush_standings[:id] = cfb[:id]
 
 					@pl_min.push(rush_standings) unless @pl_min.include?(rush_standings)
 
@@ -458,6 +517,7 @@ module NflGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@sacks_per_game.index(r) + 1).to_s + "."
 					rush_standings[:sacks_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@sacks_for.push(rush_standings) unless @sacks_for.include?(rush_standings)
 
@@ -480,6 +540,7 @@ module NflGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@sacks_ag_per_game.index(r) + 1).to_s + "."
 					rush_standings[:sacks_ag_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@sacks_ag.push(rush_standings) unless @sacks_ag.include?(rush_standings)
 
@@ -502,6 +563,7 @@ module NflGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@scoring_plays_per_game.index(r) + 1).to_s + "."
 					rush_standings[:scoring_plays_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@sc_pl_for.push(rush_standings) unless @sc_pl_for.include?(rush_standings)
 
@@ -524,6 +586,7 @@ module NflGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@scoring_plays_ag_per_game.index(r) + 1).to_s + "."
 					rush_standings[:scoring_plays_ag_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@sc_pl_ag.push(rush_standings) unless @sc_pl_ag.include?(rush_standings)
 
@@ -546,6 +609,7 @@ module NflGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@scoring_diff.index(r) + 1).to_s + "."
 					rush_standings[:scoring_diff] = r
+					rush_standings[:id] = cfb[:id]
 
 					@score_diff.push(rush_standings) unless @score_diff.include?(rush_standings)
 
@@ -568,6 +632,7 @@ module NflGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@wins.index(r) + 1).to_s + "."
 					rush_standings[:record] = cfb[:record]
+					rush_standings[:id] = cfb[:id]
 
 					@record.push(rush_standings) unless @record.include?(rush_standings)
 

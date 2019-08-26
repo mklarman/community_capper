@@ -12,7 +12,15 @@
 
 	<% if @my_date <= @matchup_date %>
 
-		<% @link_tab = m.fav + " " + m.fav_ml + " " + m.dog %>
+		<% if m.sport == "MLB" || m.sport == "NHL"  %>
+
+			<% @link_tab = m.fav + " " + m.fav_ml + " " + m.dog %>
+
+		<% else %>
+
+			<% @link_tab = m.fav + " " + m.spread.to_s + " " + m.dog %>
+
+		<% end %>
 
 		<div style="margin-bottom: 3%;"><%= link_to @link_tab, edit_matchup_path(m.id) %> </div>
 	<% end %>

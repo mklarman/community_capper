@@ -179,6 +179,7 @@ module CfbGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@rush_yards_per_game.index(r) + 1).to_s + "."
 					rush_standings[:rush_yards_per] = r
+					rush_standings[:id] = cfb[:id]
 
 					@rush_for.push(rush_standings) unless @rush_for.include?(rush_standings)
 
@@ -201,6 +202,7 @@ module CfbGameLogsHelper
 					pass_standings[:team] = cfb[:team_name]
 					pass_standings[:position] = (@pass_yards_per_game.index(r) + 1).to_s + "."
 					pass_standings[:pass_yards_per] = r
+					pass_standings[:id] = cfb[:id]
 
 					@pass_for.push(pass_standings) unless @pass_for.include?(pass_standings)
 
@@ -223,6 +225,7 @@ module CfbGameLogsHelper
 					pass_standings[:team] = cfb[:team_name]
 					pass_standings[:position] = (@pass_yards_ag_per_game.index(r) + 1).to_s + "."
 					pass_standings[:pass_yards_ag_per] = r
+					pass_standings[:id] = cfb[:id]
 
 					@pass_ag.push(pass_standings) unless @pass_ag.include?(pass_standings)
 
@@ -245,6 +248,7 @@ module CfbGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@rush_yards_ag_per_game.index(r) + 1).to_s + "."
 					rush_standings[:rush_yards_ag_per] = r
+					rush_standings[:id] = cfb[:id]
 
 					@rush_ag.push(rush_standings) unless @rush_ag.include?(rush_standings)
 
@@ -267,6 +271,7 @@ module CfbGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@plays_per_game.index(r) + 1).to_s + "."
 					rush_standings[:plays_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@plays_for.push(rush_standings) unless @plays_for.include?(rush_standings)
 
@@ -289,6 +294,7 @@ module CfbGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@plays_ag_per_game.index(r) + 1).to_s + "."
 					rush_standings[:plays_ag_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@plays_ag.push(rush_standings) unless @plays_ag.include?(rush_standings)
 
@@ -311,6 +317,7 @@ module CfbGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@plus_minus.index(r) + 1).to_s + "."
 					rush_standings[:plus_minus] = r
+					rush_standings[:id] = cfb[:id]
 
 					@pl_min.push(rush_standings) unless @pl_min.include?(rush_standings)
 
@@ -333,6 +340,7 @@ module CfbGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@sacks_per_game.index(r) + 1).to_s + "."
 					rush_standings[:sacks_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@sacks_for.push(rush_standings) unless @sacks_for.include?(rush_standings)
 
@@ -355,6 +363,7 @@ module CfbGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@sacks_ag_per_game.index(r) + 1).to_s + "."
 					rush_standings[:sacks_ag_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@sacks_ag.push(rush_standings) unless @sacks_ag.include?(rush_standings)
 
@@ -377,6 +386,7 @@ module CfbGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@scoring_plays_per_game.index(r) + 1).to_s + "."
 					rush_standings[:scoring_plays_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@sc_pl_for.push(rush_standings) unless @sc_pl_for.include?(rush_standings)
 
@@ -399,6 +409,7 @@ module CfbGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@scoring_plays_ag_per_game.index(r) + 1).to_s + "."
 					rush_standings[:scoring_plays_ag_per_game] = r
+					rush_standings[:id] = cfb[:id]
 
 					@sc_pl_ag.push(rush_standings) unless @sc_pl_ag.include?(rush_standings)
 
@@ -421,6 +432,7 @@ module CfbGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@scoring_diff.index(r) + 1).to_s + "."
 					rush_standings[:scoring_diff] = r
+					rush_standings[:id] = cfb[:id]
 
 					@score_diff.push(rush_standings) unless @score_diff.include?(rush_standings)
 
@@ -443,6 +455,7 @@ module CfbGameLogsHelper
 					rush_standings[:team] = cfb[:team_name]
 					rush_standings[:position] = (@wins.index(r) + 1).to_s + "."
 					rush_standings[:record] = cfb[:record]
+					rush_standings[:id] = cfb[:id]
 
 					@record.push(rush_standings) unless @record.include?(rush_standings)
 

@@ -1360,9 +1360,149 @@ module ApplicationHelper
 
 	end
 
-	def link_teams_and_logs
-
+	def get_matchup_rankings
 		
+		fav_plays = 0
+		dog_plays = 0
+
+		fav_plays_ag = 0
+		dog_plays_ag = 0
+
+		fav_runs = 0
+		dog_runs = 0
+
+		fav_pass = 0
+		dog_pass = 0
+
+		fav_runs_ag = 0
+		dog_runs_ag = 0
+
+		fav_pass_ag = 0
+		dog_pass_ag = 0
+
+		@record.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				@fav_record = p[:record]
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				@dog_record = p[:record]
+
+			end
+
+
+		end
+		
+		@plays_for.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_plays = p[:plays_per_game]
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_plays = p[:plays_per_game]
+
+			end
+
+
+		end
+
+		@plays_ag.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_plays_ag = p[:plays_ag_per_game]
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_plays_ag = p[:plays_ag_per_game]
+
+			end
+
+
+		end
+
+		@run_pl_for.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_runs = p[:run_plays_per_game]
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_runs = p[:run_plays_per_game]
+
+			end
+
+
+
+		end
+
+		@run_pl_ag.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_runs_ag = p[:run_plays_ag_per_game]
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_runs_ag = p[:run_plays_ag_per_game]
+
+			end
+
+
+
+		end
+
+		@pass_pl_for.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_pass = p[:pass_plays_per_game]
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_pass = p[:pass_plays_per_game]
+
+			end
+
+
+
+		end
+
+		@pass_pl_ag.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_pass_ag = p[:pass_plays_ag_per_game]
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_pass_ag = p[:pass_plays_ag_per_game]
+
+			end
+
+
+
+		end
+
+		@fav_run_percentage = ((fav_runs.to_f / fav_plays.to_f) * 100).round(2)
+		@dog_run_percentage = ((dog_runs.to_f / dog_plays.to_f) * 100).round(2)
+
+		@fav_pass_percentage = ((fav_pass.to_f / fav_plays.to_f) * 100).round(2)
+		@dog_pass_percentage = ((dog_pass.to_f / dog_plays.to_f) * 100).round(2)
+
+		@fav_run_ag_percentage = ((fav_runs_ag.to_f / fav_plays_ag.to_f) * 100).round(2)
+		@dog_run_ag_percentage = ((dog_runs_ag.to_f / dog_plays_ag.to_f) * 100).round(2)
+
+		@fav_pass_ag_percentage = ((fav_pass.to_f / fav_plays_ag.to_f) * 100).round(2)
+		@dog_pass_ag_percentage = ((dog_pass.to_f / dog_plays_ag.to_f) * 100).round(2)
+
+
+
 
 
 	end

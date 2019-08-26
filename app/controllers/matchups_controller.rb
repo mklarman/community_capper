@@ -39,6 +39,21 @@ class MatchupsController < ApplicationController
 	def edit
 
 		@matchup = Matchup.find_by_id(params[:id])
+		
+		@fav_run_percentage
+		@dog_run_percentage
+
+		@fav_pass_percentage
+		@dog_pass_percentage
+
+		@fav_run_ag_percentage
+		@dog_run_ag_percentage
+
+		@fav_pass_ag_percentage
+		@dog_pass_ag_percentage
+
+		@fav_record
+		@dog_record
 
 	end
 
