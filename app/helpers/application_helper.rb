@@ -1380,6 +1380,30 @@ module ApplicationHelper
 		fav_pass_ag = 0
 		dog_pass_ag = 0
 
+		fav_rush_for = 0
+		dog_rush_for = 0
+
+		fav_rush_ag = 0
+		dog_rush_ag = 0
+
+		fav_rush_pos = 0
+		dog_rush_pos = 0
+
+		fav_rush_ag_pos = 0
+		dog_rush_ag_pos = 0
+
+		fav_pass_for = 0
+		dog_pass_for = 0
+
+		fav_pass_ag = 0
+		dog_pass_ag = 0
+
+		fav_pass_pos = 0
+		dog_pass_pos = 0
+
+		fav_pass_ag_pos = 0
+		dog_pass_ag_pos = 0
+
 		@record.each do |p|
 
 			if p[:id].to_i == @nfl_fav.id
@@ -1485,7 +1509,69 @@ module ApplicationHelper
 
 			end
 
+		end
 
+		@rush_for.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_rush_for = p[:rush_yards_per]
+				fav_rush_pos = p[:position].to_i
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_rush_for = p[:rush_yards_per]
+				dog_rush_pos = p[:position].to_i
+
+			end
+
+		end
+
+		@rush_ag.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_rush_ag = p[:rush_yards_ag_per]
+				fav_rush_ag_pos = p[:position].to_i
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_rush_ag = p[:rush_yards_ag_per]
+				dog_rush_ag_pos = p[:position].to_i
+
+			end
+
+		end
+
+		@pass_ag.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_pass_ag = p[:pass_yards_ag_per]
+				fav_pass_ag_pos = p[:position].to_i
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_pass_ag = p[:pass_yards_ag_per]
+				dog_pass_ag_pos = p[:position].to_i
+
+			end
+
+		end
+
+		@pass_for.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_pass_for = p[:pass_yards_per]
+				fav_pass_for_pos = p[:position].to_i
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_pass_for = p[:pass_yards_per]
+				dog_pass_for_pos = p[:position].to_i
+
+			end
 
 		end
 
@@ -1500,6 +1586,30 @@ module ApplicationHelper
 
 		@fav_pass_ag_percentage = ((fav_pass.to_f / fav_plays_ag.to_f) * 100).round(2)
 		@dog_pass_ag_percentage = ((dog_pass.to_f / dog_plays_ag.to_f) * 100).round(2)
+
+		@fav_rush_for = fav_rush_for
+		@dog_rush_for = dog_rush_for
+
+		@fav_rush_pos = fav_rush_pos
+		@dog_rush_pos = dog_rush_pos
+
+		@fav_rush_ag = fav_rush_ag
+		@dog_rush_ag = dog_rush_ag
+
+		@fav_rush_ag_pos = fav_rush_ag_pos
+		@dog_rush_ag_pos = dog_rush_ag_pos
+
+		@fav_pass_for = fav_pass_for
+		@dog_pass_for = dog_pass_for
+
+		@fav_pass_pos = fav_pass_pos
+		@dog_pass_pos = dog_pass_pos
+
+		@fav_pass_ag = fav_pass_ag
+		@dog_pass_ag = dog_pass_ag
+
+		@fav_pass_ag_pos = fav_rush_ag_pos
+		@dog_pass_ag_pos = dog_rush_ag_pos
 
 
 

@@ -55,6 +55,31 @@ class MatchupsController < ApplicationController
 		@fav_record
 		@dog_record
 
+		@fav_rush_for
+		@dog_rush_for
+
+		@fav_rush_pos
+		@dog_rush_pos
+
+		@fav_rush_ag
+		@dog_rush_ag
+
+		@fav_rush_ag_pos
+		@dog_rush_ag_pos
+
+		@fav_pass_for
+		@dog_pass_for
+
+		@fav_pass_pos
+		@dog_pass_pos
+
+		@fav_pass_ag
+		@dog_pass_ag
+
+		@fav_pass_ag_pos
+		@dog_pass_ag_pos
+
+
 	end
 
 	def team_stats
