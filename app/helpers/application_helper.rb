@@ -1564,12 +1564,12 @@ module ApplicationHelper
 			if p[:id].to_i == @nfl_fav.id
 
 				fav_pass_for = p[:pass_yards_per]
-				fav_pass_for_pos = p[:position].to_i
+				fav_pass_pos = p[:position].to_i
 
 			elsif p[:id].to_i == @nfl_dog.id
 
 				dog_pass_for = p[:pass_yards_per]
-				dog_pass_for_pos = p[:position].to_i
+				dog_pass_pos = p[:position].to_i
 
 			end
 
@@ -1608,8 +1608,8 @@ module ApplicationHelper
 		@fav_pass_ag = fav_pass_ag
 		@dog_pass_ag = dog_pass_ag
 
-		@fav_pass_ag_pos = fav_rush_ag_pos
-		@dog_pass_ag_pos = dog_rush_ag_pos
+		@fav_pass_ag_pos = fav_pass_ag_pos
+		@dog_pass_ag_pos = dog_pass_ag_pos
 
 
 
