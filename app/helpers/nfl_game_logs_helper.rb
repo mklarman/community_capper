@@ -163,7 +163,7 @@ module NflGameLogsHelper
 				cfb[:rush_yards_ag_per_game] = (cfb[:rush_yards_ag] / games.to_f).round(2)
 				cfb[:plays_per_game] = (cfb[:plays_for] / games.to_f).round(2)
 				cfb[:plays_ag_per_game] = (cfb[:plays_ag] / games.to_f).round(2)
-				cfb[:plus_minus] = cfb[:turn_overs] - cfb[:opp_turn_overs]
+				cfb[:plus_minus] = cfb[:opp_turn_overs] - cfb[:turn_overs]
 				cfb[:sacks_per_game] = (cfb[:sacks] / games.to_f).round(2)
 				cfb[:sacks_ag_per_game] = (cfb[:sacks_ag] / games.to_f).round(2)
 				cfb[:scoring_plays_per_game] = (cfb[:scoring_plays_for] / games.to_f).round(2)

@@ -79,6 +79,54 @@ class MatchupsController < ApplicationController
 		@fav_pass_ag_pos
 		@dog_pass_ag_pos
 
+		@fav_plays_for_pos
+		@dog_plays_for_pos
+
+		@fav_plays_for
+		@dog_plays_for
+
+		@fav_plays_ag_pos
+		@dog_plays_ag_pos
+
+		@fav_plays_ag
+		@dog_plays_ag
+
+		@fav_pl_min
+		@dog_pl_min
+
+		@fav_pl_min_pos
+		@dog_pl_min_pos
+
+		@fav_sacks_for
+		@dog_sacks_for
+
+		@fav_sacks_for_pos
+		@dog_sacks_for_pos
+
+		@fav_sacks_ag
+		@dog_sacks_ag
+
+		@fav_sacks_ag_pos
+		@dog_sacks_ag_pos
+
+		@fav_sc_pl_for
+		@dog_sc_pl_for
+
+		@fav_sc_pl_for_pos
+		@dog_sc_pl_for_pos
+
+		@fav_sc_pl_ag
+		@dog_sc_pl_ag
+
+		@fav_sc_pl_ag_pos
+		@dog_sc_pl_ag_pos
+
+		@fav_score_diff
+		@dog_score_diff
+
+		@fav_ats_record
+		@dog_ats_record
+
 
 	end
 

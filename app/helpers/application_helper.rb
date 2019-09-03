@@ -1404,6 +1404,57 @@ module ApplicationHelper
 		fav_pass_ag_pos = 0
 		dog_pass_ag_pos = 0
 
+		fav_plays_for = 0
+		dog_plays_for = 0
+
+		fav_plays_for_pos = 0
+		dog_plays_for_pos = 0
+
+		fav_plays_ag = 0
+		dog_plays_ag = 0
+
+		fav_plays_ag_pos = 0
+		dog_plays_ag_pos = 0
+
+		fav_pl_min = 0
+		dog_pl_min = 0
+
+		fav_pl_min_pos = 0
+		dog_pl_min_pos = 0
+
+		fav_sacks_for = 0
+		dog_sacks_for = 0
+
+		fav_sacks_for_pos = 0
+		dog_sacks_for_pos = 0
+
+		fav_sacks_ag = 0
+		dog_sacks_ag = 0
+
+		fav_sacks_ag_pos = 0
+		dog_sacks_ag_pos = 0
+
+		fav_sc_pl_for = 0
+		dog_sc_pl_for = 0
+
+		fav_sc_pl_for_pos = 0
+		dog_sc_pl_for_pos = 0
+
+		fav_sc_pl_ag = 0
+		dog_sc_pl_ag = 0
+
+		fav_sc_pl_ag_pos = 0
+		dog_sc_pl_ag_pos = 0
+
+		fav_score_diff = 0
+		dog_score_diff = 0
+
+		fav_score_diff_pos = 0
+		dog_score_diff_pos = 0
+
+		fav_ats_record = 0
+		dog_ats_record = 0
+
 		@record.each do |p|
 
 			if p[:id].to_i == @nfl_fav.id
@@ -1575,6 +1626,159 @@ module ApplicationHelper
 
 		end
 
+		@plays_for.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_plays_for = p[:plays_per_game]
+				fav_plays_for_pos = p[:position].to_i
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_plays_for = p[:plays_per_game]
+				dog_plays_for_pos = p[:position].to_i
+
+			end
+
+
+		end
+
+		@plays_ag.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_plays_ag = p[:plays_ag_per_game]
+				fav_plays_ag_pos = p[:position].to_i
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_plays_ag = p[:plays_ag_per_game]
+				dog_plays_ag_pos = p[:position].to_i
+
+			end
+
+
+		end
+
+		@pl_min.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_pl_min = p[:plus_minus]
+				fav_pl_min_pos = p[:position].to_i
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_pl_min = p[:plus_minus]
+				dog_pl_min_pos = p[:position].to_i
+
+			end
+
+
+		end
+
+		@sacks_for.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_sacks_for = p[:sacks_per_game]
+				fav_sacks_for_pos = p[:position].to_i
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_sacks_for = p[:sacks_per_game]
+				dog_sacks_for_pos = p[:position].to_i
+
+			end
+
+
+		end
+
+		@sacks_ag.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_sacks_ag = p[:sacks_ag_per_game]
+				fav_sacks_ag_pos = p[:position].to_i
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_sacks_ag = p[:sacks_ag_per_game]
+				dog_sacks_ag_pos = p[:position].to_i
+
+			end
+
+
+		end
+
+		@sc_pl_for.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_sc_pl_for = p[:scoring_plays_per_game]
+				fav_sc_pl_for_pos = p[:position].to_i
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_sc_pl_for = p[:scoring_plays_per_game]
+				dog_sc_pl_for_pos = p[:position].to_i
+
+			end
+
+
+		end
+
+		@sc_pl_ag.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_sc_pl_ag = p[:scoring_plays_ag_per_game]
+				fav_sc_pl_ag_pos = p[:position].to_i
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_sc_pl_ag = p[:scoring_plays_ag_per_game]
+				dog_sc_pl_ag_pos = p[:position].to_i
+
+			end
+
+
+		end
+
+		@score_diff.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_score_diff = p[:scoring_diff]
+				fav_score_diff_pos = p[:position].to_i
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_score_diff = p[:scoring_diff]
+				dog_score_diff_pos = p[:position].to_i
+
+			end
+
+
+		end
+
+		@record.each do |p|
+
+			if p[:id].to_i == @nfl_fav.id
+
+				fav_ats_record = p[:record]
+				fav_ats_record_pos = p[:position].to_i
+
+			elsif p[:id].to_i == @nfl_dog.id
+
+				dog_ats_record = p[:record]
+				dog_ats_record_pos = p[:position].to_i
+
+			end
+
+
+		end
+
 		@fav_run_percentage = ((fav_runs.to_f / fav_plays.to_f) * 100).round(2)
 		@dog_run_percentage = ((dog_runs.to_f / dog_plays.to_f) * 100).round(2)
 
@@ -1611,9 +1815,56 @@ module ApplicationHelper
 		@fav_pass_ag_pos = fav_pass_ag_pos
 		@dog_pass_ag_pos = dog_pass_ag_pos
 
+		@dog_plays_for = dog_plays_for
+		@fav_plays_for = fav_plays_for
 
+		@fav_plays_for_pos = fav_plays_for_pos
+		@dog_plays_for_pos = dog_plays_for_pos
 
+		@dog_plays_ag = dog_plays_ag
+		@fav_plays_ag = fav_plays_ag
 
+		@fav_plays_ag_pos = fav_plays_ag_pos
+		@dog_plays_ag_pos = dog_plays_ag_pos
+
+		@fav_pl_min = fav_pl_min
+		@dog_pl_min = dog_pl_min
+
+		@fav_pl_min_pos = fav_pl_min_pos
+		@dog_pl_min_pos = dog_pl_min_pos
+
+		@fav_sacks_for = fav_sacks_for
+		@dog_sacks_for = dog_sacks_for
+
+		@fav_sacks_for_pos = fav_sacks_for_pos
+		@dog_sacks_for_pos = dog_sacks_for_pos
+
+		@fav_sacks_ag = fav_sacks_ag
+		@dog_sacks_ag = dog_sacks_ag
+
+		@fav_sacks_ag_pos = fav_sacks_ag_pos
+		@dog_sacks_ag_pos = dog_sacks_ag_pos
+
+		@fav_sc_pl_for = fav_sc_pl_for
+		@dog_sc_pl_for = dog_sc_pl_for
+
+		@fav_sc_pl_for_pos = fav_sc_pl_for_pos
+		@dog_sc_pl_for_pos = dog_sc_pl_for_pos
+
+		@fav_sc_pl_ag = fav_sc_pl_ag
+		@dog_sc_pl_ag = dog_sc_pl_ag
+
+		@fav_sc_pl_ag_pos = fav_sc_pl_ag_pos
+		@dog_sc_pl_ag_pos = dog_sc_pl_ag_pos
+
+		@fav_score_diff = fav_score_diff
+		@dog_score_diff = dog_score_diff
+
+		@fav_score_diff_pos = fav_score_diff_pos
+		@dog_score_diff_pos = dog_score_diff_pos
+
+		@fav_ats_record = fav_ats_record
+		@dog_ats_record = dog_ats_record
 
 	end
 

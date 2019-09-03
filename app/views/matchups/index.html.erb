@@ -14,7 +14,7 @@
 
 		<% if m.sport == "MLB" || m.sport == "NHL"  %>
 
-			<% @link_tab = m.fav + " " + m.fav_ml + " " + m.dog %>
+			<% @link_tab = m.fav + " " + m.spread.to_s + " " + m.dog %>
 
 		<% else %>
 
@@ -26,3 +26,4 @@
 	<% end %>
 
 <% end %>
+
