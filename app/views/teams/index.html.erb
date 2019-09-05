@@ -1,9 +1,75 @@
 
-
-<% @teams.each do |t| %>
-
-	<div><%= link_to t.team_name, team_path(t.id) %></div>
+<div class="teams_main">
 	
+	<div class="teams_display">NFL TEAMS
+		
+		<% @teams.each do |t| %>
+
+			<% if t.sport == "NFL" %>
+
+				<div class="team_link"><%= link_to t.matchup_abbr, team_path(t.id) %></div>
+
+			<% end %>
+
+		<% end %>
+
+	</div>
+	<div class="teams_display">CFB TEAMS
+		
+		<% @teams.each do |t| %>
+
+			<% if t.sport == "CFB" %>
+
+				<div class="team_link"><%= link_to t.matchup_abbr, team_path(t.id) %></div>
+
+			<% end %>
+
+		<% end %>
+
+	</div>
+	<div class="teams_display">MLB TEAMS
+			
+		<% @teams.each do |t| %>
+
+			<% if t.sport == "MLB" %>
+
+				<div class="team_link"><%= link_to t.matchup_abbr, team_path(t.id) %></div>
+
+			<% end %>
+
+		<% end %>
+
+	</div>
+	<div class="teams_display">NBA TEAMS
+		
+		<% @teams.each do |t| %>
+
+			<% if t.sport == "NBA" %>
+
+				<div class="team_link"><%= link_to t.matchup_abbr, team_path(t.id) %></div>
+
+			<% end %>
+
+		<% end %>
+
+	</div>
+	<div class="teams_display">NHL TEAMS
+		
+		<% @teams.each do |t| %>
+
+			<% if t.sport == "NHL" %>
+
+				<div class="team_link"><%= link_to t.matchup_abbr, team_path(t.id) %></div>
+
+			<% end %>
+
+		<% end %>
+
+	</div>
 
 
-<% end %>
+</div>
+
+
+
+

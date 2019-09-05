@@ -553,10 +553,122 @@
 	<% @cfb_fav %>
 	<% @cfb_dog %>
 
+	<% @pro_teams = [] %>
+
+	<% @run_plays_per_game = [] %>
+	<% @run_plays_ag_per_game = [] %>
+	<% @pass_plays_ag_per_game = [] %>
+	<% @pass_plays_per_game = [] %>
+	<% @rush_yards_per_game = [] %>
+	<% @rush_yards_ag_per_game = [] %>
+	<% @pass_yards_ag_per_game = [] %>
+	<% @pass_yards_per_game = [] %>
+	<% @plays_per_game = [] %>
+	<% @plays_ag_per_game = [] %>
+	<% @plus_minus = [] %>
+	<% @sacks_per_game = [] %>
+	<% @sacks_ag_per_game = [] %>
+	<% @scoring_plays_per_game = [] %>
+	<% @scoring_plays_ag_per_game = [] %>
+	<% @scoring_diff = [] %>
+	<% @wins = [] %>
+
+	<% @run_pl_for = [] %>
+	<% @run_pl_ag = [] %>
+	<% @pass_pl_for = [] %>
+	<% @pass_pl_ag = [] %>
+	<% @rush_for = [] %>
+	<% @rush_ag = [] %>
+	<% @pass_ag = [] %>
+	<% @pass_for = [] %>
+	<% @plays_for = [] %>
+	<% @plays_ag = [] %>
+	<% @pl_min = [] %>
+	<% @sacks_for = [] %>
+	<% @sacks_ag = [] %>
+	<% @sc_pl_for = [] %>
+	<% @sc_pl_ag = [] %>
+	<% @score_diff = [] %>
+	<% @record = [] %>
+
+	<% self.make_cfb_team_objects %>
+	<% self.get_fav_and_dog %>	
+	<% self.calc_cfb_stats %>
+	<% self.sort_for_cfb_rankings %>
+	<% self.create_cfb_standings %>
+	<% self.get_cfb_matchup_rankings %>
+
+	<div class="team_stats" id="right_border">
+			
+			<div class="stat_banner"><%= @cfb_fav.team_name.upcase + " ATS (" + @fav_record + ")" %></div>
+			
+			<div class="edit_div">
+				
+				<div class="stat_header">RUSH YARDS/GAME: <%= @fav_rush_for.to_s + " (Ranking: " + @fav_rush_pos.to_s + ")" %> </div>
+				<div class="stat_header">PASS YARDS/GAME: <%= @fav_pass_for.to_s + " (Ranking: " + @fav_pass_pos.to_s + ")" %> </div>
+				<div class="stat_header">PLAYS/GAME: <%= @fav_plays_for.to_s + " (Ranking: " + @fav_plays_for_pos.to_s + ")" %> </div>
+				<div class="stat_header">SACKS GIVEN UP/GM: <%= @fav_sacks_ag.to_s + " (Ranking: " + @fav_sacks_ag_pos.to_s + ")" %> </div>
+				<div class="stat_header">SCORING PLAYS/GAME: <%= @fav_sc_pl_for.to_s + " (Ranking: " + @fav_sc_pl_for_pos.to_s + ")" %> </div>
+
+			</div>
+
+			<div class="stat_header">POINT DIFFERENTIAL: <%= @fav_score_diff.to_s + " (Ranking: " + @fav_score_diff_pos.to_s + ")" %>   </div>
+
+			<div class="edit_div" style="margin-top: 5%;">
+
+				<div class="stat_header">RUSH YARDS AG/GAME: <%= @fav_rush_ag.to_s + " (Ranking: " + @fav_rush_ag_pos.to_s + ")" %> </div>
+				<div class="stat_header">PASS YARDS AG/GAME: <%= @fav_pass_ag.to_s + " (Ranking: " + @fav_pass_ag_pos.to_s + ")" %> </div>
+				<div class="stat_header">PLAYS AG/GAME:  <%= @fav_plays_ag.to_s + " (Ranking: " + @fav_plays_ag_pos.to_s + ")" %> </div>
+				<div class="stat_header">PLUS/MINUS: <%= @fav_pl_min.to_s + " (Ranking: " + @fav_pl_min_pos.to_s + ")" %> </div>
+				<div class="stat_header">SACKS/GM: <%= @fav_sacks_for.to_s + " (Ranking: " + @fav_sacks_for_pos.to_s + ")" %> </div>
+				<div class="stat_header">SCORING PLAYS AG/GM: <%= @fav_sc_pl_ag.to_s + " (Ranking: " + @fav_sc_pl_ag_pos.to_s + ")" %> </div>
+
+			</div>
 
 
+		</div>
+		
+
+
+		<div class="team_stats" id="left_border">
+			
+			<div class="stat_banner"><%= @cfb_dog.team_name.upcase + " ATS (" + @dog_record + ")"%></div>
+
+			<div id="center_div" style="margin-left: 10%;">
+
+				<div class="edit_div">
+
+					<div class="stat_header">RUSH YARDS/GAME: <%= @dog_rush_for.to_s + " (Ranking: " + @dog_rush_pos.to_s + ")" %> </div>
+					<div class="stat_header">PASS YARDS/GAME: <%= @dog_pass_for.to_s + " (Ranking: " + @dog_pass_pos.to_s + ")" %> </div>
+					<div class="stat_header">PLAYS/GAME: <%= @dog_plays_for.to_s + " (Ranking: " + @dog_plays_for_pos.to_s + ")" %> </div>
+					<div class="stat_header">SACKS GIVEN UP/GM: <%= @dog_sacks_ag.to_s + " (Ranking: " + @dog_sacks_ag_pos.to_s + ")" %> </div>
+					<div class="stat_header">SCORING PLAYS/GAME: <%= @dog_sc_pl_for.to_s + " (Ranking: " + @dog_sc_pl_for_pos.to_s + ")" %> </div>
+
+				</div>
+
+
+
+				<div class="stat_header">POINT DIFFERENTIAL: <%= @dog_score_diff.to_s + " (Ranking: " + @dog_score_diff_pos.to_s + ")" %>  </div>
+
+				<div class="edit_div" style="margin-top: 5%;">
+
+					<div class="stat_header">RUSH YARDS AG/GAME: <%= @dog_rush_ag.to_s + " (Ranking: " + @dog_rush_ag_pos.to_s + ")" %> </div>
+					<div class="stat_header">PASS YARDS AG/GAME: <%= @dog_pass_ag.to_s + " (Ranking: " + @dog_pass_ag_pos.to_s + ")" %> </div>
+					<div class="stat_header">PLAYS AG/GAME: <%= @dog_plays_ag.to_s + " (Ranking: " + @dog_plays_ag_pos.to_s + ")" %> </div>
+					<div class="stat_header">PLUS/MINUS: <%= @dog_pl_min.to_s + " (Ranking: " + @dog_pl_min_pos.to_s + ")" %> </div>
+					<div class="stat_header">SACKS/GM: <%= @dog_sacks_for.to_s + " (Ranking: " + @dog_sacks_for_pos.to_s + ")" %> </div>
+					<div class="stat_header">SCORING PLAYS AG/GM: <%= @dog_sc_pl_ag.to_s + " (Ranking: " + @dog_sc_pl_ag_pos.to_s + ")" %> </div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
 
 </div>
+	
 
 
 <% end %>

@@ -13,6 +13,27 @@
  *= require_tree .
  *= require_self
  */
+
+.team_link{
+
+	margin-top: 4%;
+}
+.teams_main{
+
+	height: 100%;
+	width: 100%;
+}
+
+.teams_display{
+
+	display: inline-block;
+	vertical-align: top;
+	font-size: 20px;
+	margin-right: 5%;
+	margin-top: 5%;
+
+}
+
 .edit_div{
 
 	margin-bottom: 5%;
