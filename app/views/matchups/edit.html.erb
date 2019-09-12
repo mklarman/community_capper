@@ -456,13 +456,16 @@
 		<% @sc_pl_ag = [] %>
 		<% @score_diff = [] %>
 		<% @record = [] %>
+		
 
+		<% self.get_fav_and_dog %>
 		<% self.make_pro_team_objects %>
 		<% self.calc_pro_stats %>
 		<% self.sort_for_pro_rankings %>
 		<% self.create_pro_standings %>
-		<% self.get_fav_and_dog %>
 		<% self.get_matchup_rankings %>
+
+		
 
 		<div class="team_stats" id="right_border">
       

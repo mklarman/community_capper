@@ -176,6 +176,7 @@ module NflGameLogsHelper
 				cfb[:run_plays_per_game] = (cfb[:run_plays_for] / games.to_f).round(2)
 				cfb[:run_plays_ag_per_game] = (cfb[:run_plays_ag] / games.to_f).round(2)
 				cfb[:pass_plays_ag_per_game] = (cfb[:pass_plays_ag] / games.to_f).round(2)
+				@test1 = cfb[:pass_plays_ag_per_game]
 				cfb[:pass_plays_per_game] = (cfb[:pass_plays_for] / games.to_f).round(2)
 				cfb[:rush_yards_per_game] = (cfb[:rush_yards_for] / games.to_f).round(2)
 				cfb[:pass_yards_per_game] = (cfb[:pass_yards_for] / games.to_f).round(2)

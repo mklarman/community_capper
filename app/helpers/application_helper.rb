@@ -1395,8 +1395,8 @@ module ApplicationHelper
 		fav_pass_for = 0
 		dog_pass_for = 0
 
-		fav_pass_ag = 0
-		dog_pass_ag = 0
+		fav_pass_plays_ag = 0
+		dog_pass_plays_ag = 0
 
 		fav_pass_pos = 0
 		dog_pass_pos = 0
@@ -1552,11 +1552,11 @@ module ApplicationHelper
 
 			if p[:id].to_i == @nfl_fav.id
 
-				fav_pass_ag = p[:pass_plays_ag_per_game]
+				fav_pass_plays_ag = p[:pass_plays_ag_per_game]
 
 			elsif p[:id].to_i == @nfl_dog.id
 
-				dog_pass_ag = p[:pass_plays_ag_per_game]
+				dog_pass_plays_ag = p[:pass_plays_ag_per_game]
 
 			end
 
@@ -1600,7 +1600,7 @@ module ApplicationHelper
 
 				fav_pass_ag = p[:pass_yards_ag_per]
 				fav_pass_ag_pos = p[:position].to_i
-
+				
 			elsif p[:id].to_i == @nfl_dog.id
 
 				dog_pass_ag = p[:pass_yards_ag_per]
@@ -1788,8 +1788,9 @@ module ApplicationHelper
 		@fav_run_ag_percentage = ((fav_runs_ag.to_f / fav_plays_ag.to_f) * 100).round(2)
 		@dog_run_ag_percentage = ((dog_runs_ag.to_f / dog_plays_ag.to_f) * 100).round(2)
 
-		@fav_pass_ag_percentage = ((fav_pass_ag.to_f / fav_plays_ag.to_f) * 100).round(2)
-		@dog_pass_ag_percentage = ((dog_pass_ag.to_f / dog_plays_ag.to_f) * 100).round(2)
+		@fav_pass_ag_percentage = ((fav_pass_plays_ag.to_f / fav_plays_ag.to_f) * 100).round(2)
+		@dog_pass_ag_percentage = ((dog_pass_plays_ag.to_f / dog_plays_ag.to_f) * 100).round(2)
+
 
 		@fav_rush_for = fav_rush_for
 		@dog_rush_for = dog_rush_for
