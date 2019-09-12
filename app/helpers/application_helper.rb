@@ -1788,8 +1788,8 @@ module ApplicationHelper
 		@fav_run_ag_percentage = ((fav_runs_ag.to_f / fav_plays_ag.to_f) * 100).round(2)
 		@dog_run_ag_percentage = ((dog_runs_ag.to_f / dog_plays_ag.to_f) * 100).round(2)
 
-		@fav_pass_ag_percentage = ((fav_pass.to_f / fav_plays_ag.to_f) * 100).round(2)
-		@dog_pass_ag_percentage = ((dog_pass.to_f / dog_plays_ag.to_f) * 100).round(2)
+		@fav_pass_ag_percentage = ((fav_pass_ag.to_f / fav_plays_ag.to_f) * 100).round(2)
+		@dog_pass_ag_percentage = ((dog_pass_ag.to_f / dog_plays_ag.to_f) * 100).round(2)
 
 		@fav_rush_for = fav_rush_for
 		@dog_rush_for = dog_rush_for
