@@ -48,7 +48,7 @@ class PicksController < ApplicationController
 
 	def pick_params
 
-		params.require(:pick).permit(:sport, :cat, :pick, :line, :reason, :line_movement, :consensus, :result)
+		params.require(:pick).permit(:user_id, :date, :sport, :matchup_id, :bet_type, :selection)
 
 	end	
 end

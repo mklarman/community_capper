@@ -1,29 +1,665 @@
 <% @my_date %>
+<% @time %>
+<% @nfl_games = [] %>
+<% @nba_games = [] %>
+<% @mlb_games = [] %>
 <% @matchup_date %>
 <% self.get_time %>
-<% self.convert_my_date %>
+<% self.get_military_time %>
+
+<div id="sport_filters">
+	
+	<div id="nfl_filter" class="all_filters">NFL</div>
+	<div id="nba_filter" class="all_filters">NBA</div>
+	<div id="mlb_filter" class="all_filters">MLB</div>
 
 
-<div id="index_matchup_banner">CLICK ON A MATCHUP BELOW</div>
+</div>
 
-<% @matchups.all.each do |m| %>
 
-	<% self.convert_date(m.date) %>
 
-	<% if @my_date <= @matchup_date %>
+<div id="pick_form">
+	
+	<%= form_for @pick do |p| %>
 
-		<% if m.sport == "MLB" || m.sport == "NHL"  %>
+		<div><%= p.text_field :user_id, :value => current_user.id %></div>
+		<div><%= p.text_field :matchup_id  %></div>
+		<div><%= p.text_field :date, :value => @my_date %></div>
+		<div><%= p.text_field :sport %></div>
+		<div><%= p.text_field :bet_type %></div>
+		<div><%= p.text_field :selection %></div>
 
-			<% @link_tab = m.fav + " " + m.spread.to_s + " " + m.dog %>
+		<%= p.submit %>
 
-		<% else %>
 
-			<% @link_tab = m.fav + " " + m.spread.to_s + " " + m.dog %>
+	<% end %>
+
+
+</div>
+
+
+
+<div id="nfl_games" class = "games_cont" style="display: none;">
+	
+<p>NFL</p>
+
+
+</div>
+
+<div id="nba_games" class = "games_cont" style="display: none;">
+	
+
+<p>NBA</p>
+	
+</div>
+
+<div id="mlb_games" class = "games_cont" style="display: none;">
+	
+
+<p>MLB</p>
+	
+</div>
+
+<% Matchup.all.each do |m| %>
+
+		<% if m.date == @my_date && m.start_time >= @time && m.sport == "NFL" %>
+
+			<% @nfl_games.push(m) %>
+
+		<% elsif m.date == @my_date && m.start_time >= @time && m.sport == "NBA"%>
+
+			<% @nba_games.push(m) %>
+
+		<% elsif m.date == @my_date && m.start_time >= @time && m.sport == "MLB"%>
+
+			<% @mlb_games.push(m) %>
 
 		<% end %>
 
-		<div style="margin-bottom: 3%;"><%= link_to @link_tab, edit_matchup_path(m.id) %> </div>
 	<% end %>
 
-<% end %>
+
+
+<script>
+
+	var nflFilter = document.getElementById("nfl_filter")
+	var nbaFilter = document.getElementById("nba_filter")
+	var mlbFilter = document.getElementById("mlb_filter")
+
+	var mlbMatchup
+	var mlbGames = []
+	var mlbCont = document.getElementById("mlb_games")
+	var mlbFavDivs = []
+	var mlbDogDivs = []
+	var mlbOverDivs = []
+	var mlbUnderDivs = []
+
+	var nflMatchup
+	var nflGames = []
+	var nflCont = document.getElementById("nfl_games")
+	var nflFavDivs = []
+	var nflDogDivs = []
+	var nflOverDivs = []
+	var nflUnderDivs = []
+
+	var nbaMatchup
+	var nbaGames = []
+	var nbaCont = document.getElementById("nba_games")
+	var nbaFavDivs = []
+	var nbaDogDivs = []
+	var nbaOverDivs = []
+	var nbaUnderDivs = []
+
+
+	<% @nfl_games.each do |nfl| %>
+
+		nflMatchup = {}
+
+		nflMatchup.date = "<%= nfl.date %>"
+		nflMatchup.id = "<%= nfl.id %>"
+		nflMatchup.fav = "<%= nfl.fav %>"
+		nflMatchup.dog = "<%= nfl.dog %>"
+		nflMatchup.spread = "<%= nfl.spread %>"
+		nflMatchup.favField = "<%= nfl.fav_field %>"
+		nflMatchup.total = "<%= nfl.total %>"
+
+		nflGames.push(nflMatchup)
+
+
+
+
+	<% end %>
+
+	<% @mlb_games.each do |mlb| %>
+
+		mlbMatchup = {}
+
+		mlbMatchup.date = "<%= mlb.date %>"
+		mlbMatchup.id = "<%= mlb.id %>"
+		mlbMatchup.fav = "<%= mlb.fav %>"
+		mlbMatchup.dog = "<%= mlb.dog %>"
+		mlbMatchup.favMl = "<%= mlb.fav_ml %>"
+		mlbMatchup.dogMl = "<%= mlb.dog_ml %>"
+		mlbMatchup.favField = "<%= mlb.fav_field %>"
+		mlbMatchup.total = "<%= mlb.total %>"
+
+		mlbGames.push(mlbMatchup)
+
+
+
+
+	<% end %>
+
+	<% @nba_games.each do |nba| %>
+
+		nbaMatchup = {}
+
+		nbaMatchup.date = "<%= nba.date %>"
+		nbaMatchup.id = "<%= nba.id %>"
+		nbaMatchup.fav = "<%= nba.fav %>"
+		nbaMatchup.dog = "<%= nba.dog %>"
+		nbaMatchup.spread = "<%= nba.spread %>"
+		nbaMatchup.favField = "<%= nba.fav_field %>"
+		nbaMatchup.total = "<%= nba.total %>"
+
+		nbaGames.push(nbaMatchup)
+
+
+
+
+	<% end %>
+
+	for(i=0; i < nflGames.length; i++){
+
+		nflFavObj = {}
+		nflDogObj = {}
+		nflOverObj = {}
+		nflUnderObj = {}
+
+		let nflBlock = document.createElement('div')
+		let favDiv = document.createElement('div')
+		let dogDiv = document.createElement('div')
+		let overDiv = document.createElement('div')
+		let underDiv = document.createElement('div')
+		nflBlock.setAttribute("class", "data")
+		favDiv.setAttribute("class", "favChoice")
+		dogDiv.setAttribute("class", "dogChoice")
+		overDiv.setAttribute("class", "overChoice")
+		underDiv.setAttribute("class", "underChoice")
+		
+		nflBlock.style.height = '22%'
+		nflBlock.style.width = '22%'
+		nflBlock.style.border = '1px solid black'
+		nflBlock.style.display = 'inLine-block'
+		nflBlock.style.fontSize = '18px'
+		nflBlock.style.marginLeft = '2%'
+
+		favDiv.style.color = "blue"
+		dogDiv.style.color = "blue"
+		overDiv.style.color = "blue"
+		underDiv.style.color = "blue"
+
+
+		favDiv.innerHTML = nflGames[i].fav + " " + nflGames[i].spread
+
+		dogDiv.innerHTML = nflGames[i].dog + " +" + (parseFloat(nflGames[i].spread) * -1).toString()
+
+
+		
+		
+		overDiv.innerHTML = "O " + nflGames[i].total
+		underDiv.innerHTML = "U " + nflGames[i].total
+
+		nflFavObj.matchup_id = nflGames[i].id
+		nflFavObj.div = favDiv
+
+		nflDogObj.matchup_id = nflGames[i].id
+		nflDogObj.div = dogDiv
+
+		nflOverObj.matchup_id = nflGames[i].id
+		nflOverObj.div = overDiv
+
+		nflUnderObj.matchup_id = nflGames[i].id
+		nflUnderObj.div = underDiv
+
+		nflFavDivs.push(nflFavObj)
+		nflDogDivs.push(nflDogObj)
+		nflOverDivs.push(nflOverObj)
+		nflUnderDivs.push(nflUnderObj)
+
+		nflBlock.appendChild(favDiv)
+		nflBlock.appendChild(overDiv)
+		nflBlock.appendChild(dogDiv)
+		nflBlock.appendChild(underDiv)
+
+
+		nflCont.appendChild(nflBlock)
+
+
+	}
+
+	for (let i=0; i < nflFavDivs.length; i++){
+
+		nflFavDivs[i].div.addEventListener("click", function(){
+
+			pick_matchup_id.value = nflFavDivs[i].matchup_id
+			pick_sport.value = "NFL"
+			pick_bet_type.value = "side"
+			pick_selection.value = nflFavDivs[i].div.innerHTML
+
+			new_pick.submit()
+
+
+
+		}) 
+		
+	}
+
+	for (let i=0; i < nflDogDivs.length; i++){
+
+		nflDogDivs[i].div.addEventListener("click", function(){
+
+			pick_matchup_id.value = nflDogDivs[i].matchup_id
+			pick_sport.value = "NFL"
+			pick_bet_type.value = "side"
+			pick_selection.value = nflDogDivs[i].div.innerHTML
+
+			new_pick.submit()
+
+
+
+		}) 
+
+	}
+
+	for (let i=0; i < nflOverDivs.length; i++){
+
+		nflOverDivs[i].div.addEventListener("click", function(){
+
+			pick_matchup_id.value = nflOverDivs[i].matchup_id
+			pick_sport.value = "NFL"
+			pick_bet_type.value = "total"
+			pick_selection.value = nflOverDivs[i].div.innerHTML
+
+			new_pick.submit()
+
+
+
+		}) 
+
+	}
+
+	for (let i=0; i < nflUnderDivs.length; i++){
+
+		nflUnderDivs[i].div.addEventListener("click", function(){
+
+			pick_matchup_id.value = nflUnderDivs[i].matchup_id
+			pick_sport.value = "NFL"
+			pick_bet_type.value = "total"
+			pick_selection.value = nflUnderDivs[i].div.innerHTML
+
+			new_pick.submit()
+
+
+
+		}) 
+
+	}
+
+	for(i=0; i < mlbGames.length; i++){
+
+		mlbFavObj = {}
+		mlbDogObj = {}
+		mlbOverObj = {}
+		mlbUnderObj = {}
+
+		let mlbBlock = document.createElement('div')
+		let favDiv = document.createElement('div')
+		let dogDiv = document.createElement('div')
+		let overDiv = document.createElement('div')
+		let underDiv = document.createElement('div')
+		mlbBlock.setAttribute("class", "data")
+		favDiv.setAttribute("class", "favChoice")
+		dogDiv.setAttribute("class", "dogChoice")
+		overDiv.setAttribute("class", "overChoice")
+		underDiv.setAttribute("class", "underChoice")
+		
+		mlbBlock.style.height = '22%'
+		mlbBlock.style.width = '22%'
+		mlbBlock.style.border = '1px solid black'
+		mlbBlock.style.display = 'inLine-block'
+		mlbBlock.style.fontSize = '18px'
+		mlbBlock.style.marginLeft = '2%'
+
+		favDiv.style.color = "blue"
+		dogDiv.style.color = "blue"
+		overDiv.style.color = "blue"
+		underDiv.style.color = "blue"
+
+
+		favDiv.innerHTML = mlbGames[i].fav + " " + mlbGames[i].favMl
+
+		if (parseInt(mlbGames[i].dogMl) > 0 ){
+
+			dogDiv.innerHTML = mlbGames[i].dog + " +" + mlbGames[i].dogMl
+
+
+		}else{
+
+			dogDiv.innerHTML = mlbGames[i].dog + " " + mlbGames[i].dogMl
+		}
+		
+		overDiv.innerHTML = "O " + mlbGames[i].total
+		underDiv.innerHTML = "U " + mlbGames[i].total
+
+		mlbFavObj.matchup_id = mlbGames[i].id
+		mlbFavObj.div = favDiv
+
+		mlbDogObj.matchup_id = mlbGames[i].id
+		mlbDogObj.div = dogDiv
+
+		mlbOverObj.matchup_id = mlbGames[i].id
+		mlbOverObj.div = overDiv
+
+		mlbUnderObj.matchup_id = mlbGames[i].id
+		mlbUnderObj.div = underDiv
+
+		mlbFavDivs.push(mlbFavObj)
+		mlbDogDivs.push(mlbDogObj)
+		mlbOverDivs.push(mlbOverObj)
+		mlbUnderDivs.push(mlbUnderObj)
+
+		mlbBlock.appendChild(favDiv)
+		mlbBlock.appendChild(overDiv)
+		mlbBlock.appendChild(dogDiv)
+		mlbBlock.appendChild(underDiv)
+
+
+		mlbCont.appendChild(mlbBlock)
+
+
+	}
+
+	for (let i=0; i < mlbFavDivs.length; i++){
+
+		mlbFavDivs[i].div.addEventListener("click", function(){
+
+			pick_matchup_id.value = mlbFavDivs[i].matchup_id
+			pick_sport.value = "MLB"
+			pick_bet_type.value = "side"
+			pick_selection.value = mlbFavDivs[i].div.innerHTML
+
+			new_pick.submit()
+
+
+
+		}) 
+		
+	}
+
+	for (let i=0; i < mlbDogDivs.length; i++){
+
+		mlbDogDivs[i].div.addEventListener("click", function(){
+
+			pick_matchup_id.value = mlbDogDivs[i].matchup_id
+			pick_sport.value = "MLB"
+			pick_bet_type.value = "side"
+			pick_selection.value = mlbDogDivs[i].div.innerHTML
+
+			new_pick.submit()
+
+
+
+		}) 
+
+	}
+
+	for (let i=0; i < mlbOverDivs.length; i++){
+
+		mlbOverDivs[i].div.addEventListener("click", function(){
+
+			pick_matchup_id.value = mlbOverDivs[i].matchup_id
+			pick_sport.value = "MLB"
+			pick_bet_type.value = "total"
+			pick_selection.value = mlbOverDivs[i].div.innerHTML
+
+			new_pick.submit()
+
+
+
+		}) 
+
+	}
+
+	for (let i=0; i < mlbUnderDivs.length; i++){
+
+		mlbUnderDivs[i].div.addEventListener("click", function(){
+
+			pick_matchup_id.value = mlbUnderDivs[i].matchup_id
+			pick_sport.value = "MLB"
+			pick_bet_type.value = "total"
+			pick_selection.value = mlbUnderDivs[i].div.innerHTML
+
+			new_pick.submit()
+
+
+
+		}) 
+
+	}
+
+	for(i=0; i < nbaGames.length; i++){
+
+		nbaFavObj = {}
+		nbaDogObj = {}
+		nbaOverObj = {}
+		nbaUnderObj = {}
+
+		let nbaBlock = document.createElement('div')
+		let favDiv = document.createElement('div')
+		let dogDiv = document.createElement('div')
+		let overDiv = document.createElement('div')
+		let underDiv = document.createElement('div')
+		nbaBlock.setAttribute("class", "data")
+		favDiv.setAttribute("class", "favChoice")
+		dogDiv.setAttribute("class", "dogChoice")
+		overDiv.setAttribute("class", "overChoice")
+		underDiv.setAttribute("class", "underChoice")
+		
+		nbaBlock.style.height = '22%'
+		nbaBlock.style.width = '22%'
+		nbaBlock.style.border = '1px solid black'
+		nbaBlock.style.display = 'inLine-block'
+		nbaBlock.style.fontSize = '18px'
+		nbaBlock.style.marginLeft = '2%'
+
+		favDiv.style.color = "blue"
+		dogDiv.style.color = "blue"
+		overDiv.style.color = "blue"
+		underDiv.style.color = "blue"
+
+
+		favDiv.innerHTML = nbaGames[i].fav + " " + nbaGames[i].spread
+
+		dogDiv.innerHTML = nbaGames[i].dog + " +" + (parseFloat(nbaGames[i].spread) * -1).toString()
+
+
+		
+		
+		overDiv.innerHTML = "O " + nbaGames[i].total
+		underDiv.innerHTML = "U " + nbaGames[i].total
+
+		nbaFavObj.matchup_id = nbaGames[i].id
+		nbaFavObj.div = favDiv
+
+		nbaDogObj.matchup_id = nbaGames[i].id
+		nbaDogObj.div = dogDiv
+
+		nbaOverObj.matchup_id = nbaGames[i].id
+		nbaOverObj.div = overDiv
+
+		nbaUnderObj.matchup_id = nbaGames[i].id
+		nbaUnderObj.div = underDiv
+
+		nbaFavDivs.push(nbaFavObj)
+		nbaDogDivs.push(nbaDogObj)
+		nbaOverDivs.push(nbaOverObj)
+		nbaUnderDivs.push(nbaUnderObj)
+
+		nbaBlock.appendChild(favDiv)
+		nbaBlock.appendChild(overDiv)
+		nbaBlock.appendChild(dogDiv)
+		nbaBlock.appendChild(underDiv)
+
+
+		nbaCont.appendChild(nbaBlock)
+
+
+	}
+
+	for (let i=0; i < nbaFavDivs.length; i++){
+
+		nbaFavDivs[i].div.addEventListener("click", function(){
+
+			pick_matchup_id.value = nbaFavDivs[i].matchup_id
+			pick_sport.value = "NBA"
+			pick_bet_type.value = "side"
+			pick_selection.value = nbaFavDivs[i].div.innerHTML
+
+			new_pick.submit()
+
+
+
+		}) 
+		
+	}
+
+	for (let i=0; i < nbaDogDivs.length; i++){
+
+		nbaDogDivs[i].div.addEventListener("click", function(){
+
+			pick_matchup_id.value = nbaDogDivs[i].matchup_id
+			pick_sport.value = "NBA"
+			pick_bet_type.value = "side"
+			pick_selection.value = nbaDogDivs[i].div.innerHTML
+
+			new_pick.submit()
+
+
+
+		}) 
+
+	}
+
+	for (let i=0; i < nbaOverDivs.length; i++){
+
+		nbaOverDivs[i].div.addEventListener("click", function(){
+
+			pick_matchup_id.value = nbaOverDivs[i].matchup_id
+			pick_sport.value = "NBA"
+			pick_bet_type.value = "total"
+			pick_selection.value = nbaOverDivs[i].div.innerHTML
+
+			new_pick.submit()
+
+
+
+		}) 
+
+	}
+
+	for (let i=0; i < nbaUnderDivs.length; i++){
+
+		nbaUnderDivs[i].div.addEventListener("click", function(){
+
+			pick_matchup_id.value = nbaUnderDivs[i].matchup_id
+			pick_sport.value = "NBA"
+			pick_bet_type.value = "total"
+			pick_selection.value = nbaUnderDivs[i].div.innerHTML
+
+			new_pick.submit()
+
+
+
+		}) 
+
+	}
+
+	nflFilter.addEventListener("click", function(){
+
+		nbaCont.style.display = "none"
+		mlbCont.style.display = "none"
+		nflCont.style.display = "block"
+
+
+	})
+
+	nbaFilter.addEventListener("click", function(){
+
+		nbaCont.style.display = "block"
+		mlbCont.style.display = "none"
+		nflCont.style.display = "none"
+
+
+	})
+
+	mlbFilter.addEventListener("click", function(){
+
+		nbaCont.style.display = "none"
+		mlbCont.style.display = "block"
+		nflCont.style.display = "none"
+
+
+	})
+
+
+
+	
+	
+
+
+
+</script>
+
+<% self.get_last_sport %>
+
+<script>
+	
+	let nflBool = "<%= @nfl_last %>"
+	let nbaBool = "<%= @nba_last %>"
+	let mlbBool = "<%= @mlb_last %>"
+
+	if (nflBool == "true"){
+
+		nflCont.style.display = "block"
+
+	}else if(nbaBool == "true"){
+
+		nbaCont.style.display = "block"
+
+
+	}else if(mlbBool == "true"){
+
+		mlbCont.style.display = "block"
+
+
+	}else{
+
+
+	}
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
 

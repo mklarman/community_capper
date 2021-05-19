@@ -4,35 +4,32 @@
 <div>CREATE A MATCHUP</div>
 
 <%= form_for @matchup do |m| %>
-			
-	<div>Date: <%= m.text_field :date, value: @my_date %></div>
-	<div>Sport: <%= m.text_field :sport %></div>
-	<div>Favorite: <%= m.text_field :fav %></div>
-	<div>Underdog: <%= m.text_field :dog %></div>
-	<div>Fav_field: <%= m.text_field :fav_field %></div>
-	<div>Dog_field: <%= m.text_field :dog_field %></div>
-	<div>Spread: <%= m.text_field :spread %></div>
-	<div>Fav_ML: <%= m.text_field :fav_ml %></div>
-	<div>Dog_ML: <%= m.text_field :dog_ml %></div>
-	<div>Total: <%= m.text_field :total %></div>
-	<div>Game_Type: <%= m.text_field :game_type %></div>
-	<div>Field_Type: <%= m.text_field :field_type %></div>
-	<div>Road_Start_Time: <%= m.text_field :road_start_time %></div>
-	<div>Home_Start_Time: <%= m.text_field :home_start_time %></div>
-	<div>Weather: <%= m.text_field :weather %></div>
-	<div>Home_D: <%= m.text_field :home_d %></div>
-	<div>Home_O: <%= m.text_field :home_o %></div>
-	<div>Road_D: <%= m.text_field :road_d %></div>
-	<div>Road_O: <%= m.text_field :road_o %></div>
-	<div>Home_Pitcher: <%= m.text_field :home_pitcher %></div>
-	<div>Away_Pitcher: <%= m.text_field :away_pitcher %></div>
-	<div>Home_Score: <%= m.text_field :home_score %></div>
-	<div>Road_Score: <%= m.text_field :road_score %></div>
-	<div>Winner: <%= m.text_field :winner %></div>
-	
-	<div><%= m.submit %></div>
-			
+
+	Date:<div><%= m.text_field :date, :value => @my_date %></div>
+	Sport:<div><%= m.text_field :sport %></div>
+	Fav:<div><%= m.text_field :fav %></div>
+	Dog:<div><%= m.text_field :dog %></div>
+	Fav_field:<div><%= m.text_field :fav_field %></div>
+	Spread:<div><%= m.text_field :spread %></div>
+	Fav_ml:<div><%= m.text_field :fav_ml %></div>
+	Dog_ml:<div><%= m.text_field :dog_ml %></div>
+	Total:<div><%= m.text_field :total %></div>
+	Start_Time:<div><%= m.text_field :start_time %></div>
+	Home_Score:<div><%= m.text_field :home_score %></div>
+	Road_Score:<div><%= m.text_field :road_score %></div>
+
+	<%= m.submit %>
+
+
+
 
 <% end %>
+
+
+
+
+			
+
+
 
 

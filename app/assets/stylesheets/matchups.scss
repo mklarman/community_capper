@@ -1,19 +1,95 @@
 // Place all the styles related to the matchups controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.matchup_edit_banner{
+
+#mlb_games{
 
 	height: 100%;
 	width: 100%;
-	border: 1px solid blue;
-	font-size: 50px;
-	text-align: center;
-	margin-top: 40px;
-	background: black;
-	color: white;
+	
 }
 
-.matchup_stats{
+.favChoice{
 
+	height: 48%;
+	width: 49%;
+	border: 1px solid black;
+	text-align: center;
+	text-decoration: underline;
+	display: inline-block;
+	vertical-align: top;
+	cursor: pointer;
+	padding-top: 4%;
+
+}
+.dogChoice{
+
+	height: 48%;
+	width: 49%;
+	border: 1px solid black;
+	text-align: center;
+	text-decoration: underline;
+	display: inline-block;
+	vertical-align: top;
+	cursor: pointer;
+	padding-top: 4%;
+
+}
+.overChoice{
+
+	height: 48%;
+	width: 49%;
+	border: 1px solid black;
+	text-align: center;
+	text-decoration: underline;
+	display: inline-block;
+	vertical-align: top;
+	cursor: pointer;
+	padding-top: 4%;
+
+
+}
+.underChoice{
+
+	height: 48%;
+	width: 49%;
+	border: 1px solid black;
+	text-align: center;
+	text-decoration: underline;
+	display: inline-block;
+	vertical-align: top;
+	cursor: pointer;
+	padding-top: 4%;
+
+}
+
+.data{
+
+	margin-top: 2%;
+}
+
+#pick_form{
+
+	display: none;
+	height: 100%;
+	width: 100%;
+	
+}
+
+.all_filters{
+
+	display: inline-block;
+	font-size: 20px;
+	margin-left: 5%;
+	margin-right: 5%;
 	margin-top: 5%;
+	margin-bottom: 5%;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#sport_filters{
+
+	text-align: center;
+	color: blue;
 }
