@@ -3,9 +3,18 @@
 <% @nfl_games = [] %>
 <% @nba_games = [] %>
 <% @mlb_games = [] %>
+<% @user_nfl_picks = [] %>
+<% @user_nba_picks = [] %>
+<% @user_mlb_picks = [] %>
 <% @matchup_date %>
 <% self.get_time %>
 <% self.get_military_time %>
+<% self.check_user_picks %>
+<% self.get_user_picks %>
+
+
+
+
 
 <div id="sport_filters">
 	
@@ -62,21 +71,24 @@
 
 <% Matchup.all.each do |m| %>
 
-		<% if m.date == @my_date && m.start_time >= @time && m.sport == "NFL" %>
 
-			<% @nfl_games.push(m) %>
+	<% if m.date == @my_date && m.start_time >= @time && m.sport == "NFL" %>
 
-		<% elsif m.date == @my_date && m.start_time >= @time && m.sport == "NBA"%>
+		<% @nfl_games.push(m) %>
 
-			<% @nba_games.push(m) %>
+	<% elsif m.date == @my_date && m.start_time >= @time && m.sport == "NBA"%>
 
-		<% elsif m.date == @my_date && m.start_time >= @time && m.sport == "MLB"%>
+		<% @nba_games.push(m) %>
 
-			<% @mlb_games.push(m) %>
+	<% elsif m.date == @my_date && m.start_time >= @time && m.sport == "MLB"%>
 
-		<% end %>
+		<% @mlb_games.push(m) %>
 
 	<% end %>
+
+<% end %>
+
+
 
 
 
@@ -110,6 +122,45 @@
 	var nbaOverDivs = []
 	var nbaUnderDivs = []
 
+	var userNflPicks = []
+	var userNbaPicks = []
+	var userMlbPicks = []
+	var allUserPicks = []
+
+	var pickObj
+	var turnOffDivs = []
+
+	var allDivs = []
+
+	<% @user_nfl_picks.each do |u| %>
+
+		<% if u[:date] == @my_date %>
+
+			pickObj = {}
+
+			pickObj.matchupId = "<%= u[:matchup_id] %>"
+			pickObj.betType = "<%= u[:bet_type] %>"
+
+			userNflPicks.push(pickObj)
+
+		<% end %>
+
+	<% end %>
+
+	<% @all_user_picks.each do |p| %>
+
+
+		pickObj = {}
+
+		pickObj.matchupId = "<%= p[:matchup_id] %>"
+		pickObj.betType = "<%= p[:bet_type] %>"
+
+		allUserPicks.push(pickObj)
+
+
+	<% end %>
+
+
 
 	<% @nfl_games.each do |nfl| %>
 
@@ -126,9 +177,9 @@
 		nflGames.push(nflMatchup)
 
 
-
-
 	<% end %>
+
+
 
 	<% @mlb_games.each do |mlb| %>
 
@@ -212,20 +263,28 @@
 
 		nflFavObj.matchup_id = nflGames[i].id
 		nflFavObj.div = favDiv
+		nflFavObj.showMe = true
 
 		nflDogObj.matchup_id = nflGames[i].id
 		nflDogObj.div = dogDiv
+		nflDogObj.showMe = true
 
 		nflOverObj.matchup_id = nflGames[i].id
 		nflOverObj.div = overDiv
+		nflOverObj.showMe = true
 
 		nflUnderObj.matchup_id = nflGames[i].id
 		nflUnderObj.div = underDiv
+		nflUnderObj.showMe = true
 
 		nflFavDivs.push(nflFavObj)
 		nflDogDivs.push(nflDogObj)
 		nflOverDivs.push(nflOverObj)
 		nflUnderDivs.push(nflUnderObj)
+		allDivs.push(nflFavObj)
+		allDivs.push(nflDogObj)
+		allDivs.push(nflOverObj)
+		allDivs.push(nflUnderObj)
 
 		nflBlock.appendChild(favDiv)
 		nflBlock.appendChild(overDiv)
@@ -235,74 +294,6 @@
 
 		nflCont.appendChild(nflBlock)
 
-
-	}
-
-	for (let i=0; i < nflFavDivs.length; i++){
-
-		nflFavDivs[i].div.addEventListener("click", function(){
-
-			pick_matchup_id.value = nflFavDivs[i].matchup_id
-			pick_sport.value = "NFL"
-			pick_bet_type.value = "side"
-			pick_selection.value = nflFavDivs[i].div.innerHTML
-
-			new_pick.submit()
-
-
-
-		}) 
-		
-	}
-
-	for (let i=0; i < nflDogDivs.length; i++){
-
-		nflDogDivs[i].div.addEventListener("click", function(){
-
-			pick_matchup_id.value = nflDogDivs[i].matchup_id
-			pick_sport.value = "NFL"
-			pick_bet_type.value = "side"
-			pick_selection.value = nflDogDivs[i].div.innerHTML
-
-			new_pick.submit()
-
-
-
-		}) 
-
-	}
-
-	for (let i=0; i < nflOverDivs.length; i++){
-
-		nflOverDivs[i].div.addEventListener("click", function(){
-
-			pick_matchup_id.value = nflOverDivs[i].matchup_id
-			pick_sport.value = "NFL"
-			pick_bet_type.value = "total"
-			pick_selection.value = nflOverDivs[i].div.innerHTML
-
-			new_pick.submit()
-
-
-
-		}) 
-
-	}
-
-	for (let i=0; i < nflUnderDivs.length; i++){
-
-		nflUnderDivs[i].div.addEventListener("click", function(){
-
-			pick_matchup_id.value = nflUnderDivs[i].matchup_id
-			pick_sport.value = "NFL"
-			pick_bet_type.value = "total"
-			pick_selection.value = nflUnderDivs[i].div.innerHTML
-
-			new_pick.submit()
-
-
-
-		}) 
 
 	}
 
@@ -354,20 +345,29 @@
 
 		mlbFavObj.matchup_id = mlbGames[i].id
 		mlbFavObj.div = favDiv
+		mlbFavObj.showMe = true
 
 		mlbDogObj.matchup_id = mlbGames[i].id
 		mlbDogObj.div = dogDiv
+		mlbDogObj.showMe = true
 
 		mlbOverObj.matchup_id = mlbGames[i].id
 		mlbOverObj.div = overDiv
+		mlbOverObj.showMe = true
 
 		mlbUnderObj.matchup_id = mlbGames[i].id
 		mlbUnderObj.div = underDiv
+		mlbUnderObj.showMe = true
 
 		mlbFavDivs.push(mlbFavObj)
 		mlbDogDivs.push(mlbDogObj)
 		mlbOverDivs.push(mlbOverObj)
 		mlbUnderDivs.push(mlbUnderObj)
+
+		allDivs.push(mlbFavObj)
+		allDivs.push(mlbDogObj)
+		allDivs.push(mlbOverObj)
+		allDivs.push(mlbUnderObj)
 
 		mlbBlock.appendChild(favDiv)
 		mlbBlock.appendChild(overDiv)
@@ -375,76 +375,9 @@
 		mlbBlock.appendChild(underDiv)
 
 
+
 		mlbCont.appendChild(mlbBlock)
 
-
-	}
-
-	for (let i=0; i < mlbFavDivs.length; i++){
-
-		mlbFavDivs[i].div.addEventListener("click", function(){
-
-			pick_matchup_id.value = mlbFavDivs[i].matchup_id
-			pick_sport.value = "MLB"
-			pick_bet_type.value = "side"
-			pick_selection.value = mlbFavDivs[i].div.innerHTML
-
-			new_pick.submit()
-
-
-
-		}) 
-		
-	}
-
-	for (let i=0; i < mlbDogDivs.length; i++){
-
-		mlbDogDivs[i].div.addEventListener("click", function(){
-
-			pick_matchup_id.value = mlbDogDivs[i].matchup_id
-			pick_sport.value = "MLB"
-			pick_bet_type.value = "side"
-			pick_selection.value = mlbDogDivs[i].div.innerHTML
-
-			new_pick.submit()
-
-
-
-		}) 
-
-	}
-
-	for (let i=0; i < mlbOverDivs.length; i++){
-
-		mlbOverDivs[i].div.addEventListener("click", function(){
-
-			pick_matchup_id.value = mlbOverDivs[i].matchup_id
-			pick_sport.value = "MLB"
-			pick_bet_type.value = "total"
-			pick_selection.value = mlbOverDivs[i].div.innerHTML
-
-			new_pick.submit()
-
-
-
-		}) 
-
-	}
-
-	for (let i=0; i < mlbUnderDivs.length; i++){
-
-		mlbUnderDivs[i].div.addEventListener("click", function(){
-
-			pick_matchup_id.value = mlbUnderDivs[i].matchup_id
-			pick_sport.value = "MLB"
-			pick_bet_type.value = "total"
-			pick_selection.value = mlbUnderDivs[i].div.innerHTML
-
-			new_pick.submit()
-
-
-
-		}) 
 
 	}
 
@@ -491,20 +424,29 @@
 
 		nbaFavObj.matchup_id = nbaGames[i].id
 		nbaFavObj.div = favDiv
+		nbaFavObj.showMe = true
 
 		nbaDogObj.matchup_id = nbaGames[i].id
 		nbaDogObj.div = dogDiv
+		nbaDogObj.showMe = true
 
 		nbaOverObj.matchup_id = nbaGames[i].id
 		nbaOverObj.div = overDiv
+		nbaOverObj.showMe = true
 
 		nbaUnderObj.matchup_id = nbaGames[i].id
 		nbaUnderObj.div = underDiv
+		nbaUnderObj.showMe = true
 
 		nbaFavDivs.push(nbaFavObj)
 		nbaDogDivs.push(nbaDogObj)
 		nbaOverDivs.push(nbaOverObj)
 		nbaUnderDivs.push(nbaUnderObj)
+
+		allDivs.push(nbaFavObj)
+		allDivs.push(nbaDogObj)
+		allDivs.push(nbaOverObj)
+		allDivs.push(nbaUnderObj)
 
 		nbaBlock.appendChild(favDiv)
 		nbaBlock.appendChild(overDiv)
@@ -517,72 +459,368 @@
 
 	}
 
+	for (i=0; i < allUserPicks.length; i++){
+
+		for(let z = 0; z < allDivs.length; z++){
+
+			if (allUserPicks[i].matchupId == allDivs[z].matchup_id){
+
+				if (allUserPicks[i].betType == "side"){
+
+					if ((allDivs[z].div.classList == "favChoice") == true){
+
+							turnOffDivs.push(allDivs[z])
+
+					}
+
+					if ((allDivs[z].div.classList == "dogChoice") == true){
+
+							turnOffDivs.push(allDivs[z])
+
+					}
+
+
+				}else if (allUserPicks[i].betType == "total"){
+
+					if ((allDivs[z].div.classList == "overChoice") == true){	
+
+							turnOffDivs.push(allDivs[z])
+
+					}
+					if ((allDivs[z].div.classList == "underChoice") == true){
+
+
+							turnOffDivs.push(allDivs[z])
+
+					}
+
+				}
+
+			}
+		}
+	}
+
+	for (i=0; i < turnOffDivs.length; i++){
+
+		for (let x = 0; x < allDivs.length; x++){
+
+			if (turnOffDivs[i] == allDivs[x]){
+
+				allDivs[x].showMe = false
+			}
+
+
+		}
+
+
+
+	}
+
+
+	for (let i=0; i < nflFavDivs.length; i++){
+
+		if (nflFavDivs[i].showMe == true){
+
+			nflFavDivs[i].div.addEventListener("click", function(){
+
+				pick_matchup_id.value = nflFavDivs[i].matchup_id
+				pick_sport.value = "NFL"
+				pick_bet_type.value = "side"
+				pick_selection.value = nflFavDivs[i].div.innerHTML
+
+				new_pick.submit()
+
+
+
+			})
+
+		}else{
+
+			nflFavDivs[i].div.style.color = "black"
+			nflFavDivs[i].div.style.textDecoration = "none"
+		}
+		
+		
+	}
+
+	for (let i=0; i < nflDogDivs.length; i++){
+
+		if (nflDogDivs[i].showMe == true){
+
+			nflDogDivs[i].div.addEventListener("click", function(){
+
+				pick_matchup_id.value = nflDogDivs[i].matchup_id
+				pick_sport.value = "NFL"
+				pick_bet_type.value = "side"
+				pick_selection.value = nflDogDivs[i].div.innerHTML
+
+				new_pick.submit()
+
+
+
+			})
+
+		}else{
+
+			nflDogDivs[i].div.style.color = "black"
+			nflDogDivs[i].div.style.textDecoration = "none"
+		}
+		
+		
+	}
+
+	for (let i=0; i < nflOverDivs.length; i++){
+
+		if (nflOverDivs[i].showMe == true){
+
+			nflOverDivs[i].div.addEventListener("click", function(){
+
+				pick_matchup_id.value = nflOverDivs[i].matchup_id
+				pick_sport.value = "NFL"
+				pick_bet_type.value = "total"
+				pick_selection.value = nflOverDivs[i].div.innerHTML
+
+				new_pick.submit()
+
+
+
+			})
+
+		}else{
+
+			nflOverDivs[i].div.style.color = "black"
+			nflOverDivs[i].div.style.textDecoration = "none"
+
+		}
+
+	}
+
+	for (let i=0; i < nflUnderDivs.length; i++){
+
+		if (nflUnderDivs[i].showMe == true){
+
+			nflUnderDivs[i].div.addEventListener("click", function(){
+
+				pick_matchup_id.value = nflUnderDivs[i].matchup_id
+				pick_sport.value = "NFL"
+				pick_bet_type.value = "total"
+				pick_selection.value = nflUnderDivs[i].div.innerHTML
+
+				new_pick.submit()
+
+
+
+			})
+
+		}else{
+
+			nflUnderDivs[i].div.style.color = "black"
+			nflUnderDivs[i].div.style.textDecoration = "none"
+
+		}
+
+	}
+
+	for (let i=0; i < mlbFavDivs.length; i++){
+
+		console.log(mlbFavDivs[i].showMe)
+
+		if(mlbFavDivs[i].showMe == true){
+
+			mlbFavDivs[i].div.addEventListener("click", function(){
+
+				pick_matchup_id.value = mlbFavDivs[i].matchup_id
+				pick_sport.value = "MLB"
+				pick_bet_type.value = "side"
+				pick_selection.value = mlbFavDivs[i].div.innerHTML
+
+				new_pick.submit()
+
+
+
+			})
+
+		}else{
+
+			mlbFavDivs[i].div.style.color = "black"
+			mlbFavDivs[i].div.style.textDecoration = "none"
+		} 
+		
+	}
+
+	for (let i=0; i < mlbDogDivs.length; i++){
+
+		if(mlbDogDivs[i].showMe == true){
+
+			mlbDogDivs[i].div.addEventListener("click", function(){
+
+				pick_matchup_id.value = mlbDogDivs[i].matchup_id
+				pick_sport.value = "MLB"
+				pick_bet_type.value = "side"
+				pick_selection.value = mlbDogDivs[i].div.innerHTML
+
+				new_pick.submit()
+
+
+
+			}) 
+		}else{
+
+			mlbDogDivs[i].div.style.color = "black"
+			mlbDogDivs[i].div.style.textDecoration = "none"
+		}
+
+	}
+
+	for (let i=0; i < mlbOverDivs.length; i++){
+
+		if(mlbOverDivs[i].showMe == true){
+
+			mlbOverDivs[i].div.addEventListener("click", function(){
+
+				pick_matchup_id.value = mlbOverDivs[i].matchup_id
+				pick_sport.value = "MLB"
+				pick_bet_type.value = "total"
+				pick_selection.value = mlbOverDivs[i].div.innerHTML
+
+				new_pick.submit()
+
+
+
+			}) 
+
+		}else{
+
+			mlbOverDivs[i].div.style.color = "black"
+			mlbOverDivs[i].div.style.textDecoration = "none"
+		}
+
+	}
+
+	for (let i=0; i < mlbUnderDivs.length; i++){
+
+		if(mlbUnderDivs[i].showMe == true){
+
+			mlbUnderDivs[i].div.addEventListener("click", function(){
+
+				pick_matchup_id.value = mlbUnderDivs[i].matchup_id
+				pick_sport.value = "MLB"
+				pick_bet_type.value = "total"
+				pick_selection.value = mlbUnderDivs[i].div.innerHTML
+
+				new_pick.submit()
+
+
+
+			}) 
+
+		}else{
+
+			mlbUnderDivs[i].div.style.color = "black"
+			mlbUnderDivs[i].div.style.textDecoration = "none"
+		}
+
+	}
+
+
 	for (let i=0; i < nbaFavDivs.length; i++){
 
-		nbaFavDivs[i].div.addEventListener("click", function(){
+		if (nbaFavDivs[i].showMe == true){
 
-			pick_matchup_id.value = nbaFavDivs[i].matchup_id
-			pick_sport.value = "NBA"
-			pick_bet_type.value = "side"
-			pick_selection.value = nbaFavDivs[i].div.innerHTML
+			nbaFavDivs[i].div.addEventListener("click", function(){
 
-			new_pick.submit()
+				pick_matchup_id.value = nbaFavDivs[i].matchup_id
+				pick_sport.value = "NBA"
+				pick_bet_type.value = "side"
+				pick_selection.value = nbaFavDivs[i].div.innerHTML
+
+				new_pick.submit()
 
 
 
-		}) 
+			})
+
+		}else{
+
+			nbaFavDivs[i].div.style.color = "black"
+			nbaFavDivs[i].div.style.textDecoration = "none"
+		}
 		
 	}
 
 	for (let i=0; i < nbaDogDivs.length; i++){
 
-		nbaDogDivs[i].div.addEventListener("click", function(){
+		if (nbaDogDivs[i].showMe == true){
 
-			pick_matchup_id.value = nbaDogDivs[i].matchup_id
-			pick_sport.value = "NBA"
-			pick_bet_type.value = "side"
-			pick_selection.value = nbaDogDivs[i].div.innerHTML
+			nbaDogDivs[i].div.addEventListener("click", function(){
 
-			new_pick.submit()
+				pick_matchup_id.value = nbaDogDivs[i].matchup_id
+				pick_sport.value = "NBA"
+				pick_bet_type.value = "side"
+				pick_selection.value = nbaDogDivs[i].div.innerHTML
+
+				new_pick.submit()
 
 
 
-		}) 
+			})
 
+		}else{
+
+			nbaDogDivs[i].div.style.color = "black"
+			nbaDogDivs[i].div.style.textDecoration = "none"
+		}
+		
 	}
 
 	for (let i=0; i < nbaOverDivs.length; i++){
 
-		nbaOverDivs[i].div.addEventListener("click", function(){
+		if (nbaOverDivs[i].showMe == true){
 
-			pick_matchup_id.value = nbaOverDivs[i].matchup_id
-			pick_sport.value = "NBA"
-			pick_bet_type.value = "total"
-			pick_selection.value = nbaOverDivs[i].div.innerHTML
+			nbaOverDivs[i].div.addEventListener("click", function(){
 
-			new_pick.submit()
+				pick_matchup_id.value = nbaOverDivs[i].matchup_id
+				pick_sport.value = "NBA"
+				pick_bet_type.value = "total"
+				pick_selection.value = nbaOverDivs[i].div.innerHTML
+
+				new_pick.submit()
 
 
 
-		}) 
+			})
 
+		}else{
+
+			nbaOverDivs[i].div.style.color = "black"
+			nbaOverDivs[i].div.style.textDecoration = "none"
+		}
+		
 	}
 
 	for (let i=0; i < nbaUnderDivs.length; i++){
 
-		nbaUnderDivs[i].div.addEventListener("click", function(){
+		if (nbaUnderDivs[i].showMe == true){
 
-			pick_matchup_id.value = nbaUnderDivs[i].matchup_id
-			pick_sport.value = "NBA"
-			pick_bet_type.value = "total"
-			pick_selection.value = nbaUnderDivs[i].div.innerHTML
+			nbaUnderDivs[i].div.addEventListener("click", function(){
 
-			new_pick.submit()
+				pick_matchup_id.value = nbaUnderDivs[i].matchup_id
+				pick_sport.value = "NBA"
+				pick_bet_type.value = "total"
+				pick_selection.value = nbaUnderDivs[i].div.innerHTML
+
+				new_pick.submit()
 
 
 
-		}) 
+			})
 
+		}else{
+
+			nbaUnderDivs[i].div.style.color = "black"
+			nbaUnderDivs[i].div.style.textDecoration = "none"
+		}
+		
 	}
 
 	nflFilter.addEventListener("click", function(){
@@ -615,7 +853,6 @@
 
 
 	
-	
 
 
 
@@ -625,9 +862,9 @@
 
 <script>
 	
-	let nflBool = "<%= @nfl_last %>"
-	let nbaBool = "<%= @nba_last %>"
-	let mlbBool = "<%= @mlb_last %>"
+	var nflBool = "<%= @nfl_last %>"
+	var nbaBool = "<%= @nba_last %>"
+	var mlbBool = "<%= @mlb_last %>"
 
 	if (nflBool == "true"){
 
@@ -653,6 +890,7 @@
 
 
 </script>
+
 
 
 

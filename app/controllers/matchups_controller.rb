@@ -28,9 +28,23 @@ class MatchupsController < ApplicationController
 
 		@pick = Pick.new
 
-		@nfl_last = false
-		@nba_last = false
-		@mlb_last = false
+		@nfl_last
+		@nba_last
+		@mlb_last
+		@all_user_picks = []
+
+		current_user.picks.all.each do |p|
+
+			if p.date == @my_date
+
+				@all_user_picks.push(p)
+
+
+			end
+
+
+
+		end
 
 	end
 
