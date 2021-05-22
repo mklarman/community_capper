@@ -33,24 +33,38 @@ class MatchupsController < ApplicationController
 		@mlb_last
 		@all_user_picks = []
 
-		current_user.picks.all.each do |p|
+	end
 
-			if p.date == @my_date
+	def matchups_list
 
-				@all_user_picks.push(p)
+		@matchup = Matchup.all
+		@nfl_matchups = []
+		@nba_matchups = []
+		@mlb_matchups = []
 
+		@nfl_update = []
+		@nba_update = []
+		@mlb_update = []
+		@my_date
 
-			end
-
-
-
-		end
 
 	end
 
 	def show
 
 		@matchup = Matchup.find_by_id(params[:id])
+
+		@favs_obj = []
+		@dogs_obj = []
+		@ovr_obj = []
+		@und_obj = []
+		@on_side
+		@on_total
+		@fav_prcnt
+		@dog_prcnt
+		@ovr_prcnt
+		@und_prcnt
+		@matchup_label
 		
 
 
@@ -68,7 +82,7 @@ class MatchupsController < ApplicationController
 
 		if @matchup.update(matchup_params)
 
-			redirect_back(fallback_location: users_profile_path)
+			redirect_to matchup_list_path(fallback_location: users_profile_path)
 		else
 
 			redirect_back(fallback_location: new_matchup_path)

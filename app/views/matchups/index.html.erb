@@ -196,9 +196,6 @@
 
 		mlbGames.push(mlbMatchup)
 
-
-
-
 	<% end %>
 
 	<% @nba_games.each do |nba| %>
@@ -459,6 +456,8 @@
 
 	}
 
+
+
 	for (i=0; i < allUserPicks.length; i++){
 
 		for(let z = 0; z < allDivs.length; z++){
@@ -500,6 +499,8 @@
 		}
 	}
 
+
+
 	for (i=0; i < turnOffDivs.length; i++){
 
 		for (let x = 0; x < allDivs.length; x++){
@@ -538,6 +539,7 @@
 
 			nflFavDivs[i].div.style.color = "black"
 			nflFavDivs[i].div.style.textDecoration = "none"
+			nflFavDivs[i].div.style.cursor = "default"
 		}
 		
 		
@@ -564,6 +566,7 @@
 
 			nflDogDivs[i].div.style.color = "black"
 			nflDogDivs[i].div.style.textDecoration = "none"
+			nflDogDivs[i].div.style.cursor = "default"
 		}
 		
 		
@@ -590,6 +593,7 @@
 
 			nflOverDivs[i].div.style.color = "black"
 			nflOverDivs[i].div.style.textDecoration = "none"
+			nflOverDivs[i].div.style.cursor = "default"
 
 		}
 
@@ -616,14 +620,14 @@
 
 			nflUnderDivs[i].div.style.color = "black"
 			nflUnderDivs[i].div.style.textDecoration = "none"
+			nflUnderDivs[i].div.style.cursor = "default"
 
 		}
 
 	}
 
-	for (let i=0; i < mlbFavDivs.length; i++){
 
-		console.log(mlbFavDivs[i].showMe)
+	for (let i=0; i < mlbFavDivs.length; i++){
 
 		if(mlbFavDivs[i].showMe == true){
 
@@ -644,6 +648,7 @@
 
 			mlbFavDivs[i].div.style.color = "black"
 			mlbFavDivs[i].div.style.textDecoration = "none"
+			mlbFavDivs[i].div.style.cursor = "default"
 		} 
 		
 	}
@@ -668,6 +673,7 @@
 
 			mlbDogDivs[i].div.style.color = "black"
 			mlbDogDivs[i].div.style.textDecoration = "none"
+			mlbDogDivs[i].div.style.cursor = "default"
 		}
 
 	}
@@ -693,6 +699,7 @@
 
 			mlbOverDivs[i].div.style.color = "black"
 			mlbOverDivs[i].div.style.textDecoration = "none"
+			mlbOverDivs[i].div.style.cursor = "default"
 		}
 
 	}
@@ -718,6 +725,7 @@
 
 			mlbUnderDivs[i].div.style.color = "black"
 			mlbUnderDivs[i].div.style.textDecoration = "none"
+			mlbUnderDivs[i].div.style.cursor = "default"
 		}
 
 	}
@@ -744,6 +752,7 @@
 
 			nbaFavDivs[i].div.style.color = "black"
 			nbaFavDivs[i].div.style.textDecoration = "none"
+			nbaFavDivs[i].div.style.cursor = "default"
 		}
 		
 	}
@@ -769,6 +778,7 @@
 
 			nbaDogDivs[i].div.style.color = "black"
 			nbaDogDivs[i].div.style.textDecoration = "none"
+			nbaDogDivs[i].div.style.cursor = "default"
 		}
 		
 	}
@@ -794,6 +804,7 @@
 
 			nbaOverDivs[i].div.style.color = "black"
 			nbaOverDivs[i].div.style.textDecoration = "none"
+			nbaOverDivs[i].div.style.cursor = "default"
 		}
 		
 	}
@@ -819,6 +830,7 @@
 
 			nbaUnderDivs[i].div.style.color = "black"
 			nbaUnderDivs[i].div.style.textDecoration = "none"
+			nbaUnderDivs[i].div.style.cursor = "default"
 		}
 		
 	}
@@ -884,9 +896,6 @@
 
 
 	}
-
-
-
 
 
 </script>

@@ -1,3 +1,113 @@
 
+<% self.sort_picks_for_matchup %>
+<% self.calc_percent %>
+
+
+<% @fav_prcnt %>
+<% @dog_prcnt %>
+<% @und_prcnt %>
+<% @ovr_prcnt %>
+
+<div id= "con_cont">
+
+	<% if @matchup.sport == "MLB" %>
+
+		<div class="matchup_label">
+			
+			<div id="match_fav" class="matchup_boxes"><%= @matchup.fav %></div>
+			<div id="match_line" class="matchup_boxes"><%= @matchup.fav_ml %></div>
+			<div id="match_dog" class="matchup_boxes"><%= @matchup.dog %></div>
+			<div id="match_total" class="matchup_boxes"><%= @matchup.total + " O/U" %></div>
+
+
+
+		</div>
+
+	<% else %>
+
+		<div class="matchup_label">
+			
+			<div id="match_fav" class="matchup_boxes"><%= @matchup.fav %></div>
+			<div id="match_line" class="matchup_boxes"><%= @matchup.spread %></div>
+			<div id="match_dog" class="matchup_boxes"><%= @matchup.dog %></div>
+			<div id="match_total" class="matchup_boxes"><%= @matchup.total + " O/U" %></div>
+
+
+
+		</div>
+	
+	<% end %>
+
+	<div id="team_labels">
+
+		<div id="fav_label" class="con_boxes">
+
+			<% if @matchup.sport == "MLB" %>
+
+				<%= @matchup.fav + " " + @matchup.fav_ml %>
+
+			<% else %>
+
+				<%= @matchup.fav + " " + @matchup.spread %>
+
+			<% end %>
+			
+
+		</div>
+		<div id="dog_label" class="con_boxes">
+			
+			<% if @matchup.sport == "MLB" %>
+
+				<% if @matchup.dog_ml < 0 %>
+
+					<%= @matchup.dog + " " + @matchup.dog_ml %>
+
+				<% else %>
+
+					<%= @matchup.dog + " " + "+" + @matchup.dog_ml %>
+
+
+				<% end %>
+
+			<% else %>
+
+				<%= @matchup.dog + " " + "+" + (@matchup.spread.to_i * -1).to_s %>
+
+			<% end %>
+
+		</div>
+
+		<div class="con_boxes">
+			
+			<%= @fav_prcnt %>
+
+		</div>
+
+		<div class="con_boxes">
+			
+			<%= @dog_prcnt %>
+
+		</div>
+
+	</div>
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
 
 
