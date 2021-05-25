@@ -117,7 +117,7 @@ module MatchupsHelper
 
 		Matchup.all.each do |m|
 
-			if m.date == @my_date
+			if m.date == @my_date && m.home_score.length == 0
 
 				if m.sport == "NFL"
 
@@ -144,7 +144,7 @@ module MatchupsHelper
 
 		Matchup.all.each do |m|
 
-			if m.date != @my_date && m.home_score.length == 0
+			if m.home_score.length == 0
 
 				if m.sport == "NFL"
 
@@ -415,7 +415,1800 @@ module MatchupsHelper
 
 	end
 
+	def overall_sport_side
+
+		@consensus_info
+
+		@favs_obj.each do |x|
+
+			consensus_info = {}
+
+			five_wins = 0
+			five_losses = 0
+
+			ten_wins = 0
+			ten_losses = 0
+
+			twenty_wins = 0
+			twenty_losses = 0
+
+			user_games = []
+
+			User.all.each do |u|
+
+				if u.id == x[:user_id].to_i
+
+					u.picks.each do |p|
+
+						if p.sport == @matchup.sport
+
+							if p.bet_type == "side"
+
+								Matchup.all.each do |m|
+
+									if m.id == p.matchup_id.to_i
+
+										if m.home_score.length != 0
+
+											user_games.push(p)
+
+										end
+
+
+									end
+
+
+								end
+
+							end
+
+						end
+
+
+
+					end
+
+
+				end
+
+
+			end
+
+			user_games_last_five = user_games.last(5)
+			user_games_last_ten = user_games.last(10)
+			user_games_last_twenty = user_games.last(20)
+
+			consensus_info[:last_five_games] = user_games_last_five
+			consensus_info[:last_ten_games] = user_games_last_ten
+			consensus_info[:last_twenty_games] = user_games_last_twenty
+
+			consensus_info[:last_five_games].each do |g|
+
+				team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if team == m.fav
+
+							if m.fav_field == "home"
+
+								if @matchup.sport == "MLB" 
+
+									if m.home_score.to_i > m.road_score.to_i
+
+										five_wins = five_wins + 1
+
+									else
+
+										five_losses = five_losses + 1
+
+									end
+						
+
+								else
+
+									if m.home_score.to_f + m.spread.to_f > m.road_score.to_i
+
+										five_wins = five_wins + 1
+
+
+									else
+
+										five_losses = five_losses + 1
+
+
+									end
+
+								end
+
+							else 
+
+								if @matchup.sport == "MLB" 
+
+									if m.road_score.to_i > m.home_score.to_i
+
+										five_wins = five_wins + 1
+
+									else
+
+										five_losses = five_losses + 1
+
+									end
+						
+
+								else
+
+									if m.road_score.to_f + (m.spread.to_f * -1) > m.home_score.to_i
+
+										five_wins = five_wins + 1
+
+
+									else
+
+										five_losses = five_losses + 1
+
+
+									end
+
+								end
+
+
+							end
+
+						else
+
+							if m.fav_field == "home"
+
+								if @matchup.sport == "MLB" 
+
+									if m.road_score.to_i > m.home_score.to_i
+
+										five_wins = five_wins + 1
+
+									else
+
+										five_losses = five_losses + 1
+
+									end
+						
+
+								else
+
+									if m.road_score.to_f + (m.spread.to_f * -1) > m.home_score.to_i
+
+										five_wins = five_wins + 1
+
+
+									else
+
+										five_losses = five_losses + 1
+
+
+									end
+
+								end
+
+							else 
+
+								if @matchup.sport == "MLB" 
+
+									if m.home_score.to_i > m.road_score.to_i
+
+										five_wins = five_wins + 1
+
+									else
+
+										five_losses = five_losses + 1
+
+									end
+						
+
+								else
+
+									if m.home_score.to_f + (m.spread.to_f * -1) > m.road_score.to_i
+
+										five_wins = five_wins + 1
+
+
+									else
+
+										five_losses = five_losses + 1
+
+
+									end
+
+								end
+
+
+							end
+
+						end
+
+
+					end
+
+
+				end
+
+			end
+
+			consensus_info[:last_ten_games].each do |g|
+
+				team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if team == m.fav
+
+							if m.fav_field == "home"
+
+								if @matchup.sport == "MLB" 
+
+									if m.home_score.to_i > m.road_score.to_i
+
+										ten_wins = ten_wins + 1
+
+									else
+
+										ten_losses = ten_losses + 1
+
+									end
+						
+
+								else
+
+									if m.home_score.to_f + m.spread.to_f > m.road_score.to_i
+
+										ten_wins = ten_wins + 1
+
+
+									else
+
+										ten_losses = ten_losses + 1
+
+
+									end
+
+								end
+
+							else 
+
+								if @matchup.sport == "MLB" 
+
+									if m.road_score.to_i > m.home_score.to_i
+
+										ten_wins = ten_wins + 1
+
+									else
+
+										ten_losses = ten_losses + 1
+
+									end
+						
+
+								else
+
+									if m.road_score.to_f + m.spread.to_f  > m.home_score.to_i
+
+										ten_wins = ten_wins + 1
+
+
+									else
+
+										ten_losses = ten_losses + 1
+
+
+									end
+
+								end
+
+
+							end
+
+						else
+
+							if m.fav_field == "home"
+
+								if @matchup.sport == "MLB" 
+
+									if m.road_score.to_i > m.home_score.to_i
+
+										ten_wins = ten_wins + 1
+
+									else
+
+										ten_losses = ten_losses + 1
+
+									end
+						
+
+								else
+
+									if m.road_score.to_f + (m.spread.to_f * -1) > m.home_score.to_i
+
+										ten_wins = ten_wins + 1
+
+
+									else
+
+										ten_losses = ten_losses + 1
+
+
+									end
+
+								end
+
+							else 
+
+								if @matchup.sport == "MLB" 
+
+									if m.home_score.to_i > m.road_score.to_i
+
+										ten_wins = ten_wins + 1
+
+									else
+
+										ten_losses = ten_losses + 1
+
+									end
+						
+
+								else
+
+									if m.home_score.to_f + (m.spread.to_f * -1) > m.road_score.to_i
+
+										ten_wins = ten_wins + 1
+
+
+									else
+
+										ten_losses = ten_losses + 1
+
+
+									end
+
+								end
+
+
+							end
+
+						end
+
+
+					end
+
+
+				end
+
+			end
+
+			consensus_info[:last_twenty_games].each do |g|
+
+				team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if team == m.fav
+
+							if m.fav_field == "home"
+
+								if @matchup.sport == "MLB" 
+
+									if m.home_score.to_i > m.road_score.to_i
+
+										twenty_wins = twenty_wins + 1
+
+									else
+
+										twenty_losses = twenty_losses + 1
+
+									end
+						
+
+								else
+
+									if m.home_score.to_f + m.spread.to_f > m.road_score.to_i
+
+										twenty_wins = twenty_wins + 1
+
+
+									else
+
+										twenty_losses = twenty_losses + 1
+
+
+									end
+
+								end
+
+							else 
+
+								if @matchup.sport == "MLB" 
+
+									if m.road_score.to_i > m.home_score.to_i
+
+										twenty_wins = twenty_wins + 1
+
+									else
+
+										twenty_losses = twenty_losses + 1
+
+									end
+						
+
+								else
+
+									if m.road_score.to_f + m.spread.to_f  > m.home_score.to_i
+
+										twenty_wins = twenty_wins + 1
+
+
+									else
+
+										twenty_losses = twenty_losses + 1
+
+
+									end
+
+								end
+
+
+							end
+
+						else
+
+							if m.fav_field == "home"
+
+								if @matchup.sport == "MLB" 
+
+									if m.road_score.to_i > m.home_score.to_i
+
+										twenty_wins = twenty_wins + 1
+
+									else
+
+										twenty_losses = twenty_losses + 1
+
+									end
+						
+
+								else
+
+									if m.road_score.to_f + (m.spread.to_f * -1) > m.home_score.to_i
+
+										twenty_wins = twenty_wins + 1
+
+
+									else
+
+										twenty_losses = twenty_losses + 1
+
+
+									end
+
+								end
+
+							else 
+
+								if @matchup.sport == "MLB" 
+
+									if m.home_score.to_i > m.road_score.to_i
+
+										twenty_wins = twenty_wins + 1
+
+									else
+
+										twenty_losses = twenty_losses + 1
+
+									end
+						
+
+								else
+
+									if m.home_score.to_f + (m.spread.to_f * -1) > m.road_score.to_i
+
+										twenty_wins = twenty_wins + 1
+
+
+									else
+
+										twenty_losses = twenty_losses + 1
+
+
+									end
+
+								end
+
+
+							end
+
+						end
+
+
+					end
+
+
+				end
+
+			end
+
+			consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
+
+			if consensus_info[:over_all_last_five_prcnt].to_f <= 39.0
+
+				consensus_info[:last_five_rating] = "ice cold"
+
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f > 39 && consensus_info[:over_all_last_five_prcnt].to_f < 46
+
+				consensus_info[:last_five_rating] = "cold"
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  46 && consensus_info[:over_all_last_five_prcnt].to_f < 56
+
+				consensus_info[:last_five_rating] = "choppy"
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  56 && consensus_info[:over_all_last_five_prcnt].to_f < 65
+
+					consensus_info[:last_five_rating] = "hot"
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f >= 65
+					
+					consensus_info[:last_five_rating] = "red hot"
+
+
+			end
+
+			consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins.to_f + ten_losses)) * 100).round(2)).to_s + "%"
+
+			if consensus_info[:over_all_last_ten_prcnt].to_f <= 39.0
+
+				consensus_info[:last_ten_rating] = "ice cold"
+
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f > 39 && consensus_info[:over_all_last_ten_prcnt].to_f < 46
+
+				consensus_info[:last_ten_rating] = "cold"
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  46 && consensus_info[:over_all_last_ten_prcnt].to_f < 56
+
+				consensus_info[:last_ten_rating] = "choppy"
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  56 && consensus_info[:over_all_last_ten_prcnt].to_f < 65
+
+					consensus_info[:last_ten_rating] = "hot"
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 65
+					
+					consensus_info[:last_ten_rating] = "red hot"
+
+
+			end
+
+			consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins.to_f + twenty_losses)) * 100).round(2)).to_s + "%"
+
+			if consensus_info[:over_all_last_twenty_prcnt].to_f <= 39.0
+
+				consensus_info[:last_twenty_rating] = "ice cold"
+
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 39 && consensus_info[:over_all_last_twenty_prcnt].to_f < 46
+
+				consensus_info[:last_twenty_rating] = "cold"
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  46 && consensus_info[:over_all_last_twenty_prcnt].to_f < 56
+
+				consensus_info[:last_twenty_rating] = "choppy"
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  56 && consensus_info[:over_all_last_twenty_prcnt].to_f < 65
+
+					consensus_info[:last_twenty_rating] = "hot"
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 65
+					
+					consensus_info[:last_twenty_rating] = "red hot"
+
+
+			end
+
+			@fav_bettors_info.push(consensus_info)
+
+
+		end
+
+		@dogs_obj.each do |x|
+
+			consensus_info = {}
+
+			five_wins = 0
+			five_losses = 0
+
+			ten_wins = 0
+			ten_losses = 0
+
+			twenty_wins = 0
+			twenty_losses = 0
+
+			user_games = []
+
+			User.all.each do |u|
+
+				if u.id == x[:user_id].to_i
+
+					u.picks.each do |p|
+
+						if p.sport == @matchup.sport
+
+							if p.bet_type == "side"
+
+								Matchup.all.each do |m|
+
+									if m.id == p.matchup_id.to_i
+
+										if m.home_score.length != 0
+
+											user_games.push(p)
+
+										end
+
+
+									end
+
+
+								end
+
+							end
+
+						end
+
+
+
+					end
+
+
+				end
+
+
+			end
+
+			user_games_last_five = user_games.last(5)
+			user_games_last_ten = user_games.last(10)
+			user_games_last_twenty = user_games.last(20)
+
+			consensus_info[:last_five_games] = user_games_last_five
+			consensus_info[:last_ten_games] = user_games_last_ten
+			consensus_info[:last_twenty_games] = user_games_last_twenty
+
+			consensus_info[:last_five_games].each do |g|
+
+				team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if team == m.fav
+
+							if m.fav_field == "home"
+
+								if @matchup.sport == "MLB" 
+
+									if m.home_score.to_i > m.road_score.to_i
+
+										five_wins = five_wins + 1
+
+									else
+
+										five_losses = five_losses + 1
+
+									end
+						
+
+								else
+
+									if m.home_score.to_f + m.spread.to_f > m.road_score.to_i
+
+										five_wins = five_wins + 1
+
+
+									else
+
+										five_losses = five_losses + 1
+
+
+									end
+
+								end
+
+							else 
+
+								if @matchup.sport == "MLB" 
+
+									if m.road_score.to_i > m.home_score.to_i
+
+										five_wins = five_wins + 1
+
+									else
+
+										five_losses = five_losses + 1
+
+									end
+						
+
+								else
+
+									if m.road_score.to_f + (m.spread.to_f * -1) > m.home_score.to_i
+
+										five_wins = five_wins + 1
+
+
+									else
+
+										five_losses = five_losses + 1
+
+
+									end
+
+								end
+
+
+							end
+
+						else
+
+							if m.fav_field == "home"
+
+								if @matchup.sport == "MLB" 
+
+									if m.road_score.to_i > m.home_score.to_i
+
+										five_wins = five_wins + 1
+
+									else
+
+										five_losses = five_losses + 1
+
+									end
+						
+
+								else
+
+									if m.road_score.to_f + (m.spread.to_f * -1) > m.home_score.to_i
+
+										five_wins = five_wins + 1
+
+
+									else
+
+										five_losses = five_losses + 1
+
+
+									end
+
+								end
+
+							else 
+
+								if @matchup.sport == "MLB" 
+
+									if m.home_score.to_i > m.road_score.to_i
+
+										five_wins = five_wins + 1
+
+									else
+
+										five_losses = five_losses + 1
+
+									end
+						
+
+								else
+
+									if m.home_score.to_f + (m.spread.to_f * -1) > m.road_score.to_i
+
+										five_wins = five_wins + 1
+
+
+									else
+
+										five_losses = five_losses + 1
+
+
+									end
+
+								end
+
+
+							end
+
+						end
+
+
+					end
+
+
+				end
+
+			end
+
+			consensus_info[:last_ten_games].each do |g|
+
+				team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if team == m.fav
+
+							if m.fav_field == "home"
+
+								if @matchup.sport == "MLB" 
+
+									if m.home_score.to_i > m.road_score.to_i
+
+										ten_wins = ten_wins + 1
+
+									else
+
+										ten_losses = ten_losses + 1
+
+									end
+						
+
+								else
+
+									if m.home_score.to_f + m.spread.to_f > m.road_score.to_i
+
+										ten_wins = ten_wins + 1
+
+
+									else
+
+										ten_losses = ten_losses + 1
+
+
+									end
+
+								end
+
+							else 
+
+								if @matchup.sport == "MLB" 
+
+									if m.road_score.to_i > m.home_score.to_i
+
+										ten_wins = ten_wins + 1
+
+									else
+
+										ten_losses = ten_losses + 1
+
+									end
+						
+
+								else
+
+									if m.road_score.to_f + m.spread.to_f  > m.home_score.to_i
+
+										ten_wins = ten_wins + 1
+
+
+									else
+
+										ten_losses = ten_losses + 1
+
+
+									end
+
+								end
+
+
+							end
+
+						else
+
+							if m.fav_field == "home"
+
+								if @matchup.sport == "MLB" 
+
+									if m.road_score.to_i > m.home_score.to_i
+
+										ten_wins = ten_wins + 1
+
+									else
+
+										ten_losses = ten_losses + 1
+
+									end
+						
+
+								else
+
+									if m.road_score.to_f + (m.spread.to_f * -1) > m.home_score.to_i
+
+										ten_wins = ten_wins + 1
+
+
+									else
+
+										ten_losses = ten_losses + 1
+
+
+									end
+
+								end
+
+							else 
+
+								if @matchup.sport == "MLB" 
+
+									if m.home_score.to_i > m.road_score.to_i
+
+										ten_wins = ten_wins + 1
+
+									else
+
+										ten_losses = ten_losses + 1
+
+									end
+						
+
+								else
+
+									if m.home_score.to_f + (m.spread.to_f * -1) > m.road_score.to_i
+
+										ten_wins = ten_wins + 1
+
+
+									else
+
+										ten_losses = ten_losses + 1
+
+
+									end
+
+								end
+
+
+							end
+
+						end
+
+
+					end
+
+
+				end
+
+			end
+
+			consensus_info[:last_twenty_games].each do |g|
+
+				team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if team == m.fav
+
+							if m.fav_field == "home"
+
+								if @matchup.sport == "MLB" 
+
+									if m.home_score.to_i > m.road_score.to_i
+
+										twenty_wins = twenty_wins + 1
+
+									else
+
+										twenty_losses = twenty_losses + 1
+
+									end
+						
+
+								else
+
+									if m.home_score.to_f + m.spread.to_f > m.road_score.to_i
+
+										twenty_wins = twenty_wins + 1
+
+
+									else
+
+										twenty_losses = twenty_losses + 1
+
+
+									end
+
+								end
+
+							else 
+
+								if @matchup.sport == "MLB" 
+
+									if m.road_score.to_i > m.home_score.to_i
+
+										twenty_wins = twenty_wins + 1
+
+									else
+
+										twenty_losses = twenty_losses + 1
+
+									end
+						
+
+								else
+
+									if m.road_score.to_f + m.spread.to_f  > m.home_score.to_i
+
+										twenty_wins = twenty_wins + 1
+
+
+									else
+
+										twenty_losses = twenty_losses + 1
+
+
+									end
+
+								end
+
+
+							end
+
+						else
+
+							if m.fav_field == "home"
+
+								if @matchup.sport == "MLB" 
+
+									if m.road_score.to_i > m.home_score.to_i
+
+										twenty_wins = twenty_wins + 1
+
+									else
+
+										twenty_losses = twenty_losses + 1
+
+									end
+						
+
+								else
+
+									if m.road_score.to_f + (m.spread.to_f * -1) > m.home_score.to_i
+
+										twenty_wins = twenty_wins + 1
+
+
+									else
+
+										twenty_losses = twenty_losses + 1
+
+
+									end
+
+								end
+
+							else 
+
+								if @matchup.sport == "MLB" 
+
+									if m.home_score.to_i > m.road_score.to_i
+
+										twenty_wins = twenty_wins + 1
+
+									else
+
+										twenty_losses = twenty_losses + 1
+
+									end
+						
+
+								else
+
+									if m.home_score.to_f + (m.spread.to_f * -1) > m.road_score.to_i
+
+										twenty_wins = ten_wins + 1
+
+
+									else
+
+										twenty_losses = ten_losses + 1
+
+
+									end
+
+								end
+
+
+							end
+
+						end
+
+
+					end
+
+
+				end
+
+			end
+
+			consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
+
+			if consensus_info[:over_all_last_five_prcnt].to_f <= 39.0
+
+				consensus_info[:last_five_rating] = "ice cold"
+
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f > 39 && consensus_info[:over_all_last_five_prcnt].to_f < 46
+
+				consensus_info[:last_five_rating] = "cold"
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  46 && consensus_info[:over_all_last_five_prcnt].to_f < 56
+
+				consensus_info[:last_five_rating] = "choppy"
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  56 && consensus_info[:over_all_last_five_prcnt].to_f < 65
+
+					consensus_info[:last_five_rating] = "hot"
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f >= 65
+					
+					consensus_info[:last_five_rating] = "red hot"
+
+
+			end
+
+			consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins + ten_losses)) * 100).round(2)).to_s + "%"
+
+			if consensus_info[:over_all_last_ten_prcnt].to_f <= 39.0
+
+				consensus_info[:last_ten_rating] = "ice cold"
+
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f > 39 && consensus_info[:over_all_last_ten_prcnt].to_f < 46
+
+				consensus_info[:last_ten_rating] = "cold"
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  46 && consensus_info[:over_all_last_ten_prcnt].to_f < 56
+
+				consensus_info[:last_ten_rating] = "choppy"
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  56 && consensus_info[:over_all_last_ten_prcnt].to_f < 65
+
+					consensus_info[:last_ten_rating] = "hot"
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 65
+					
+					consensus_info[:last_ten_rating] = "red hot"
+
+
+			end
+
+			consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins + twenty_losses)) * 100).round(2)).to_s + "%"
+
+			if consensus_info[:over_all_last_twenty_prcnt].to_f <= 39.0
+
+				consensus_info[:last_twenty_rating] = "ice cold"
+
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 39 && consensus_info[:over_all_last_twenty_prcnt].to_f < 46
+
+				consensus_info[:last_twenty_rating] = "cold"
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  46 && consensus_info[:over_all_last_twenty_prcnt].to_f < 56
+
+				consensus_info[:last_twenty_rating] = "choppy"
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  56 && consensus_info[:over_all_last_twenty_prcnt].to_f < 65
+
+					consensus_info[:last_twenty_rating] = "hot"
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 65
+					
+					consensus_info[:last_twenty_rating] = "red hot"
+
+
+			end
+
+			@dog_bettors_info.push(consensus_info)
+			
+
+
+		end
+
+		@ovr_obj.each do |x|
+
+			consensus_info = {}
+
+			five_wins = 0
+			five_losses = 0
+
+			ten_wins = 0
+			ten_losses = 0
+
+			twenty_wins = 0
+			twenty_losses = 0
+
+			user_games = []
+
+			User.all.each do |u|
+
+				if u.id == x[:user_id].to_i
+
+					u.picks.each do |p|
+
+						if p.sport == @matchup.sport
+
+							if p.bet_type == "total"
+
+								Matchup.all.each do |m|
+
+									if m.id == p.matchup_id.to_i
+
+										if m.home_score.length != 0
+
+											user_games.push(p)
+
+										end
+
+
+									end
+
+
+								end
+
+							end
+
+						end
+
+
+
+					end
+
+
+				end
+
+
+			end
+
+			user_games_last_five = user_games.last(5)
+			user_games_last_ten = user_games.last(10)
+			user_games_last_twenty = user_games.last(20)
+
+			consensus_info[:last_five_games] = user_games_last_five
+			consensus_info[:last_ten_games] = user_games_last_ten
+			consensus_info[:last_twenty_games] = user_games_last_twenty
+
+			consensus_info[:last_five_games].each do |g|
+
+				team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if team == "O"
+
+							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+
+								five_wins = five_wins + 1
+							
+							else 
+
+								
+								five_losses = five_losses + 1
+
+
+							end
+
+						else
+
+							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+								five_wins = five_wins + 1
+
+							else
+
+								five_losses = five_losses + 1
+
+							end
+
+						end
+
+
+					end
+
+
+				end
+
+			end
+
+			consensus_info[:last_ten_games].each do |g|
+
+				team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if team == "O"
+
+							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+
+								ten_wins = ten_wins + 1
+							
+							else 
+
+								
+								ten_losses = ten_losses + 1
+
+
+							end
+
+						else
+
+							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+								ten_wins = ten_wins + 1
+
+							else
+
+								ten_losses = ten_losses + 1
+
+							end
+
+						end
+
+
+					end
+
+
+				end
+
+			end
+
+			consensus_info[:last_twenty_games].each do |g|
+
+				team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						@team_check.push(team)
+
+						if team == "O"
+
+							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+
+								twenty_wins = twenty_wins + 1
+							
+							else 
+
+								
+								twenty_losses = twenty_losses + 1
+
+
+							end
+
+						else
+
+							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+								twenty_wins = twenty_wins + 1
+
+							else
+
+								twenty_losses = twenty_losses + 1
+
+							end
+
+						end
+
+
+					end
+
+
+				end
+
+			end
+
+			consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
+
+			if consensus_info[:over_all_last_five_prcnt].to_f <= 39.0
+
+				consensus_info[:last_five_rating] = "ice cold"
+
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f > 39 && consensus_info[:over_all_last_five_prcnt].to_f < 46
+
+				consensus_info[:last_five_rating] = "cold"
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  46 && consensus_info[:over_all_last_five_prcnt].to_f < 56
+
+				consensus_info[:last_five_rating] = "choppy"
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  56 && consensus_info[:over_all_last_five_prcnt].to_f < 65
+
+					consensus_info[:last_five_rating] = "hot"
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f >= 65
+					
+					consensus_info[:last_five_rating] = "red hot"
+
+
+			end
+
+			consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins + ten_losses)) * 100).round(2)).to_s + "%"
+
+
+			if consensus_info[:over_all_last_ten_prcnt].to_f <= 39.0
+
+				consensus_info[:last_ten_rating] = "ice cold"
+
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f > 39 && consensus_info[:over_all_last_ten_prcnt].to_f < 46
+
+				consensus_info[:last_ten_rating] = "cold"
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  46 && consensus_info[:over_all_last_ten_prcnt].to_f < 56
+
+				consensus_info[:last_ten_rating] = "choppy"
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  56 && consensus_info[:over_all_last_ten_prcnt].to_f < 65
+
+					consensus_info[:last_ten_rating] = "hot"
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 65
+					
+					consensus_info[:last_ten_rating] = "red hot"
+
+
+			end
+
+			consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins + twenty_losses)) * 100).round(2)).to_s + "%"
+
+
+			if consensus_info[:over_all_last_twenty_prcnt].to_f <= 39.0
+
+				consensus_info[:last_twenty_rating] = "ice cold"
+
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 39 && consensus_info[:over_all_last_twenty_prcnt].to_f < 46
+
+				consensus_info[:last_twenty_rating] = "cold"
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  46 && consensus_info[:over_all_last_twenty_prcnt].to_f < 56
+
+				consensus_info[:last_twenty_rating] = "choppy"
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  56 && consensus_info[:over_all_last_twenty_prcnt].to_f < 65
+
+					consensus_info[:last_twenty_rating] = "hot"
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 65
+					
+					consensus_info[:last_twenty_rating] = "red hot"
+
+
+			end
+
+			@ovr_bettors_info.push(consensus_info)
+			
+
+
+		end
+
+		@und_obj.each do |x|
+
+			consensus_info = {}
+
+			five_wins = 0
+			five_losses = 0
+
+			ten_wins = 0
+			ten_losses = 0
+
+			twenty_wins = 0
+			twenty_losses = 0
+
+			user_games = []
+
+			User.all.each do |u|
+
+				if u.id == x[:user_id].to_i
+
+					u.picks.each do |p|
+
+						if p.sport == @matchup.sport
+
+							if p.bet_type == "total"
+
+								Matchup.all.each do |m|
+
+									if m.id == p.matchup_id.to_i
+
+										if m.home_score.length != 0
+
+											user_games.push(p)
+
+										end
+
+
+									end
+
+
+								end
+
+							end
+
+						end
+
+
+
+					end
+
+
+				end
+
+
+			end
+
+			user_games_last_five = user_games.last(5)
+			user_games_last_ten = user_games.last(10)
+			user_games_last_twenty = user_games.last(20)
+
+			consensus_info[:last_five_games] = user_games_last_five
+			consensus_info[:last_ten_games] = user_games_last_ten
+			consensus_info[:last_twenty_games] = user_games_last_twenty
+
+			consensus_info[:last_five_games].each do |g|
+
+				team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if team == "O"
+
+							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+
+								five_wins = five_wins + 1
+							
+							else 
+
+								
+								five_losses = five_losses + 1
+
+
+							end
+
+						else
+
+							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+								five_wins = five_wins + 1
+
+							else
+
+								five_losses = five_losses + 1
+
+							end
+
+						end
+
+
+					end
+
+
+				end
+
+			end
+
+			consensus_info[:last_ten_games].each do |g|
+
+				team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if team == "O"
+
+							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+
+								ten_wins = ten_wins + 1
+							
+							else 
+
+								
+								ten_losses = ten_losses + 1
+
+
+							end
+
+						else
+
+							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+								ten_wins = ten_wins + 1
+
+							else
+
+								ten_losses = ten_losses + 1
+
+							end
+
+						end
+
+
+					end
+
+
+				end
+
+			end
+
+			consensus_info[:last_twenty_games].each do |g|
+
+				team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						@team_check.push(team)
+
+						if team == "O"
+
+							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+
+								twenty_wins = twenty_wins + 1
+							
+							else 
+
+								
+								twenty_losses = twenty_losses + 1
+
+
+							end
+
+						else
+
+							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+								twenty_wins = twenty_wins + 1
+
+							else
+
+								twenty_losses = twenty_losses + 1
+
+							end
+
+						end
+
+
+					end
+
+
+				end
+
+			end
+
+			consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
+
+			if consensus_info[:over_all_last_five_prcnt].to_f <= 39.0
+
+				consensus_info[:last_five_rating] = "ice cold"
+
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f > 39 && consensus_info[:over_all_last_five_prcnt].to_f < 46
+
+				consensus_info[:last_five_rating] = "cold"
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  46 && consensus_info[:over_all_last_five_prcnt].to_f < 56
+
+				consensus_info[:last_five_rating] = "choppy"
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  56 && consensus_info[:over_all_last_five_prcnt].to_f < 65
+
+					consensus_info[:last_five_rating] = "hot"
+
+			elsif consensus_info[:over_all_last_five_prcnt].to_f >= 65
+					
+					consensus_info[:last_five_rating] = "red hot"
+
+
+			end
+
+			consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins + ten_losses)) * 100).round(2)).to_s + "%"
+
+
+			if consensus_info[:over_all_last_ten_prcnt].to_f <= 39.0
+
+				consensus_info[:last_ten_rating] = "ice cold"
+
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f > 39 && consensus_info[:over_all_last_ten_prcnt].to_f < 46
+
+				consensus_info[:last_ten_rating] = "cold"
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  46 && consensus_info[:over_all_last_ten_prcnt].to_f < 56
+
+				consensus_info[:last_ten_rating] = "choppy"
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  56 && consensus_info[:over_all_last_ten_prcnt].to_f < 65
+
+					consensus_info[:last_ten_rating] = "hot"
+
+			elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 65
+					
+					consensus_info[:last_ten_rating] = "red hot"
+
+
+			end
+
+			consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins + twenty_losses)) * 100).round(2)).to_s + "%"
+
+
+			if consensus_info[:over_all_last_twenty_prcnt].to_f <= 39.0
+
+				consensus_info[:last_twenty_rating] = "ice cold"
+
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 39 && consensus_info[:over_all_last_twenty_prcnt].to_f < 46
+
+				consensus_info[:last_twenty_rating] = "cold"
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  46 && consensus_info[:over_all_last_twenty_prcnt].to_f < 56
+
+				consensus_info[:last_twenty_rating] = "choppy"
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  56 && consensus_info[:over_all_last_twenty_prcnt].to_f < 65
+
+					consensus_info[:last_twenty_rating] = "hot"
+
+			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 65
+					
+					consensus_info[:last_twenty_rating] = "red hot"
+
+
+			end
+
+			@und_bettors_info.push(consensus_info)
+			
+
+
+		end
+
+		
+	end
+
 
 
 	
 end
+
+
+
+				
+
+					
+
+						
+
+							
+
+
+						

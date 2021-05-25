@@ -118,8 +118,15 @@
 	display: inline-block;
 	vertical-align: top;
 	height: 100%;
-	width: 10%;
+	width: 6%;
+
 	
+}
+
+#match_total{
+
+	width: 11%;
+	margin-left: 1%;
 }
 
 #team_labels{
@@ -139,9 +146,84 @@
 	height: 100%;
 	width: 10%;
 	border: 1px solid red;
-	font-size: 30px;
+	font-size: 27px;
 	margin-top: 2%;
 	margin-left: 15%;
 	margin-right: 15%;
+}
+
+#dog_label{
+
+	width: 18%;
+	margin-left: 5%;
+	
+
+}
+
+#fav_label{
+
+	width: 18%;
+	
+
+}
+
+#ovr_label{
+
+	width: 18%;
+	
+
+}
+
+#und_label{
+
+	width: 18%;
+	margin-left: 5%;
+	
+
+}
+
+.info_label{
+
+	height: 10%;
+	width: 100%;
+	font-size: 30px;
+	text-align: center;
+	margin-top: 2%;
+	border: 1px solid black;
+
+}
+
+#match_sides{
+
+	width: 20%;
+}
+
+#match_total{
+
+	width: 20%;
+}
+
+#fav_b{
+
+	
+
+}
+
+#dog_box{
+
+	
+
+}
+
+#ovr_box{
+
+	
+
+}
+
+#und_box{
+
+	
+
 }
 

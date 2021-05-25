@@ -1,11 +1,8 @@
 
 <% self.get_time %>
 <% self.sort_matchups %>
-<% self.sort_matchups %>
 <% self.list_matchups_for_update %>
 
-
-<div>
 	
 	<div><% @nfl_matchups.each do |x| %>
 
@@ -22,11 +19,13 @@
 	
 
 </div>
+
 <div>
 	
 	<div><% @nba_matchups.each do |x| %>
 
 			<% link = "NBA " + x.fav + " " + x.spread + " " + x.dog %>
+
 
 
 			<div><%= link_to link, matchup_path(x.id) %></div>
@@ -53,54 +52,9 @@
 
 <div>
 
-	<% @nfl_update.each do |x| %>
-
-		<% link = x.fav + " " + x.spread + " " + x.dog + " update" %>
-
-		<div><%= link_to link, edit_matchup_path(x.id) %></div>
-
-	<% end %>
-
-	<% @nba_update.each do |x| %>
-
-		<% link = x.fav + " " + x.spread + " " + x.dog + " update" %>
-
-		<div><%= link_to link, edit_matchup_path(x.id) %></div>
-
-	<% end %>
-
-	<% @mlb_update.each do |x| %>
-
-		<% link = x.sport + " " + x.fav + " " + x.fav_ml + " " + x.dog + " update" %>
-
-		<div><%= link_to link, edit_matchup_path(x.id) %></div>
-
-	<% end %>
-
-	<% Matchup.all.each do |x| %>
-
-		<% if x.date != @my_date %>
-
-			<% if x.sport == "MLB" %>
-
-				<% link = x.sport + " " + x.fav + " " + x.fav_ml + " " + x.dog + " " + x.id.to_s%>
-
-				<div><%= link_to link, matchup_path(x.id) %></div>
-
-			<% else %>
-
-				<% link = x.sport + " " + x.fav + " " + x.spread + " " + x.dog + " " + x.id.to_s %>
-
-				<div><%= link_to link, matchup_path(x.id) %></div>
+	
 
 
-			<% end %>
-
-
-		<% end %>
-
-
-	<% end %>
 	
 
 
@@ -109,5 +63,42 @@
 
 
 </div>
+
+</div>
+
+<% if current_user.admin == true %>
+
+	<div style="margin-top: 5%;"> GAMES TO UPDATE:
+		
+		<% @nfl_update.each do |x| %>
+
+			<% link = x.fav + " " + x.spread + " " + x.dog + " update" %>
+
+			<div><%= link_to link, edit_matchup_path(x.id) %></div>
+
+		<% end %>
+
+		<% @nba_update.each do |x| %>
+
+			<% link = x.fav + " " + x.spread + " " + x.dog + " update" %>
+
+			<div><%= link_to link, edit_matchup_path(x.id) %></div>
+
+		<% end %>
+
+		<% @mlb_update.each do |x| %>
+
+			<% link = x.sport + " " + x.fav + " " + x.fav_ml + " " + x.dog + " update" %>
+
+			<div><%= link_to link, edit_matchup_path(x.id) %></div>
+
+		<% end %>
+
+
+	</div>
+
+<% end %>
+	
+
 
 </div>

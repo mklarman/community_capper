@@ -1,12 +1,84 @@
+<% @test1 %>
+<% @test2 %>
+<% @test3 %>
+<% @test4 %>
+<% @team_check = [] %>
 
 <% self.sort_picks_for_matchup %>
 <% self.calc_percent %>
+<% self.overall_sport_side %>
 
 
-<% @fav_prcnt %>
-<% @dog_prcnt %>
-<% @und_prcnt %>
-<% @ovr_prcnt %>
+
+<% bettor = 1 %>
+<% dog_bettor = 1 %>
+<% ovr_bettor = 1 %>
+<% und_bettor = 1 %>
+
+
+<% @fav_bettors_info.each do |b| %>
+
+	<div>bettor <%= " " + bettor.to_s + ": " + b[:last_five_rating] + " over last five"%></div>
+
+	<div>bettor <%= " " + bettor.to_s + ": " + b[:last_ten_rating] + " over last ten"%></div>
+
+	<div>bettor <%= " " + bettor.to_s + ": " + b[:last_twenty_rating] + " over last twenty"%></div>
+
+	<% bettor = bettor + 1 %>
+
+
+<% end %>
+
+<br>
+<br>
+
+<% @dog_bettors_info.each do |b| %>
+
+	<div>bettor <%= " " + dog_bettor.to_s + ": " + b[:last_five_rating] + " over last five"%></div>
+
+	<div>bettor <%= " " + dog_bettor.to_s + ": " + b[:last_ten_rating] + " over last ten"%></div>
+
+	<div>bettor <%= " " + dog_bettor.to_s + ": " + b[:last_twenty_rating] + " over last twenty"%></div>
+
+	<% dog_bettor = dog_bettor + 1 %>
+
+
+<% end %>
+
+<br>
+<br>
+
+<% @ovr_bettors_info.each do |b| %>
+
+	<div>bettor <%= " " + ovr_bettor.to_s + ": " + b[:last_five_rating] + " over last five totals"%></div>
+
+	<div>bettor <%= " " + ovr_bettor.to_s + ": " + b[:last_ten_rating] + " over last ten totals"%></div>
+
+	<div>bettor <%= " " + ovr_bettor.to_s + ": " + b[:last_twenty_rating] + " over last twenty totals"%></div>
+
+	<% ovr_bettor = ovr_bettor + 1 %>
+
+
+<% end %>
+
+<br>
+<br>
+
+
+<% @und_bettors_info.each do |b| %>
+
+	<div>bettor <%= " " + und_bettor.to_s + ": " + b[:last_five_rating] + " over last five totals"%></div>
+
+	<div>bettor <%= " " + und_bettor.to_s + ": " + b[:last_ten_rating] + " over last ten totals"%></div>
+
+	<div>bettor <%= " " + und_bettor.to_s + ": " + b[:last_twenty_rating] + " over last twenty totals"%></div>
+
+	<% und_bettor = und_bettor + 1 %>
+
+
+<% end %>
+
+
 
 <div id= "con_cont">
 
@@ -38,17 +110,23 @@
 	
 	<% end %>
 
+	<div class="info_label">
+		
+		<div class = "side_label">SIDES INFO: <div id="match_sides" class="matchup_boxes"><%= @on_side.to_s + " " + "Selections" %></div></div>
+
+	</div>
+
 	<div id="team_labels">
 
 		<div id="fav_label" class="con_boxes">
 
 			<% if @matchup.sport == "MLB" %>
 
-				<%= @matchup.fav + " " + @matchup.fav_ml %>
+				<%= @matchup.fav + " " + @matchup.fav_ml + "(" + @favs_obj.length.to_s + ")" %>
 
 			<% else %>
 
-				<%= @matchup.fav + " " + @matchup.spread %>
+				<%= @matchup.fav + " " + @matchup.spread + "(" + @favs_obj.length.to_s + ")"%>
 
 			<% end %>
 			
@@ -58,49 +136,79 @@
 			
 			<% if @matchup.sport == "MLB" %>
 
-				<% if @matchup.dog_ml < 0 %>
+				<% if @matchup.dog_ml.to_i < 0 %>
 
-					<%= @matchup.dog + " " + @matchup.dog_ml %>
+					<%= @matchup.dog + " " + @matchup.dog_ml + "(" + @dogs_obj.length.to_s + ")" %>
 
 				<% else %>
 
-					<%= @matchup.dog + " " + "+" + @matchup.dog_ml %>
+					<%= @matchup.dog + " " + "+" + @matchup.dog_ml + "(" + @dogs_obj.length.to_s + ")" %>
 
 
 				<% end %>
 
 			<% else %>
 
-				<%= @matchup.dog + " " + "+" + (@matchup.spread.to_i * -1).to_s %>
+				<%= @matchup.dog + " " + "+" + (@matchup.spread.to_f * -1).to_s  + "(" + @dogs_obj.length.to_s + ")" %>
 
 			<% end %>
 
 		</div>
 
-		<div class="con_boxes">
+		<div id="fav_box" class="con_boxes">
 			
 			<%= @fav_prcnt %>
 
 		</div>
 
-		<div class="con_boxes">
+		<div id="dog_box" class="con_boxes">
 			
 			<%= @dog_prcnt %>
 
 		</div>
 
 	</div>
+
+	<div class="info_label">
+		
+		<div class = "total_label">TOTAL INFO: <div id="match_total" class="matchup_boxes"><%= @on_total.to_s + " " + "Selections" %></div></div>
+
+	</div>
+
+	<div id="team_labels">
+
+		<div id="ovr_label" class="con_boxes">
+
+			
+
+			<%= "OVR" + " " + @matchup.total + "(" + @ovr_obj.length.to_s + ")" %>
+			
+
+		</div>
+		<div id="und_label" class="con_boxes">
+			
+			
+
+			<%= "UND" + " " + @matchup.total + "(" + @und_obj.length.to_s + ")"%>
+
+
+
+		</div>
+
+		<div id="ovr_box" class="con_boxes">
+			
+			<%= @ovr_prcnt %>
+
+		</div>
+
+		<div id="und_box" class="con_boxes">
+			
+			<%= @und_prcnt %>
+
+		</div>
+
+	</div>
 	
-	
-
-
-
-
-
-
-
-
-
 
 
 </div>

@@ -65,6 +65,11 @@ class MatchupsController < ApplicationController
 		@ovr_prcnt
 		@und_prcnt
 		@matchup_label
+		@fav_bettors_info = []
+		@dog_bettors_info = []
+		@ovr_bettors_info = []
+		@und_bettors_info = []
+		
 		
 
 
