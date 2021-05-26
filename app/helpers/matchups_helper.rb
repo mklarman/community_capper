@@ -5240,6 +5240,832 @@ module MatchupsHelper
 
 		end
 
+		@und_obj.each do |x|
+
+			consensus_info = {}
+
+			low_five_wins = 0
+			low_five_losses = 0
+
+			med_five_wins = 0
+			med_five_losses = 0
+
+			hi_five_wins = 0
+			hi_five_losses = 0
+
+			low_ten_wins = 0
+			low_ten_losses = 0
+
+			med_ten_wins = 0
+			med_ten_losses = 0
+
+			hi_ten_wins = 0
+			hi_ten_losses = 0
+
+			low_twenty_wins = 0
+			low_twenty_losses = 0
+
+			med_twenty_wins = 0
+			med_twenty_losses = 0
+
+			hi_twenty_wins = 0
+			hi_twenty_losses = 0
+
+			user_games = []
+
+			User.all.each do |u|
+
+				if u.id == x[:user_id].to_i
+
+					u.picks.each do |p|
+
+						if p.sport == @matchup.sport
+
+							if p.bet_type == "total"
+
+								Matchup.all.each do |m|
+
+									if m.id == p.matchup_id.to_i
+
+										if m.home_score.length != 0
+
+											if ((p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")) == "U"
+
+												user_games.push(p)
+
+											end
+
+										end
+
+
+									end
+
+
+								end
+
+							end
+
+						end
+
+					end
+
+
+				end
+
+
+			end
+
+			user_games_last_five = user_games.last(5)
+			user_games_last_ten = user_games.last(10)
+			user_games_last_twenty = user_games.last(20)
+
+			consensus_info[:last_five_games] = user_games_last_five
+			consensus_info[:last_ten_games] = user_games_last_ten
+			consensus_info[:last_twenty_games] = user_games_last_twenty
+
+			consensus_info[:last_five_games].each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if m.sport == "MLB"
+
+							if m.total.to_f < 8
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									low_five_wins = low_five_wins + 1
+						
+								else 
+		
+									low_five_losses = low_five_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									med_five_wins = med_five_wins + 1
+						
+								else 
+		
+									med_five_losses = med_five_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 10
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									hi_five_wins = hi_five_wins + 1
+						
+								else 
+		
+									hi_five_losses = hi_five_losses + 1
+
+								end
+
+							end
+
+
+						elsif m.sport == "NFL"
+
+							if m.total.to_f < 48
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									low_five_wins = low_five_wins + 1
+						
+								else 
+		
+									low_five_losses = low_five_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									med_five_wins = med_five_wins + 1
+						
+								else 
+		
+									med_five_losses = med_five_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 53
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									hi_five_wins = low_five_wins + 1
+						
+								else 
+		
+									hi_five_losses = low_five_losses + 1
+
+								end
+
+							end
+
+
+						elsif m.sport == "NBA"
+
+							if m.total.to_f < 220
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									low_five_wins = low_five_wins + 1
+						
+								else 
+		
+									low_five_losses = low_five_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									med_five_wins = med_five_wins + 1
+						
+								else 
+		
+									med_five_losses = med_five_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 228
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									hi_five_wins = hi_five_wins + 1
+						
+								else 
+		
+									hi_five_losses = hi_five_losses + 1
+
+								end
+
+							end
+
+						end			
+
+
+					end
+
+
+				end
+
+			end
+
+			consensus_info[:last_ten_games].each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if m.sport == "MLB"
+
+							if m.total.to_f < 8
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									low_ten_wins = low_ten_wins + 1
+						
+								else 
+		
+									low_ten_losses = low_ten_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									med_ten_wins = med_ten_wins + 1
+						
+								else 
+		
+									med_ten_losses = med_ten_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 10
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									hi_ten_wins = hi_ten_wins + 1
+						
+								else 
+		
+									hi_ten_losses = hi_ten_losses + 1
+
+								end
+
+							end
+
+
+						elsif m.sport == "NFL"
+
+							if m.total.to_f < 48
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									low_ten_wins = low_ten_wins + 1
+						
+								else 
+		
+									low_ten_losses = low_ten_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									med_ten_wins = med_ten_wins + 1
+						
+								else 
+		
+									med_ten_losses = med_ten_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 53
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									hi_ten_wins = low_ten_wins + 1
+						
+								else 
+		
+									hi_ten_losses = low_ten_losses + 1
+
+								end
+
+							end
+
+
+						elsif m.sport == "NBA"
+
+							if m.total.to_f < 220
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									low_ten_wins = low_ten_wins + 1
+						
+								else 
+		
+									low_ten_losses = low_ten_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									med_ten_wins = med_ten_wins + 1
+						
+								else 
+		
+									med_ten_losses = med_ten_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 228
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									hi_ten_wins = hi_ten_wins + 1
+						
+								else 
+		
+									hi_ten_losses = hi_ten_losses + 1
+
+								end
+
+							end
+
+						end			
+
+
+					end
+
+
+				end
+
+			end
+
+			consensus_info[:last_twenty_games].each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if m.sport == "MLB"
+
+							if m.total.to_f < 8
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									low_twenty_wins = low_twenty_wins + 1
+						
+								else 
+		
+									low_twenty_losses = low_twenty_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									med_twenty_wins = med_twenty_wins + 1
+						
+								else 
+		
+									med_twenty_losses = med_twenty_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 10
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									hi_twenty_wins = hi_twenty_wins + 1
+						
+								else 
+		
+									hi_twenty_losses = hi_twenty_losses + 1
+
+								end
+
+							end
+
+
+						elsif m.sport == "NFL"
+
+							if m.total.to_f < 48
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									low_twenty_wins = low_twenty_wins + 1
+						
+								else 
+		
+									low_twenty_losses = low_twenty_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									med_twenty_wins = med_twenty_wins + 1
+						
+								else 
+		
+									med_twenty_losses = med_twenty_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 53
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									hi_twenty_wins = low_twenty_wins + 1
+						
+								else 
+		
+									hi_twenty_losses = low_twenty_losses + 1
+
+								end
+
+							end
+
+
+						elsif m.sport == "NBA"
+
+							if m.total.to_f < 220
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									low_twenty_wins = low_twenty_wins + 1
+						
+								else 
+		
+									low_twenty_losses = low_twenty_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									med_twenty_wins = med_twenty_wins + 1
+						
+								else 
+		
+									med_twenty_losses = med_twenty_losses + 1
+
+								end
+
+							elsif m.total.to_f >= 228
+
+								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+
+									hi_twenty_wins = hi_twenty_wins + 1
+						
+								else 
+		
+									hi_twenty_losses = hi_twenty_losses + 1
+
+								end
+
+							end
+
+						end			
+
+
+					end
+
+
+				end
+
+			end
+
+			if (low_five_wins + low_five_losses) !=0
+
+				consensus_info[:low_last_five_prcnt] = (((low_five_wins.to_f/(low_five_wins + low_five_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:low_last_five_prcnt].to_f <= 39.0
+
+					consensus_info[:low_last_five_rating] = "frigid"
+
+
+				elsif consensus_info[:low_last_five_prcnt].to_f > 39 && consensus_info[:low_last_five_prcnt].to_f < 46
+
+					consensus_info[:low_last_five_rating] = "cold"
+
+				elsif consensus_info[:low_last_five_prcnt].to_f >=  46 && consensus_info[:low_last_five_prcnt].to_f < 56
+
+					consensus_info[:low_last_five_rating] = "choppy"
+
+				elsif consensus_info[:low_last_five_prcnt].to_f >=  56 && consensus_info[:low_last_five_prcnt].to_f < 65
+
+						consensus_info[:low_last_five_rating] = "hot"
+
+				elsif consensus_info[:low_last_five_prcnt].to_f >= 65
+						
+						consensus_info[:low_last_five_rating] = "on fire"
+
+
+				end
+			
+			else
+
+				consensus_info[:low_last_five_prcnt] = "none"
+				consensus_info[:low_last_five_rating] = "none"
+
+
+			end
+
+			if (med_five_wins + med_five_losses) !=0
+
+				consensus_info[:med_last_five_prcnt] = (((med_five_wins.to_f/(med_five_wins + med_five_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:med_last_five_prcnt].to_f <= 39.0
+
+					consensus_info[:med_last_five_rating] = "frigid"
+
+
+				elsif consensus_info[:med_last_five_prcnt].to_f > 39 && consensus_info[:med_last_five_prcnt].to_f < 46
+
+					consensus_info[:med_last_five_rating] = "cold"
+
+				elsif consensus_info[:med_last_five_prcnt].to_f >=  46 && consensus_info[:med_last_five_prcnt].to_f < 56
+
+					consensus_info[:med_last_five_rating] = "choppy"
+
+				elsif consensus_info[:med_last_five_prcnt].to_f >=  56 && consensus_info[:med_last_five_prcnt].to_f < 65
+
+						consensus_info[:med_last_five_rating] = "hot"
+
+				elsif consensus_info[:med_last_five_prcnt].to_f >= 65
+						
+						consensus_info[:med_last_five_rating] = "on fire"
+
+
+				end
+			
+			else
+
+				consensus_info[:med_last_five_prcnt] = "none"
+				consensus_info[:med_last_five_rating] = "none"
+
+
+			end
+
+			if (hi_five_wins + hi_five_losses) !=0
+
+				consensus_info[:hi_last_five_prcnt] = (((hi_five_wins.to_f/(hi_five_wins + hi_five_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:hi_last_five_prcnt].to_f <= 39.0
+
+					consensus_info[:hi_last_five_rating] = "frigid"
+
+
+				elsif consensus_info[:hi_last_five_prcnt].to_f > 39 && consensus_info[:hi_last_five_prcnt].to_f < 46
+
+					consensus_info[:hi_last_five_rating] = "cold"
+
+				elsif consensus_info[:hi_last_five_prcnt].to_f >=  46 && consensus_info[:hi_last_five_prcnt].to_f < 56
+
+					consensus_info[:hi_last_five_rating] = "choppy"
+
+				elsif consensus_info[:hi_last_five_prcnt].to_f >=  56 && consensus_info[:hi_last_five_prcnt].to_f < 65
+
+						consensus_info[:hi_last_five_rating] = "hot"
+
+				elsif consensus_info[:hi_last_five_prcnt].to_f >= 65
+						
+						consensus_info[:hi_last_five_rating] = "on fire"
+
+
+				end
+			
+			else
+
+				consensus_info[:hi_last_five_prcnt] = "none"
+				consensus_info[:hi_last_five_rating] = "none"
+
+
+			end
+
+			if (low_ten_wins + low_ten_losses) !=0
+
+				consensus_info[:low_last_ten_prcnt] = (((low_ten_wins.to_f/(low_ten_wins + low_ten_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:low_last_ten_prcnt].to_f <= 39.0
+
+					consensus_info[:low_last_ten_rating] = "frigid"
+
+
+				elsif consensus_info[:low_last_ten_prcnt].to_f > 39 && consensus_info[:low_last_ten_prcnt].to_f < 46
+
+					consensus_info[:low_last_ten_rating] = "cold"
+
+				elsif consensus_info[:low_last_ten_prcnt].to_f >=  46 && consensus_info[:low_last_ten_prcnt].to_f < 56
+
+					consensus_info[:low_last_ten_rating] = "choppy"
+
+				elsif consensus_info[:low_last_ten_prcnt].to_f >=  56 && consensus_info[:low_last_ten_prcnt].to_f < 65
+
+						consensus_info[:low_last_ten_rating] = "hot"
+
+				elsif consensus_info[:low_last_ten_prcnt].to_f >= 65
+						
+						consensus_info[:low_last_ten_rating] = "on fire"
+
+
+				end
+			
+			else
+
+				consensus_info[:low_last_ten_prcnt] = "none"
+				consensus_info[:low_last_ten_rating] = "none"
+
+
+			end
+
+			if (med_ten_wins + med_ten_losses) !=0
+
+				consensus_info[:med_last_ten_prcnt] = (((med_ten_wins.to_f/(med_ten_wins + med_ten_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:med_last_ten_prcnt].to_f <= 39.0
+
+					consensus_info[:med_last_ten_rating] = "frigid"
+
+
+				elsif consensus_info[:med_last_ten_prcnt].to_f > 39 && consensus_info[:med_last_ten_prcnt].to_f < 46
+
+					consensus_info[:med_last_ten_rating] = "cold"
+
+				elsif consensus_info[:med_last_ten_prcnt].to_f >=  46 && consensus_info[:med_last_ten_prcnt].to_f < 56
+
+					consensus_info[:med_last_ten_rating] = "choppy"
+
+				elsif consensus_info[:med_last_ten_prcnt].to_f >=  56 && consensus_info[:med_last_ten_prcnt].to_f < 65
+
+						consensus_info[:med_last_ten_rating] = "hot"
+
+				elsif consensus_info[:med_last_ten_prcnt].to_f >= 65
+						
+						consensus_info[:med_last_ten_rating] = "on fire"
+
+
+				end
+			
+			else
+
+				consensus_info[:med_last_ten_prcnt] = "none"
+				consensus_info[:med_last_ten_rating] = "none"
+
+
+			end
+
+			if (hi_ten_wins + hi_ten_losses) !=0
+
+				consensus_info[:hi_last_ten_prcnt] = (((hi_ten_wins.to_f/(hi_ten_wins + hi_ten_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:hi_last_ten_prcnt].to_f <= 39.0
+
+					consensus_info[:hi_last_ten_rating] = "frigid"
+
+
+				elsif consensus_info[:hi_last_ten_prcnt].to_f > 39 && consensus_info[:hi_last_ten_prcnt].to_f < 46
+
+					consensus_info[:hi_last_ten_rating] = "cold"
+
+				elsif consensus_info[:hi_last_ten_prcnt].to_f >=  46 && consensus_info[:hi_last_ten_prcnt].to_f < 56
+
+					consensus_info[:hi_last_ten_rating] = "choppy"
+
+				elsif consensus_info[:hi_last_ten_prcnt].to_f >=  56 && consensus_info[:hi_last_ten_prcnt].to_f < 65
+
+						consensus_info[:hi_last_ten_rating] = "hot"
+
+				elsif consensus_info[:hi_last_ten_prcnt].to_f >= 65
+						
+						consensus_info[:hi_last_ten_rating] = "on fire"
+
+
+				end
+			
+			else
+
+				consensus_info[:hi_last_ten_prcnt] = "none"
+				consensus_info[:hi_last_ten_rating] = "none"
+
+
+			end
+
+			if (low_twenty_wins + low_twenty_losses) !=0
+
+				consensus_info[:low_last_twenty_prcnt] = (((low_twenty_wins.to_f/(low_twenty_wins + low_twenty_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:low_last_twenty_prcnt].to_f <= 39.0
+
+					consensus_info[:low_last_twenty_rating] = "frigid"
+
+
+				elsif consensus_info[:low_last_twenty_prcnt].to_f > 39 && consensus_info[:low_last_twenty_prcnt].to_f < 46
+
+					consensus_info[:low_last_twenty_rating] = "cold"
+
+				elsif consensus_info[:low_last_twenty_prcnt].to_f >=  46 && consensus_info[:low_last_twenty_prcnt].to_f < 56
+
+					consensus_info[:low_last_twenty_rating] = "choppy"
+
+				elsif consensus_info[:low_last_twenty_prcnt].to_f >=  56 && consensus_info[:low_last_twenty_prcnt].to_f < 65
+
+						consensus_info[:low_last_twenty_rating] = "hot"
+
+				elsif consensus_info[:low_last_twenty_prcnt].to_f >= 65
+						
+						consensus_info[:low_last_twenty_rating] = "on fire"
+
+
+				end
+			
+			else
+
+				consensus_info[:low_last_twenty_prcnt] = "none"
+				consensus_info[:low_last_twenty_rating] = "none"
+
+
+			end
+
+			if (med_twenty_wins + med_twenty_losses) !=0
+
+				consensus_info[:med_last_twenty_prcnt] = (((med_twenty_wins.to_f/(med_twenty_wins + med_twenty_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:med_last_twenty_prcnt].to_f <= 39.0
+
+					consensus_info[:med_last_twenty_rating] = "frigid"
+
+
+				elsif consensus_info[:med_last_twenty_prcnt].to_f > 39 && consensus_info[:med_last_twenty_prcnt].to_f < 46
+
+					consensus_info[:med_last_twenty_rating] = "cold"
+
+				elsif consensus_info[:med_last_twenty_prcnt].to_f >=  46 && consensus_info[:med_last_twenty_prcnt].to_f < 56
+
+					consensus_info[:med_last_twenty_rating] = "choppy"
+
+				elsif consensus_info[:med_last_twenty_prcnt].to_f >=  56 && consensus_info[:med_last_twenty_prcnt].to_f < 65
+
+						consensus_info[:med_last_twenty_rating] = "hot"
+
+				elsif consensus_info[:med_last_twenty_prcnt].to_f >= 65
+						
+						consensus_info[:med_last_twenty_rating] = "on fire"
+
+
+				end
+			
+			else
+
+				consensus_info[:med_last_ten_prcnt] = "none"
+				consensus_info[:med_last_ten_rating] = "none"
+
+
+			end
+
+			if (hi_twenty_wins + hi_twenty_losses) !=0
+
+				consensus_info[:hi_last_twenty_prcnt] = (((hi_twenty_wins.to_f/(hi_twenty_wins + hi_twenty_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:hi_last_twenty_prcnt].to_f <= 39.0
+
+					consensus_info[:hi_last_twenty_rating] = "frigid"
+
+
+				elsif consensus_info[:hi_last_twenty_prcnt].to_f > 39 && consensus_info[:hi_last_twenty_prcnt].to_f < 46
+
+					consensus_info[:hi_last_twenty_rating] = "cold"
+
+				elsif consensus_info[:hi_last_twenty_prcnt].to_f >=  46 && consensus_info[:hi_last_twenty_prcnt].to_f < 56
+
+					consensus_info[:hi_last_twenty_rating] = "choppy"
+
+				elsif consensus_info[:hi_last_twenty_prcnt].to_f >=  56 && consensus_info[:hi_last_twenty_prcnt].to_f < 65
+
+						consensus_info[:hi_last_twenty_rating] = "hot"
+
+				elsif consensus_info[:hi_last_twenty_prcnt].to_f >= 65
+						
+						consensus_info[:hi_last_twenty_rating] = "on fire"
+
+
+				end
+			
+			else
+
+				consensus_info[:hi_last_twenty_prcnt] = "none"
+				consensus_info[:hi_last_twenty_rating] = "none"
+
+
+			end
+
+
+			@und_spread_info.push(consensus_info)
+
+		end
+
 
 
 	end
