@@ -69,7 +69,10 @@ class MatchupsController < ApplicationController
 		@dog_bettors_info = []
 		@ovr_bettors_info = []
 		@und_bettors_info = []
-		
+		@fav_spread_info = []
+		@dog_spread_info = []
+		@ovr_spread_info = []
+		@und_spread_info = []
 		
 
 
