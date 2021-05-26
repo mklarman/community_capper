@@ -3,6 +3,7 @@
 <% @test3 %>
 <% @test4 %>
 <% @team_check = [] %>
+<% @test_array = [] %>
 
 <% self.sort_picks_for_matchup %>
 <% self.calc_percent %>
@@ -165,6 +166,7 @@
 
 	<% bettor = 1 %>
 
+
 	<p>DOG BETTORS</p>
 
 	<% @dog_spread_info.each do |b| %>
@@ -173,11 +175,11 @@
 
 			<% if @matchup.dog_ml.to_i < 130 %>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_five_rating] + " over last five"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_five_rating].to_s + " over last five"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_ten_rating] + " over last ten"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_ten_rating].to_s + " over last ten"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_twenty_rating] + " over last twenty"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_twenty_rating].to_s + " over last twenty"%></div>
 
 			<% elsif @matchup.dog_ml.to_i >= 130 && @matchup.dog_ml.to_i < 160 %>
 
@@ -187,13 +189,13 @@
 
 				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_twenty_rating] + " over last twenty"%></div>
 
-			<% else %>
+			<% elsif  @matchup.dog_ml.to_i >= 160 %>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_five_rating] + " over last five"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_five_rating].to_s + " over last five"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_ten_rating] + " over last ten"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_ten_rating].to_s + " over last ten"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_twenty_rating] + " over last twenty"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_twenty_rating].to_s + " over last twenty"%></div>
 
 
 			<% end %>
@@ -327,6 +329,8 @@
 		</div>
 
 	<% end %>
+
+	
 
 	<br>
 	<br>
@@ -568,6 +572,8 @@
 
 
 </div>
+
+
 
 
 

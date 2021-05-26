@@ -253,7 +253,7 @@ module MatchupsHelper
 
 							consensus_info[:spread] = "med"
 						
-						elsif @matchup.fav_ml.to_i >= 160 
+						elsif @matchup.dog_ml.to_i >= 160
 
 							consensus_info[:spread] = "hi"
 
@@ -3306,8 +3306,6 @@ module MatchupsHelper
 
 		@dogs_obj.each do |f|
 
-			@test1 = f[:spread]
-
 			consensus_info = {}
 
 			low_spread_five_wins = 0
@@ -3409,7 +3407,9 @@ module MatchupsHelper
 
 				end
 
-			end		
+			end
+
+			@test3 = f[:spread]		
 
 			if f[:spread] == "low"
 
@@ -4308,6 +4308,8 @@ module MatchupsHelper
 
 				if (hi_spread_five_wins + hi_spread_five_losses) != 0
 
+					@test1 = hi_spread_five_wins + hi_spread_five_losses
+
 					consensus_info[:hi_spread_five_prcnt] = ((hi_spread_five_wins.to_f/(hi_spread_five_wins + hi_spread_five_losses)).round(2) * 100).to_s + "%"
 
 					if consensus_info[:hi_spread_five_prcnt].to_f <= 39.0
@@ -4507,7 +4509,7 @@ module MatchupsHelper
 
 							if m.total.to_f < 8
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									low_five_wins = low_five_wins + 1
 						
@@ -4519,7 +4521,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 8 && m.total.to_f < 10
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									med_five_wins = med_five_wins + 1
 						
@@ -4531,7 +4533,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 10
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									hi_five_wins = hi_five_wins + 1
 						
@@ -4548,7 +4550,7 @@ module MatchupsHelper
 
 							if m.total.to_f < 48
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									low_five_wins = low_five_wins + 1
 						
@@ -4560,7 +4562,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 48 && m.total.to_f < 53
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									med_five_wins = med_five_wins + 1
 						
@@ -4572,7 +4574,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 53
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									hi_five_wins = low_five_wins + 1
 						
@@ -4589,7 +4591,7 @@ module MatchupsHelper
 
 							if m.total.to_f < 220
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									low_five_wins = low_five_wins + 1
 						
@@ -4601,7 +4603,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 220 && m.total.to_f < 228
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									med_five_wins = med_five_wins + 1
 						
@@ -4613,7 +4615,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 228
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									hi_five_wins = hi_five_wins + 1
 						
@@ -4645,7 +4647,7 @@ module MatchupsHelper
 
 							if m.total.to_f < 8
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									low_ten_wins = low_ten_wins + 1
 						
@@ -4657,7 +4659,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 8 && m.total.to_f < 10
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									med_ten_wins = med_ten_wins + 1
 						
@@ -4669,7 +4671,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 10
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									hi_ten_wins = hi_ten_wins + 1
 						
@@ -4686,7 +4688,7 @@ module MatchupsHelper
 
 							if m.total.to_f < 48
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									low_ten_wins = low_ten_wins + 1
 						
@@ -4698,7 +4700,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 48 && m.total.to_f < 53
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									med_ten_wins = med_ten_wins + 1
 						
@@ -4710,7 +4712,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 53
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									hi_ten_wins = low_ten_wins + 1
 						
@@ -4727,7 +4729,7 @@ module MatchupsHelper
 
 							if m.total.to_f < 220
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									low_ten_wins = low_ten_wins + 1
 						
@@ -4739,7 +4741,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 220 && m.total.to_f < 228
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									med_ten_wins = med_ten_wins + 1
 						
@@ -4751,7 +4753,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 228
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									hi_ten_wins = hi_ten_wins + 1
 						
@@ -4783,7 +4785,7 @@ module MatchupsHelper
 
 							if m.total.to_f < 8
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									low_twenty_wins = low_twenty_wins + 1
 						
@@ -4795,7 +4797,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 8 && m.total.to_f < 10
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									med_twenty_wins = med_twenty_wins + 1
 						
@@ -4807,7 +4809,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 10
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									hi_twenty_wins = hi_twenty_wins + 1
 						
@@ -4824,7 +4826,7 @@ module MatchupsHelper
 
 							if m.total.to_f < 48
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									low_twenty_wins = low_twenty_wins + 1
 						
@@ -4836,7 +4838,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 48 && m.total.to_f < 53
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									med_twenty_wins = med_twenty_wins + 1
 						
@@ -4848,7 +4850,7 @@ module MatchupsHelper
 
 							elsif m.total.to_f >= 53
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
 									hi_twenty_wins = low_twenty_wins + 1
 						
@@ -4985,12 +4987,13 @@ module MatchupsHelper
 
 			if (hi_five_wins + hi_five_losses) !=0
 
+
+
 				consensus_info[:hi_last_five_prcnt] = (((hi_five_wins.to_f/(hi_five_wins + hi_five_losses)) * 100).round(2)).to_s + "%"
 
 				if consensus_info[:hi_last_five_prcnt].to_f <= 39.0
 
 					consensus_info[:hi_last_five_rating] = "frigid"
-
 
 				elsif consensus_info[:hi_last_five_prcnt].to_f > 39 && consensus_info[:hi_last_five_prcnt].to_f < 46
 
@@ -5005,6 +5008,7 @@ module MatchupsHelper
 						consensus_info[:hi_last_five_rating] = "hot"
 
 				elsif consensus_info[:hi_last_five_prcnt].to_f >= 65
+
 						
 						consensus_info[:hi_last_five_rating] = "on fire"
 
@@ -5020,6 +5024,8 @@ module MatchupsHelper
 			end
 
 			if (low_ten_wins + low_ten_losses) !=0
+
+				@test1 = low_ten_wins.to_s + " " + low_ten_losses.to_s
 
 				consensus_info[:low_last_ten_prcnt] = (((low_ten_wins.to_f/(low_ten_wins + low_ten_losses)) * 100).round(2)).to_s + "%"
 
@@ -5041,11 +5047,14 @@ module MatchupsHelper
 						consensus_info[:low_last_ten_rating] = "hot"
 
 				elsif consensus_info[:low_last_ten_prcnt].to_f >= 65
+
 						
 						consensus_info[:low_last_ten_rating] = "on fire"
 
 
 				end
+
+
 			
 			else
 
@@ -5234,7 +5243,6 @@ module MatchupsHelper
 
 
 			end
-
 
 			@ovr_spread_info.push(consensus_info)
 
