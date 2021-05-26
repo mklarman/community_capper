@@ -1544,7 +1544,7 @@ module MatchupsHelper
 
 			if consensus_info[:over_all_last_five_prcnt].to_f <= 39.0
 
-				consensus_info[:last_five_rating] = "ice cold"
+				consensus_info[:last_five_rating] = "frigid"
 
 
 			elsif consensus_info[:over_all_last_five_prcnt].to_f > 39 && consensus_info[:over_all_last_five_prcnt].to_f < 46
@@ -1561,7 +1561,7 @@ module MatchupsHelper
 
 			elsif consensus_info[:over_all_last_five_prcnt].to_f >= 65
 					
-					consensus_info[:last_five_rating] = "red hot"
+					consensus_info[:last_five_rating] = "on fire"
 
 
 			end
@@ -1570,7 +1570,7 @@ module MatchupsHelper
 
 			if consensus_info[:over_all_last_ten_prcnt].to_f <= 39.0
 
-				consensus_info[:last_ten_rating] = "ice cold"
+				consensus_info[:last_ten_rating] = "frigid"
 
 
 			elsif consensus_info[:over_all_last_ten_prcnt].to_f > 39 && consensus_info[:over_all_last_ten_prcnt].to_f < 46
@@ -1587,7 +1587,7 @@ module MatchupsHelper
 
 			elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 65
 					
-					consensus_info[:last_ten_rating] = "red hot"
+					consensus_info[:last_ten_rating] = "on fire"
 
 
 			end
@@ -1596,7 +1596,7 @@ module MatchupsHelper
 
 			if consensus_info[:over_all_last_twenty_prcnt].to_f <= 39.0
 
-				consensus_info[:last_twenty_rating] = "ice cold"
+				consensus_info[:last_twenty_rating] = "frigid"
 
 
 			elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 39 && consensus_info[:over_all_last_twenty_prcnt].to_f < 46
@@ -1613,7 +1613,7 @@ module MatchupsHelper
 
 			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 65
 					
-					consensus_info[:last_twenty_rating] = "red hot"
+					consensus_info[:last_twenty_rating] = "on fire"
 
 
 			end
@@ -1826,7 +1826,7 @@ module MatchupsHelper
 
 			if consensus_info[:over_all_last_five_prcnt].to_f <= 39.0
 
-				consensus_info[:last_five_rating] = "ice cold"
+				consensus_info[:last_five_rating] = "frigid"
 
 
 			elsif consensus_info[:over_all_last_five_prcnt].to_f > 39 && consensus_info[:over_all_last_five_prcnt].to_f < 46
@@ -1843,7 +1843,7 @@ module MatchupsHelper
 
 			elsif consensus_info[:over_all_last_five_prcnt].to_f >= 65
 					
-					consensus_info[:last_five_rating] = "red hot"
+					consensus_info[:last_five_rating] = "on fire"
 
 
 			end
@@ -1853,7 +1853,7 @@ module MatchupsHelper
 
 			if consensus_info[:over_all_last_ten_prcnt].to_f <= 39.0
 
-				consensus_info[:last_ten_rating] = "ice cold"
+				consensus_info[:last_ten_rating] = "frigid"
 
 
 			elsif consensus_info[:over_all_last_ten_prcnt].to_f > 39 && consensus_info[:over_all_last_ten_prcnt].to_f < 46
@@ -1870,7 +1870,7 @@ module MatchupsHelper
 
 			elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 65
 					
-					consensus_info[:last_ten_rating] = "red hot"
+					consensus_info[:last_ten_rating] = "on fire"
 
 
 			end
@@ -1880,7 +1880,7 @@ module MatchupsHelper
 
 			if consensus_info[:over_all_last_twenty_prcnt].to_f <= 39.0
 
-				consensus_info[:last_twenty_rating] = "ice cold"
+				consensus_info[:last_twenty_rating] = "frigid"
 
 
 			elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 39 && consensus_info[:over_all_last_twenty_prcnt].to_f < 46
@@ -1897,7 +1897,7 @@ module MatchupsHelper
 
 			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 65
 					
-					consensus_info[:last_twenty_rating] = "red hot"
+					consensus_info[:last_twenty_rating] = "on fire"
 
 
 			end
@@ -2137,7 +2137,7 @@ module MatchupsHelper
 
 			if consensus_info[:over_all_last_ten_prcnt].to_f <= 39.0
 
-				consensus_info[:last_ten_rating] = "ice cold"
+				consensus_info[:last_ten_rating] = "frigid"
 
 
 			elsif consensus_info[:over_all_last_ten_prcnt].to_f > 39 && consensus_info[:over_all_last_ten_prcnt].to_f < 46
@@ -2154,7 +2154,7 @@ module MatchupsHelper
 
 			elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 65
 					
-					consensus_info[:last_ten_rating] = "red hot"
+					consensus_info[:last_ten_rating] = "on fire"
 
 
 			end
@@ -2164,7 +2164,7 @@ module MatchupsHelper
 
 			if consensus_info[:over_all_last_twenty_prcnt].to_f <= 39.0
 
-				consensus_info[:last_twenty_rating] = "ice cold"
+				consensus_info[:last_twenty_rating] = "frigid"
 
 
 			elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 39 && consensus_info[:over_all_last_twenty_prcnt].to_f < 46
@@ -2181,7 +2181,7 @@ module MatchupsHelper
 
 			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 65
 					
-					consensus_info[:last_twenty_rating] = "red hot"
+					consensus_info[:last_twenty_rating] = "on fire"
 
 
 			end
