@@ -235,6 +235,18 @@
 
 	<% end %>
 
+	<% @ovr_spread_info.each do |b| %>
+
+		<div>
+
+			<%= b[:med_last_five_rating] %>
+			<%= b[:med_last_ten_rating] %>
+			<%= b[:med_last_twenty_rating] %>
+
+		</div>
+
+	<% end %>
+
 	<br>
 	<br>
 
