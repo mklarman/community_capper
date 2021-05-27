@@ -227,3 +227,133 @@
 
 }
 
+#count_cont{
+
+	height: 100%;
+	width: 100%;
+}
+
+#adv_met{
+
+	height: 100%;
+	width: 100%;
+	border: 1px solid black;
+}
+
+#adv_met_label{
+
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	font-size: 25px;
+	margin-bottom: 5%;
+}
+
+#dog_met{
+
+	width: 25%;
+	font-size: 20px;
+	
+
+}
+
+#fav_met{
+
+	width: 30%;
+	font-size: 20px;
+	
+
+
+}
+
+.metric_boxes{
+
+	display: inline-block;
+	vertical-align: top;
+}
+
+.met_boxes{
+
+	text-align: right;
+}
+
+#on_fire_fav{
+
+	margin-left: 20%;
+
+}
+#hot_fav{
+
+	margin-left: 20%;
+
+}
+#choppy_fav{
+
+	margin-left: 20%;
+
+}
+#cold_fav{
+
+	margin-left: 20%;
+
+}
+#frigid_fav{
+
+	margin-left: 20%;
+
+}
+#nr_fav{
+
+	margin-left: 20%;
+
+}
+
+#on_fire_dog{
+
+	margin-left: 50%;
+	width: 100%;
+
+}
+#hot_dog{
+
+	margin-left: 50%;
+	width: 100%;
+
+}
+#choppy_dog{
+
+	margin-left: 50%;
+	width: 100%;
+
+}
+#cold_dog{
+
+	margin-left: 50%;
+	width: 100%;
+
+}
+#frigid_dog{
+
+	margin-left: 50%;
+	width: 100%;
+
+}
+#nr_dog{
+
+	margin-left: 50%;
+	width: 100%;
+
+}
+
+.met_links{
+
+	height: 100%;
+	width: 100%;
+	text-decoration: underline;
+	color: blue;
+	cursor: pointer;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	text-align: center;
+}
+

@@ -529,6 +529,153 @@
 
 	</div>
 
+	<div id="adv_met"><div id="adv_met_label">ADVANCED METRICS</div>
+
+		<div id="last_five_sport" class="met_links">RATING FOR LAST 5 PICKS IN <%= @matchup.sport %></div>
+		<div id="last_ten_sport" class="met_links">RATING FOR LAST 10 PICKS IN <%= @matchup.sport %></div>
+		<div id="last_twenty_sport" class="met_links">RATING FOR LAST 20 PICKS IN <%= @matchup.sport %></div>
+
+		<div id="count_cont">
+
+			<div id="fav_met" class = "metric_boxes">
+
+				<div id="on_fire_fav" class="met_boxes">ON FIRE BETTORS: <div id="on_fire_count_fav" style="display: inline-block; vertical-align: top; color: red;"></div> </div>
+				<div id="hot_fav" class="met_boxes">HOT BETTORS: <div id="hot_count_fav" style="display: inline-block; vertical-align: top; color: orange;"></div></div>
+				<div id="choppy_fav" class="met_boxes">CHOPPY BETTORS: <div id="choppy_count_fav" style="display: inline-block; vertical-align: top;"></div></div>
+				<div id="cold_fav" class="met_boxes">COLD BETTORS: <div id="cold_count_fav" style="display: inline-block; vertical-align: top; color: blue;"></div></div>
+				<div id="frigid_fav" class="met_boxes">FRIGID BETTORS: <div id="frigid_count_fav" style="display: inline-block; vertical-align: top; color: darkblue;"></div></div>
+				<div id="nr_fav" class="met_boxes">BETTORS W/O RATING: <div id="nr_count_fav" style="display: inline-block; vertical-align: top; color: gray;"></div></div>
+
+
+
+			</div>
+
+			<div id="dog_met" class = "metric_boxes">
+
+				<div id="on_fire_dog" class="met_boxes">ON FIRE BETTORS: <div id="on_fire_count_dog" style="display: inline-block; vertical-align: top; color: red;"></div> </div>
+				<div id="hot_dog" class="met_boxes">HOT BETTORS: <div id="hot_count_dog" style="display: inline-block; vertical-align: top; color: orange;"></div></div>
+				<div id="choppy_dog" class="met_boxes">CHOPPY BETTORS: <div id="choppy_count_dog" style="display: inline-block; vertical-align: top;"></div></div>
+				<div id="cold_dog" class="met_boxes">COLD BETTORS: <div id="cold_count_dog" style="display: inline-block; vertical-align: top; color: blue;"></div></div>
+				<div id="frigid_dog" class="met_boxes">FRIGID BETTORS: <div id="frigid_count_dog" style="display: inline-block; vertical-align: top; color: darkblue;"></div></div>
+				<div id="nr_dog" class="met_boxes">FRIGID BETTORS:<div id="nr_count_dog" style="display: inline-block; vertical-align: top; color: gray;"></div> </div>
+
+
+
+			</div>
+
+
+		</div>
+
+		<script>
+
+			var lastFiveSport = document.getElementById("last_five_sport")
+
+			lastFiveSport.addEventListener("click", function(){
+
+				var lastFiveSportFrigid = 0
+				var lastFiveSportCold = 0
+				var lastFiveSportChoppy = 0
+				var lastFiveSportHot = 0
+				var lastFiveSportOnFire = 0
+				var lastFiveSportNoRating = 0
+
+				<% @fav_bettors_info.each do |b| %>
+
+					<% if b[:last_five_rating] == "frigid" %>
+
+						lastFiveSportFrigid++
+
+
+					<% elsif b[:last_five_rating] == "cold" %>
+
+						lastFiveSportCold++
+
+					<% elsif b[:last_five_rating] == "choppy" %>
+
+						lastFiveSportChoppy++
+
+
+					<% elsif b[:last_five_rating] == "hot" %>
+
+						lastFiveSportHot++
+
+					<% elsif b[:last_five_rating] == "on fire" %>
+
+						lastFiveSportOnFire++
+					<% elsif b[:last_five_rating] == "none" %>
+
+						lastFiveSportNoRating++
+
+					<% end %>
+
+
+
+				<% end %>
+
+				on_fire_count_fav.innerHTML = lastFiveSportOnFire
+				hot_count_fav.innerHTML = lastFiveSportHot
+				choppy_count_fav.innerHTML = lastFiveSportChoppy
+				cold_count_fav.innerHTML = lastFiveSportCold
+				frigid_count_fav.innerHTML = lastFiveSportFrigid
+				nr_count_fav.innerHTML = lastFiveSportNoRating
+
+				lastFiveSportFrigid = 0
+				lastFiveSportCold = 0
+				lastFiveSportChoppy = 0
+				lastFiveSportHot = 0
+				lastFiveSportOnFire = 0
+				lastFiveSportNoRating = 0
+
+				<% @dog_bettors_info.each do |b| %>
+
+					<% if b[:last_five_rating] == "frigid" %>
+
+						lastFiveSportFrigid++
+
+
+					<% elsif b[:last_five_rating] == "cold" %>
+
+						lastFiveSportCold++
+
+					<% elsif b[:last_five_rating] == "choppy" %>
+
+						lastFiveSportChoppy++
+
+
+					<% elsif b[:last_five_rating] == "hot" %>
+
+						lastFiveSportHot++
+
+					<% elsif b[:last_five_rating] == "on fire" %>
+
+						lastFiveSportOnFire++
+					<% elsif b[:last_five_rating] == "none" %>
+
+						lastFiveSportNoRating++
+
+					<% end %>
+
+
+
+				<% end %>
+
+				on_fire_count_dog.innerHTML = lastFiveSportOnFire
+				hot_count_dog.innerHTML = lastFiveSportHot
+				choppy_count_dog.innerHTML = lastFiveSportChoppy
+				cold_count_dog.innerHTML = lastFiveSportCold
+				frigid_count_dog.innerHTML = lastFiveSportFrigid
+				nr_count_dog.innerHTML = lastFiveSportNoRating
+
+
+			})
+
+
+		</script>
+		
+
+
+	</div>
+
 	<div class="info_label">
 		
 		<div class = "total_label">TOTAL INFO: <div id="match_total" class="matchup_boxes"><%= @on_total.to_s + " " + "Selections" %></div></div>
