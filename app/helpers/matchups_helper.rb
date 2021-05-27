@@ -5202,8 +5202,8 @@ module MatchupsHelper
 			
 			else
 
-				consensus_info[:med_last_ten_prcnt] = "none"
-				consensus_info[:med_last_ten_rating] = "none"
+				consensus_info[:med_last_twenty_prcnt] = "none"
+				consensus_info[:med_last_twenty_rating] = "none"
 
 
 			end

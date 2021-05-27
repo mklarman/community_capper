@@ -258,7 +258,7 @@
 
 					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_five_rating] + " last 5 games" %></div>
 					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_ten_rating] + " last 10 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_twenty_rating] + " last 20 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_twenty_rating].to_s + " last 20 games" %></div>
 
 				<% elsif @matchup.total.to_f >= 10 %>
 
@@ -557,7 +557,7 @@
 				<div id="choppy_dog" class="met_boxes">CHOPPY BETTORS: <div id="choppy_count_dog" style="display: inline-block; vertical-align: top;"></div></div>
 				<div id="cold_dog" class="met_boxes">COLD BETTORS: <div id="cold_count_dog" style="display: inline-block; vertical-align: top; color: blue;"></div></div>
 				<div id="frigid_dog" class="met_boxes">FRIGID BETTORS: <div id="frigid_count_dog" style="display: inline-block; vertical-align: top; color: darkblue;"></div></div>
-				<div id="nr_dog" class="met_boxes">FRIGID BETTORS:<div id="nr_count_dog" style="display: inline-block; vertical-align: top; color: gray;"></div> </div>
+				<div id="nr_dog" class="met_boxes">BETTORS W/O RATING: <div id="nr_count_dog" style="display: inline-block; vertical-align: top; color: gray;"></div> </div>
 
 
 
