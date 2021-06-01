@@ -540,7 +540,7 @@ module MatchupsHelper
 
 								else
 
-									if m.road_score.to_f + (m.spread.to_f * -1) > m.home_score.to_i
+									if m.road_score.to_f + m.spread.to_f > m.home_score.to_i
 
 										five_wins = five_wins + 1
 
@@ -692,7 +692,7 @@ module MatchupsHelper
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f  > m.home_score.to_i
+									if m.road_score.to_f + (m.spread.to_f * -1)  > m.home_score.to_i
 
 										ten_wins = ten_wins + 1
 
@@ -844,7 +844,7 @@ module MatchupsHelper
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f  > m.home_score.to_i
+									if m.road_score.to_f + (m.spread.to_f * -1)  > m.home_score.to_i
 
 										twenty_wins = twenty_wins + 1
 
@@ -938,81 +938,111 @@ module MatchupsHelper
 
 			end
 
-			consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
+			if five_wins + five_losses == 0
 
-			if consensus_info[:over_all_last_five_prcnt].to_f <= 39.0
-
-				consensus_info[:last_five_rating] = "frigid"
-
-
-			elsif consensus_info[:over_all_last_five_prcnt].to_f > 39 && consensus_info[:over_all_last_five_prcnt].to_f < 46
-
-				consensus_info[:last_five_rating] = "cold"
-
-			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  46 && consensus_info[:over_all_last_five_prcnt].to_f < 56
-
-				consensus_info[:last_five_rating] = "choppy"
-
-			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  56 && consensus_info[:over_all_last_five_prcnt].to_f < 65
-
-					consensus_info[:last_five_rating] = "hot"
-
-			elsif consensus_info[:over_all_last_five_prcnt].to_f >= 65
-					
-					consensus_info[:last_five_rating] = "on fire"
+				consensus_info[:over_all_last_five_prcnt] = "none"
+				consensus_info[:last_five_rating] = "none"
 
 
-			end
-
-			consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins.to_f + ten_losses)) * 100).round(2)).to_s + "%"
-
-			if consensus_info[:over_all_last_ten_prcnt].to_f <= 39.0
-
-				consensus_info[:last_ten_rating] = "frigid"
+			else 
 
 
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f > 39 && consensus_info[:over_all_last_ten_prcnt].to_f < 46
+				consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
 
-				consensus_info[:last_ten_rating] = "cold"
+				if consensus_info[:over_all_last_five_prcnt].to_f <= 33.0
 
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  46 && consensus_info[:over_all_last_ten_prcnt].to_f < 56
+					consensus_info[:last_five_rating] = "frigid"
 
-				consensus_info[:last_ten_rating] = "choppy"
 
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  56 && consensus_info[:over_all_last_ten_prcnt].to_f < 65
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
 
-					consensus_info[:last_ten_rating] = "hot"
+					consensus_info[:last_five_rating] = "cold"
 
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 65
-					
-					consensus_info[:last_ten_rating] = "on fire"
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  40 && consensus_info[:over_all_last_five_prcnt].to_f < 60
 
+					consensus_info[:last_five_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  60 && consensus_info[:over_all_last_five_prcnt].to_f < 75
+
+						consensus_info[:last_five_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >= 75
+						
+						consensus_info[:last_five_rating] = "on fire"
+
+
+				end
 
 			end
 
-			consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins.to_f + twenty_losses)) * 100).round(2)).to_s + "%"
+			if ten_wins + ten_losses == 0
 
-			if consensus_info[:over_all_last_twenty_prcnt].to_f <= 39.0
+				consensus_info[:over_all_last_ten_prcnt] = "none"
+				consensus_info[:last_ten_rating] = "none"
 
-				consensus_info[:last_twenty_rating] = "frigid"
+			else
+
+				consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins.to_f + ten_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:over_all_last_ten_prcnt].to_f <= 33.0
+
+					consensus_info[:last_ten_rating] = "frigid"
 
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 39 && consensus_info[:over_all_last_twenty_prcnt].to_f < 46
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
 
-				consensus_info[:last_twenty_rating] = "cold"
+					consensus_info[:last_ten_rating] = "cold"
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  46 && consensus_info[:over_all_last_twenty_prcnt].to_f < 56
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  40 && consensus_info[:over_all_last_ten_prcnt].to_f < 60
 
-				consensus_info[:last_twenty_rating] = "choppy"
+					consensus_info[:last_ten_rating] = "choppy"
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  56 && consensus_info[:over_all_last_twenty_prcnt].to_f < 65
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  60 && consensus_info[:over_all_last_ten_prcnt].to_f < 75
 
-					consensus_info[:last_twenty_rating] = "hot"
+						consensus_info[:last_ten_rating] = "hot"
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 65
-					
-					consensus_info[:last_twenty_rating] = "on fire"
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 75
+						
+						consensus_info[:last_ten_rating] = "on fire"
 
+
+				end
+
+			end
+
+			if twenty_wins + twenty_losses == 0
+
+				consensus_info[:over_all_last_twenty_prcnt] = "none"
+				consensus_info[:last_twenty_rating] = "none"
+
+			else
+
+
+				consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins.to_f + twenty_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:over_all_last_twenty_prcnt].to_f <= 33.0
+
+					consensus_info[:last_twenty_rating] = "frigid"
+
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+
+					consensus_info[:last_twenty_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  40 && consensus_info[:over_all_last_twenty_prcnt].to_f < 60
+
+					consensus_info[:last_twenty_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  60 && consensus_info[:over_all_last_twenty_prcnt].to_f < 75
+
+						consensus_info[:last_twenty_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 75
+						
+						consensus_info[:last_twenty_rating] = "on fire"
+
+
+				end
 
 			end
 
@@ -1540,88 +1570,115 @@ module MatchupsHelper
 
 			end
 
-			consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
+			if five_losses + five_wins == 0
 
-			if consensus_info[:over_all_last_five_prcnt].to_f <= 39.0
+				consensus_info[:over_all_last_five_prcnt] = "none"
+				consensus_info[:last_five_rating] = "none"
 
-				consensus_info[:last_five_rating] = "frigid"
-
-
-			elsif consensus_info[:over_all_last_five_prcnt].to_f > 39 && consensus_info[:over_all_last_five_prcnt].to_f < 46
-
-				consensus_info[:last_five_rating] = "cold"
-
-			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  46 && consensus_info[:over_all_last_five_prcnt].to_f < 56
-
-				consensus_info[:last_five_rating] = "choppy"
-
-			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  56 && consensus_info[:over_all_last_five_prcnt].to_f < 65
-
-					consensus_info[:last_five_rating] = "hot"
-
-			elsif consensus_info[:over_all_last_five_prcnt].to_f >= 65
-					
-					consensus_info[:last_five_rating] = "on fire"
+			else
 
 
-			end
+				consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
 
-			consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins + ten_losses)) * 100).round(2)).to_s + "%"
+				if consensus_info[:over_all_last_five_prcnt].to_f <= 33.0
 
-			if consensus_info[:over_all_last_ten_prcnt].to_f <= 39.0
-
-				consensus_info[:last_ten_rating] = "frigid"
+					consensus_info[:last_five_rating] = "frigid"
 
 
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f > 39 && consensus_info[:over_all_last_ten_prcnt].to_f < 46
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
 
-				consensus_info[:last_ten_rating] = "cold"
+					consensus_info[:last_five_rating] = "cold"
 
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  46 && consensus_info[:over_all_last_ten_prcnt].to_f < 56
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  40 && consensus_info[:over_all_last_five_prcnt].to_f < 60
 
-				consensus_info[:last_ten_rating] = "choppy"
+					consensus_info[:last_five_rating] = "choppy"
 
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  56 && consensus_info[:over_all_last_ten_prcnt].to_f < 65
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  60 && consensus_info[:over_all_last_five_prcnt].to_f < 75
 
-					consensus_info[:last_ten_rating] = "hot"
+						consensus_info[:last_five_rating] = "hot"
 
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 65
-					
-					consensus_info[:last_ten_rating] = "on fire"
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >= 75
+						
+						consensus_info[:last_five_rating] = "on fire"
 
+
+				end
 
 			end
 
-			consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins + twenty_losses)) * 100).round(2)).to_s + "%"
+			if ten_wins + ten_losses == 0
 
-			if consensus_info[:over_all_last_twenty_prcnt].to_f <= 39.0
+				consensus_info[:over_all_last_ten_prcnt] = "none"
+				consensus_info[:last_ten_rating] = "none"
 
-				consensus_info[:last_twenty_rating] = "frigid"
+			else
 
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 39 && consensus_info[:over_all_last_twenty_prcnt].to_f < 46
+				consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins + ten_losses)) * 100).round(2)).to_s + "%"
 
-				consensus_info[:last_twenty_rating] = "cold"
+				if consensus_info[:over_all_last_ten_prcnt].to_f <= 33.0
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  46 && consensus_info[:over_all_last_twenty_prcnt].to_f < 56
+					consensus_info[:last_ten_rating] = "frigid"
 
-				consensus_info[:last_twenty_rating] = "choppy"
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  56 && consensus_info[:over_all_last_twenty_prcnt].to_f < 65
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
 
-					consensus_info[:last_twenty_rating] = "hot"
+					consensus_info[:last_ten_rating] = "cold"
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 65
-					
-					consensus_info[:last_twenty_rating] = "on fire"
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  40 && consensus_info[:over_all_last_ten_prcnt].to_f < 60
 
+					consensus_info[:last_ten_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  60 && consensus_info[:over_all_last_ten_prcnt].to_f < 75
+
+						consensus_info[:last_ten_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 75
+						
+						consensus_info[:last_ten_rating] = "on fire"
+
+
+				end
+
+			end
+
+			if twenty_losses + twenty_wins == 0
+
+				consensus_info[:over_all_last_twenty_prcnt] = "none"
+				consensus_info[:last_twenty_rating] = "none"
+
+			else
+
+				consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins + twenty_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:over_all_last_twenty_prcnt].to_f <= 33.0
+
+					consensus_info[:last_twenty_rating] = "frigid"
+
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+
+					consensus_info[:last_twenty_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  40 && consensus_info[:over_all_last_twenty_prcnt].to_f < 60
+
+					consensus_info[:last_twenty_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  60 && consensus_info[:over_all_last_twenty_prcnt].to_f < 75
+
+						consensus_info[:last_twenty_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 75
+						
+						consensus_info[:last_twenty_rating] = "on fire"
+
+
+				end
 
 			end
 
 			@dog_bettors_info.push(consensus_info)
 			
-
-
 		end
 
 		@ovr_obj.each do |x|
@@ -1697,7 +1754,7 @@ module MatchupsHelper
 
 						if team == "O"
 
-							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
 
 								five_wins = five_wins + 1
 							
@@ -1711,7 +1768,7 @@ module MatchupsHelper
 
 						else
 
-							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
 
 								five_wins = five_wins + 1
 
@@ -1741,7 +1798,7 @@ module MatchupsHelper
 
 						if team == "O"
 
-							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
 
 								ten_wins = ten_wins + 1
 							
@@ -1755,7 +1812,7 @@ module MatchupsHelper
 
 						else
 
-							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
 
 								ten_wins = ten_wins + 1
 
@@ -1788,7 +1845,7 @@ module MatchupsHelper
 
 						if team == "O"
 
-							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
 
 								twenty_wins = twenty_wins + 1
 							
@@ -1802,7 +1859,7 @@ module MatchupsHelper
 
 						else
 
-							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
 
 								twenty_wins = twenty_wins + 1
 
@@ -1820,91 +1877,117 @@ module MatchupsHelper
 
 				end
 
-			end
+			end	
 
-			consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
+			if five_wins + five_losses == 0
 
-			if consensus_info[:over_all_last_five_prcnt].to_f <= 39.0
+				consensus_info[:over_all_last_five_prcnt] = "none"
+				consensus_info[:last_five_rating] = "none"
 
-				consensus_info[:last_five_rating] = "frigid"
+			else
 
+				consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
 
-			elsif consensus_info[:over_all_last_five_prcnt].to_f > 39 && consensus_info[:over_all_last_five_prcnt].to_f < 46
+				if consensus_info[:over_all_last_five_prcnt].to_f <= 33.0
 
-				consensus_info[:last_five_rating] = "cold"
-
-			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  46 && consensus_info[:over_all_last_five_prcnt].to_f < 56
-
-				consensus_info[:last_five_rating] = "choppy"
-
-			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  56 && consensus_info[:over_all_last_five_prcnt].to_f < 65
-
-					consensus_info[:last_five_rating] = "hot"
-
-			elsif consensus_info[:over_all_last_five_prcnt].to_f >= 65
-					
-					consensus_info[:last_five_rating] = "on fire"
+					consensus_info[:last_five_rating] = "ice cold"
 
 
-			end
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
 
-			consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins + ten_losses)) * 100).round(2)).to_s + "%"
+					consensus_info[:last_five_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  40 && consensus_info[:over_all_last_five_prcnt].to_f < 60
+
+					consensus_info[:last_five_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  60 && consensus_info[:over_all_last_five_prcnt].to_f < 75
+
+						consensus_info[:last_five_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >= 75
+						
+						consensus_info[:last_five_rating] = "on fire"
 
 
-			if consensus_info[:over_all_last_ten_prcnt].to_f <= 39.0
-
-				consensus_info[:last_ten_rating] = "frigid"
-
-
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f > 39 && consensus_info[:over_all_last_ten_prcnt].to_f < 46
-
-				consensus_info[:last_ten_rating] = "cold"
-
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  46 && consensus_info[:over_all_last_ten_prcnt].to_f < 56
-
-				consensus_info[:last_ten_rating] = "choppy"
-
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  56 && consensus_info[:over_all_last_ten_prcnt].to_f < 65
-
-					consensus_info[:last_ten_rating] = "hot"
-
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 65
-					
-					consensus_info[:last_ten_rating] = "on fire"
-
+				end
 
 			end
 
-			consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins + twenty_losses)) * 100).round(2)).to_s + "%"
+			if ten_wins + ten_losses == 0
+
+				consensus_info[:over_all_last_ten_prcnt] = "none"
+				consensus_info[:last_ten_rating] = "none"
+
+			else
+
+				consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins + ten_losses)) * 100).round(2)).to_s + "%"
 
 
-			if consensus_info[:over_all_last_twenty_prcnt].to_f <= 39.0
+				if consensus_info[:over_all_last_ten_prcnt].to_f <= 33.0
 
-				consensus_info[:last_twenty_rating] = "frigid"
+					consensus_info[:last_ten_rating] = "frigid"
 
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 39 && consensus_info[:over_all_last_twenty_prcnt].to_f < 46
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
 
-				consensus_info[:last_twenty_rating] = "cold"
+					consensus_info[:last_ten_rating] = "cold"
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  46 && consensus_info[:over_all_last_twenty_prcnt].to_f < 56
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  40 && consensus_info[:over_all_last_ten_prcnt].to_f < 60
 
-				consensus_info[:last_twenty_rating] = "choppy"
+					consensus_info[:last_ten_rating] = "choppy"
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  56 && consensus_info[:over_all_last_twenty_prcnt].to_f < 65
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  60 && consensus_info[:over_all_last_ten_prcnt].to_f < 75
 
-					consensus_info[:last_twenty_rating] = "hot"
+						consensus_info[:last_ten_rating] = "hot"
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 65
-					
-					consensus_info[:last_twenty_rating] = "on fire"
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 75
+						
+						consensus_info[:last_ten_rating] = "on fire"
 
+
+				end
+
+			end
+
+			if twenty_wins + twenty_losses == 0
+
+				consensus_info[:over_all_last_twenty_prcnt] = "none"
+				consensus_info[:last_twenty_rating] = "none"
+
+			else
+
+
+				consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins + twenty_losses)) * 100).round(2)).to_s + "%"
+
+
+				if consensus_info[:over_all_last_twenty_prcnt].to_f <= 33.0
+
+					consensus_info[:last_twenty_rating] = "frigid"
+
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+
+					consensus_info[:last_twenty_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  40 && consensus_info[:over_all_last_twenty_prcnt].to_f < 60
+
+					consensus_info[:last_twenty_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 60 && consensus_info[:over_all_last_twenty_prcnt].to_f < 75
+
+						consensus_info[:last_twenty_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 75
+						
+						consensus_info[:last_twenty_rating] = "on fire"
+
+
+				end
 
 			end
 
 			@ovr_bettors_info.push(consensus_info)
-			
-
 
 		end
 
@@ -1981,7 +2064,7 @@ module MatchupsHelper
 
 						if team == "O"
 
-							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
 
 								five_wins = five_wins + 1
 							
@@ -1995,7 +2078,7 @@ module MatchupsHelper
 
 						else
 
-							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
 
 								five_wins = five_wins + 1
 
@@ -2025,7 +2108,7 @@ module MatchupsHelper
 
 						if team == "O"
 
-							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
 
 								ten_wins = ten_wins + 1
 							
@@ -2039,7 +2122,7 @@ module MatchupsHelper
 
 						else
 
-							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
 
 								ten_wins = ten_wins + 1
 
@@ -2072,7 +2155,7 @@ module MatchupsHelper
 
 						if team == "O"
 
-							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
 
 								twenty_wins = twenty_wins + 1
 							
@@ -2086,7 +2169,7 @@ module MatchupsHelper
 
 						else
 
-							if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+							if m.total.to_i > m.home_score.to_i + m.road_score.to_i
 
 								twenty_wins = twenty_wins + 1
 
@@ -2106,89 +2189,115 @@ module MatchupsHelper
 
 			end
 
-			consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
+			if five_wins + five_losses == 0
 
-			if consensus_info[:over_all_last_five_prcnt].to_f <= 39.0
+				consensus_info[:over_all_last_five_prcnt] = "none"
+				consensus_info[:last_five_rating] = "none"
 
-				consensus_info[:last_five_rating] = "ice cold"
+			else
 
+				consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
 
-			elsif consensus_info[:over_all_last_five_prcnt].to_f > 39 && consensus_info[:over_all_last_five_prcnt].to_f < 46
+				if consensus_info[:over_all_last_five_prcnt].to_f <= 33.0
 
-				consensus_info[:last_five_rating] = "cold"
-
-			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  46 && consensus_info[:over_all_last_five_prcnt].to_f < 56
-
-				consensus_info[:last_five_rating] = "choppy"
-
-			elsif consensus_info[:over_all_last_five_prcnt].to_f >=  56 && consensus_info[:over_all_last_five_prcnt].to_f < 65
-
-					consensus_info[:last_five_rating] = "hot"
-
-			elsif consensus_info[:over_all_last_five_prcnt].to_f >= 65
-					
-					consensus_info[:last_five_rating] = "red hot"
+					consensus_info[:last_five_rating] = "ice cold"
 
 
-			end
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
 
-			consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins + ten_losses)) * 100).round(2)).to_s + "%"
+					consensus_info[:last_five_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  40 && consensus_info[:over_all_last_five_prcnt].to_f < 60
+
+					consensus_info[:last_five_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  60 && consensus_info[:over_all_last_five_prcnt].to_f < 75
+
+						consensus_info[:last_five_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >= 75
+						
+						consensus_info[:last_five_rating] = "on fire"
 
 
-			if consensus_info[:over_all_last_ten_prcnt].to_f <= 39.0
-
-				consensus_info[:last_ten_rating] = "frigid"
-
-
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f > 39 && consensus_info[:over_all_last_ten_prcnt].to_f < 46
-
-				consensus_info[:last_ten_rating] = "cold"
-
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  46 && consensus_info[:over_all_last_ten_prcnt].to_f < 56
-
-				consensus_info[:last_ten_rating] = "choppy"
-
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  56 && consensus_info[:over_all_last_ten_prcnt].to_f < 65
-
-					consensus_info[:last_ten_rating] = "hot"
-
-			elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 65
-					
-					consensus_info[:last_ten_rating] = "on fire"
-
+				end
 
 			end
 
-			consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins + twenty_losses)) * 100).round(2)).to_s + "%"
+			if ten_wins + ten_losses == 0
+
+				consensus_info[:over_all_last_ten_prcnt] = "none"
+				consensus_info[:last_ten_rating] = "none"
+
+			else
+
+				consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins + ten_losses)) * 100).round(2)).to_s + "%"
 
 
-			if consensus_info[:over_all_last_twenty_prcnt].to_f <= 39.0
+				if consensus_info[:over_all_last_ten_prcnt].to_f <= 33.0
 
-				consensus_info[:last_twenty_rating] = "frigid"
+					consensus_info[:last_ten_rating] = "frigid"
 
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 39 && consensus_info[:over_all_last_twenty_prcnt].to_f < 46
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
 
-				consensus_info[:last_twenty_rating] = "cold"
+					consensus_info[:last_ten_rating] = "cold"
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  46 && consensus_info[:over_all_last_twenty_prcnt].to_f < 56
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  40 && consensus_info[:over_all_last_ten_prcnt].to_f < 60
 
-				consensus_info[:last_twenty_rating] = "choppy"
+					consensus_info[:last_ten_rating] = "choppy"
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  56 && consensus_info[:over_all_last_twenty_prcnt].to_f < 65
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  60 && consensus_info[:over_all_last_ten_prcnt].to_f < 75
 
-					consensus_info[:last_twenty_rating] = "hot"
+						consensus_info[:last_ten_rating] = "hot"
 
-			elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 65
-					
-					consensus_info[:last_twenty_rating] = "on fire"
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 75
+						
+						consensus_info[:last_ten_rating] = "on fire"
 
+
+				end
+
+			end
+
+			if twenty_wins + twenty_losses == 0
+
+				consensus_info[:over_all_last_twenty_prcnt] = "none"
+				consensus_info[:last_twenty_rating] = "none"
+
+			else
+
+
+				consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins + twenty_losses)) * 100).round(2)).to_s + "%"
+
+
+				if consensus_info[:over_all_last_twenty_prcnt].to_f <= 33.0
+
+					consensus_info[:last_twenty_rating] = "frigid"
+
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+
+					consensus_info[:last_twenty_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  40 && consensus_info[:over_all_last_twenty_prcnt].to_f < 60
+
+					consensus_info[:last_twenty_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 60 && consensus_info[:over_all_last_twenty_prcnt].to_f < 75
+
+						consensus_info[:last_twenty_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 75
+						
+						consensus_info[:last_twenty_rating] = "on fire"
+
+
+				end
 
 			end
 
 			@und_bettors_info.push(consensus_info)
-			
-
 
 		end
 
@@ -2239,56 +2348,90 @@ module MatchupsHelper
 
 					u.picks.each do |p|
 
+						team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
 						if p.sport == @matchup.sport
 
-							Matchup.all.each do |m|
+							if p.bet_type == "side"
 
-								if p.matchup_id.to_i == m.id
+								Matchup.all.each do |m|
 
-									if m.home_score.length > 0
+									if p.matchup_id.to_i == m.id
 
-										if @matchup.sport.upcase == "MLB"
+										if m.home_score.length > 0
 
-											if @matchup.fav_ml.to_i > -130
+											if @matchup.sport.upcase == "MLB"
 
-												low_spread_picks.push(p)
+												if team == m.fav
+
+													if (m.fav_ml.to_i).abs < 130
+
+														low_spread_picks.push(p)
 
 
-											elsif @matchup.fav_ml.to_i <= -130 && @matchup.fav_ml.to_i > -160
+													elsif (m.fav_ml.to_i).abs >= 130 && (m.fav_ml.to_i).abs < 160
 
-												med_spread_picks.push(p)
+														med_spread_picks.push(p)
 
-											elsif @matchup.fav_ml.to_i <= -160
+													
+													else
 
-												hi_spread_picks.push(p)
+														hi_spread_picks.push(p)
 
+
+													end
+
+
+												elsif team == m.dog
+
+													if (m.dog_ml.to_i).abs < 130
+
+														low_spread_picks.push(p)
+
+
+													elsif (m.dog_ml.to_i).abs >= 130 && (m.dog_ml.to_i).abs < 160
+
+														med_spread_picks.push(p)
+
+													
+													else
+
+														hi_spread_picks.push(p)
+
+
+													end
+
+
+
+												end
+
+
+											else
+
+												if @matchup.spread.to_i > -4
+
+													low_spread_picks.push(p)
+
+												elsif @matchup.spread.to_i <= -4 && @matchup.spread.to_i > -8
+
+													med_spread_picks.push(p)
+
+												elsif @matchup.spread.to_i <= -8
+
+													hi_spread_picks.push(p)
+
+												end
+													
 											end
 
-
-										else
-
-											if @matchup.spread.to_i > -4
-
-												low_spread_picks.push(p)
-
-											elsif @matchup.spread.to_i <= -4 && @matchup.spread.to_i > -8
-
-												med_spread_picks.push(p)
-
-											elsif @matchup.spread.to_i <= -8
-
-												hi_spread_picks.push(p)
-
-											end
-												
 										end
+
 
 									end
 
 
+
 								end
-
-
 
 							end
 
@@ -2306,71 +2449,149 @@ module MatchupsHelper
 
 				low_spread_picks.last(5).each do |p|
 
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i > m.road_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_five_wins = low_spread_five_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+										else
+
+											low_spread_five_losses = low_spread_five_losses + 1
+										
+										end
+
 									else
 
-										low_spread_five_losses = low_spread_five_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+
+										else 
+
+											low_spread_five_losses = low_spread_five_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f > m.road_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_five_wins = low_spread_five_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											low_spread_five_losses = low_spread_five_losses + 1
+
+
+										end
 
 									else
 
-										low_spread_five_losses = low_spread_five_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											low_spread_five_losses = low_spread_five_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i > m.home_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_five_wins = low_spread_five_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											low_spread_five_losses = low_spread_five_losses + 1
+										
+										end
+
 									else
 
-										low_spread_five_losses = low_spread_five_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+
+										else 
+
+											low_spread_five_losses = low_spread_five_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f > m.home_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_five_wins = low_spread_five_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											low_spread_five_losses = low_spread_five_losses + 1
+
+
+										end
 
 									else
 
-										low_spread_five_losses = low_spread_five_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											low_spread_five_losses = low_spread_five_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
@@ -2382,147 +2603,302 @@ module MatchupsHelper
 
 				low_spread_picks.last(10).each do |p|
 
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i > m.road_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_ten_wins = low_spread_ten_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+										else
+
+											low_spread_ten_losses = low_spread_ten_losses + 1
+										
+										end
+
 									else
 
-										low_spread_ten_losses = low_spread_ten_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+
+										else 
+
+											low_spread_ten_losses = low_spread_ten_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f > m.road_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_ten_wins = low_spread_ten_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											low_spread_ten_losses = low_spread_ten_losses + 1
+
+
+										end
 
 									else
 
-										low_spread_ten_losses = low_spread_ten_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											low_spread_ten_losses = low_spread_ten_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i > m.home_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_ten_wins = low_spread_ten_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											low_spread_ten_losses = low_spread_ten_losses + 1
+										
+										end
+
 									else
 
-										low_spread_ten_losses = low_spread_ten_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+
+										else 
+
+											low_spread_ten_losses = low_spread_ten_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f > m.home_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_ten_wins = low_spread_ten_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											low_spread_ten_losses = low_spread_ten_losses + 1
+
+
+										end
 
 									else
 
-										low_spread_ten_losses = low_spread_ten_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											low_spread_ten_losses = low_spread_ten_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
 
 					end
 
-
 				end
 
 				low_spread_picks.last(20).each do |p|
+
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
 
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i > m.road_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_twenty_wins = low_spread_twenty_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+										else
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+										
+										end
+
 									else
 
-										low_spread_twenty_losses = low_spread_twenty_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+
+										else 
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f > m.road_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_twenty_wins = low_spread_twenty_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+
+
+										end
 
 									else
 
-										low_spread_twenty_losses = low_spread_twenty_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i > m.home_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_twenty_wins = low_spread_twenty_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+										
+										end
+
 									else
 
-										low_spread_twenty_losses = low_spread_twenty_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+
+										else 
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f > m.home_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_twenty_wins = low_spread_twenty_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+
+
+										end
 
 									else
 
-										low_spread_twenty_losses = low_spread_twenty_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
@@ -2536,23 +2912,23 @@ module MatchupsHelper
 
 					consensus_info[:low_spread_five_prcnt] = ((low_spread_five_wins.to_f/(low_spread_five_wins + low_spread_five_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:low_spread_five_prcnt].to_f <= 39.0
+					if consensus_info[:low_spread_five_prcnt].to_f <= 33.0
 
 						consensus_info[:low_spread_five_rating] = "frigid"
 
-					elsif consensus_info[:low_spread_five_prcnt].to_f > 39 && consensus_info[:low_spread_five_prcnt].to_f < 46
+					elsif consensus_info[:low_spread_five_prcnt].to_f > 34 && consensus_info[:low_spread_five_prcnt].to_f < 40
 
 						consensus_info[:low_spread_five_rating] = "cold"
 
-					elsif consensus_info[:low_spread_five_prcnt].to_f >= 46 && consensus_info[:low_spread_five_prcnt].to_f < 56
+					elsif consensus_info[:low_spread_five_prcnt].to_f >= 40 && consensus_info[:low_spread_five_prcnt].to_f < 60
 
 						consensus_info[:low_spread_five_rating] = "choppy"
 
-					elsif consensus_info[:low_spread_five_prcnt].to_f >= 56 && consensus_info[:low_spread_five_prcnt].to_f < 65
+					elsif consensus_info[:low_spread_five_prcnt].to_f >= 60 && consensus_info[:low_spread_five_prcnt].to_f < 75
 
 						consensus_info[:low_spread_five_rating] = "hot"
 
-					elsif consensus_info[:low_spread_five_prcnt].to_f >= 65
+					elsif consensus_info[:low_spread_five_prcnt].to_f >= 75
 
 						consensus_info[:low_spread_five_rating] = "on fire"
 
@@ -2569,23 +2945,23 @@ module MatchupsHelper
 
 					consensus_info[:low_spread_ten_prcnt] = ((low_spread_ten_wins.to_f/(low_spread_ten_wins + low_spread_ten_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:low_spread_ten_prcnt].to_f <= 39.0
+					if consensus_info[:low_spread_ten_prcnt].to_f <= 33.0
 
 						consensus_info[:low_spread_ten_rating] = "frigid"
 
-					elsif consensus_info[:low_spread_ten_prcnt].to_f > 39 && consensus_info[:low_spread_ten_prcnt].to_f < 46
+					elsif consensus_info[:low_spread_ten_prcnt].to_f > 34 && consensus_info[:low_spread_ten_prcnt].to_f < 40
 
 						consensus_info[:low_spread_ten_rating] = "cold"
 
-					elsif consensus_info[:low_spread_ten_prcnt].to_f >= 46 && consensus_info[:low_spread_ten_prcnt].to_f < 56
+					elsif consensus_info[:low_spread_ten_prcnt].to_f >= 40 && consensus_info[:low_spread_ten_prcnt].to_f < 60
 
 						consensus_info[:low_spread_ten_rating] = "choppy"
 
-					elsif consensus_info[:low_spread_ten_prcnt].to_f >= 56 && consensus_info[:low_spread_ten_prcnt].to_f < 65
+					elsif consensus_info[:low_spread_ten_prcnt].to_f >= 60 && consensus_info[:low_spread_ten_prcnt].to_f < 75
 
 						consensus_info[:low_spread_ten_rating] = "hot"
 
-					elsif consensus_info[:low_spread_ten_prcnt].to_f >= 65
+					elsif consensus_info[:low_spread_ten_prcnt].to_f >= 75
 
 						consensus_info[:low_spread_ten_rating] = "on fire"
 
@@ -2604,23 +2980,23 @@ module MatchupsHelper
 
 					consensus_info[:low_spread_twenty_prcnt] = ((low_spread_twenty_wins.to_f/(low_spread_twenty_wins + low_spread_twenty_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:low_spread_twenty_prcnt].to_f <= 39.0
+					if consensus_info[:low_spread_twenty_prcnt].to_f <= 33.0
 
 						consensus_info[:low_spread_twenty_rating] = "frigid"
 
-					elsif consensus_info[:low_spread_twenty_prcnt].to_f > 39 && consensus_info[:low_spread_twenty_prcnt].to_f < 46
+					elsif consensus_info[:low_spread_twenty_prcnt].to_f > 34 && consensus_info[:low_spread_twenty_prcnt].to_f < 40
 
 						consensus_info[:low_spread_twenty_rating] = "cold"
 
-					elsif consensus_info[:low_spread_twenty_prcnt].to_f >= 46 && consensus_info[:low_spread_twenty_prcnt].to_f < 56
+					elsif consensus_info[:low_spread_twenty_prcnt].to_f >= 40 && consensus_info[:low_spread_twenty_prcnt].to_f < 60
 
 						consensus_info[:low_spread_twenty_rating] = "choppy"
 
-					elsif consensus_info[:low_spread_twenty_prcnt].to_f >= 56 && consensus_info[:low_spread_twenty_prcnt].to_f < 65
+					elsif consensus_info[:low_spread_twenty_prcnt].to_f >= 60 && consensus_info[:low_spread_twenty_prcnt].to_f < 75
 
 						consensus_info[:low_spread_twenty_rating] = "hot"
 
-					elsif consensus_info[:low_spread_twenty_prcnt].to_f >= 65
+					elsif consensus_info[:low_spread_twenty_prcnt].to_f >= 75
 
 						consensus_info[:low_spread_twenty_rating] = "on fire"
 
@@ -2638,71 +3014,149 @@ module MatchupsHelper
 
 				med_spread_picks.last(5).each do |p|
 
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i > m.road_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_five_wins = med_spread_five_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+										else
+
+											med_spread_five_losses = med_spread_five_losses + 1
+										
+										end
+
 									else
 
-										med_spread_five_losses = med_spread_five_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+
+										else 
+
+											med_spread_five_losses = med_spread_five_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f > m.road_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_five_wins = med_spread_five_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											med_spread_five_losses = med_spread_five_losses + 1
+
+
+										end
 
 									else
 
-										med_spread_five_losses = med_spread_five_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											med_spread_five_losses = med_spread_five_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i > m.home_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_five_wins = med_spread_five_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											med_spread_five_losses = med_spread_five_losses + 1
+										
+										end
+
 									else
 
-										med_spread_five_losses = med_spread_five_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+
+										else 
+
+											med_spread_five_losses = med_spread_five_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f > m.home_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_five_wins = med_spread_five_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											med_spread_five_losses = med_spread_five_losses + 1
+
+
+										end
 
 									else
 
-										med_spread_five_losses = med_spread_five_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											med_spread_five_losses = med_spread_five_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
@@ -2714,147 +3168,302 @@ module MatchupsHelper
 
 				med_spread_picks.last(10).each do |p|
 
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i > m.road_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_ten_wins = med_spread_ten_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+										else
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+										
+										end
+
 									else
 
-										med_spread_ten_losses = med_spread_ten_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+
+										else 
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f > m.road_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_ten_wins = med_spread_ten_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+
+
+										end
 
 									else
 
-										med_spread_ten_losses = med_spread_ten_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i > m.home_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_ten_wins = med_spread_ten_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+										
+										end
+
 									else
 
-										med_spread_ten_losses = med_spread_ten_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+
+										else 
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f > m.home_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_ten_wins = med_spread_ten_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+
+
+										end
 
 									else
 
-										med_spread_ten_losses = med_spread_ten_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
 
 					end
 
-
 				end
 
 				med_spread_picks.last(20).each do |p|
+
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
 
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i > m.road_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_twenty_wins = med_spread_twenty_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+										else
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+										
+										end
+
 									else
 
-										med_spread_twenty_losses = med_spread_twenty_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+
+										else 
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f > m.road_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_twenty_wins = med_spread_twenty_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+
+
+										end
 
 									else
 
-										med_spread_twenty_losses = med_spread_twenty_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i > m.home_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_twenty_wins = med_spread_twenty_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+										
+										end
+
 									else
 
-										med_spread_twenty_losses = med_spread_twenty_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+
+										else 
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f > m.home_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_twenty_wins = med_spread_twenty_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+
+
+										end
 
 									else
 
-										med_spread_twenty_losses = med_spread_twenty_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
@@ -2868,23 +3477,23 @@ module MatchupsHelper
 
 					consensus_info[:med_spread_five_prcnt] = ((med_spread_five_wins.to_f/(med_spread_five_wins + med_spread_five_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:med_spread_five_prcnt].to_f <= 39.0
+					if consensus_info[:med_spread_five_prcnt].to_f <= 33.0
 
 						consensus_info[:med_spread_five_rating] = "frigid"
 
-					elsif consensus_info[:med_spread_five_prcnt].to_f > 39 && consensus_info[:med_spread_five_prcnt].to_f < 46
+					elsif consensus_info[:med_spread_five_prcnt].to_f > 34 && consensus_info[:med_spread_five_prcnt].to_f < 40
 
 						consensus_info[:med_spread_five_rating] = "cold"
 
-					elsif consensus_info[:med_spread_five_prcnt].to_f >= 46 && consensus_info[:med_spread_five_prcnt].to_f < 56
+					elsif consensus_info[:med_spread_five_prcnt].to_f >= 40 && consensus_info[:med_spread_five_prcnt].to_f < 60
 
 						consensus_info[:med_spread_five_rating] = "choppy"
 
-					elsif consensus_info[:med_spread_five_prcnt].to_f >= 56 && consensus_info[:med_spread_five_prcnt].to_f < 65
+					elsif consensus_info[:med_spread_five_prcnt].to_f >= 60 && consensus_info[:med_spread_five_prcnt].to_f < 75
 
 						consensus_info[:med_spread_five_rating] = "hot"
 
-					elsif consensus_info[:med_spread_five_prcnt].to_f >= 65
+					elsif consensus_info[:med_spread_five_prcnt].to_f >= 75
 
 						consensus_info[:med_spread_five_rating] = "on fire"
 
@@ -2901,23 +3510,23 @@ module MatchupsHelper
 
 					consensus_info[:med_spread_ten_prcnt] = ((med_spread_ten_wins.to_f/(med_spread_ten_wins + med_spread_ten_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:med_spread_ten_prcnt].to_f <= 39.0
+					if consensus_info[:med_spread_ten_prcnt].to_f <= 33.0
 
 						consensus_info[:med_spread_ten_rating] = "frigid"
 
-					elsif consensus_info[:med_spread_ten_prcnt].to_f > 39 && consensus_info[:med_spread_ten_prcnt].to_f < 46
+					elsif consensus_info[:med_spread_ten_prcnt].to_f > 34 && consensus_info[:med_spread_ten_prcnt].to_f < 40
 
 						consensus_info[:med_spread_ten_rating] = "cold"
 
-					elsif consensus_info[:med_spread_ten_prcnt].to_f >= 46 && consensus_info[:med_spread_ten_prcnt].to_f < 56
+					elsif consensus_info[:med_spread_ten_prcnt].to_f >= 40 && consensus_info[:med_spread_ten_prcnt].to_f < 60
 
 						consensus_info[:med_spread_ten_rating] = "choppy"
 
-					elsif consensus_info[:med_spread_ten_prcnt].to_f >= 56 && consensus_info[:med_spread_ten_prcnt].to_f < 65
+					elsif consensus_info[:med_spread_ten_prcnt].to_f >= 60 && consensus_info[:med_spread_ten_prcnt].to_f < 75
 
 						consensus_info[:med_spread_ten_rating] = "hot"
 
-					elsif consensus_info[:med_spread_ten_prcnt].to_f >= 65
+					elsif consensus_info[:med_spread_ten_prcnt].to_f >= 75
 
 						consensus_info[:med_spread_ten_rating] = "on fire"
 
@@ -2934,27 +3543,27 @@ module MatchupsHelper
 
 				if (med_spread_twenty_wins + med_spread_twenty_losses) != 0
 
-					consensus_info[:low_spread_twenty_prcnt] = ((med_spread_twenty_wins.to_f/(med_spread_twenty_wins + med_spread_twenty_losses)).round(2) * 100).to_s + "%"
+					consensus_info[:med_spread_twenty_prcnt] = ((med_spread_twenty_wins.to_f/(med_spread_twenty_wins + med_spread_twenty_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:med_spread_twenty_prcnt].to_f <= 39.0
+					if consensus_info[:med_spread_twenty_prcnt].to_f <= 33.0
 
 						consensus_info[:med_spread_twenty_rating] = "frigid"
 
-					elsif consensus_info[:med_spread_twenty_prcnt].to_f > 39 && consensus_info[:med_spread_twenty_prcnt].to_f < 46
+					elsif consensus_info[:med_spread_twenty_prcnt].to_f > 34 && consensus_info[:med_spread_twenty_prcnt].to_f < 40
 
 						consensus_info[:med_spread_twenty_rating] = "cold"
 
-					elsif consensus_info[:med_spread_twenty_prcnt].to_f >= 46 && consensus_info[:med_spread_twenty_prcnt].to_f < 56
+					elsif consensus_info[:med_spread_twenty_prcnt].to_f >= 40 && consensus_info[:med_spread_twenty_prcnt].to_f < 60
 
 						consensus_info[:med_spread_twenty_rating] = "choppy"
 
-					elsif consensus_info[:med_spread_twenty_prcnt].to_f >= 56 && consensus_info[:med_spread_twenty_prcnt].to_f < 65
+					elsif consensus_info[:med_spread_twenty_prcnt].to_f >= 60 && consensus_info[:med_spread_twenty_prcnt].to_f < 75
 
 						consensus_info[:med_spread_twenty_rating] = "hot"
 
-					elsif consensus_info[:med_spread_twenty_prcnt].to_f >= 65
+					elsif consensus_info[:med_spread_twenty_prcnt].to_f >= 75
 
-						consensus_info[:med_spread_twenty_rating] = "on fire"
+						consensus_info[:low_spread_twenty_rating] = "on fire"
 
 					end
 				
@@ -2970,71 +3579,149 @@ module MatchupsHelper
 
 				hi_spread_picks.last(5).each do |p|
 
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i > m.road_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_five_wins = hi_spread_five_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+										else
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+										
+										end
+
 									else
 
-										hi_spread_five_losses = hi_spread_five_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+
+										else 
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f > m.road_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_five_wins = hi_spread_five_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+
+
+										end
 
 									else
 
-										hi_spread_five_losses = hi_spread_five_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i > m.home_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_five_wins = hi_spread_five_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+										
+										end
+
 									else
 
-										hi_spread_five_losses = hi_spread_five_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+
+										else 
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f > m.home_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_five_wins = hi_spread_five_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+
+
+										end
 
 									else
 
-										hi_spread_five_losses = hi_spread_five_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
@@ -3046,147 +3733,302 @@ module MatchupsHelper
 
 				hi_spread_picks.last(10).each do |p|
 
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i > m.road_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_ten_wins = hi_spread_ten_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+										else
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+										
+										end
+
 									else
 
-										hi_spread_ten_losses = hi_spread_ten_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+
+										else 
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f > m.road_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_ten_wins = hi_spread_ten_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+
+
+										end
 
 									else
 
-										hi_spread_ten_losses = hi_spread_ten_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i > m.home_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_ten_wins = hi_spread_ten_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+										
+										end
+
 									else
 
-										hi_spread_ten_losses = hi_spread_ten_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+
+										else 
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f > m.home_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_ten_wins = hi_spread_ten_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+
+
+										end
 
 									else
 
-										hi_spread_ten_losses = hi_spread_ten_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
 
 					end
 
-
 				end
 
 				hi_spread_picks.last(20).each do |p|
+
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
 
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i > m.road_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_twenty_wins = hi_spread_twenty_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+										else
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+										
+										end
+
 									else
 
-										hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+
+										else 
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f > m.road_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+
+
+										end
 
 									else
 
-										hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i > m.home_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+										
+										end
+
 									else
 
-										hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+
+										else 
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f > m.home_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+
+
+										end
 
 									else
 
-										hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
@@ -3200,23 +4042,23 @@ module MatchupsHelper
 
 					consensus_info[:hi_spread_five_prcnt] = ((hi_spread_five_wins.to_f/(hi_spread_five_wins + hi_spread_five_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:hi_spread_five_prcnt].to_f <= 39.0
+					if consensus_info[:hi_spread_five_prcnt].to_f <= 33.0
 
 						consensus_info[:hi_spread_five_rating] = "frigid"
 
-					elsif consensus_info[:hi_spread_five_prcnt].to_f > 39 && consensus_info[:hi_spread_five_prcnt].to_f < 46
+					elsif consensus_info[:hi_spread_five_prcnt].to_f > 34 && consensus_info[:hi_spread_five_prcnt].to_f < 40
 
 						consensus_info[:hi_spread_five_rating] = "cold"
 
-					elsif consensus_info[:hi_spread_five_prcnt].to_f >= 46 && consensus_info[:hi_spread_five_prcnt].to_f < 56
+					elsif consensus_info[:hi_spread_five_prcnt].to_f >= 40 && consensus_info[:hi_spread_five_prcnt].to_f < 60
 
 						consensus_info[:hi_spread_five_rating] = "choppy"
 
-					elsif consensus_info[:hi_spread_five_prcnt].to_f >= 56 && consensus_info[:hi_spread_five_prcnt].to_f < 65
+					elsif consensus_info[:hi_spread_five_prcnt].to_f >= 60 && consensus_info[:hi_spread_five_prcnt].to_f < 75
 
 						consensus_info[:hi_spread_five_rating] = "hot"
 
-					elsif consensus_info[:hi_spread_five_prcnt].to_f >= 65
+					elsif consensus_info[:hi_spread_five_prcnt].to_f >= 75
 
 						consensus_info[:hi_spread_five_rating] = "on fire"
 
@@ -3233,23 +4075,23 @@ module MatchupsHelper
 
 					consensus_info[:hi_spread_ten_prcnt] = ((hi_spread_ten_wins.to_f/(hi_spread_ten_wins + hi_spread_ten_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:hi_spread_ten_prcnt].to_f <= 39.0
+					if consensus_info[:hi_spread_ten_prcnt].to_f <= 33.0
 
 						consensus_info[:hi_spread_ten_rating] = "frigid"
 
-					elsif consensus_info[:hi_spread_ten_prcnt].to_f > 39 && consensus_info[:hi_spread_ten_prcnt].to_f < 46
+					elsif consensus_info[:hi_spread_ten_prcnt].to_f > 34 && consensus_info[:hi_spread_ten_prcnt].to_f < 40
 
 						consensus_info[:hi_spread_ten_rating] = "cold"
 
-					elsif consensus_info[:hi_spread_ten_prcnt].to_f >= 46 && consensus_info[:hi_spread_ten_prcnt].to_f < 56
+					elsif consensus_info[:hi_spread_ten_prcnt].to_f >= 40 && consensus_info[:hi_spread_ten_prcnt].to_f < 60
 
 						consensus_info[:hi_spread_ten_rating] = "choppy"
 
-					elsif consensus_info[:hi_spread_ten_prcnt].to_f >= 56 && consensus_info[:hi_spread_ten_prcnt].to_f < 65
+					elsif consensus_info[:hi_spread_ten_prcnt].to_f >= 60 && consensus_info[:hi_spread_ten_prcnt].to_f < 75
 
 						consensus_info[:hi_spread_ten_rating] = "hot"
 
-					elsif consensus_info[:hi_spread_ten_prcnt].to_f >= 65
+					elsif consensus_info[:hi_spread_ten_prcnt].to_f >= 75
 
 						consensus_info[:hi_spread_ten_rating] = "on fire"
 
@@ -3268,23 +4110,23 @@ module MatchupsHelper
 
 					consensus_info[:hi_spread_twenty_prcnt] = ((hi_spread_twenty_wins.to_f/(hi_spread_twenty_wins + hi_spread_twenty_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:hi_spread_twenty_prcnt].to_f <= 39.0
+					if consensus_info[:hi_spread_twenty_prcnt].to_f <= 33.0
 
 						consensus_info[:hi_spread_twenty_rating] = "frigid"
 
-					elsif consensus_info[:hi_spread_twenty_prcnt].to_f > 39 && consensus_info[:hi_spread_twenty_prcnt].to_f < 46
+					elsif consensus_info[:hi_spread_twenty_prcnt].to_f > 34 && consensus_info[:hi_spread_twenty_prcnt].to_f < 40
 
 						consensus_info[:hi_spread_twenty_rating] = "cold"
 
-					elsif consensus_info[:hi_spread_twenty_prcnt].to_f >= 46 && consensus_info[:hi_spread_twenty_prcnt].to_f < 56
+					elsif consensus_info[:hi_spread_twenty_prcnt].to_f >= 40 && consensus_info[:hi_spread_twenty_prcnt].to_f < 60
 
 						consensus_info[:hi_spread_twenty_rating] = "choppy"
 
-					elsif consensus_info[:hi_spread_twenty_prcnt].to_f >= 56 && consensus_info[:hi_spread_twenty_prcnt].to_f < 65
+					elsif consensus_info[:hi_spread_twenty_prcnt].to_f >= 60 && consensus_info[:hi_spread_twenty_prcnt].to_f < 75
 
 						consensus_info[:hi_spread_twenty_rating] = "hot"
 
-					elsif consensus_info[:hi_spread_twenty_prcnt].to_f >= 65
+					elsif consensus_info[:hi_spread_twenty_prcnt].to_f >= 75
 
 						consensus_info[:hi_spread_twenty_rating] = "on fire"
 
@@ -3346,56 +4188,90 @@ module MatchupsHelper
 
 					u.picks.each do |p|
 
+						team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
 						if p.sport == @matchup.sport
 
-							Matchup.all.each do |m|
+							if p.bet_type == "side"
 
-								if p.matchup_id.to_i == m.id
+								Matchup.all.each do |m|
 
-									if m.home_score.length > 0
+									if p.matchup_id.to_i == m.id
 
-										if @matchup.sport.upcase == "MLB"
+										if m.home_score.length > 0
 
-											if @matchup.dog_ml.to_i < 130
+											if @matchup.sport.upcase == "MLB"
 
-												low_spread_picks.push(p)
+												if team == m.fav
+
+													if (m.fav_ml.to_i).abs < 130
+
+														low_spread_picks.push(p)
 
 
-											elsif @matchup.dog_ml.to_i >= 130 && @matchup.dog_ml.to_i < 160
+													elsif (m.fav_ml.to_i).abs >= 130 && (m.fav_ml.to_i).abs < 160
 
-												med_spread_picks.push(p)
+														med_spread_picks.push(p)
 
-											elsif @matchup.dog_ml.to_i >= 160
+													
+													else
 
-												hi_spread_picks.push(p)
+														hi_spread_picks.push(p)
 
+
+													end
+
+
+												elsif team == m.dog
+
+													if (m.dog_ml.to_i).abs < 130
+
+														low_spread_picks.push(p)
+
+
+													elsif (m.dog_ml.to_i).abs >= 130 && (m.dog_ml.to_i).abs < 160
+
+														med_spread_picks.push(p)
+
+													
+													else
+
+														hi_spread_picks.push(p)
+
+
+													end
+
+
+
+												end
+
+
+											else
+
+												if @matchup.spread.to_i > -4
+
+													low_spread_picks.push(p)
+
+												elsif @matchup.spread.to_i <= -4 && @matchup.spread.to_i > -8
+
+													med_spread_picks.push(p)
+
+												elsif @matchup.spread.to_i <= -8
+
+													hi_spread_picks.push(p)
+
+												end
+													
 											end
 
-
-										else
-
-											if (@matchup.spread.to_f * -1) < 4
-
-												low_spread_picks.push(p)
-
-											elsif (@matchup.spread.to_f * -1) >= 4 && (@matchup.spread.to_f * -1) < 8
-
-												med_spread_picks.push(p)
-
-											elsif (@matchup.spread.to_f * -1) >= 8
-
-												hi_spread_picks.push(p)
-
-											end
-												
 										end
+
 
 									end
 
 
+
 								end
-
-
 
 							end
 
@@ -3407,79 +4283,155 @@ module MatchupsHelper
 
 				end
 
-			end
-
-			@test3 = f[:spread]		
+			end		
 
 			if f[:spread] == "low"
 
 				low_spread_picks.last(5).each do |p|
 
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i < m.road_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_five_wins = low_spread_five_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+										else
+
+											low_spread_five_losses = low_spread_five_losses + 1
+										
+										end
+
 									else
 
-										low_spread_five_losses = low_spread_five_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+
+										else 
+
+											low_spread_five_losses = low_spread_five_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f < m.road_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_five_wins = low_spread_five_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											low_spread_five_losses = low_spread_five_losses + 1
+
+
+										end
 
 									else
 
-										low_spread_five_losses = low_spread_five_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											low_spread_five_losses = low_spread_five_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i < m.home_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_five_wins = low_spread_five_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											low_spread_five_losses = low_spread_five_losses + 1
+										
+										end
+
 									else
 
-										low_spread_five_losses = low_spread_five_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+
+										else 
+
+											low_spread_five_losses = low_spread_five_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f < m.home_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_five_wins = low_spread_five_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											low_spread_five_losses = low_spread_five_losses + 1
+
+
+										end
 
 									else
 
-										low_spread_five_losses = low_spread_five_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											low_spread_five_wins = low_spread_five_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											low_spread_five_losses = low_spread_five_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
@@ -3491,147 +4443,302 @@ module MatchupsHelper
 
 				low_spread_picks.last(10).each do |p|
 
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i < m.road_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_ten_wins = low_spread_ten_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+										else
+
+											low_spread_ten_losses = low_spread_ten_losses + 1
+										
+										end
+
 									else
 
-										low_spread_ten_losses = low_spread_ten_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+
+										else 
+
+											low_spread_ten_losses = low_spread_ten_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f < m.road_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_ten_wins = low_spread_ten_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											low_spread_ten_losses = low_spread_ten_losses + 1
+
+
+										end
 
 									else
 
-										low_spread_ten_losses = low_spread_ten_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											low_spread_ten_losses = low_spread_ten_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i < m.home_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_ten_wins = low_spread_ten_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											low_spread_ten_losses = low_spread_ten_losses + 1
+										
+										end
+
 									else
 
-										low_spread_ten_losses = low_spread_ten_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+
+										else 
+
+											low_spread_ten_losses = low_spread_ten_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f < m.home_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_ten_wins = low_spread_ten_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											low_spread_ten_losses = low_spread_ten_wins + 1
+
+
+										end
 
 									else
 
-										low_spread_ten_losses = low_spread_ten_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											low_spread_ten_wins = low_spread_ten_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											low_spread_ten_losses = low_spread_ten_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
 
 					end
 
-
 				end
 
 				low_spread_picks.last(20).each do |p|
+
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
 
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i < m.road_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_twenty_wins = low_spread_twenty_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+										else
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+										
+										end
+
 									else
 
-										low_spread_twenty_losses = low_spread_twenty_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+
+										else 
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f < m.road_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_twenty_wins = low_spread_twenty_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+
+
+										end
 
 									else
 
-										low_spread_twenty_losses = low_spread_twenty_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i < m.home_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_twenty_wins = low_spread_twenty_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+										
+										end
+
 									else
 
-										low_spread_twenty_losses = low_spread_twenty_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+
+										else 
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f < m.home_score.to_i
+									if m.fav_field == "home"
 
-										low_spread_twenty_wins = low_spread_twenty_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+
+
+										end
 
 									else
 
-										low_spread_twenty_losses = low_spread_twenty_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											low_spread_twenty_wins = low_spread_twenty_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											low_spread_twenty_losses = low_spread_twenty_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
@@ -3645,23 +4752,23 @@ module MatchupsHelper
 
 					consensus_info[:low_spread_five_prcnt] = ((low_spread_five_wins.to_f/(low_spread_five_wins + low_spread_five_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:low_spread_five_prcnt].to_f <= 39.0
+					if consensus_info[:low_spread_five_prcnt].to_f <= 33.0
 
 						consensus_info[:low_spread_five_rating] = "frigid"
 
-					elsif consensus_info[:low_spread_five_prcnt].to_f > 39 && consensus_info[:low_spread_five_prcnt].to_f < 46
+					elsif consensus_info[:low_spread_five_prcnt].to_f > 34 && consensus_info[:low_spread_five_prcnt].to_f < 40
 
 						consensus_info[:low_spread_five_rating] = "cold"
 
-					elsif consensus_info[:low_spread_five_prcnt].to_f >= 46 && consensus_info[:low_spread_five_prcnt].to_f < 56
+					elsif consensus_info[:low_spread_five_prcnt].to_f >= 40 && consensus_info[:low_spread_five_prcnt].to_f < 60
 
 						consensus_info[:low_spread_five_rating] = "choppy"
 
-					elsif consensus_info[:low_spread_five_prcnt].to_f >= 56 && consensus_info[:low_spread_five_prcnt].to_f < 65
+					elsif consensus_info[:low_spread_five_prcnt].to_f >= 60 && consensus_info[:low_spread_five_prcnt].to_f < 75
 
 						consensus_info[:low_spread_five_rating] = "hot"
 
-					elsif consensus_info[:low_spread_five_prcnt].to_f >= 65
+					elsif consensus_info[:low_spread_five_prcnt].to_f >= 75
 
 						consensus_info[:low_spread_five_rating] = "on fire"
 
@@ -3678,23 +4785,23 @@ module MatchupsHelper
 
 					consensus_info[:low_spread_ten_prcnt] = ((low_spread_ten_wins.to_f/(low_spread_ten_wins + low_spread_ten_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:low_spread_ten_prcnt].to_f <= 39.0
+					if consensus_info[:low_spread_ten_prcnt].to_f <= 33.0
 
 						consensus_info[:low_spread_ten_rating] = "frigid"
 
-					elsif consensus_info[:low_spread_ten_prcnt].to_f > 39 && consensus_info[:low_spread_ten_prcnt].to_f < 46
+					elsif consensus_info[:low_spread_ten_prcnt].to_f > 34 && consensus_info[:low_spread_ten_prcnt].to_f < 40
 
 						consensus_info[:low_spread_ten_rating] = "cold"
 
-					elsif consensus_info[:low_spread_ten_prcnt].to_f >= 46 && consensus_info[:low_spread_ten_prcnt].to_f < 56
+					elsif consensus_info[:low_spread_ten_prcnt].to_f >= 40 && consensus_info[:low_spread_ten_prcnt].to_f < 60
 
 						consensus_info[:low_spread_ten_rating] = "choppy"
 
-					elsif consensus_info[:low_spread_ten_prcnt].to_f >= 56 && consensus_info[:low_spread_ten_prcnt].to_f < 65
+					elsif consensus_info[:low_spread_ten_prcnt].to_f >= 60 && consensus_info[:low_spread_ten_prcnt].to_f < 75
 
 						consensus_info[:low_spread_ten_rating] = "hot"
 
-					elsif consensus_info[:low_spread_ten_prcnt].to_f >= 65
+					elsif consensus_info[:low_spread_ten_prcnt].to_f >= 75
 
 						consensus_info[:low_spread_ten_rating] = "on fire"
 
@@ -3713,23 +4820,23 @@ module MatchupsHelper
 
 					consensus_info[:low_spread_twenty_prcnt] = ((low_spread_twenty_wins.to_f/(low_spread_twenty_wins + low_spread_twenty_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:low_spread_twenty_prcnt].to_f <= 39.0
+					if consensus_info[:low_spread_twenty_prcnt].to_f <= 33.0
 
 						consensus_info[:low_spread_twenty_rating] = "frigid"
 
-					elsif consensus_info[:low_spread_twenty_prcnt].to_f > 39 && consensus_info[:low_spread_twenty_prcnt].to_f < 46
+					elsif consensus_info[:low_spread_twenty_prcnt].to_f > 34 && consensus_info[:low_spread_twenty_prcnt].to_f < 40
 
 						consensus_info[:low_spread_twenty_rating] = "cold"
 
-					elsif consensus_info[:low_spread_twenty_prcnt].to_f >= 46 && consensus_info[:low_spread_twenty_prcnt].to_f < 56
+					elsif consensus_info[:low_spread_twenty_prcnt].to_f >= 40 && consensus_info[:low_spread_twenty_prcnt].to_f < 60
 
 						consensus_info[:low_spread_twenty_rating] = "choppy"
 
-					elsif consensus_info[:low_spread_twenty_prcnt].to_f >= 56 && consensus_info[:low_spread_twenty_prcnt].to_f < 65
+					elsif consensus_info[:low_spread_twenty_prcnt].to_f >= 60 && consensus_info[:low_spread_twenty_prcnt].to_f < 75
 
 						consensus_info[:low_spread_twenty_rating] = "hot"
 
-					elsif consensus_info[:low_spread_twenty_prcnt].to_f >= 65
+					elsif consensus_info[:low_spread_twenty_prcnt].to_f >= 75
 
 						consensus_info[:low_spread_twenty_rating] = "on fire"
 
@@ -3747,71 +4854,149 @@ module MatchupsHelper
 
 				med_spread_picks.last(5).each do |p|
 
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i < m.road_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_five_wins = med_spread_five_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+										else
+
+											med_spread_five_losses = med_spread_five_losses + 1
+										
+										end
+
 									else
 
-										med_spread_five_losses = med_spread_five_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+
+										else 
+
+											med_spread_five_losses = med_spread_five_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f < m.road_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_five_wins = med_spread_five_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											med_spread_five_losses = med_spread_five_losses + 1
+
+
+										end
 
 									else
 
-										med_spread_five_losses = med_spread_five_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											med_spread_five_losses = med_spread_five_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i < m.home_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_five_wins = med_spread_five_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											med_spread_five_losses = med_spread_five_losses + 1
+										
+										end
+
 									else
 
-										med_spread_five_losses = med_spread_five_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+
+										else 
+
+											med_spread_five_losses = med_spread_five_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f < m.home_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_five_wins = med_spread_five_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											med_spread_five_losses = med_spread_five_losses + 1
+
+
+										end
 
 									else
 
-										med_spread_five_losses = med_spread_five_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											med_spread_five_wins = med_spread_five_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											med_spread_five_losses = med_spread_five_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
@@ -3823,147 +5008,302 @@ module MatchupsHelper
 
 				med_spread_picks.last(10).each do |p|
 
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i < m.road_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_ten_wins = med_spread_ten_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+										else
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+										
+										end
+
 									else
 
-										med_spread_ten_losses = med_spread_ten_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+
+										else 
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f < m.road_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_ten_wins = med_spread_ten_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+
+
+										end
 
 									else
 
-										med_spread_ten_losses = med_spread_ten_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i < m.home_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_ten_wins = med_spread_ten_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+										
+										end
+
 									else
 
-										med_spread_ten_losses = med_spread_ten_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+
+										else 
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f < m.home_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_ten_wins = med_spread_ten_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+
+
+										end
 
 									else
 
-										med_spread_ten_losses = med_spread_ten_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											med_spread_ten_wins = med_spread_ten_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											med_spread_ten_losses = med_spread_ten_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
 
 					end
 
-
 				end
 
 				med_spread_picks.last(20).each do |p|
+
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
 
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i < m.road_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_twenty_wins = med_spread_twenty_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+										else
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+										
+										end
+
 									else
 
-										med_spread_twenty_losses = med_spread_twenty_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+
+										else 
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f < m.road_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_twenty_wins = med_spread_twenty_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+
+
+										end
 
 									else
 
-										med_spread_twenty_losses = med_spread_twenty_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i < m.home_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_twenty_wins = med_spread_twenty_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+										
+										end
+
 									else
 
-										med_spread_twenty_losses = med_spread_twenty_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+
+										else 
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f < m.home_score.to_i
+									if m.fav_field == "home"
 
-										med_spread_twenty_wins = med_spread_twenty_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+
+
+										end
 
 									else
 
-										med_spread_twenty_losses = med_spread_twenty_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											med_spread_twenty_wins = med_spread_twenty_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											med_spread_twenty_losses = med_spread_twenty_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
@@ -3977,28 +5317,27 @@ module MatchupsHelper
 
 					consensus_info[:med_spread_five_prcnt] = ((med_spread_five_wins.to_f/(med_spread_five_wins + med_spread_five_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:med_spread_five_prcnt].to_f <= 39.0
+					if consensus_info[:med_spread_five_prcnt].to_f <= 33.0
 
 						consensus_info[:med_spread_five_rating] = "frigid"
 
-					elsif consensus_info[:med_spread_five_prcnt].to_f > 39 && consensus_info[:med_spread_five_prcnt].to_f < 46
+					elsif consensus_info[:med_spread_five_prcnt].to_f > 34 && consensus_info[:med_spread_five_prcnt].to_f < 40
 
 						consensus_info[:med_spread_five_rating] = "cold"
 
-					elsif consensus_info[:med_spread_five_prcnt].to_f >= 46 && consensus_info[:med_spread_five_prcnt].to_f < 56
+					elsif consensus_info[:med_spread_five_prcnt].to_f >= 40 && consensus_info[:med_spread_five_prcnt].to_f < 60
 
 						consensus_info[:med_spread_five_rating] = "choppy"
 
-					elsif consensus_info[:med_spread_five_prcnt].to_f >= 56 && consensus_info[:med_spread_five_prcnt].to_f < 65
+					elsif consensus_info[:med_spread_five_prcnt].to_f >= 60 && consensus_info[:med_spread_five_prcnt].to_f < 75
 
 						consensus_info[:med_spread_five_rating] = "hot"
 
-					elsif consensus_info[:med_spread_five_prcnt].to_f >= 65
+					elsif consensus_info[:med_spread_five_prcnt].to_f >= 75
 
 						consensus_info[:med_spread_five_rating] = "on fire"
 
 					end
-				
 				else
 
 					consensus_info[:med_spread_five_rating] = "none"
@@ -4011,23 +5350,23 @@ module MatchupsHelper
 
 					consensus_info[:med_spread_ten_prcnt] = ((med_spread_ten_wins.to_f/(med_spread_ten_wins + med_spread_ten_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:med_spread_ten_prcnt].to_f <= 39.0
+					if consensus_info[:med_spread_ten_prcnt].to_f <= 33.0
 
 						consensus_info[:med_spread_ten_rating] = "frigid"
 
-					elsif consensus_info[:med_spread_ten_prcnt].to_f > 39 && consensus_info[:med_spread_ten_prcnt].to_f < 46
+					elsif consensus_info[:med_spread_ten_prcnt].to_f > 34 && consensus_info[:med_spread_ten_prcnt].to_f < 40
 
 						consensus_info[:med_spread_ten_rating] = "cold"
 
-					elsif consensus_info[:med_spread_ten_prcnt].to_f >= 46 && consensus_info[:med_spread_ten_prcnt].to_f < 56
+					elsif consensus_info[:med_spread_ten_prcnt].to_f >= 40 && consensus_info[:med_spread_ten_prcnt].to_f < 60
 
 						consensus_info[:med_spread_ten_rating] = "choppy"
 
-					elsif consensus_info[:med_spread_ten_prcnt].to_f >= 56 && consensus_info[:med_spread_ten_prcnt].to_f < 65
+					elsif consensus_info[:med_spread_ten_prcnt].to_f >= 60 && consensus_info[:med_spread_ten_prcnt].to_f < 75
 
 						consensus_info[:med_spread_ten_rating] = "hot"
 
-					elsif consensus_info[:med_spread_ten_prcnt].to_f >= 65
+					elsif consensus_info[:med_spread_ten_prcnt].to_f >= 75
 
 						consensus_info[:med_spread_ten_rating] = "on fire"
 
@@ -4046,25 +5385,25 @@ module MatchupsHelper
 
 					consensus_info[:med_spread_twenty_prcnt] = ((med_spread_twenty_wins.to_f/(med_spread_twenty_wins + med_spread_twenty_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:med_spread_twenty_prcnt].to_f <= 39.0
+					if consensus_info[:med_spread_twenty_prcnt].to_f <= 33.0
 
 						consensus_info[:med_spread_twenty_rating] = "frigid"
 
-					elsif consensus_info[:med_spread_twenty_prcnt].to_f > 39 && consensus_info[:med_spread_twenty_prcnt].to_f < 46
+					elsif consensus_info[:med_spread_twenty_prcnt].to_f > 34 && consensus_info[:med_spread_twenty_prcnt].to_f < 40
 
 						consensus_info[:med_spread_twenty_rating] = "cold"
 
-					elsif consensus_info[:med_spread_twenty_prcnt].to_f >= 46 && consensus_info[:med_spread_twenty_prcnt].to_f < 56
+					elsif consensus_info[:med_spread_twenty_prcnt].to_f >= 40 && consensus_info[:med_spread_twenty_prcnt].to_f < 60
 
 						consensus_info[:med_spread_twenty_rating] = "choppy"
 
-					elsif consensus_info[:med_spread_twenty_prcnt].to_f >= 56 && consensus_info[:med_spread_twenty_prcnt].to_f < 65
+					elsif consensus_info[:med_spread_twenty_prcnt].to_f >= 60 && consensus_info[:med_spread_twenty_prcnt].to_f < 75
 
 						consensus_info[:med_spread_twenty_rating] = "hot"
 
-					elsif consensus_info[:med_spread_twenty_prcnt].to_f >= 65
+					elsif consensus_info[:med_spread_twenty_prcnt].to_f >= 75
 
-						consensus_info[:med_spread_twenty_rating] = "on fire"
+						consensus_info[:low_spread_twenty_rating] = "on fire"
 
 					end
 				
@@ -4080,71 +5419,149 @@ module MatchupsHelper
 
 				hi_spread_picks.last(5).each do |p|
 
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i < m.road_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_five_wins = hi_spread_five_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+										else
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+										
+										end
+
 									else
 
-										hi_spread_five_losses = hi_spread_five_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+
+										else 
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f < m.road_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_five_wins = hi_spread_five_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+
+
+										end
 
 									else
 
-										hi_spread_five_losses = hi_spread_five_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i < m.home_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_five_wins = hi_spread_five_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+										
+										end
+
 									else
 
-										hi_spread_five_losses = hi_spread_five_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+
+										else 
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f < m.home_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_five_wins = hi_spread_five_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+
+
+										end
 
 									else
 
-										hi_spread_five_losses = hi_spread_five_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											hi_spread_five_wins = hi_spread_five_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											hi_spread_five_losses = hi_spread_five_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
@@ -4156,147 +5573,302 @@ module MatchupsHelper
 
 				hi_spread_picks.last(10).each do |p|
 
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i < m.road_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_ten_wins = hi_spread_ten_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+										else
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+										
+										end
+
 									else
 
-										hi_spread_ten_losses = hi_spread_ten_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+
+										else 
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f < m.road_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_ten_wins = hi_spread_ten_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+
+
+										end
 
 									else
 
-										hi_spread_ten_losses = hi_spread_ten_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i < m.home_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_ten_wins = hi_spread_ten_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+										
+										end
+
 									else
 
-										hi_spread_ten_losses = hi_spread_ten_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+
+										else 
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f < m.home_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_ten_wins = hi_spread_ten_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+
+
+										end
 
 									else
 
-										hi_spread_ten_losses = hi_spread_ten_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											hi_spread_ten_wins = hi_spread_ten_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											hi_spread_ten_losses = hi_spread_ten_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
 
 					end
 
-
 				end
 
 				hi_spread_picks.last(20).each do |p|
+
+					team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
 
 					Matchup.all.each do |m|
 
 						if p.matchup_id.to_i == m.id
 
-							if m.fav_field.downcase == "home"
+							if team == m.fav
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.home_score.to_i < m.road_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_twenty_wins = hi_spread_twenty_losses + 1
+										if m.home_score.to_i > m.road_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+										else
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+										
+										end
+
 									else
 
-										hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+
+										else 
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.home_score.to_f + m.spread.to_f < m.road_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+										if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+
+
+										end
 
 									else
 
-										hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+										if m.road_score.to_i + m.spread.to_f > m.home_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f < m.home_score.to_i 
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+
+										end
+
 
 									end
-
 
 								end
 
 
-							else
+							elsif team == m.dog
 
-								if @matchup.sport == "MLB"
+								if m.sport == "MLB"
 
-									if m.road_score.to_i < m.home_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+										if m.home_score.to_i < m.road_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+										elsif  m.home_score.to_i > m.road_score.to_i
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+										
+										end
+
 									else
 
-										hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+										if m.road_score.to_i > m.home_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+
+										else 
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+
+
+										end
+
 
 									end
-
 
 								else
 
-									if m.road_score.to_f + m.spread.to_f < m.home_score.to_i
+									if m.fav_field == "home"
 
-										hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+										if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+
+										elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+
+
+										end
 
 									else
 
-										hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+										if m.road_score.to_i + m.spread.to_f < m.home_score.to_i
+
+											hi_spread_twenty_wins = hi_spread_twenty_wins + 1
+
+
+										elsif m.road_score.to_i + m.spread.to_f > m.home_score.to_i 
+
+											hi_spread_twenty_losses = hi_spread_twenty_losses + 1
+
+										end
+
 
 									end
 
-
 								end
+
 
 							end
-
 
 						end
 
@@ -4308,27 +5880,25 @@ module MatchupsHelper
 
 				if (hi_spread_five_wins + hi_spread_five_losses) != 0
 
-					@test1 = hi_spread_five_wins + hi_spread_five_losses
-
 					consensus_info[:hi_spread_five_prcnt] = ((hi_spread_five_wins.to_f/(hi_spread_five_wins + hi_spread_five_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:hi_spread_five_prcnt].to_f <= 39.0
+					if consensus_info[:hi_spread_five_prcnt].to_f <= 33.0
 
 						consensus_info[:hi_spread_five_rating] = "frigid"
 
-					elsif consensus_info[:hi_spread_five_prcnt].to_f > 39 && consensus_info[:hi_spread_five_prcnt].to_f < 46
+					elsif consensus_info[:hi_spread_five_prcnt].to_f > 34 && consensus_info[:hi_spread_five_prcnt].to_f < 40
 
 						consensus_info[:hi_spread_five_rating] = "cold"
 
-					elsif consensus_info[:hi_spread_five_prcnt].to_f >= 46 && consensus_info[:hi_spread_five_prcnt].to_f < 56
+					elsif consensus_info[:hi_spread_five_prcnt].to_f >= 40 && consensus_info[:hi_spread_five_prcnt].to_f < 60
 
 						consensus_info[:hi_spread_five_rating] = "choppy"
 
-					elsif consensus_info[:hi_spread_five_prcnt].to_f >= 56 && consensus_info[:hi_spread_five_prcnt].to_f < 65
+					elsif consensus_info[:hi_spread_five_prcnt].to_f >= 60 && consensus_info[:hi_spread_five_prcnt].to_f < 75
 
 						consensus_info[:hi_spread_five_rating] = "hot"
 
-					elsif consensus_info[:hi_spread_five_prcnt].to_f >= 65
+					elsif consensus_info[:hi_spread_five_prcnt].to_f >= 75
 
 						consensus_info[:hi_spread_five_rating] = "on fire"
 
@@ -4345,23 +5915,23 @@ module MatchupsHelper
 
 					consensus_info[:hi_spread_ten_prcnt] = ((hi_spread_ten_wins.to_f/(hi_spread_ten_wins + hi_spread_ten_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:hi_spread_ten_prcnt].to_f <= 39.0
+					if consensus_info[:hi_spread_ten_prcnt].to_f <= 33.0
 
 						consensus_info[:hi_spread_ten_rating] = "frigid"
 
-					elsif consensus_info[:hi_spread_ten_prcnt].to_f > 39 && consensus_info[:hi_spread_ten_prcnt].to_f < 46
+					elsif consensus_info[:hi_spread_ten_prcnt].to_f > 34 && consensus_info[:hi_spread_ten_prcnt].to_f < 40
 
 						consensus_info[:hi_spread_ten_rating] = "cold"
 
-					elsif consensus_info[:hi_spread_ten_prcnt].to_f >= 46 && consensus_info[:hi_spread_ten_prcnt].to_f < 56
+					elsif consensus_info[:hi_spread_ten_prcnt].to_f >= 40 && consensus_info[:hi_spread_ten_prcnt].to_f < 60
 
 						consensus_info[:hi_spread_ten_rating] = "choppy"
 
-					elsif consensus_info[:hi_spread_ten_prcnt].to_f >= 56 && consensus_info[:hi_spread_ten_prcnt].to_f < 65
+					elsif consensus_info[:hi_spread_ten_prcnt].to_f >= 60 && consensus_info[:hi_spread_ten_prcnt].to_f < 75
 
 						consensus_info[:hi_spread_ten_rating] = "hot"
 
-					elsif consensus_info[:hi_spread_ten_prcnt].to_f >= 65
+					elsif consensus_info[:hi_spread_ten_prcnt].to_f >= 75
 
 						consensus_info[:hi_spread_ten_rating] = "on fire"
 
@@ -4380,23 +5950,23 @@ module MatchupsHelper
 
 					consensus_info[:hi_spread_twenty_prcnt] = ((hi_spread_twenty_wins.to_f/(hi_spread_twenty_wins + hi_spread_twenty_losses)).round(2) * 100).to_s + "%"
 
-					if consensus_info[:hi_spread_twenty_prcnt].to_f <= 39.0
+					if consensus_info[:hi_spread_twenty_prcnt].to_f <= 33.0
 
 						consensus_info[:hi_spread_twenty_rating] = "frigid"
 
-					elsif consensus_info[:hi_spread_twenty_prcnt].to_f > 39 && consensus_info[:hi_spread_twenty_prcnt].to_f < 46
+					elsif consensus_info[:hi_spread_twenty_prcnt].to_f > 34 && consensus_info[:hi_spread_twenty_prcnt].to_f < 40
 
 						consensus_info[:hi_spread_twenty_rating] = "cold"
 
-					elsif consensus_info[:hi_spread_twenty_prcnt].to_f >= 46 && consensus_info[:hi_spread_twenty_prcnt].to_f < 56
+					elsif consensus_info[:hi_spread_twenty_prcnt].to_f >= 40 && consensus_info[:hi_spread_twenty_prcnt].to_f < 60
 
 						consensus_info[:hi_spread_twenty_rating] = "choppy"
 
-					elsif consensus_info[:hi_spread_twenty_prcnt].to_f >= 56 && consensus_info[:hi_spread_twenty_prcnt].to_f < 65
+					elsif consensus_info[:hi_spread_twenty_prcnt].to_f >= 60 && consensus_info[:hi_spread_twenty_prcnt].to_f < 75
 
 						consensus_info[:hi_spread_twenty_rating] = "hot"
 
-					elsif consensus_info[:hi_spread_twenty_prcnt].to_f >= 65
+					elsif consensus_info[:hi_spread_twenty_prcnt].to_f >= 75
 
 						consensus_info[:hi_spread_twenty_rating] = "on fire"
 
@@ -4447,7 +6017,9 @@ module MatchupsHelper
 			hi_twenty_wins = 0
 			hi_twenty_losses = 0
 
-			user_games = []
+			low_games = []
+			med_games = []
+			hi_games = []
 
 			User.all.each do |u|
 
@@ -4465,17 +6037,59 @@ module MatchupsHelper
 
 										if m.home_score.length != 0
 
-											if ((p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")) == "O"
+											if m.sport == "MLB"
 
-												user_games.push(p)
+												if m.total.to_f < 8
+
+													low_games.push(p)
+
+												elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+													med_games.push(p)
+
+												elsif m.total.to_f >= 10
+
+													hi_games.push(p)
+
+												end
+											
+											elsif m.sport == "NFL"
+
+												if m.total.to_f < 48
+
+													low_games.push(p)
+
+												elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+													med_games.push(p)
+
+												elsif m.total.to_f >= 53
+
+													hi_games.push(p)
+
+												end
+											
+											elsif m.sport == "NBA"
+
+												if m.total.to_f < 220
+
+													low_games.push(p)
+
+												elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+													med_games.push(p)
+
+												elsif m.total.to_f >= 228
+
+													hi_games.push(p)
+
+												end
 
 											end
 
 										end
 
-
 									end
-
 
 								end
 
@@ -4491,137 +6105,264 @@ module MatchupsHelper
 
 			end
 
-			user_games_last_five = user_games.last(5)
-			user_games_last_ten = user_games.last(10)
-			user_games_last_twenty = user_games.last(20)
 
-			consensus_info[:last_five_games] = user_games_last_five
-			consensus_info[:last_ten_games] = user_games_last_ten
-			consensus_info[:last_twenty_games] = user_games_last_twenty
-
-			consensus_info[:last_five_games].each do |g|
+			low_games.last(5).each do |g|
 
 				Matchup.all.each do |m|
 
 					if g.matchup_id.to_i == m.id
 
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
 						if m.sport == "MLB"
 
-							if m.total.to_f < 8
+							if team == "O"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 8
 
-									low_five_wins = low_five_wins + 1
-						
-								else 
-		
-									low_five_losses = low_five_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 8 && m.total.to_f < 10
+							elsif team == "U"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 8
 
-									med_five_wins = med_five_wins + 1
-						
-								else 
-		
-									med_five_losses = med_five_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 10
-
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
-
-									hi_five_wins = hi_five_wins + 1
-						
-								else 
-		
-									hi_five_losses = hi_five_losses + 1
-
-								end
 
 							end
 
 
 						elsif m.sport == "NFL"
 
-							if m.total.to_f < 48
+							if team == "O"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 48
 
-									low_five_wins = low_five_wins + 1
-						
-								else 
-		
-									low_five_losses = low_five_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = low_five_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 48 && m.total.to_f < 53
+							elsif team == "U"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 48
 
-									med_five_wins = med_five_wins + 1
-						
-								else 
-		
-									med_five_losses = med_five_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = low_five_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 53
-
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
-
-									hi_five_wins = low_five_wins + 1
-						
-								else 
-		
-									hi_five_losses = low_five_losses + 1
-
-								end
-
-							end
-
+							end 
 
 						elsif m.sport == "NBA"
 
-							if m.total.to_f < 220
+							if team == "O"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 220
 
-									low_five_wins = low_five_wins + 1
-						
-								else 
-		
-									low_five_losses = low_five_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 220 && m.total.to_f < 228
+							elsif team == "U"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 220
 
-									med_five_wins = med_five_wins + 1
-						
-								else 
-		
-									med_five_losses = med_five_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-								end
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
 
-							elsif m.total.to_f >= 228
+									end
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
 
-									hi_five_wins = hi_five_wins + 1
-						
-								else 
-		
-									hi_five_losses = hi_five_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
 
 								end
 
@@ -4637,129 +6378,263 @@ module MatchupsHelper
 
 			end
 
-			consensus_info[:last_ten_games].each do |g|
+			low_games.last(10).each do |g|
 
 				Matchup.all.each do |m|
 
 					if g.matchup_id.to_i == m.id
 
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
 						if m.sport == "MLB"
 
-							if m.total.to_f < 8
+							if team == "O"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 8
 
-									low_ten_wins = low_ten_wins + 1
-						
-								else 
-		
-									low_ten_losses = low_ten_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 8 && m.total.to_f < 10
+							elsif team == "U"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 8
 
-									med_ten_wins = med_ten_wins + 1
-						
-								else 
-		
-									med_ten_losses = med_ten_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 10
-
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
-
-									hi_ten_wins = hi_ten_wins + 1
-						
-								else 
-		
-									hi_ten_losses = hi_ten_losses + 1
-
-								end
 
 							end
 
 
 						elsif m.sport == "NFL"
 
-							if m.total.to_f < 48
+							if team == "O"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 48
 
-									low_ten_wins = low_ten_wins + 1
-						
-								else 
-		
-									low_ten_losses = low_ten_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_ten_losses = low_ten_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 48 && m.total.to_f < 53
+							elsif team == "U"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 48
 
-									med_ten_wins = med_ten_wins + 1
-						
-								else 
-		
-									med_ten_losses = med_ten_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = low_ten_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 53
-
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
-
-									hi_ten_wins = low_ten_wins + 1
-						
-								else 
-		
-									hi_ten_losses = low_ten_losses + 1
-
-								end
-
-							end
-
+							end 
 
 						elsif m.sport == "NBA"
 
-							if m.total.to_f < 220
+							if team == "O"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 220
 
-									low_ten_wins = low_ten_wins + 1
-						
-								else 
-		
-									low_ten_losses = low_ten_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 220 && m.total.to_f < 228
+							elsif team == "U"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 220
 
-									med_ten_wins = med_ten_wins + 1
-						
-								else 
-		
-									med_ten_losses = med_ten_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-								end
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
 
-							elsif m.total.to_f >= 228
+									end
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
 
-									hi_ten_wins = hi_ten_wins + 1
-						
-								else 
-		
-									hi_ten_losses = hi_ten_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
 
 								end
 
@@ -4775,129 +6650,1895 @@ module MatchupsHelper
 
 			end
 
-			consensus_info[:last_twenty_games].each do |g|
+			low_games.last(20).each do |g|
 
 				Matchup.all.each do |m|
 
 					if g.matchup_id.to_i == m.id
 
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
 						if m.sport == "MLB"
 
-							if m.total.to_f < 8
+							if team == "O"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 8
 
-									low_twenty_wins = low_twenty_wins + 1
-						
-								else 
-		
-									low_twenty_losses = low_twenty_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 8 && m.total.to_f < 10
+							elsif team == "U"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 8
 
-									med_twenty_wins = med_twenty_wins + 1
-						
-								else 
-		
-									med_twenty_losses = med_twenty_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 10
-
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
-
-									hi_twenty_wins = hi_twenty_wins + 1
-						
-								else 
-		
-									hi_twenty_losses = hi_twenty_losses + 1
-
-								end
 
 							end
 
 
 						elsif m.sport == "NFL"
 
-							if m.total.to_f < 48
+							if team == "O"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 48
 
-									low_twenty_wins = low_twenty_wins + 1
-						
-								else 
-		
-									low_twenty_losses = low_twenty_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = low_twenty_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 48 && m.total.to_f < 53
+							elsif team == "U"
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 48
 
-									med_twenty_wins = med_twenty_wins + 1
-						
-								else 
-		
-									med_twenty_losses = med_twenty_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = low_twenty_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 53
+							end 
 
-								if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+						elsif m.sport == "NBA"
 
-									hi_twenty_wins = low_twenty_wins + 1
-						
-								else 
-		
-									hi_twenty_losses = low_twenty_losses + 1
+							if team == "O"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
 
 								end
 
 							end
 
+						end			
+
+
+					end
+
+
+				end
+
+			end
+
+			med_games.last(5).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+						if m.sport == "MLB"
+
+							if team == "O"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
+
+								end
+
+
+							end
+
+
+						elsif m.sport == "NFL"
+
+							if team == "O"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = low_five_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = low_five_losses + 1
+
+									end
+
+								end
+
+							end 
 
 						elsif m.sport == "NBA"
 
-							if m.total.to_f < 220
+							if team == "O"
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 220
 
-									low_twenty_wins = low_twenty_wins + 1
-						
-								else 
-		
-									low_twenty_losses = low_twenty_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 220 && m.total.to_f < 228
+							elsif team == "U"
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 220
 
-									med_twenty_wins = med_twenty_wins + 1
-						
-								else 
-		
-									med_twenty_losses = med_twenty_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 228
+							end
 
-								if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+						end			
 
-									hi_twenty_wins = hi_twenty_wins + 1
-						
-								else 
-		
-									hi_twenty_losses = hi_twenty_losses + 1
+
+					end
+
+
+				end
+
+			end
+
+			med_games.last(10).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+						if m.sport == "MLB"
+
+							if team == "O"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+
+							end
+
+
+						elsif m.sport == "NFL"
+
+							if team == "O"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_ten_losses = low_ten_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = low_ten_losses + 1
+
+									end
+
+								end
+
+							end 
+
+						elsif m.sport == "NBA"
+
+							if team == "O"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+							end
+
+						end			
+
+
+					end
+
+
+				end
+
+			end
+
+			med_games.last(20).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+						if m.sport == "MLB"
+
+							if team == "O"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+
+							end
+
+
+						elsif m.sport == "NFL"
+
+							if team == "O"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								end
+
+							end 
+
+						elsif m.sport == "NBA"
+
+							if team == "O"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+							end
+
+						end			
+
+
+					end
+
+
+				end
+
+			end
+
+			hi_games.last(5).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+						if m.sport == "MLB"
+
+							if team == "O"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
+
+								end
+
+
+							end
+
+
+						elsif m.sport == "NFL"
+
+							if team == "O"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = low_five_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = low_five_losses + 1
+
+									end
+
+								end
+
+							end 
+
+						elsif m.sport == "NBA"
+
+							if team == "O"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
+
+								end
+
+							end
+
+						end			
+
+
+					end
+
+
+				end
+
+			end
+
+			hi_games.last(10).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+						if m.sport == "MLB"
+
+							if team == "O"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+
+							end
+
+
+						elsif m.sport == "NFL"
+
+							if team == "O"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_ten_losses = low_ten_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = low_ten_losses + 1
+
+									end
+
+								end
+
+							end 
+
+						elsif m.sport == "NBA"
+
+							if team == "O"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+							end
+
+						end			
+
+
+					end
+
+
+				end
+
+			end
+
+			hi_games.last(20).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+						if m.sport == "MLB"
+
+							if team == "O"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+
+							end
+
+
+						elsif m.sport == "NFL"
+
+							if team == "O"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								end
+
+							end 
+
+						elsif m.sport == "NBA"
+
+							if team == "O"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
 
 								end
 
@@ -4917,24 +8558,24 @@ module MatchupsHelper
 
 				consensus_info[:low_last_five_prcnt] = (((low_five_wins.to_f/(low_five_wins + low_five_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:low_last_five_prcnt].to_f <= 39.0
+				if consensus_info[:low_last_five_prcnt].to_f <= 33.0
 
 					consensus_info[:low_last_five_rating] = "frigid"
 
 
-				elsif consensus_info[:low_last_five_prcnt].to_f > 39 && consensus_info[:low_last_five_prcnt].to_f < 46
+				elsif consensus_info[:low_last_five_prcnt].to_f > 34 && consensus_info[:low_last_five_prcnt].to_f < 40
 
 					consensus_info[:low_last_five_rating] = "cold"
 
-				elsif consensus_info[:low_last_five_prcnt].to_f >=  46 && consensus_info[:low_last_five_prcnt].to_f < 56
+				elsif consensus_info[:low_last_five_prcnt].to_f >=  40 && consensus_info[:low_last_five_prcnt].to_f < 60
 
 					consensus_info[:low_last_five_rating] = "choppy"
 
-				elsif consensus_info[:low_last_five_prcnt].to_f >=  56 && consensus_info[:low_last_five_prcnt].to_f < 65
+				elsif consensus_info[:low_last_five_prcnt].to_f >=  60 && consensus_info[:low_last_five_prcnt].to_f < 75
 
 						consensus_info[:low_last_five_rating] = "hot"
 
-				elsif consensus_info[:low_last_five_prcnt].to_f >= 65
+				elsif consensus_info[:low_last_five_prcnt].to_f >= 75
 						
 						consensus_info[:low_last_five_rating] = "on fire"
 
@@ -4953,24 +8594,24 @@ module MatchupsHelper
 
 				consensus_info[:med_last_five_prcnt] = (((med_five_wins.to_f/(med_five_wins + med_five_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:med_last_five_prcnt].to_f <= 39.0
+				if consensus_info[:med_last_five_prcnt].to_f <= 33.0
 
 					consensus_info[:med_last_five_rating] = "frigid"
 
 
-				elsif consensus_info[:med_last_five_prcnt].to_f > 39 && consensus_info[:med_last_five_prcnt].to_f < 46
+				elsif consensus_info[:med_last_five_prcnt].to_f > 34 && consensus_info[:med_last_five_prcnt].to_f < 40
 
 					consensus_info[:med_last_five_rating] = "cold"
 
-				elsif consensus_info[:med_last_five_prcnt].to_f >=  46 && consensus_info[:med_last_five_prcnt].to_f < 56
+				elsif consensus_info[:med_last_five_prcnt].to_f >=  40 && consensus_info[:med_last_five_prcnt].to_f < 59
 
 					consensus_info[:med_last_five_rating] = "choppy"
 
-				elsif consensus_info[:med_last_five_prcnt].to_f >=  56 && consensus_info[:med_last_five_prcnt].to_f < 65
+				elsif consensus_info[:med_last_five_prcnt].to_f >=  60 && consensus_info[:med_last_five_prcnt].to_f < 75
 
 						consensus_info[:med_last_five_rating] = "hot"
 
-				elsif consensus_info[:med_last_five_prcnt].to_f >= 65
+				elsif consensus_info[:med_last_five_prcnt].to_f >= 75
 						
 						consensus_info[:med_last_five_rating] = "on fire"
 
@@ -4987,27 +8628,25 @@ module MatchupsHelper
 
 			if (hi_five_wins + hi_five_losses) !=0
 
-
-
 				consensus_info[:hi_last_five_prcnt] = (((hi_five_wins.to_f/(hi_five_wins + hi_five_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:hi_last_five_prcnt].to_f <= 39.0
+				if consensus_info[:hi_last_five_prcnt].to_f <= 33.0
 
 					consensus_info[:hi_last_five_rating] = "frigid"
 
-				elsif consensus_info[:hi_last_five_prcnt].to_f > 39 && consensus_info[:hi_last_five_prcnt].to_f < 46
+				elsif consensus_info[:hi_last_five_prcnt].to_f > 34 && consensus_info[:hi_last_five_prcnt].to_f < 40
 
 					consensus_info[:hi_last_five_rating] = "cold"
 
-				elsif consensus_info[:hi_last_five_prcnt].to_f >=  46 && consensus_info[:hi_last_five_prcnt].to_f < 56
+				elsif consensus_info[:hi_last_five_prcnt].to_f >=  40 && consensus_info[:hi_last_five_prcnt].to_f < 60
 
 					consensus_info[:hi_last_five_rating] = "choppy"
 
-				elsif consensus_info[:hi_last_five_prcnt].to_f >=  56 && consensus_info[:hi_last_five_prcnt].to_f < 65
+				elsif consensus_info[:hi_last_five_prcnt].to_f >=  60 && consensus_info[:hi_last_five_prcnt].to_f < 75
 
 						consensus_info[:hi_last_five_rating] = "hot"
 
-				elsif consensus_info[:hi_last_five_prcnt].to_f >= 65
+				elsif consensus_info[:hi_last_five_prcnt].to_f >= 75
 
 						
 						consensus_info[:hi_last_five_rating] = "on fire"
@@ -5025,28 +8664,26 @@ module MatchupsHelper
 
 			if (low_ten_wins + low_ten_losses) !=0
 
-				@test1 = low_ten_wins.to_s + " " + low_ten_losses.to_s
-
 				consensus_info[:low_last_ten_prcnt] = (((low_ten_wins.to_f/(low_ten_wins + low_ten_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:low_last_ten_prcnt].to_f <= 39.0
+				if consensus_info[:low_last_ten_prcnt].to_f <= 33.0
 
 					consensus_info[:low_last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:low_last_ten_prcnt].to_f > 39 && consensus_info[:low_last_ten_prcnt].to_f < 46
+				elsif consensus_info[:low_last_ten_prcnt].to_f > 34 && consensus_info[:low_last_ten_prcnt].to_f < 40
 
 					consensus_info[:low_last_ten_rating] = "cold"
 
-				elsif consensus_info[:low_last_ten_prcnt].to_f >=  46 && consensus_info[:low_last_ten_prcnt].to_f < 56
+				elsif consensus_info[:low_last_ten_prcnt].to_f >=  40 && consensus_info[:low_last_ten_prcnt].to_f < 60
 
 					consensus_info[:low_last_ten_rating] = "choppy"
 
-				elsif consensus_info[:low_last_ten_prcnt].to_f >=  56 && consensus_info[:low_last_ten_prcnt].to_f < 65
+				elsif consensus_info[:low_last_ten_prcnt].to_f >=  60 && consensus_info[:low_last_ten_prcnt].to_f < 75
 
 						consensus_info[:low_last_ten_rating] = "hot"
 
-				elsif consensus_info[:low_last_ten_prcnt].to_f >= 65
+				elsif consensus_info[:low_last_ten_prcnt].to_f >= 75
 
 						
 						consensus_info[:low_last_ten_rating] = "on fire"
@@ -5068,24 +8705,24 @@ module MatchupsHelper
 
 				consensus_info[:med_last_ten_prcnt] = (((med_ten_wins.to_f/(med_ten_wins + med_ten_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:med_last_ten_prcnt].to_f <= 39.0
+				if consensus_info[:med_last_ten_prcnt].to_f <= 33.0
 
 					consensus_info[:med_last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:med_last_ten_prcnt].to_f > 39 && consensus_info[:med_last_ten_prcnt].to_f < 46
+				elsif consensus_info[:med_last_ten_prcnt].to_f > 34 && consensus_info[:med_last_ten_prcnt].to_f < 40
 
 					consensus_info[:med_last_ten_rating] = "cold"
 
-				elsif consensus_info[:med_last_ten_prcnt].to_f >=  46 && consensus_info[:med_last_ten_prcnt].to_f < 56
+				elsif consensus_info[:med_last_ten_prcnt].to_f >=  40 && consensus_info[:med_last_ten_prcnt].to_f < 60
 
 					consensus_info[:med_last_ten_rating] = "choppy"
 
-				elsif consensus_info[:med_last_ten_prcnt].to_f >=  56 && consensus_info[:med_last_ten_prcnt].to_f < 65
+				elsif consensus_info[:med_last_ten_prcnt].to_f >=  60 && consensus_info[:med_last_ten_prcnt].to_f < 75
 
 						consensus_info[:med_last_ten_rating] = "hot"
 
-				elsif consensus_info[:med_last_ten_prcnt].to_f >= 65
+				elsif consensus_info[:med_last_ten_prcnt].to_f >= 75
 						
 						consensus_info[:med_last_ten_rating] = "on fire"
 
@@ -5104,24 +8741,24 @@ module MatchupsHelper
 
 				consensus_info[:hi_last_ten_prcnt] = (((hi_ten_wins.to_f/(hi_ten_wins + hi_ten_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:hi_last_ten_prcnt].to_f <= 39.0
+				if consensus_info[:hi_last_ten_prcnt].to_f <= 33.0
 
 					consensus_info[:hi_last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:hi_last_ten_prcnt].to_f > 39 && consensus_info[:hi_last_ten_prcnt].to_f < 46
+				elsif consensus_info[:hi_last_ten_prcnt].to_f > 34 && consensus_info[:hi_last_ten_prcnt].to_f < 40
 
 					consensus_info[:hi_last_ten_rating] = "cold"
 
-				elsif consensus_info[:hi_last_ten_prcnt].to_f >=  46 && consensus_info[:hi_last_ten_prcnt].to_f < 56
+				elsif consensus_info[:hi_last_ten_prcnt].to_f >=  40 && consensus_info[:hi_last_ten_prcnt].to_f < 60
 
 					consensus_info[:hi_last_ten_rating] = "choppy"
 
-				elsif consensus_info[:hi_last_ten_prcnt].to_f >=  56 && consensus_info[:hi_last_ten_prcnt].to_f < 65
+				elsif consensus_info[:hi_last_ten_prcnt].to_f >=  60 && consensus_info[:hi_last_ten_prcnt].to_f < 75
 
 						consensus_info[:hi_last_ten_rating] = "hot"
 
-				elsif consensus_info[:hi_last_ten_prcnt].to_f >= 65
+				elsif consensus_info[:hi_last_ten_prcnt].to_f >= 75
 						
 						consensus_info[:hi_last_ten_rating] = "on fire"
 
@@ -5140,24 +8777,24 @@ module MatchupsHelper
 
 				consensus_info[:low_last_twenty_prcnt] = (((low_twenty_wins.to_f/(low_twenty_wins + low_twenty_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:low_last_twenty_prcnt].to_f <= 39.0
+				if consensus_info[:low_last_twenty_prcnt].to_f <= 33.0
 
 					consensus_info[:low_last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:low_last_twenty_prcnt].to_f > 39 && consensus_info[:low_last_twenty_prcnt].to_f < 46
+				elsif consensus_info[:low_last_twenty_prcnt].to_f > 34 && consensus_info[:low_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:low_last_twenty_rating] = "cold"
 
-				elsif consensus_info[:low_last_twenty_prcnt].to_f >=  46 && consensus_info[:low_last_twenty_prcnt].to_f < 56
+				elsif consensus_info[:low_last_twenty_prcnt].to_f >=  40 && consensus_info[:low_last_twenty_prcnt].to_f < 60
 
 					consensus_info[:low_last_twenty_rating] = "choppy"
 
-				elsif consensus_info[:low_last_twenty_prcnt].to_f >=  56 && consensus_info[:low_last_twenty_prcnt].to_f < 65
+				elsif consensus_info[:low_last_twenty_prcnt].to_f >=  60 && consensus_info[:low_last_twenty_prcnt].to_f < 75
 
 						consensus_info[:low_last_twenty_rating] = "hot"
 
-				elsif consensus_info[:low_last_twenty_prcnt].to_f >= 65
+				elsif consensus_info[:low_last_twenty_prcnt].to_f >= 75
 						
 						consensus_info[:low_last_twenty_rating] = "on fire"
 
@@ -5176,24 +8813,24 @@ module MatchupsHelper
 
 				consensus_info[:med_last_twenty_prcnt] = (((med_twenty_wins.to_f/(med_twenty_wins + med_twenty_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:med_last_twenty_prcnt].to_f <= 39.0
+				if consensus_info[:med_last_twenty_prcnt].to_f <= 33.0
 
 					consensus_info[:med_last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:med_last_twenty_prcnt].to_f > 39 && consensus_info[:med_last_twenty_prcnt].to_f < 46
+				elsif consensus_info[:med_last_twenty_prcnt].to_f > 34 && consensus_info[:med_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:med_last_twenty_rating] = "cold"
 
-				elsif consensus_info[:med_last_twenty_prcnt].to_f >=  46 && consensus_info[:med_last_twenty_prcnt].to_f < 56
+				elsif consensus_info[:med_last_twenty_prcnt].to_f >=  40 && consensus_info[:med_last_twenty_prcnt].to_f < 60
 
 					consensus_info[:med_last_twenty_rating] = "choppy"
 
-				elsif consensus_info[:med_last_twenty_prcnt].to_f >=  56 && consensus_info[:med_last_twenty_prcnt].to_f < 65
+				elsif consensus_info[:med_last_twenty_prcnt].to_f >=  60 && consensus_info[:med_last_twenty_prcnt].to_f < 75
 
 						consensus_info[:med_last_twenty_rating] = "hot"
 
-				elsif consensus_info[:med_last_twenty_prcnt].to_f >= 65
+				elsif consensus_info[:med_last_twenty_prcnt].to_f >= 75
 						
 						consensus_info[:med_last_twenty_rating] = "on fire"
 
@@ -5212,24 +8849,24 @@ module MatchupsHelper
 
 				consensus_info[:hi_last_twenty_prcnt] = (((hi_twenty_wins.to_f/(hi_twenty_wins + hi_twenty_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:hi_last_twenty_prcnt].to_f <= 39.0
+				if consensus_info[:hi_last_twenty_prcnt].to_f <= 33.0
 
 					consensus_info[:hi_last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:hi_last_twenty_prcnt].to_f > 39 && consensus_info[:hi_last_twenty_prcnt].to_f < 46
+				elsif consensus_info[:hi_last_twenty_prcnt].to_f > 34 && consensus_info[:hi_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:hi_last_twenty_rating] = "cold"
 
-				elsif consensus_info[:hi_last_twenty_prcnt].to_f >=  46 && consensus_info[:hi_last_twenty_prcnt].to_f < 56
+				elsif consensus_info[:hi_last_twenty_prcnt].to_f >=  40 && consensus_info[:hi_last_twenty_prcnt].to_f < 60
 
 					consensus_info[:hi_last_twenty_rating] = "choppy"
 
-				elsif consensus_info[:hi_last_twenty_prcnt].to_f >=  56 && consensus_info[:hi_last_twenty_prcnt].to_f < 65
+				elsif consensus_info[:hi_last_twenty_prcnt].to_f >=  60 && consensus_info[:hi_last_twenty_prcnt].to_f < 75
 
 						consensus_info[:hi_last_twenty_rating] = "hot"
 
-				elsif consensus_info[:hi_last_twenty_prcnt].to_f >= 65
+				elsif consensus_info[:hi_last_twenty_prcnt].to_f >= 75
 						
 						consensus_info[:hi_last_twenty_rating] = "on fire"
 
@@ -5279,7 +8916,9 @@ module MatchupsHelper
 			hi_twenty_wins = 0
 			hi_twenty_losses = 0
 
-			user_games = []
+			low_games = []
+			med_games = []
+			hi_games = []
 
 			User.all.each do |u|
 
@@ -5297,17 +8936,59 @@ module MatchupsHelper
 
 										if m.home_score.length != 0
 
-											if ((p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")) == "U"
+											if m.sport == "MLB"
 
-												user_games.push(p)
+												if m.total.to_f < 8
+
+													low_games.push(p)
+
+												elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+													med_games.push(p)
+
+												elsif m.total.to_f >= 10
+
+													hi_games.push(p)
+
+												end
+											
+											elsif m.sport == "NFL"
+
+												if m.total.to_f < 48
+
+													low_games.push(p)
+
+												elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+													med_games.push(p)
+
+												elsif m.total.to_f >= 53
+
+													hi_games.push(p)
+
+												end
+											
+											elsif m.sport == "NBA"
+
+												if m.total.to_f < 220
+
+													low_games.push(p)
+
+												elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+													med_games.push(p)
+
+												elsif m.total.to_f >= 228
+
+													hi_games.push(p)
+
+												end
 
 											end
 
 										end
 
-
 									end
-
 
 								end
 
@@ -5323,137 +9004,264 @@ module MatchupsHelper
 
 			end
 
-			user_games_last_five = user_games.last(5)
-			user_games_last_ten = user_games.last(10)
-			user_games_last_twenty = user_games.last(20)
 
-			consensus_info[:last_five_games] = user_games_last_five
-			consensus_info[:last_ten_games] = user_games_last_ten
-			consensus_info[:last_twenty_games] = user_games_last_twenty
-
-			consensus_info[:last_five_games].each do |g|
+			low_games.last(5).each do |g|
 
 				Matchup.all.each do |m|
 
 					if g.matchup_id.to_i == m.id
 
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
 						if m.sport == "MLB"
 
-							if m.total.to_f < 8
+							if team == "O"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 8
 
-									low_five_wins = low_five_wins + 1
-						
-								else 
-		
-									low_five_losses = low_five_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 8 && m.total.to_f < 10
+							elsif team == "U"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 8
 
-									med_five_wins = med_five_wins + 1
-						
-								else 
-		
-									med_five_losses = med_five_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 10
-
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
-
-									hi_five_wins = hi_five_wins + 1
-						
-								else 
-		
-									hi_five_losses = hi_five_losses + 1
-
-								end
 
 							end
 
 
 						elsif m.sport == "NFL"
 
-							if m.total.to_f < 48
+							if team == "O"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 48
 
-									low_five_wins = low_five_wins + 1
-						
-								else 
-		
-									low_five_losses = low_five_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = low_five_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 48 && m.total.to_f < 53
+							elsif team == "U"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 48
 
-									med_five_wins = med_five_wins + 1
-						
-								else 
-		
-									med_five_losses = med_five_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = low_five_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 53
-
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
-
-									hi_five_wins = low_five_wins + 1
-						
-								else 
-		
-									hi_five_losses = low_five_losses + 1
-
-								end
-
-							end
-
+							end 
 
 						elsif m.sport == "NBA"
 
-							if m.total.to_f < 220
+							if team == "O"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 220
 
-									low_five_wins = low_five_wins + 1
-						
-								else 
-		
-									low_five_losses = low_five_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 220 && m.total.to_f < 228
+							elsif team == "U"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 220
 
-									med_five_wins = med_five_wins + 1
-						
-								else 
-		
-									med_five_losses = med_five_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-								end
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
 
-							elsif m.total.to_f >= 228
+									end
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
 
-									hi_five_wins = hi_five_wins + 1
-						
-								else 
-		
-									hi_five_losses = hi_five_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
 
 								end
 
@@ -5469,129 +9277,263 @@ module MatchupsHelper
 
 			end
 
-			consensus_info[:last_ten_games].each do |g|
+			low_games.last(10).each do |g|
 
 				Matchup.all.each do |m|
 
 					if g.matchup_id.to_i == m.id
 
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
 						if m.sport == "MLB"
 
-							if m.total.to_f < 8
+							if team == "O"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 8
 
-									low_ten_wins = low_ten_wins + 1
-						
-								else 
-		
-									low_ten_losses = low_ten_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 8 && m.total.to_f < 10
+							elsif team == "U"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 8
 
-									med_ten_wins = med_ten_wins + 1
-						
-								else 
-		
-									med_ten_losses = med_ten_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 10
-
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
-
-									hi_ten_wins = hi_ten_wins + 1
-						
-								else 
-		
-									hi_ten_losses = hi_ten_losses + 1
-
-								end
 
 							end
 
 
 						elsif m.sport == "NFL"
 
-							if m.total.to_f < 48
+							if team == "O"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 48
 
-									low_ten_wins = low_ten_wins + 1
-						
-								else 
-		
-									low_ten_losses = low_ten_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_ten_losses = low_ten_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 48 && m.total.to_f < 53
+							elsif team == "U"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 48
 
-									med_ten_wins = med_ten_wins + 1
-						
-								else 
-		
-									med_ten_losses = med_ten_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = low_ten_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 53
-
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
-
-									hi_ten_wins = low_ten_wins + 1
-						
-								else 
-		
-									hi_ten_losses = low_ten_losses + 1
-
-								end
-
-							end
-
+							end 
 
 						elsif m.sport == "NBA"
 
-							if m.total.to_f < 220
+							if team == "O"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 220
 
-									low_ten_wins = low_ten_wins + 1
-						
-								else 
-		
-									low_ten_losses = low_ten_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 220 && m.total.to_f < 228
+							elsif team == "U"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 220
 
-									med_ten_wins = med_ten_wins + 1
-						
-								else 
-		
-									med_ten_losses = med_ten_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-								end
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
 
-							elsif m.total.to_f >= 228
+									end
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
 
-									hi_ten_wins = hi_ten_wins + 1
-						
-								else 
-		
-									hi_ten_losses = hi_ten_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
 
 								end
 
@@ -5607,129 +9549,1895 @@ module MatchupsHelper
 
 			end
 
-			consensus_info[:last_twenty_games].each do |g|
+			low_games.last(20).each do |g|
 
 				Matchup.all.each do |m|
 
 					if g.matchup_id.to_i == m.id
 
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
 						if m.sport == "MLB"
 
-							if m.total.to_f < 8
+							if team == "O"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 8
 
-									low_twenty_wins = low_twenty_wins + 1
-						
-								else 
-		
-									low_twenty_losses = low_twenty_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 8 && m.total.to_f < 10
+							elsif team == "U"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 8
 
-									med_twenty_wins = med_twenty_wins + 1
-						
-								else 
-		
-									med_twenty_losses = med_twenty_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 10
-
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
-
-									hi_twenty_wins = hi_twenty_wins + 1
-						
-								else 
-		
-									hi_twenty_losses = hi_twenty_losses + 1
-
-								end
 
 							end
 
 
 						elsif m.sport == "NFL"
 
-							if m.total.to_f < 48
+							if team == "O"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 48
 
-									low_twenty_wins = low_twenty_wins + 1
-						
-								else 
-		
-									low_twenty_losses = low_twenty_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = low_twenty_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 48 && m.total.to_f < 53
+							elsif team == "U"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 48
 
-									med_twenty_wins = med_twenty_wins + 1
-						
-								else 
-		
-									med_twenty_losses = med_twenty_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = low_twenty_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 53
+							end 
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+						elsif m.sport == "NBA"
 
-									hi_twenty_wins = low_twenty_wins + 1
-						
-								else 
-		
-									hi_twenty_losses = low_twenty_losses + 1
+							if team == "O"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
 
 								end
 
 							end
 
+						end			
+
+
+					end
+
+
+				end
+
+			end
+
+			med_games.last(5).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+						if m.sport == "MLB"
+
+							if team == "O"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
+
+								end
+
+
+							end
+
+
+						elsif m.sport == "NFL"
+
+							if team == "O"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = low_five_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = low_five_losses + 1
+
+									end
+
+								end
+
+							end 
 
 						elsif m.sport == "NBA"
 
-							if m.total.to_f < 220
+							if team == "O"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 220
 
-									low_twenty_wins = low_twenty_wins + 1
-						
-								else 
-		
-									low_twenty_losses = low_twenty_losses + 1
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 220 && m.total.to_f < 228
+							elsif team == "U"
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+								if m.total.to_f < 220
 
-									med_twenty_wins = med_twenty_wins + 1
-						
-								else 
-		
-									med_twenty_losses = med_twenty_losses + 1
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
 
 								end
 
-							elsif m.total.to_f >= 228
+							end
 
-								if m.total.to_i < m.home_score.to_i + m.road_score.to_i
+						end			
 
-									hi_twenty_wins = hi_twenty_wins + 1
-						
-								else 
-		
-									hi_twenty_losses = hi_twenty_losses + 1
+
+					end
+
+
+				end
+
+			end
+
+			med_games.last(10).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+						if m.sport == "MLB"
+
+							if team == "O"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+
+							end
+
+
+						elsif m.sport == "NFL"
+
+							if team == "O"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_ten_losses = low_ten_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = low_ten_losses + 1
+
+									end
+
+								end
+
+							end 
+
+						elsif m.sport == "NBA"
+
+							if team == "O"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+							end
+
+						end			
+
+
+					end
+
+
+				end
+
+			end
+
+			med_games.last(20).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+						if m.sport == "MLB"
+
+							if team == "O"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+
+							end
+
+
+						elsif m.sport == "NFL"
+
+							if team == "O"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								end
+
+							end 
+
+						elsif m.sport == "NBA"
+
+							if team == "O"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+							end
+
+						end			
+
+
+					end
+
+
+				end
+
+			end
+
+			hi_games.last(5).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+						if m.sport == "MLB"
+
+							if team == "O"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
+
+								end
+
+
+							end
+
+
+						elsif m.sport == "NFL"
+
+							if team == "O"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = low_five_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = low_five_losses + 1
+
+									end
+
+								end
+
+							end 
+
+						elsif m.sport == "NBA"
+
+							if team == "O"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_five_wins = low_five_wins + 1
+							
+									else 
+			
+										low_five_losses = low_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_five_wins = med_five_wins + 1
+							
+									else 
+			
+										med_five_losses = med_five_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_five_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_five_losses = hi_five_losses + 1
+
+									end
+
+								end
+
+							end
+
+						end			
+
+
+					end
+
+
+				end
+
+			end
+
+			hi_games.last(10).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+						if m.sport == "MLB"
+
+							if team == "O"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_five_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+
+							end
+
+
+						elsif m.sport == "NFL"
+
+							if team == "O"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = low_five_wins + 1
+							
+									else 
+			
+										hi_ten_losses = low_ten_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = low_ten_losses + 1
+
+									end
+
+								end
+
+							end 
+
+						elsif m.sport == "NBA"
+
+							if team == "O"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_ten_wins = low_ten_wins + 1
+							
+									else 
+			
+										low_ten_losses = low_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_ten_wins = med_ten_wins + 1
+							
+									else 
+			
+										med_ten_losses = med_ten_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_ten_wins = hi_ten_wins + 1
+							
+									else 
+			
+										hi_ten_losses = hi_ten_losses + 1
+
+									end
+
+								end
+
+							end
+
+						end			
+
+
+					end
+
+
+				end
+
+			end
+
+			hi_games.last(20).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+
+						if m.sport == "MLB"
+
+							if team == "O"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 8
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 8 && m.total.to_f < 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 10
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+
+							end
+
+
+						elsif m.sport == "NFL"
+
+							if team == "O"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 48
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 48 && m.total.to_f < 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 53
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								end
+
+							end 
+
+						elsif m.sport == "NBA"
+
+							if team == "O"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
+
+								end
+
+							elsif team == "U"
+
+								if m.total.to_f < 220
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										low_twenty_wins = low_twenty_wins + 1
+							
+									else 
+			
+										low_twenty_losses = low_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 220 && m.total.to_f < 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										med_twenty_wins = med_twenty_wins + 1
+							
+									else 
+			
+										med_twenty_losses = med_twenty_losses + 1
+
+									end
+
+								elsif m.total.to_f >= 228
+
+									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
+
+										hi_twenty_wins = hi_twenty_wins + 1
+							
+									else 
+			
+										hi_twenty_losses = hi_twenty_losses + 1
+
+									end
 
 								end
 
@@ -5749,24 +11457,24 @@ module MatchupsHelper
 
 				consensus_info[:low_last_five_prcnt] = (((low_five_wins.to_f/(low_five_wins + low_five_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:low_last_five_prcnt].to_f <= 39.0
+				if consensus_info[:low_last_five_prcnt].to_f <= 33.0
 
 					consensus_info[:low_last_five_rating] = "frigid"
 
 
-				elsif consensus_info[:low_last_five_prcnt].to_f > 39 && consensus_info[:low_last_five_prcnt].to_f < 46
+				elsif consensus_info[:low_last_five_prcnt].to_f > 34 && consensus_info[:low_last_five_prcnt].to_f < 40
 
 					consensus_info[:low_last_five_rating] = "cold"
 
-				elsif consensus_info[:low_last_five_prcnt].to_f >=  46 && consensus_info[:low_last_five_prcnt].to_f < 56
+				elsif consensus_info[:low_last_five_prcnt].to_f >=  40 && consensus_info[:low_last_five_prcnt].to_f < 60
 
 					consensus_info[:low_last_five_rating] = "choppy"
 
-				elsif consensus_info[:low_last_five_prcnt].to_f >=  56 && consensus_info[:low_last_five_prcnt].to_f < 65
+				elsif consensus_info[:low_last_five_prcnt].to_f >=  60 && consensus_info[:low_last_five_prcnt].to_f < 75
 
 						consensus_info[:low_last_five_rating] = "hot"
 
-				elsif consensus_info[:low_last_five_prcnt].to_f >= 65
+				elsif consensus_info[:low_last_five_prcnt].to_f >= 75
 						
 						consensus_info[:low_last_five_rating] = "on fire"
 
@@ -5785,24 +11493,24 @@ module MatchupsHelper
 
 				consensus_info[:med_last_five_prcnt] = (((med_five_wins.to_f/(med_five_wins + med_five_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:med_last_five_prcnt].to_f <= 39.0
+				if consensus_info[:med_last_five_prcnt].to_f <= 33.0
 
 					consensus_info[:med_last_five_rating] = "frigid"
 
 
-				elsif consensus_info[:med_last_five_prcnt].to_f > 39 && consensus_info[:med_last_five_prcnt].to_f < 46
+				elsif consensus_info[:med_last_five_prcnt].to_f > 34 && consensus_info[:med_last_five_prcnt].to_f < 40
 
 					consensus_info[:med_last_five_rating] = "cold"
 
-				elsif consensus_info[:med_last_five_prcnt].to_f >=  46 && consensus_info[:med_last_five_prcnt].to_f < 56
+				elsif consensus_info[:med_last_five_prcnt].to_f >=  40 && consensus_info[:med_last_five_prcnt].to_f < 59
 
 					consensus_info[:med_last_five_rating] = "choppy"
 
-				elsif consensus_info[:med_last_five_prcnt].to_f >=  56 && consensus_info[:med_last_five_prcnt].to_f < 65
+				elsif consensus_info[:med_last_five_prcnt].to_f >=  60 && consensus_info[:med_last_five_prcnt].to_f < 75
 
 						consensus_info[:med_last_five_rating] = "hot"
 
-				elsif consensus_info[:med_last_five_prcnt].to_f >= 65
+				elsif consensus_info[:med_last_five_prcnt].to_f >= 75
 						
 						consensus_info[:med_last_five_rating] = "on fire"
 
@@ -5821,24 +11529,24 @@ module MatchupsHelper
 
 				consensus_info[:hi_last_five_prcnt] = (((hi_five_wins.to_f/(hi_five_wins + hi_five_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:hi_last_five_prcnt].to_f <= 39.0
+				if consensus_info[:hi_last_five_prcnt].to_f <= 33.0
 
 					consensus_info[:hi_last_five_rating] = "frigid"
 
-
-				elsif consensus_info[:hi_last_five_prcnt].to_f > 39 && consensus_info[:hi_last_five_prcnt].to_f < 46
+				elsif consensus_info[:hi_last_five_prcnt].to_f > 34 && consensus_info[:hi_last_five_prcnt].to_f < 40
 
 					consensus_info[:hi_last_five_rating] = "cold"
 
-				elsif consensus_info[:hi_last_five_prcnt].to_f >=  46 && consensus_info[:hi_last_five_prcnt].to_f < 56
+				elsif consensus_info[:hi_last_five_prcnt].to_f >=  40 && consensus_info[:hi_last_five_prcnt].to_f < 60
 
 					consensus_info[:hi_last_five_rating] = "choppy"
 
-				elsif consensus_info[:hi_last_five_prcnt].to_f >=  56 && consensus_info[:hi_last_five_prcnt].to_f < 65
+				elsif consensus_info[:hi_last_five_prcnt].to_f >=  60 && consensus_info[:hi_last_five_prcnt].to_f < 75
 
 						consensus_info[:hi_last_five_rating] = "hot"
 
-				elsif consensus_info[:hi_last_five_prcnt].to_f >= 65
+				elsif consensus_info[:hi_last_five_prcnt].to_f >= 75
+
 						
 						consensus_info[:hi_last_five_rating] = "on fire"
 
@@ -5857,29 +11565,32 @@ module MatchupsHelper
 
 				consensus_info[:low_last_ten_prcnt] = (((low_ten_wins.to_f/(low_ten_wins + low_ten_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:low_last_ten_prcnt].to_f <= 39.0
+				if consensus_info[:low_last_ten_prcnt].to_f <= 33.0
 
 					consensus_info[:low_last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:low_last_ten_prcnt].to_f > 39 && consensus_info[:low_last_ten_prcnt].to_f < 46
+				elsif consensus_info[:low_last_ten_prcnt].to_f > 34 && consensus_info[:low_last_ten_prcnt].to_f < 40
 
 					consensus_info[:low_last_ten_rating] = "cold"
 
-				elsif consensus_info[:low_last_ten_prcnt].to_f >=  46 && consensus_info[:low_last_ten_prcnt].to_f < 56
+				elsif consensus_info[:low_last_ten_prcnt].to_f >=  40 && consensus_info[:low_last_ten_prcnt].to_f < 60
 
 					consensus_info[:low_last_ten_rating] = "choppy"
 
-				elsif consensus_info[:low_last_ten_prcnt].to_f >=  56 && consensus_info[:low_last_ten_prcnt].to_f < 65
+				elsif consensus_info[:low_last_ten_prcnt].to_f >=  60 && consensus_info[:low_last_ten_prcnt].to_f < 75
 
 						consensus_info[:low_last_ten_rating] = "hot"
 
-				elsif consensus_info[:low_last_ten_prcnt].to_f >= 65
+				elsif consensus_info[:low_last_ten_prcnt].to_f >= 75
+
 						
 						consensus_info[:low_last_ten_rating] = "on fire"
 
 
 				end
+
+
 			
 			else
 
@@ -5893,24 +11604,24 @@ module MatchupsHelper
 
 				consensus_info[:med_last_ten_prcnt] = (((med_ten_wins.to_f/(med_ten_wins + med_ten_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:med_last_ten_prcnt].to_f <= 39.0
+				if consensus_info[:med_last_ten_prcnt].to_f <= 33.0
 
 					consensus_info[:med_last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:med_last_ten_prcnt].to_f > 39 && consensus_info[:med_last_ten_prcnt].to_f < 46
+				elsif consensus_info[:med_last_ten_prcnt].to_f > 34 && consensus_info[:med_last_ten_prcnt].to_f < 40
 
 					consensus_info[:med_last_ten_rating] = "cold"
 
-				elsif consensus_info[:med_last_ten_prcnt].to_f >=  46 && consensus_info[:med_last_ten_prcnt].to_f < 56
+				elsif consensus_info[:med_last_ten_prcnt].to_f >=  40 && consensus_info[:med_last_ten_prcnt].to_f < 60
 
 					consensus_info[:med_last_ten_rating] = "choppy"
 
-				elsif consensus_info[:med_last_ten_prcnt].to_f >=  56 && consensus_info[:med_last_ten_prcnt].to_f < 65
+				elsif consensus_info[:med_last_ten_prcnt].to_f >=  60 && consensus_info[:med_last_ten_prcnt].to_f < 75
 
 						consensus_info[:med_last_ten_rating] = "hot"
 
-				elsif consensus_info[:med_last_ten_prcnt].to_f >= 65
+				elsif consensus_info[:med_last_ten_prcnt].to_f >= 75
 						
 						consensus_info[:med_last_ten_rating] = "on fire"
 
@@ -5929,24 +11640,24 @@ module MatchupsHelper
 
 				consensus_info[:hi_last_ten_prcnt] = (((hi_ten_wins.to_f/(hi_ten_wins + hi_ten_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:hi_last_ten_prcnt].to_f <= 39.0
+				if consensus_info[:hi_last_ten_prcnt].to_f <= 33.0
 
 					consensus_info[:hi_last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:hi_last_ten_prcnt].to_f > 39 && consensus_info[:hi_last_ten_prcnt].to_f < 46
+				elsif consensus_info[:hi_last_ten_prcnt].to_f > 34 && consensus_info[:hi_last_ten_prcnt].to_f < 40
 
 					consensus_info[:hi_last_ten_rating] = "cold"
 
-				elsif consensus_info[:hi_last_ten_prcnt].to_f >=  46 && consensus_info[:hi_last_ten_prcnt].to_f < 56
+				elsif consensus_info[:hi_last_ten_prcnt].to_f >=  40 && consensus_info[:hi_last_ten_prcnt].to_f < 60
 
 					consensus_info[:hi_last_ten_rating] = "choppy"
 
-				elsif consensus_info[:hi_last_ten_prcnt].to_f >=  56 && consensus_info[:hi_last_ten_prcnt].to_f < 65
+				elsif consensus_info[:hi_last_ten_prcnt].to_f >=  60 && consensus_info[:hi_last_ten_prcnt].to_f < 75
 
 						consensus_info[:hi_last_ten_rating] = "hot"
 
-				elsif consensus_info[:hi_last_ten_prcnt].to_f >= 65
+				elsif consensus_info[:hi_last_ten_prcnt].to_f >= 75
 						
 						consensus_info[:hi_last_ten_rating] = "on fire"
 
@@ -5965,24 +11676,24 @@ module MatchupsHelper
 
 				consensus_info[:low_last_twenty_prcnt] = (((low_twenty_wins.to_f/(low_twenty_wins + low_twenty_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:low_last_twenty_prcnt].to_f <= 39.0
+				if consensus_info[:low_last_twenty_prcnt].to_f <= 33.0
 
 					consensus_info[:low_last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:low_last_twenty_prcnt].to_f > 39 && consensus_info[:low_last_twenty_prcnt].to_f < 46
+				elsif consensus_info[:low_last_twenty_prcnt].to_f > 34 && consensus_info[:low_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:low_last_twenty_rating] = "cold"
 
-				elsif consensus_info[:low_last_twenty_prcnt].to_f >=  46 && consensus_info[:low_last_twenty_prcnt].to_f < 56
+				elsif consensus_info[:low_last_twenty_prcnt].to_f >=  40 && consensus_info[:low_last_twenty_prcnt].to_f < 60
 
 					consensus_info[:low_last_twenty_rating] = "choppy"
 
-				elsif consensus_info[:low_last_twenty_prcnt].to_f >=  56 && consensus_info[:low_last_twenty_prcnt].to_f < 65
+				elsif consensus_info[:low_last_twenty_prcnt].to_f >=  60 && consensus_info[:low_last_twenty_prcnt].to_f < 75
 
 						consensus_info[:low_last_twenty_rating] = "hot"
 
-				elsif consensus_info[:low_last_twenty_prcnt].to_f >= 65
+				elsif consensus_info[:low_last_twenty_prcnt].to_f >= 75
 						
 						consensus_info[:low_last_twenty_rating] = "on fire"
 
@@ -6001,24 +11712,24 @@ module MatchupsHelper
 
 				consensus_info[:med_last_twenty_prcnt] = (((med_twenty_wins.to_f/(med_twenty_wins + med_twenty_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:med_last_twenty_prcnt].to_f <= 39.0
+				if consensus_info[:med_last_twenty_prcnt].to_f <= 33.0
 
 					consensus_info[:med_last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:med_last_twenty_prcnt].to_f > 39 && consensus_info[:med_last_twenty_prcnt].to_f < 46
+				elsif consensus_info[:med_last_twenty_prcnt].to_f > 34 && consensus_info[:med_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:med_last_twenty_rating] = "cold"
 
-				elsif consensus_info[:med_last_twenty_prcnt].to_f >=  46 && consensus_info[:med_last_twenty_prcnt].to_f < 56
+				elsif consensus_info[:med_last_twenty_prcnt].to_f >=  40 && consensus_info[:med_last_twenty_prcnt].to_f < 60
 
 					consensus_info[:med_last_twenty_rating] = "choppy"
 
-				elsif consensus_info[:med_last_twenty_prcnt].to_f >=  56 && consensus_info[:med_last_twenty_prcnt].to_f < 65
+				elsif consensus_info[:med_last_twenty_prcnt].to_f >=  60 && consensus_info[:med_last_twenty_prcnt].to_f < 75
 
 						consensus_info[:med_last_twenty_rating] = "hot"
 
-				elsif consensus_info[:med_last_twenty_prcnt].to_f >= 65
+				elsif consensus_info[:med_last_twenty_prcnt].to_f >= 75
 						
 						consensus_info[:med_last_twenty_rating] = "on fire"
 
@@ -6027,8 +11738,8 @@ module MatchupsHelper
 			
 			else
 
-				consensus_info[:med_last_ten_prcnt] = "none"
-				consensus_info[:med_last_ten_rating] = "none"
+				consensus_info[:med_last_twenty_prcnt] = "none"
+				consensus_info[:med_last_twenty_rating] = "none"
 
 
 			end
@@ -6037,24 +11748,24 @@ module MatchupsHelper
 
 				consensus_info[:hi_last_twenty_prcnt] = (((hi_twenty_wins.to_f/(hi_twenty_wins + hi_twenty_losses)) * 100).round(2)).to_s + "%"
 
-				if consensus_info[:hi_last_twenty_prcnt].to_f <= 39.0
+				if consensus_info[:hi_last_twenty_prcnt].to_f <= 33.0
 
 					consensus_info[:hi_last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:hi_last_twenty_prcnt].to_f > 39 && consensus_info[:hi_last_twenty_prcnt].to_f < 46
+				elsif consensus_info[:hi_last_twenty_prcnt].to_f > 34 && consensus_info[:hi_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:hi_last_twenty_rating] = "cold"
 
-				elsif consensus_info[:hi_last_twenty_prcnt].to_f >=  46 && consensus_info[:hi_last_twenty_prcnt].to_f < 56
+				elsif consensus_info[:hi_last_twenty_prcnt].to_f >=  40 && consensus_info[:hi_last_twenty_prcnt].to_f < 60
 
 					consensus_info[:hi_last_twenty_rating] = "choppy"
 
-				elsif consensus_info[:hi_last_twenty_prcnt].to_f >=  56 && consensus_info[:hi_last_twenty_prcnt].to_f < 65
+				elsif consensus_info[:hi_last_twenty_prcnt].to_f >=  60 && consensus_info[:hi_last_twenty_prcnt].to_f < 75
 
 						consensus_info[:hi_last_twenty_rating] = "hot"
 
-				elsif consensus_info[:hi_last_twenty_prcnt].to_f >= 65
+				elsif consensus_info[:hi_last_twenty_prcnt].to_f >= 75
 						
 						consensus_info[:hi_last_twenty_rating] = "on fire"
 
@@ -6069,16 +11780,827 @@ module MatchupsHelper
 
 			end
 
-
 			@und_spread_info.push(consensus_info)
 
 		end
 
-
-
 	end
 
 	def choice_stats
+
+		@favs_obj.each do |x|
+
+			consensus_info = {}
+
+			five_wins = 0
+			five_losses = 0
+
+			ten_wins = 0
+			ten_losses = 0
+
+			twenty_wins = 0
+			twenty_losses = 0
+
+			user_games = []
+
+			User.all.each do |u|
+
+				if u.id == x[:user_id].to_i
+
+					u.picks.each do |p|
+
+						if p.sport == @matchup.sport
+
+							if p.bet_type == "side"
+
+								team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
+								Matchup.all.each do |m|
+
+									if m.id == p.matchup_id.to_i
+
+										if m.home_score.length != 0
+
+											if team = m.fav
+
+												user_games.push(p)
+
+											end	
+
+										end
+
+									end
+
+								end
+
+							end
+
+						end
+
+					end
+
+				end
+
+			end
+
+			user_games.last(5).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if m.sport == "MLB"
+
+							if m.fav_field == "home"
+
+								if m.home_score.to_i > m.road_score.to_i
+
+									five_wins = five_wins + 1
+
+								else
+
+									five_losses = five_losses + 1
+
+
+								end
+
+
+							else
+
+								if m.home_score.to_i < m.road_score.to_i
+
+									five_wins = five_wins + 1
+
+								else
+
+									five_losses = five_losses + 1
+
+
+								end
+
+
+							end
+
+
+						else
+
+							if m.fav_field == "home"
+
+								if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+									five_wins = five_wins + 1
+
+								elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+									five_losses = five_losses + 1
+
+
+								end
+
+
+							else
+
+								if m.home_score.to_i < m.road_score.to_i + m.spread.to_f
+
+									five_wins = five_wins + 1
+
+								else
+
+									five_losses = five_losses + 1
+
+
+								end
+
+
+							end
+
+
+						end
+
+					end
+
+				end
+
+			end
+
+			user_games.last(10).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if m.sport == "MLB"
+
+							if m.fav_field == "home"
+
+								if m.home_score.to_i > m.road_score.to_i
+
+									ten_wins = ten_wins + 1
+
+								else
+
+									ten_losses = ten_losses + 1
+
+
+								end
+
+
+							else
+
+								if m.home_score.to_i < m.road_score.to_i
+
+									ten_wins = ten_wins + 1
+
+								else
+
+									ten_losses = ten_losses + 1
+
+
+								end
+
+
+							end
+
+
+						else
+
+							if m.fav_field == "home"
+
+								if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+									ten_wins = ten_wins + 1
+
+								elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+									ten_losses = ten_losses + 1
+
+
+								end
+
+
+							else
+
+								if m.home_score.to_i < m.road_score.to_i + m.spread.to_f
+
+									ten_wins = ten_wins + 1
+
+								else
+
+									ten_losses = ten_losses + 1
+
+
+								end
+
+
+							end
+
+
+						end
+
+					end
+
+				end
+
+			end
+
+			user_games.last(20).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if m.sport == "MLB"
+
+							if m.fav_field == "home"
+
+								if m.home_score.to_i > m.road_score.to_i
+
+									twenty_wins = twenty_wins + 1
+
+								else
+
+									twenty_losses = twenty_losses + 1
+
+
+								end
+
+
+							else
+
+								if m.home_score.to_i < m.road_score.to_i
+
+									twenty_wins = twenty_wins + 1
+
+								else
+
+									twenty_losses = twenty_losses + 1
+
+
+								end
+
+
+							end
+
+
+						else
+
+							if m.fav_field == "home"
+
+								if m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+									twenty_wins = twenty_wins + 1
+
+								elsif m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+									twenty_losses = twenty_losses + 1
+
+
+								end
+
+
+							else
+
+								if m.home_score.to_i < m.road_score.to_i + m.spread.to_f
+
+									twenty_wins = twenty_wins + 1
+
+								else
+
+									twenty_losses = twenty_losses + 1
+
+
+								end
+
+
+							end
+
+
+						end
+
+					end
+
+				end
+
+			end
+
+			if five_wins + five_losses == 0
+
+				consensus_info[:over_all_last_five_prcnt] = "none"
+				consensus_info[:last_five_rating] = "none"
+
+
+			else 
+
+
+				consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:over_all_last_five_prcnt].to_f <= 33.0
+
+					consensus_info[:last_five_rating] = "frigid"
+
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
+
+					consensus_info[:last_five_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  40 && consensus_info[:over_all_last_five_prcnt].to_f < 60
+
+					consensus_info[:last_five_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  60 && consensus_info[:over_all_last_five_prcnt].to_f < 75
+
+						consensus_info[:last_five_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >= 75
+						
+						consensus_info[:last_five_rating] = "on fire"
+
+
+				end
+
+			end
+
+			if ten_wins + ten_losses == 0
+
+				consensus_info[:over_all_last_ten_prcnt] = "none"
+				consensus_info[:last_ten_rating] = "none"
+
+			else
+
+				consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins.to_f + ten_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:over_all_last_ten_prcnt].to_f <= 33.0
+
+					consensus_info[:last_ten_rating] = "frigid"
+
+
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
+
+					consensus_info[:last_ten_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  40 && consensus_info[:over_all_last_ten_prcnt].to_f < 60
+
+					consensus_info[:last_ten_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  60 && consensus_info[:over_all_last_ten_prcnt].to_f < 75
+
+						consensus_info[:last_ten_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 75
+						
+						consensus_info[:last_ten_rating] = "on fire"
+
+
+				end
+
+			end
+
+			if twenty_wins + twenty_losses == 0
+
+				consensus_info[:over_all_last_twenty_prcnt] = "none"
+				consensus_info[:last_twenty_rating] = "none"
+
+			else
+
+
+				consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins.to_f + twenty_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:over_all_last_twenty_prcnt].to_f <= 33.0
+
+					consensus_info[:last_twenty_rating] = "frigid"
+
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+
+					consensus_info[:last_twenty_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  40 && consensus_info[:over_all_last_twenty_prcnt].to_f < 60
+
+					consensus_info[:last_twenty_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  60 && consensus_info[:over_all_last_twenty_prcnt].to_f < 75
+
+						consensus_info[:last_twenty_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 75
+						
+						consensus_info[:last_twenty_rating] = "on fire"
+
+
+				end
+
+			end
+
+			@fav_choice_info.push(consensus_info)
+
+		end
+
+		@dogs_obj.each do |x|
+
+			consensus_info = {}
+
+			five_wins = 0
+			five_losses = 0
+
+			ten_wins = 0
+			ten_losses = 0
+
+			twenty_wins = 0
+			twenty_losses = 0
+
+			user_games = []
+
+			User.all.each do |u|
+
+				if u.id == x[:user_id].to_i
+
+					u.picks.each do |p|
+
+						if p.sport == @matchup.sport
+
+							if p.bet_type == "side"
+
+								team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
+								Matchup.all.each do |m|
+
+									if m.id == p.matchup_id.to_i
+
+										if m.home_score.length != 0
+
+											if team = m.dog
+
+												user_games.push(p)
+
+											end	
+
+										end
+
+									end
+
+								end
+
+							end
+
+						end
+
+					end
+
+				end
+
+			end
+
+			user_games.last(5).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if m.sport == "MLB"
+
+							if m.fav_field == "home"
+
+								if m.home_score.to_i < m.road_score.to_i
+
+									five_wins = five_wins + 1
+
+								else
+
+									five_losses = five_losses + 1
+
+
+								end
+
+
+							else
+
+								if m.home_score.to_i > m.road_score.to_i
+
+									five_wins = five_wins + 1
+
+								else
+
+									five_losses = five_losses + 1
+
+
+								end
+
+
+							end
+
+
+						else
+
+							if m.fav_field == "home"
+
+								if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+									five_wins = five_wins + 1
+
+								elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+									five_losses = five_losses + 1
+
+
+								end
+
+
+							else
+
+								if m.home_score.to_i > m.road_score.to_i + m.spread.to_f
+
+									five_wins = five_wins + 1
+
+								else
+
+									five_losses = five_losses + 1
+
+
+								end
+
+
+							end
+
+
+						end
+
+					end
+
+				end
+
+			end
+
+			user_games.last(10).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if m.sport == "MLB"
+
+							if m.fav_field == "home"
+
+								if m.home_score.to_i < m.road_score.to_i
+
+									ten_wins = ten_wins + 1
+
+								else
+
+									ten_losses = ten_losses + 1
+
+
+								end
+
+
+							else
+
+								if m.home_score.to_i > m.road_score.to_i
+
+									ten_wins = ten_wins + 1
+
+								else
+
+									ten_losses = ten_losses + 1
+
+
+								end
+
+
+							end
+
+
+						else
+
+							if m.fav_field == "home"
+
+								if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+									ten_wins = ten_wins + 1
+
+								elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+									ten_losses = ten_losses + 1
+
+
+								end
+
+
+							else
+
+								if m.home_score.to_i > m.road_score.to_i + m.spread.to_f
+
+									ten_wins = ten_wins + 1
+
+								else
+
+									ten_losses = ten_losses + 1
+
+
+								end
+
+
+							end
+
+
+						end
+
+					end
+
+				end
+
+			end
+
+			user_games.last(20).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if m.sport == "MLB"
+
+							if m.fav_field == "home"
+
+								if m.home_score.to_i < m.road_score.to_i
+
+									twenty_wins = twenty_wins + 1
+
+								else
+
+									twenty_losses = twenty_losses + 1
+
+
+								end
+
+
+							else
+
+								if m.home_score.to_i > m.road_score.to_i
+
+									twenty_wins = twenty_wins + 1
+
+								else
+
+									twenty_losses = twenty_losses + 1
+
+
+								end
+
+
+							end
+
+
+						else
+
+							if m.fav_field == "home"
+
+								if m.home_score.to_i + m.spread.to_f < m.road_score.to_i
+
+									twenty_wins = twenty_wins + 1
+
+								elsif m.home_score.to_i + m.spread.to_f > m.road_score.to_i
+
+									twenty_losses = twenty_losses + 1
+
+
+								end
+
+
+							else
+
+								if m.home_score.to_i > m.road_score.to_i + m.spread.to_f
+
+									twenty_wins = twenty_wins + 1
+
+								else
+
+									twenty_losses = twenty_losses + 1
+
+
+								end
+
+
+							end
+
+
+						end
+
+					end
+
+				end
+
+			end
+
+			if five_wins + five_losses == 0
+
+				consensus_info[:over_all_last_five_prcnt] = "none"
+				consensus_info[:last_five_rating] = "none"
+
+
+			else 
+
+
+				consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:over_all_last_five_prcnt].to_f <= 33.0
+
+					consensus_info[:last_five_rating] = "frigid"
+
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
+
+					consensus_info[:last_five_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  40 && consensus_info[:over_all_last_five_prcnt].to_f < 60
+
+					consensus_info[:last_five_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  60 && consensus_info[:over_all_last_five_prcnt].to_f < 75
+
+						consensus_info[:last_five_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >= 75
+						
+						consensus_info[:last_five_rating] = "on fire"
+
+
+				end
+
+			end
+
+			if ten_wins + ten_losses == 0
+
+				consensus_info[:over_all_last_ten_prcnt] = "none"
+				consensus_info[:last_ten_rating] = "none"
+
+			else
+
+				consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins.to_f + ten_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:over_all_last_ten_prcnt].to_f <= 33.0
+
+					consensus_info[:last_ten_rating] = "frigid"
+
+
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
+
+					consensus_info[:last_ten_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  40 && consensus_info[:over_all_last_ten_prcnt].to_f < 60
+
+					consensus_info[:last_ten_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  60 && consensus_info[:over_all_last_ten_prcnt].to_f < 75
+
+						consensus_info[:last_ten_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 75
+						
+						consensus_info[:last_ten_rating] = "on fire"
+
+
+				end
+
+			end
+
+			if twenty_wins + twenty_losses == 0
+
+				consensus_info[:over_all_last_twenty_prcnt] = "none"
+				consensus_info[:last_twenty_rating] = "none"
+
+			else
+
+
+				consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins.to_f + twenty_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:over_all_last_twenty_prcnt].to_f <= 33.0
+
+					consensus_info[:last_twenty_rating] = "frigid"
+
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+
+					consensus_info[:last_twenty_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  40 && consensus_info[:over_all_last_twenty_prcnt].to_f < 60
+
+					consensus_info[:last_twenty_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  60 && consensus_info[:over_all_last_twenty_prcnt].to_f < 75
+
+						consensus_info[:last_twenty_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 75
+						
+						consensus_info[:last_twenty_rating] = "on fire"
+
+
+				end
+
+			end
+
+			@dog_choice_info.push(consensus_info)
+
+		end
 
 		@ovr_obj.each do |x|
 
@@ -6105,23 +12627,23 @@ module MatchupsHelper
 
 							if p.bet_type == "total"
 
+								team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
 								Matchup.all.each do |m|
 
 									if m.id == p.matchup_id.to_i
 
 										if m.home_score.length != 0
 
-											if ((p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")) == "O"
+											if team = "O"
 
 												user_games.push(p)
 
-											end
+											end	
 
 										end
 
-
 									end
-
 
 								end
 
@@ -6131,63 +12653,24 @@ module MatchupsHelper
 
 					end
 
-
-				end
-
-
-			end
-
-			user_games_last_five = user_games.last(5)
-			user_games_last_ten = user_games.last(10)
-			user_games_last_twenty = user_games.last(20)
-
-			consensus_info[:last_five_games] = user_games_last_five
-			consensus_info[:last_ten_games] = user_games_last_ten
-			consensus_info[:last_twenty_games] = user_games_last_twenty
-
-			consensus_info[:last_five_games].each do |g|
-
-				team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
-
-				Matchup.all.each do |m|
-
-					if g.matchup_id.to_i == m.id			
-
-						if m.total.to_i > m.home_score.to_i + m.road_score.to_i
-
-							five_wins = five_wins + 1
-						
-						else 
-		
-							five_losses = five_losses + 1
-
-						end
-
-
-					end
-
-
 				end
 
 			end
 
-			consensus_info[:last_ten_games].each do |g|
-
-				team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
+			user_games.last(5).each do |g|
 
 				Matchup.all.each do |m|
 
 					if g.matchup_id.to_i == m.id
 
-						if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+						if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-							ten_wins = ten_wins + 1
-						
-						else 
+							five_wins = five_wins + 1
 
-							
-							ten_losses = ten_losses + 1
 
+						else
+
+							five_losses = five_losses + 1
 
 						end
 
@@ -6197,23 +12680,20 @@ module MatchupsHelper
 
 			end
 
-			consensus_info[:last_twenty_games].each do |g|
-
-				team = (g.selection.slice(0..(g.selection.index(' ')))).delete_suffix(" ")
-
+			user_games.last(10).each do |g|
 
 				Matchup.all.each do |m|
 
-					if g.matchup_id.to_i == m.id		
+					if g.matchup_id.to_i == m.id
 
-						if m.total.to_i > m.home_score.to_i + m.road_score.to_i
+						if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-							twenty_wins = twenty_wins + 1
-						
-						else 
-							
-							twenty_losses = twenty_losses + 1
+							ten_wins = ten_wins + 1
 
+
+						else
+
+							ten_losses = ten_losses + 1
 
 						end
 
@@ -6223,123 +12703,383 @@ module MatchupsHelper
 
 			end
 
-			if (five_wins + five_losses) !=0
+			user_games.last(20).each do |g|
 
-				consensus_info[:choice_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
+				Matchup.all.each do |m|
 
-				if consensus_info[:choice_last_five_prcnt].to_f <= 39.0
+					if g.matchup_id.to_i == m.id
 
-					consensus_info[:choice_last_five_rating] = "frigid"
+						if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+							twenty_wins = twenty_wins + 1
 
 
-				elsif consensus_info[:choice_last_five_prcnt].to_f > 39 && consensus_info[:choice_last_five_prcnt].to_f < 46
+						else
 
-					consensus_info[:choice_last_five_rating] = "cold"
+							twenty_losses = twenty_losses + 1
 
-				elsif consensus_info[:choice_last_five_prcnt].to_f >=  46 && consensus_info[:choice_last_five_prcnt].to_f < 56
+						end
 
-					consensus_info[:choice_last_five_rating] = "choppy"
-
-				elsif consensus_info[:choice_last_five_prcnt].to_f >=  56 && consensus_info[:choice_last_five_prcnt].to_f < 65
-
-						consensus_info[:choice_last_five_rating] = "hot"
-
-				elsif consensus_info[:choice_last_five_prcnt].to_f >= 65
-						
-						consensus_info[:choice_last_five_rating] = "on fire"
-
+					end
 
 				end
-			
-			else
-
-				consensus_info[:choice_last_five_prcnt] = "none"
-				consensus_info[:choice_last_five_rating] = "none"
-
 
 			end
 
-				if (ten_wins + ten_losses) !=0
+			if five_wins + five_losses == 0
 
-				consensus_info[:choice_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins + ten_losses)) * 100).round(2)).to_s + "%"
-
-				if consensus_info[:choice_last_ten_prcnt].to_f <= 39.0
-
-					consensus_info[:choice_last_ten_rating] = "frigid"
+				consensus_info[:over_all_last_five_prcnt] = "none"
+				consensus_info[:last_five_rating] = "none"
 
 
-				elsif consensus_info[:choice_last_ten_prcnt].to_f > 39 && consensus_info[:choice_last_ten_prcnt].to_f < 46
+			else 
 
-					consensus_info[:choice_last_ten_rating] = "cold"
 
-				elsif consensus_info[:choice_last_ten_prcnt].to_f >=  46 && consensus_info[:choice_last_ten_prcnt].to_f < 56
+				consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
 
-					consensus_info[:choice_last_ten_rating] = "choppy"
+				if consensus_info[:over_all_last_five_prcnt].to_f <= 33.0
 
-				elsif consensus_info[:choice_last_ten_prcnt].to_f >=  56 && consensus_info[:choice_last_ten_prcnt].to_f < 65
+					consensus_info[:last_five_rating] = "frigid"
 
-						consensus_info[:choice_last_ten_rating] = "hot"
 
-				elsif consensus_info[:choice_last_ten_prcnt].to_f >= 65
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
+
+					consensus_info[:last_five_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  40 && consensus_info[:over_all_last_five_prcnt].to_f < 60
+
+					consensus_info[:last_five_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  60 && consensus_info[:over_all_last_five_prcnt].to_f < 75
+
+						consensus_info[:last_five_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >= 75
 						
-						consensus_info[:choice_last_ten_rating] = "on fire"
+						consensus_info[:last_five_rating] = "on fire"
 
 
 				end
-			
-			else
-
-				consensus_info[:choice_last_ten_prcnt] = "none"
-				consensus_info[:choice_last_ten_rating] = "none"
-
 
 			end
 
-				if (twenty_wins + twenty_losses) !=0
+			if ten_wins + ten_losses == 0
 
-				consensus_info[:choice_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins + twenty_losses)) * 100).round(2)).to_s + "%"
+				consensus_info[:over_all_last_ten_prcnt] = "none"
+				consensus_info[:last_ten_rating] = "none"
 
-				if consensus_info[:choice_last_twenty_prcnt].to_f <= 39.0
+			else
 
-					consensus_info[:choice_last_twenty_rating] = "frigid"
+				consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins.to_f + ten_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:over_all_last_ten_prcnt].to_f <= 33.0
+
+					consensus_info[:last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:choice_last_twenty_prcnt].to_f > 39 && consensus_info[:choice_last_twenty_prcnt].to_f < 46
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
 
-					consensus_info[:choice_last_twenty_rating] = "cold"
+					consensus_info[:last_ten_rating] = "cold"
 
-				elsif consensus_info[:choice_last_twenty_prcnt].to_f >=  46 && consensus_info[:choice_last_twenty_prcnt].to_f < 56
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  40 && consensus_info[:over_all_last_ten_prcnt].to_f < 60
 
-					consensus_info[:choice_last_twenty_rating] = "choppy"
+					consensus_info[:last_ten_rating] = "choppy"
 
-				elsif consensus_info[:choice_last_twenty_prcnt].to_f >=  56 && consensus_info[:choice_last_twenty_prcnt].to_f < 65
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  60 && consensus_info[:over_all_last_ten_prcnt].to_f < 75
 
-						consensus_info[:choice_last_twenty_rating] = "hot"
+						consensus_info[:last_ten_rating] = "hot"
 
-				elsif consensus_info[:choice_last_twenty_prcnt].to_f >= 65
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 75
 						
-						consensus_info[:choice_last_twenty_rating] = "on fire"
+						consensus_info[:last_ten_rating] = "on fire"
 
 
 				end
-			
-			else
-
-				consensus_info[:choice_last_five_prcnt] = "none"
-				consensus_info[:choice_last_five_rating] = "none"
 
 			end
 
+			if twenty_wins + twenty_losses == 0
 
-			@ovr_spread_info.push(consensus_info)
+				consensus_info[:over_all_last_twenty_prcnt] = "none"
+				consensus_info[:last_twenty_rating] = "none"
+
+			else
+
+
+				consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins.to_f + twenty_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:over_all_last_twenty_prcnt].to_f <= 33.0
+
+					consensus_info[:last_twenty_rating] = "frigid"
+
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+
+					consensus_info[:last_twenty_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  40 && consensus_info[:over_all_last_twenty_prcnt].to_f < 60
+
+					consensus_info[:last_twenty_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  60 && consensus_info[:over_all_last_twenty_prcnt].to_f < 75
+
+						consensus_info[:last_twenty_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 75
+						
+						consensus_info[:last_twenty_rating] = "on fire"
+
+
+				end
+
+			end
+
+			@ovr_choice_info.push(consensus_info)
 
 		end
 
+		@und_obj.each do |x|
+
+			consensus_info = {}
+
+			five_wins = 0
+			five_losses = 0
+
+			ten_wins = 0
+			ten_losses = 0
+
+			twenty_wins = 0
+			twenty_losses = 0
+
+			user_games = []
+
+			User.all.each do |u|
+
+				if u.id == x[:user_id].to_i
+
+					u.picks.each do |p|
+
+						if p.sport == @matchup.sport
+
+							if p.bet_type == "total"
+
+								team = (p.selection.slice(0..(p.selection.index(' ')))).delete_suffix(" ")
+
+								Matchup.all.each do |m|
+
+									if m.id == p.matchup_id.to_i
+
+										if m.home_score.length != 0
+
+											if team = "U"
+
+												user_games.push(p)
+
+											end	
+
+										end
+
+									end
+
+								end
+
+							end
+
+						end
+
+					end
+
+				end
+
+			end
+
+			user_games.last(5).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+							five_wins = five_wins + 1
+
+
+						else
+
+							five_losses = five_losses + 1
+
+						end
+
+					end
+
+				end
+
+			end
+
+			user_games.last(10).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+							ten_wins = ten_wins + 1
+
+
+						else
+
+							ten_losses = ten_losses + 1
+
+						end
+
+					end
+
+				end
+
+			end
+
+			user_games.last(20).each do |g|
+
+				Matchup.all.each do |m|
+
+					if g.matchup_id.to_i == m.id
+
+						if m.total.to_f < m.home_score.to_i + m.road_score.to_i
+
+							twenty_wins = twenty_wins + 1
+
+
+						else
+
+							twenty_losses = twenty_losses + 1
+
+						end
+
+					end
+
+				end
+
+			end
+
+			if five_wins + five_losses == 0
+
+				consensus_info[:over_all_last_five_prcnt] = "none"
+				consensus_info[:last_five_rating] = "none"
+
+
+			else 
+
+
+				consensus_info[:over_all_last_five_prcnt] = (((five_wins.to_f/(five_wins + five_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:over_all_last_five_prcnt].to_f <= 33.0
+
+					consensus_info[:last_five_rating] = "frigid"
+
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
+
+					consensus_info[:last_five_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  40 && consensus_info[:over_all_last_five_prcnt].to_f < 60
+
+					consensus_info[:last_five_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >=  60 && consensus_info[:over_all_last_five_prcnt].to_f < 75
+
+						consensus_info[:last_five_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_five_prcnt].to_f >= 75
+						
+						consensus_info[:last_five_rating] = "on fire"
+
+
+				end
+
+			end
+
+			if ten_wins + ten_losses == 0
+
+				consensus_info[:over_all_last_ten_prcnt] = "none"
+				consensus_info[:last_ten_rating] = "none"
+
+			else
+
+				consensus_info[:over_all_last_ten_prcnt] = (((ten_wins.to_f/(ten_wins.to_f + ten_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:over_all_last_ten_prcnt].to_f <= 33.0
+
+					consensus_info[:last_ten_rating] = "frigid"
+
+
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
+
+					consensus_info[:last_ten_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  40 && consensus_info[:over_all_last_ten_prcnt].to_f < 60
+
+					consensus_info[:last_ten_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >=  60 && consensus_info[:over_all_last_ten_prcnt].to_f < 75
+
+						consensus_info[:last_ten_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f >= 75
+						
+						consensus_info[:last_ten_rating] = "on fire"
+
+
+				end
+
+			end
+
+			if twenty_wins + twenty_losses == 0
+
+				consensus_info[:over_all_last_twenty_prcnt] = "none"
+				consensus_info[:last_twenty_rating] = "none"
+
+			else
+
+
+				consensus_info[:over_all_last_twenty_prcnt] = (((twenty_wins.to_f/(twenty_wins.to_f + twenty_losses)) * 100).round(2)).to_s + "%"
+
+				if consensus_info[:over_all_last_twenty_prcnt].to_f <= 33.0
+
+					consensus_info[:last_twenty_rating] = "frigid"
+
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+
+					consensus_info[:last_twenty_rating] = "cold"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  40 && consensus_info[:over_all_last_twenty_prcnt].to_f < 60
+
+					consensus_info[:last_twenty_rating] = "choppy"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >=  60 && consensus_info[:over_all_last_twenty_prcnt].to_f < 75
+
+						consensus_info[:last_twenty_rating] = "hot"
+
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f >= 75
+						
+						consensus_info[:last_twenty_rating] = "on fire"
+
+
+				end
+
+			end
+
+			@und_choice_info.push(consensus_info)
+
+		end
 
 	end
 
-	
+
 end
+
+		
 
 
 

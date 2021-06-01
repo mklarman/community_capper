@@ -9,6 +9,7 @@
 <% self.calc_percent %>
 <% self.overall_sport %>
 <% self.line_for_sport %>
+<% self.choice_stats %>
 
 <% bettor = 1 %>
 <% dog_bettor = 1 %>
@@ -20,11 +21,11 @@
 
 	<% @fav_bettors_info.each do |b| %>
 
-		<div>bettor <%= " " + bettor.to_s + ": " + b[:last_five_rating] + " over last five"%></div>
+		<div>bettor <%= " " + bettor.to_s + ": " + b[:last_five_rating].to_s + " over last five"%></div>
 
-		<div>bettor <%= " " + bettor.to_s + ": " + b[:last_ten_rating] + " over last ten"%></div>
+		<div>bettor <%= " " + bettor.to_s + ": " + b[:last_ten_rating].to_s + " over last ten"%></div>
 
-		<div>bettor <%= " " + bettor.to_s + ": " + b[:last_twenty_rating] + " over last twenty"%></div>
+		<div>bettor <%= " " + bettor.to_s + ": " + b[:last_twenty_rating].to_s + " over last twenty"%></div>
 
 		<% bettor = bettor + 1 %>
 
@@ -38,11 +39,11 @@
 
 	<% @dog_bettors_info.each do |b| %>
 
-		<div>bettor <%= " " + dog_bettor.to_s + ": " + b[:last_five_rating] + " over last five"%></div>
+		<div>bettor <%= " " + dog_bettor.to_s + ": " + b[:last_five_rating].to_s + " over last five"%></div>
 
-		<div>bettor <%= " " + dog_bettor.to_s + ": " + b[:last_ten_rating] + " over last ten"%></div>
+		<div>bettor <%= " " + dog_bettor.to_s + ": " + b[:last_ten_rating].to_s + " over last ten"%></div>
 
-		<div>bettor <%= " " + dog_bettor.to_s + ": " + b[:last_twenty_rating] + " over last twenty"%></div>
+		<div>bettor <%= " " + dog_bettor.to_s + ": " + b[:last_twenty_rating].to_s + " over last twenty"%></div>
 
 		<% dog_bettor = dog_bettor + 1 %>
 
@@ -56,11 +57,11 @@
 
 	<% @ovr_bettors_info.each do |b| %>
 
-		<div>bettor <%= " " + ovr_bettor.to_s + ": " + b[:last_five_rating] + " over last five totals"%></div>
+		<div>bettor <%= " " + ovr_bettor.to_s + ": " + b[:last_five_rating].to_s + " over last five totals"%></div>
 
-		<div>bettor <%= " " + ovr_bettor.to_s + ": " + b[:last_ten_rating] + " over last ten totals"%></div>
+		<div>bettor <%= " " + ovr_bettor.to_s + ": " + b[:last_ten_rating].to_s + " over last ten totals"%></div>
 
-		<div>bettor <%= " " + ovr_bettor.to_s + ": " + b[:last_twenty_rating] + " over last twenty totals"%></div>
+		<div>bettor <%= " " + ovr_bettor.to_s + ": " + b[:last_twenty_rating].to_s + " over last twenty totals"%></div>
 
 		<% ovr_bettor = ovr_bettor + 1 %>
 
@@ -73,11 +74,11 @@
 
 	<% @und_bettors_info.each do |b| %>
 
-		<div>bettor <%= " " + und_bettor.to_s + ": " + b[:last_five_rating] + " over last five totals"%></div>
+		<div>bettor <%= " " + und_bettor.to_s + ": " + b[:last_five_rating].to_s + " over last five totals"%></div>
 
-		<div>bettor <%= " " + und_bettor.to_s + ": " + b[:last_ten_rating] + " over last ten totals"%></div>
+		<div>bettor <%= " " + und_bettor.to_s + ": " + b[:last_ten_rating].to_s + " over last ten totals"%></div>
 
-		<div>bettor <%= " " + und_bettor.to_s + ": " + b[:last_twenty_rating] + " over last twenty totals"%></div>
+		<div>bettor <%= " " + und_bettor.to_s + ": " + b[:last_twenty_rating].to_s + " over last twenty totals"%></div>
 
 		<% und_bettor = und_bettor + 1 %>
 
@@ -99,27 +100,27 @@
 
 			<% if @matchup.fav_ml.to_i > -130 %>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_five_rating] + " over last five"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_five_rating].to_s + " over last five"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_ten_rating] + " over last ten"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_ten_rating].to_s + " over last ten"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_twenty_rating] + " over last twenty"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_twenty_rating].to_s + " over last twenty"%></div>
 
 			<% elsif @matchup.fav_ml.to_i <= -130 && @matchup.fav_ml.to_i > -160 %>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_five_rating] + " over last five"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_five_rating].to_s + " over last five"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_ten_rating] + " over last ten"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_ten_rating].to_s + " over last ten"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_twenty_rating] + " over last twenty"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_twenty_rating].to_s + " over last twenty"%></div>
 
 			<% else %>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_five_rating] + " over last five"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_five_rating].to_s + " over last five"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_ten_rating] + " over last ten"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_ten_rating].to_s + " over last ten"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_twenty_rating] + " over last twenty"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_twenty_rating].to_s + " over last twenty"%></div>
 
 
 			<% end %>
@@ -128,28 +129,28 @@
 
 			<% if (@matchup.spread.to_f).abs < 4 %>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_five_rating] + " over last five"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_five_rating].to_s + " over last five"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_ten_rating] + " over last ten"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_ten_rating].to_s + " over last ten"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_twenty_rating] + " over last twenty"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_twenty_rating].to_s + " over last twenty"%></div>
 
 
 			<% elsif (@matchup.spread.to_f).abs >= 4 && (@matchup.spread.to_f).abs < 8 %>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_five_rating] + " over last five"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_five_rating].to_s + " over last five"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_ten_rating] + " over last ten"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_ten_rating].to_s + " over last ten"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_twenty_rating] + " over last twenty"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_twenty_rating].to_s + " over last twenty"%></div>
 
 			<% elsif (@matchup.spread.to_f).abs >= 8 %>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_five_rating] + " over last five"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_five_rating].to_s + " over last five"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_ten_rating] + " over last ten"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_ten_rating].to_s + " over last ten"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_twenty_rating] + " over last twenty"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_twenty_rating].to_s + " over last twenty"%></div>
 
 
 			<% end %>
@@ -183,11 +184,11 @@
 
 			<% elsif @matchup.dog_ml.to_i >= 130 && @matchup.dog_ml.to_i < 160 %>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_five_rating] + " over last five"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_five_rating].to_s + " over last five"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_ten_rating] + " over last ten"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_ten_rating].to_s + " over last ten"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_twenty_rating] + " over last twenty"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_twenty_rating].to_s + " over last twenty"%></div>
 
 			<% elsif  @matchup.dog_ml.to_i >= 160 %>
 
@@ -204,28 +205,28 @@
 
 			<% if (@matchup.spread.to_f).abs < 4 %>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_five_rating] + " over last five"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_five_rating].to_s + " over last five"%></div>
 
 				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_ten_rating] + " over last ten"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_twenty_rating] + " over last twenty"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:low_spread_twenty_rating].to_s + " over last twenty"%></div>
 
 
 			<% elsif (@matchup.spread.to_f).abs >= 4 && (@matchup.spread.to_f).abs < 8 %>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_five_rating] + " over last five"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_five_rating].to_s + " over last five"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_ten_rating] + " over last ten"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_ten_rating].to_s + " over last ten"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_twenty_rating] + " over last twenty"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:med_spread_twenty_rating].to_s + " over last twenty"%></div>
 
 			<% elsif (@matchup.spread.to_f).abs >= 8 %>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_five_rating] + " over last five"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_five_rating].to_s + " over last five"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_ten_rating] + " over last ten"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_ten_rating].to_s + " over last ten"%></div>
 
-				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_twenty_rating] + " over last twenty"%></div>
+				<div>bettor <%= " " + bettor.to_s + ": " + b[:hi_spread_twenty_rating].to_s + " over last twenty"%></div>
 
 
 			<% end %>
@@ -249,22 +250,22 @@
 
 				<% if @matchup.total.to_f < 8 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_five_rating] + " last 5 games"  %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_ten_rating] + " last 10 games"  %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_twenty_rating] + " last 20 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_five_rating].to_s + " last 5 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_ten_rating].to_s + " last 10 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_twenty_rating].to_s + " last 20 games"  %></div>
 
 
 				<% elsif @matchup.total.to_f >= 8 && @matchup.total.to_f < 10 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_five_rating] + " last 5 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_ten_rating] + " last 10 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_five_rating].to_s + " last 5 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_ten_rating].to_s + " last 10 games" %></div>
 					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_twenty_rating].to_s + " last 20 games" %></div>
 
 				<% elsif @matchup.total.to_f >= 10 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_five_rating] + " last 5 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_ten_rating] + " last 10 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_twenty_rating] + " last 20 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_five_rating].to_s + " last 5 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_ten_rating].to_s + " last 10 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_twenty_rating].to_s + " last 20 games" %></div>
 
 				<% end %>
 
@@ -274,22 +275,22 @@
 
 				<% if @matchup.total.to_f < 48 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_five_rating] + " last 5 games"  %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_ten_rating] + " last 10 games"  %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_twenty_rating] + " last 20 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_five_rating].to_s + " last 5 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_ten_rating].to_s + " last 10 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_twenty_rating].to_s + " last 20 games"  %></div>
 
 
 				<% elsif @matchup.total.to_f >= 48 && @matchup.total.to_f < 53 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_five_rating] + " last 5 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_ten_rating] + " last 10 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_twenty_rating] + " last 20 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_five_rating].to_s + " last 5 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_ten_rating].to_s + " last 10 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_twenty_rating].to_s + " last 20 games" %></div>
 
 				<% elsif @matchup.total.to_f >= 53 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_five_rating] + " last 5 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_ten_rating] + " last 10 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_twenty_rating] + " last 20 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_five_rating].to_s + " last 5 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_ten_rating].to_s + " last 10 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_twenty_rating].to_s + " last 20 games" %></div>
 
 
 				<% end %>
@@ -301,22 +302,22 @@
 
 				<% if @matchup.total.to_f < 220 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_five_rating] + " last 5 games"  %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_ten_rating] + " last 10 games"  %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_twenty_rating] + " last 20 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_five_rating].to_s + " last 5 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_ten_rating].to_s + " last 10 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_twenty_rating].to_s + " last 20 games"  %></div>
 
 
 				<% elsif @matchup.total.to_f >= 220 && @matchup.total.to_f < 228 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_five_rating] + " last 5 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_ten_rating] + " last 10 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_twenty_rating] + " last 20 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_five_rating].to_s + " last 5 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_ten_rating].to_s + " last 10 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_twenty_rating].to_s + " last 20 games" %></div>
 
 				<% elsif @matchup.total.to_f >= 228 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_five_rating] + " last 5 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_ten_rating] + " last 10 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_twenty_rating] + " last 20 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_five_rating].to_s + " last 5 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_ten_rating].to_s + " last 10 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_twenty_rating].to_s + " last 20 games" %></div>
 
 
 				<% end %>
@@ -347,22 +348,22 @@
 
 				<% if @matchup.total.to_f < 8 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_five_rating] + " last 5 games"  %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_ten_rating] + " last 10 games"  %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_twenty_rating] + " last 20 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_five_rating].to_s + " last 5 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_ten_rating].to_s + " last 10 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_twenty_rating].to_s + " last 20 games"  %></div>
 
 
 				<% elsif @matchup.total.to_f >= 8 && @matchup.total.to_f < 10 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_five_rating] + " last 5 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_ten_rating] + " last 10 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_twenty_rating] + " last 20 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_five_rating].to_s + " last 5 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_ten_rating].to_s + " last 10 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_twenty_rating].to_s + " last 20 games" %></div>
 
 				<% elsif @matchup.total.to_f >= 10 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_five_rating] + " last 5 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_ten_rating] + " last 10 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_twenty_rating] + " last 20 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_five_rating].to_s + " last 5 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_ten_rating].to_s + " last 10 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_twenty_rating].to_s + " last 20 games" %></div>
 
 				<% end %>
 
@@ -372,22 +373,22 @@
 
 				<% if @matchup.total.to_f < 48 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_five_rating] + " last 5 games"  %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_ten_rating] + " last 10 games"  %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_twenty_rating] + " last 20 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_five_rating].to_s + " last 5 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_ten_rating].to_s + " last 10 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_twenty_rating].to_s + " last 20 games"  %></div>
 
 
 				<% elsif @matchup.total.to_f >= 48 && @matchup.total.to_f < 53 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_five_rating] + " last 5 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_ten_rating] + " last 10 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_twenty_rating] + " last 20 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_five_rating].to_s + " last 5 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_ten_rating].to_s + " last 10 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_twenty_rating].to_s + " last 20 games" %></div>
 
 				<% elsif @matchup.total.to_f >= 53 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_five_rating] + " last 5 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_ten_rating] + " last 10 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_twenty_rating] + " last 20 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_five_rating].to_s + " last 5 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_ten_rating].to_s + " last 10 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_twenty_rating].to_s + " last 20 games" %></div>
 
 
 				<% end %>
@@ -399,22 +400,22 @@
 
 				<% if @matchup.total.to_f < 220 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_five_rating] + " last 5 games"  %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_ten_rating] + " last 10 games"  %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_twenty_rating] + " last 20 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_five_rating].to_s + " last 5 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_ten_rating].to_s + " last 10 games"  %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:low_last_twenty_rating].to_s + " last 20 games"  %></div>
 
 
 				<% elsif @matchup.total.to_f >= 220 && @matchup.total.to_f < 228 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_five_rating] + " last 5 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_ten_rating] + " last 10 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_twenty_rating] + " last 20 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_five_rating].to_s + " last 5 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_ten_rating].to_s + " last 10 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:med_last_twenty_rating].to_s + " last 20 games" %></div>
 
 				<% elsif @matchup.total.to_f >= 228 %>
 
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_five_rating] + " last 5 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_ten_rating] + " last 10 games" %></div>
-					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_twenty_rating] + " last 20 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_five_rating].to_s + " last 5 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_ten_rating].to_s + " last 10 games" %></div>
+					<div>Bettor:<%= " " + bettor.to_s + " " + b[:hi_last_twenty_rating].to_s + " last 20 games" %></div>
 
 
 				<% end %>
@@ -430,6 +431,39 @@
 
 	<br>
 	<br>
+
+	<% bettor = 1 %>
+
+	<div>
+		
+		<p>CHOICE %</p><p>FAV BETTORS</p>
+
+		<% @fav_choice_info.each do |b| %>
+
+			<div>bettor <%= " " + bettor.to_s + ": " + b[:last_five_rating].to_s + " over last five"%></div>
+
+			<div>bettor <%= " " + bettor.to_s + ": " + b[:last_ten_rating].to_s + " over last ten"%></div>
+
+			<div>bettor <%= " " + bettor.to_s + ": " + b[:last_twenty_rating].to_s + " over last twenty"%></div>
+
+			<% bettor = bettor + 1 %>
+
+
+		<% end %>
+
+	</div>
+
+	<br>
+	<br>
+
+	
+
+
+
+
+
+
+	</div>
 
 
 
@@ -719,6 +753,10 @@
 
 
 </div>
+
+
+
+
 
 
 
