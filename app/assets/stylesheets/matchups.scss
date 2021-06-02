@@ -251,15 +251,16 @@
 
 #dog_met{
 
-	width: 25%;
+	width: 40%;
 	font-size: 20px;
+
 	
 
 }
 
 #fav_met{
 
-	width: 30%;
+	width: 40%;
 	font-size: 20px;
 	
 
@@ -270,80 +271,111 @@
 
 	display: inline-block;
 	vertical-align: top;
+    margin-right: 8%;
+   
+    
 }
 
 .met_boxes{
 
+	display: inline-block;
+	vertical-align: top;
+
+	height: 100%;
+	width: 30%;
+
 	text-align: right;
+	margin-top: 1%;
+	margin-bottom: 1%;
+	margin-left: 10%;
+	
+	
+	
 }
 
-#on_fire_fav{
+.label_count{
 
-	margin-left: 20%;
-
-}
-#hot_fav{
-
-	margin-left: 20%;
-
-}
-#choppy_fav{
-
-	margin-left: 20%;
-
-}
-#cold_fav{
-
-	margin-left: 20%;
-
-}
-#frigid_fav{
-
-	margin-left: 20%;
-
-}
-#nr_fav{
-
-	margin-left: 20%;
-
-}
-
-#on_fire_dog{
-
-	margin-left: 50%;
+	height: 12%;
 	width: 100%;
-
+	
 }
-#hot_dog{
 
-	margin-left: 50%;
-	width: 100%;
+#dog_met{
 
+	margin-left: 3%;
 }
-#choppy_dog{
 
-	margin-left: 50%;
-	width: 100%;
 
-}
-#cold_dog{
 
-	margin-left: 50%;
-	width: 100%;
 
-}
-#frigid_dog{
 
-	margin-left: 50%;
-	width: 100%;
+// #on_fire_fav{
 
-}
-#nr_dog{
+// 	margin-left: 20%;
 
-	margin-left: 50%;
-	width: 100%;
+// }
+// #hot_fav{
 
-}
+// 	margin-left: 20%;
+
+// }
+// #choppy_fav{
+
+// 	margin-left: 20%;
+
+// }
+// #cold_fav{
+
+// 	margin-left: 20%;
+
+// }
+// #frigid_fav{
+
+// 	margin-left: 20%;
+
+// }
+// #nr_fav{
+
+// 	margin-left: 20%;
+
+// }
+
+// #on_fire_dog{
+
+// 	margin-left: 50%;
+// 	width: 100%;
+
+// }
+// #hot_dog{
+
+// 	margin-left: 50%;
+// 	width: 100%;
+
+// }
+// #choppy_dog{
+
+// 	margin-left: 50%;
+// 	width: 100%;
+
+// }
+// #cold_dog{
+
+// 	margin-left: 50%;
+// 	width: 100%;
+
+// }
+// #frigid_dog{
+
+// 	margin-left: 50%;
+// 	width: 100%;
+
+// }
+// #nr_dog{
+
+// 	margin-left: 50%;
+// 	width: 100%;
+
+// }
 
 .met_links{
 
@@ -355,5 +387,112 @@
 	margin-top: 2%;
 	margin-bottom: 2%;
 	text-align: center;
+}
+
+.met_link_box{
+
+	height: 100%;
+	width: 30%;
+	border: 1px solid red;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 2.5%;
+	margin-bottom: 5%;
+	font-size: 15px;
+}
+
+
+#on_fire_count_fav{
+
+	text-align: left;
+	margin-left: 1%;
+
+}
+
+#hot_count_fav{
+
+	text-align: left;
+	margin-left: 1%;
+
+
+}
+
+#choppy_count_fav{
+
+	text-align: left;
+	margin-left: 1%;
+
+
+}
+
+#cold_count_fav{
+
+	text-align: left;
+	margin-left: 1%;
+
+
+}
+
+#frigid_count_fav{
+
+	text-align: left;
+	margin-left: 1%;
+
+
+}
+
+#nr_count_fav{
+
+	text-align: left;
+	margin-left: 1%;
+
+
+}
+
+#on_fire_count_dog{
+
+	text-align: left;
+	margin-left: 1%;
+
+}
+
+#hot_count_dog{
+
+	text-align: left;
+	margin-left: 1%;
+
+
+}
+
+#choppy_count_dog{
+
+	text-align: left;
+	margin-left: 1%;
+
+
+}
+
+#cold_count_dog{
+
+	text-align: left;
+	margin-left: 1%;
+
+
+}
+
+#frigid_count_dog{
+
+	text-align: left;
+	margin-left: 1%;
+
+
+}
+
+#nr_count_dog{
+
+	text-align: left;
+	margin-left: 1%;
+
+
 }
 

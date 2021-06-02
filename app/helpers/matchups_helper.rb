@@ -36,6 +36,75 @@ module MatchupsHelper
 
 	end
 
+	def get_spread_tag
+
+		if @matchup.sport == "MLB"
+
+			if (@matchup.fav_ml.to_i).abs < 130
+
+				@fav_line = "low"
+
+			elsif (@matchup.fav_ml.to_i).abs >= 130 && (@matchup.fav_ml.to_f).abs < 160
+
+				@fav_line = "med"
+			
+			elsif (@matchup.fav_ml.to_i).abs >= 160
+
+				@fav_line = "hi"
+
+			end
+
+			if (@matchup.dog_ml.to_i).abs < 130
+
+				@dog_line = "low"
+
+			elsif (@matchup.dog_ml.to_i).abs >= 130 && (@matchup.dog_ml.to_f).abs < 160
+
+				@dog_line = "med"
+			
+			elsif (@matchup.dog_ml.to_i).abs >= 160
+
+				@dog_line = "hi"
+
+			end
+
+		elsif @matchup.sport == "NFL"
+
+			if (@matchup.spread.to_f).abs < 4
+
+				@spread_line = "low"
+
+			elsif (@matchup.spread.to_f).abs >= 4 && (@matchup.spread.to_f).abs < 8
+
+				@spread_line = "med"
+			
+			elsif (@matchup.spread.to_f).abs >= 8
+
+				@spread_line = "hi"
+
+			end
+		
+		elsif @matchup.sport == "NBA"
+
+			if (@matchup.spread.to_f).abs < 4
+
+				@spread_line = "low"
+
+			elsif (@matchup.spread.to_f).abs >= 4 && (@matchup.spread.to_f).abs < 8
+
+				@spread_line = "med"
+			
+			elsif (@matchup.spread.to_f).abs >= 8
+
+				@spread_line = "hi"
+
+			end
+
+
+		end
+
+	end
+
 	def check_user_picks
 
 		@pick_obj
@@ -954,7 +1023,7 @@ module MatchupsHelper
 					consensus_info[:last_five_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 33 && consensus_info[:over_all_last_five_prcnt].to_f < 40
 
 					consensus_info[:last_five_rating] = "cold"
 
@@ -989,7 +1058,7 @@ module MatchupsHelper
 					consensus_info[:last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 33 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
 
 					consensus_info[:last_ten_rating] = "cold"
 
@@ -1025,7 +1094,7 @@ module MatchupsHelper
 					consensus_info[:last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 33 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:last_twenty_rating] = "cold"
 
@@ -1585,7 +1654,7 @@ module MatchupsHelper
 					consensus_info[:last_five_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 33 && consensus_info[:over_all_last_five_prcnt].to_f < 40
 
 					consensus_info[:last_five_rating] = "cold"
 
@@ -1621,7 +1690,7 @@ module MatchupsHelper
 					consensus_info[:last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 33 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
 
 					consensus_info[:last_ten_rating] = "cold"
 
@@ -1656,7 +1725,7 @@ module MatchupsHelper
 					consensus_info[:last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 33.0 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:last_twenty_rating] = "cold"
 
@@ -1877,7 +1946,7 @@ module MatchupsHelper
 
 				end
 
-			end	
+			end
 
 			if five_wins + five_losses == 0
 
@@ -1893,7 +1962,7 @@ module MatchupsHelper
 					consensus_info[:last_five_rating] = "ice cold"
 
 
-				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 33 && consensus_info[:over_all_last_five_prcnt].to_f < 40
 
 					consensus_info[:last_five_rating] = "cold"
 
@@ -1929,7 +1998,7 @@ module MatchupsHelper
 					consensus_info[:last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 33 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
 
 					consensus_info[:last_ten_rating] = "cold"
 
@@ -1966,7 +2035,7 @@ module MatchupsHelper
 					consensus_info[:last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 33 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:last_twenty_rating] = "cold"
 
@@ -2203,7 +2272,7 @@ module MatchupsHelper
 					consensus_info[:last_five_rating] = "ice cold"
 
 
-				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 33 && consensus_info[:over_all_last_five_prcnt].to_f < 40
 
 					consensus_info[:last_five_rating] = "cold"
 
@@ -2239,7 +2308,7 @@ module MatchupsHelper
 					consensus_info[:last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 33 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
 
 					consensus_info[:last_ten_rating] = "cold"
 
@@ -2276,7 +2345,7 @@ module MatchupsHelper
 					consensus_info[:last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 33 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:last_twenty_rating] = "cold"
 
@@ -2916,7 +2985,7 @@ module MatchupsHelper
 
 						consensus_info[:low_spread_five_rating] = "frigid"
 
-					elsif consensus_info[:low_spread_five_prcnt].to_f > 34 && consensus_info[:low_spread_five_prcnt].to_f < 40
+					elsif consensus_info[:low_spread_five_prcnt].to_f > 33 && consensus_info[:low_spread_five_prcnt].to_f < 40
 
 						consensus_info[:low_spread_five_rating] = "cold"
 
@@ -2949,7 +3018,7 @@ module MatchupsHelper
 
 						consensus_info[:low_spread_ten_rating] = "frigid"
 
-					elsif consensus_info[:low_spread_ten_prcnt].to_f > 34 && consensus_info[:low_spread_ten_prcnt].to_f < 40
+					elsif consensus_info[:low_spread_ten_prcnt].to_f > 33 && consensus_info[:low_spread_ten_prcnt].to_f < 40
 
 						consensus_info[:low_spread_ten_rating] = "cold"
 
@@ -2984,7 +3053,7 @@ module MatchupsHelper
 
 						consensus_info[:low_spread_twenty_rating] = "frigid"
 
-					elsif consensus_info[:low_spread_twenty_prcnt].to_f > 34 && consensus_info[:low_spread_twenty_prcnt].to_f < 40
+					elsif consensus_info[:low_spread_twenty_prcnt].to_f > 33 && consensus_info[:low_spread_twenty_prcnt].to_f < 40
 
 						consensus_info[:low_spread_twenty_rating] = "cold"
 
@@ -3481,7 +3550,7 @@ module MatchupsHelper
 
 						consensus_info[:med_spread_five_rating] = "frigid"
 
-					elsif consensus_info[:med_spread_five_prcnt].to_f > 34 && consensus_info[:med_spread_five_prcnt].to_f < 40
+					elsif consensus_info[:med_spread_five_prcnt].to_f > 33 && consensus_info[:med_spread_five_prcnt].to_f < 40
 
 						consensus_info[:med_spread_five_rating] = "cold"
 
@@ -3514,7 +3583,7 @@ module MatchupsHelper
 
 						consensus_info[:med_spread_ten_rating] = "frigid"
 
-					elsif consensus_info[:med_spread_ten_prcnt].to_f > 34 && consensus_info[:med_spread_ten_prcnt].to_f < 40
+					elsif consensus_info[:med_spread_ten_prcnt].to_f > 33 && consensus_info[:med_spread_ten_prcnt].to_f < 40
 
 						consensus_info[:med_spread_ten_rating] = "cold"
 
@@ -3543,13 +3612,15 @@ module MatchupsHelper
 
 				if (med_spread_twenty_wins + med_spread_twenty_losses) != 0
 
+
+
 					consensus_info[:med_spread_twenty_prcnt] = ((med_spread_twenty_wins.to_f/(med_spread_twenty_wins + med_spread_twenty_losses)).round(2) * 100).to_s + "%"
 
 					if consensus_info[:med_spread_twenty_prcnt].to_f <= 33.0
 
 						consensus_info[:med_spread_twenty_rating] = "frigid"
 
-					elsif consensus_info[:med_spread_twenty_prcnt].to_f > 34 && consensus_info[:med_spread_twenty_prcnt].to_f < 40
+					elsif consensus_info[:med_spread_twenty_prcnt].to_f > 33 && consensus_info[:med_spread_twenty_prcnt].to_f < 40
 
 						consensus_info[:med_spread_twenty_rating] = "cold"
 
@@ -3563,7 +3634,7 @@ module MatchupsHelper
 
 					elsif consensus_info[:med_spread_twenty_prcnt].to_f >= 75
 
-						consensus_info[:low_spread_twenty_rating] = "on fire"
+						consensus_info[:med_spread_twenty_rating] = "on fire"
 
 					end
 				
@@ -4046,7 +4117,7 @@ module MatchupsHelper
 
 						consensus_info[:hi_spread_five_rating] = "frigid"
 
-					elsif consensus_info[:hi_spread_five_prcnt].to_f > 34 && consensus_info[:hi_spread_five_prcnt].to_f < 40
+					elsif consensus_info[:hi_spread_five_prcnt].to_f > 33 && consensus_info[:hi_spread_five_prcnt].to_f < 40
 
 						consensus_info[:hi_spread_five_rating] = "cold"
 
@@ -4079,7 +4150,7 @@ module MatchupsHelper
 
 						consensus_info[:hi_spread_ten_rating] = "frigid"
 
-					elsif consensus_info[:hi_spread_ten_prcnt].to_f > 34 && consensus_info[:hi_spread_ten_prcnt].to_f < 40
+					elsif consensus_info[:hi_spread_ten_prcnt].to_f > 33 && consensus_info[:hi_spread_ten_prcnt].to_f < 40
 
 						consensus_info[:hi_spread_ten_rating] = "cold"
 
@@ -4114,7 +4185,7 @@ module MatchupsHelper
 
 						consensus_info[:hi_spread_twenty_rating] = "frigid"
 
-					elsif consensus_info[:hi_spread_twenty_prcnt].to_f > 34 && consensus_info[:hi_spread_twenty_prcnt].to_f < 40
+					elsif consensus_info[:hi_spread_twenty_prcnt].to_f > 33 && consensus_info[:hi_spread_twenty_prcnt].to_f < 40
 
 						consensus_info[:hi_spread_twenty_rating] = "cold"
 
@@ -4756,7 +4827,7 @@ module MatchupsHelper
 
 						consensus_info[:low_spread_five_rating] = "frigid"
 
-					elsif consensus_info[:low_spread_five_prcnt].to_f > 34 && consensus_info[:low_spread_five_prcnt].to_f < 40
+					elsif consensus_info[:low_spread_five_prcnt].to_f > 33 && consensus_info[:low_spread_five_prcnt].to_f < 40
 
 						consensus_info[:low_spread_five_rating] = "cold"
 
@@ -4789,7 +4860,7 @@ module MatchupsHelper
 
 						consensus_info[:low_spread_ten_rating] = "frigid"
 
-					elsif consensus_info[:low_spread_ten_prcnt].to_f > 34 && consensus_info[:low_spread_ten_prcnt].to_f < 40
+					elsif consensus_info[:low_spread_ten_prcnt].to_f > 33 && consensus_info[:low_spread_ten_prcnt].to_f < 40
 
 						consensus_info[:low_spread_ten_rating] = "cold"
 
@@ -4824,7 +4895,7 @@ module MatchupsHelper
 
 						consensus_info[:low_spread_twenty_rating] = "frigid"
 
-					elsif consensus_info[:low_spread_twenty_prcnt].to_f > 34 && consensus_info[:low_spread_twenty_prcnt].to_f < 40
+					elsif consensus_info[:low_spread_twenty_prcnt].to_f > 33 && consensus_info[:low_spread_twenty_prcnt].to_f < 40
 
 						consensus_info[:low_spread_twenty_rating] = "cold"
 
@@ -5315,13 +5386,13 @@ module MatchupsHelper
 
 				if (med_spread_five_wins + med_spread_five_losses) != 0
 
-					consensus_info[:med_spread_five_prcnt] = ((med_spread_five_wins.to_f/(med_spread_five_wins + med_spread_five_losses)).round(2) * 100).to_s + "%"
+					consensus_info[:med_spread_five_prcnt] = ((med_spread_five_wins.to_f/(med_spread_five_wins + med_spread_five_losses)).round(2) * 100).to_s + "%"	
 
 					if consensus_info[:med_spread_five_prcnt].to_f <= 33.0
 
 						consensus_info[:med_spread_five_rating] = "frigid"
 
-					elsif consensus_info[:med_spread_five_prcnt].to_f > 34 && consensus_info[:med_spread_five_prcnt].to_f < 40
+					elsif consensus_info[:med_spread_five_prcnt].to_f > 33 && consensus_info[:med_spread_five_prcnt].to_f < 40
 
 						consensus_info[:med_spread_five_rating] = "cold"
 
@@ -5354,7 +5425,7 @@ module MatchupsHelper
 
 						consensus_info[:med_spread_ten_rating] = "frigid"
 
-					elsif consensus_info[:med_spread_ten_prcnt].to_f > 34 && consensus_info[:med_spread_ten_prcnt].to_f < 40
+					elsif consensus_info[:med_spread_ten_prcnt].to_f > 33 && consensus_info[:med_spread_ten_prcnt].to_f < 40
 
 						consensus_info[:med_spread_ten_rating] = "cold"
 
@@ -5389,7 +5460,7 @@ module MatchupsHelper
 
 						consensus_info[:med_spread_twenty_rating] = "frigid"
 
-					elsif consensus_info[:med_spread_twenty_prcnt].to_f > 34 && consensus_info[:med_spread_twenty_prcnt].to_f < 40
+					elsif consensus_info[:med_spread_twenty_prcnt].to_f > 33 && consensus_info[:med_spread_twenty_prcnt].to_f < 40
 
 						consensus_info[:med_spread_twenty_rating] = "cold"
 
@@ -5403,7 +5474,7 @@ module MatchupsHelper
 
 					elsif consensus_info[:med_spread_twenty_prcnt].to_f >= 75
 
-						consensus_info[:low_spread_twenty_rating] = "on fire"
+						consensus_info[:med_spread_twenty_rating] = "on fire"
 
 					end
 				
@@ -5886,7 +5957,7 @@ module MatchupsHelper
 
 						consensus_info[:hi_spread_five_rating] = "frigid"
 
-					elsif consensus_info[:hi_spread_five_prcnt].to_f > 34 && consensus_info[:hi_spread_five_prcnt].to_f < 40
+					elsif consensus_info[:hi_spread_five_prcnt].to_f > 33 && consensus_info[:hi_spread_five_prcnt].to_f < 40
 
 						consensus_info[:hi_spread_five_rating] = "cold"
 
@@ -5919,7 +5990,7 @@ module MatchupsHelper
 
 						consensus_info[:hi_spread_ten_rating] = "frigid"
 
-					elsif consensus_info[:hi_spread_ten_prcnt].to_f > 34 && consensus_info[:hi_spread_ten_prcnt].to_f < 40
+					elsif consensus_info[:hi_spread_ten_prcnt].to_f > 33 && consensus_info[:hi_spread_ten_prcnt].to_f < 40
 
 						consensus_info[:hi_spread_ten_rating] = "cold"
 
@@ -5948,13 +6019,13 @@ module MatchupsHelper
 
 				if (hi_spread_twenty_wins + hi_spread_twenty_losses) != 0
 
-					consensus_info[:hi_spread_twenty_prcnt] = ((hi_spread_twenty_wins.to_f/(hi_spread_twenty_wins + hi_spread_twenty_losses)).round(2) * 100).to_s + "%"
+					consensus_info[:hi_spread_twenty_prcnt] = ((hi_spread_twenty_wins.to_f/(hi_spread_twenty_wins + hi_spread_twenty_losses)).round(2) * 100).to_s + "%"	
 
 					if consensus_info[:hi_spread_twenty_prcnt].to_f <= 33.0
 
 						consensus_info[:hi_spread_twenty_rating] = "frigid"
 
-					elsif consensus_info[:hi_spread_twenty_prcnt].to_f > 34 && consensus_info[:hi_spread_twenty_prcnt].to_f < 40
+					elsif consensus_info[:hi_spread_twenty_prcnt].to_f > 33 && consensus_info[:hi_spread_twenty_prcnt].to_f < 40
 
 						consensus_info[:hi_spread_twenty_rating] = "cold"
 
@@ -6232,11 +6303,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_five_wins = low_five_wins + 1
+										hi_five_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_five_losses = low_five_losses + 1
+										hi_five_losses = hi_five_losses + 1
 
 									end
 
@@ -6272,11 +6343,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_five_wins = low_five_wins + 1
+										hi_five_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_five_losses = low_five_losses + 1
+										hi_five_losses = hi_five_losses + 1
 
 									end
 
@@ -6504,11 +6575,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = low_five_wins + 1
+										hi_ten_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_ten_losses = low_ten_losses + 1
+										hi_ten_losses = hi_ten_losses + 1
 
 									end
 
@@ -6544,11 +6615,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = low_ten_wins + 1
+										hi_ten_wins = hi_ten_wins + 1
 							
 									else 
 			
-										hi_ten_losses = low_ten_losses + 1
+										hi_ten_losses = hi_ten_losses + 1
 
 									end
 
@@ -6776,11 +6847,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_twenty_wins = low_twenty_wins + 1
+										hi_twenty_wins = hi_twenty_wins + 1
 							
 									else 
 			
-										hi_twenty_losses = low_twenty_losses + 1
+										hi_twenty_losses = hi_twenty_losses + 1
 
 									end
 
@@ -6816,11 +6887,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_twenty_wins = low_twenty_wins + 1
+										hi_twenty_wins = hi_twenty_wins + 1
 							
 									else 
 			
-										hi_twenty_losses = low_twenty_losses + 1
+										hi_twenty_losses = hi_twenty_losses + 1
 
 									end
 
@@ -7048,11 +7119,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_five_wins = low_five_wins + 1
+										hi_five_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_five_losses = low_five_losses + 1
+										hi_five_losses = hi_five_losses + 1
 
 									end
 
@@ -7088,11 +7159,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_five_wins = low_five_wins + 1
+										hi_five_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_five_losses = low_five_losses + 1
+										hi_five_losses = hi_five_losses + 1
 
 									end
 
@@ -7234,7 +7305,7 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = hi_five_wins + 1
+										hi_ten_wins = hi_ten_wins + 1
 							
 									else 
 			
@@ -7320,11 +7391,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = low_five_wins + 1
+										hi_ten_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_ten_losses = low_ten_losses + 1
+										hi_ten_losses = hi_ten_losses + 1
 
 									end
 
@@ -7360,11 +7431,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = low_ten_wins + 1
+										hi_ten_wins = hi_ten_wins + 1
 							
 									else 
 			
-										hi_ten_losses = low_ten_losses + 1
+										hi_ten_losses = hi_ten_losses + 1
 
 									end
 
@@ -7592,11 +7663,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_twenty_wins = low_twenty_wins + 1
+										hi_twenty_wins = hi_twenty_wins + 1
 							
 									else 
 			
-										hi_twenty_losses = low_twenty_losses + 1
+										hi_twenty_losses = hi_twenty_losses + 1
 
 									end
 
@@ -7632,11 +7703,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_twenty_wins = low_twenty_wins + 1
+										hi_twenty_wins = hi_twenty_wins + 1
 							
 									else 
 			
-										hi_twenty_losses = low_twenty_losses + 1
+										hi_twenty_losses = hi_twenty_losses + 1
 
 									end
 
@@ -7864,11 +7935,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_five_wins = low_five_wins + 1
+										hi_five_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_five_losses = low_five_losses + 1
+										hi_five_losses = hi_five_losses + 1
 
 									end
 
@@ -7904,11 +7975,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_five_wins = low_five_wins + 1
+										hi_five_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_five_losses = low_five_losses + 1
+										hi_five_losses = hi_five_losses + 1
 
 									end
 
@@ -8050,7 +8121,7 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = hi_five_wins + 1
+										hi_ten_wins = hi_ten_wins + 1
 							
 									else 
 			
@@ -8136,11 +8207,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = low_five_wins + 1
+										hi_ten_wins = hi_ten_wins + 1
 							
 									else 
 			
-										hi_ten_losses = low_ten_losses + 1
+										hi_ten_losses = hi_ten_losses + 1
 
 									end
 
@@ -8176,11 +8247,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = low_ten_wins + 1
+										hi_ten_wins = hi_ten_wins + 1
 							
 									else 
 			
-										hi_ten_losses = low_ten_losses + 1
+										hi_ten_losses = hi_ten_losses + 1
 
 									end
 
@@ -8408,11 +8479,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_twenty_wins = low_twenty_wins + 1
+										hi_twenty_wins = hi_twenty_wins + 1
 							
 									else 
 			
-										hi_twenty_losses = low_twenty_losses + 1
+										hi_twenty_losses = hi_twenty_losses + 1
 
 									end
 
@@ -8448,11 +8519,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_twenty_wins = low_twenty_wins + 1
+										hi_twenty_wins = hi_twenty_wins + 1
 							
 									else 
 			
-										hi_twenty_losses = low_twenty_losses + 1
+										hi_twenty_losses = hi_twenty_losses + 1
 
 									end
 
@@ -8563,7 +8634,7 @@ module MatchupsHelper
 					consensus_info[:low_last_five_rating] = "frigid"
 
 
-				elsif consensus_info[:low_last_five_prcnt].to_f > 34 && consensus_info[:low_last_five_prcnt].to_f < 40
+				elsif consensus_info[:low_last_five_prcnt].to_f > 33 && consensus_info[:low_last_five_prcnt].to_f < 40
 
 					consensus_info[:low_last_five_rating] = "cold"
 
@@ -8599,7 +8670,7 @@ module MatchupsHelper
 					consensus_info[:med_last_five_rating] = "frigid"
 
 
-				elsif consensus_info[:med_last_five_prcnt].to_f > 34 && consensus_info[:med_last_five_prcnt].to_f < 40
+				elsif consensus_info[:med_last_five_prcnt].to_f > 33 && consensus_info[:med_last_five_prcnt].to_f < 40
 
 					consensus_info[:med_last_five_rating] = "cold"
 
@@ -8634,7 +8705,7 @@ module MatchupsHelper
 
 					consensus_info[:hi_last_five_rating] = "frigid"
 
-				elsif consensus_info[:hi_last_five_prcnt].to_f > 34 && consensus_info[:hi_last_five_prcnt].to_f < 40
+				elsif consensus_info[:hi_last_five_prcnt].to_f > 33 && consensus_info[:hi_last_five_prcnt].to_f < 40
 
 					consensus_info[:hi_last_five_rating] = "cold"
 
@@ -8671,7 +8742,7 @@ module MatchupsHelper
 					consensus_info[:low_last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:low_last_ten_prcnt].to_f > 34 && consensus_info[:low_last_ten_prcnt].to_f < 40
+				elsif consensus_info[:low_last_ten_prcnt].to_f > 33 && consensus_info[:low_last_ten_prcnt].to_f < 40
 
 					consensus_info[:low_last_ten_rating] = "cold"
 
@@ -8710,7 +8781,7 @@ module MatchupsHelper
 					consensus_info[:med_last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:med_last_ten_prcnt].to_f > 34 && consensus_info[:med_last_ten_prcnt].to_f < 40
+				elsif consensus_info[:med_last_ten_prcnt].to_f > 33 && consensus_info[:med_last_ten_prcnt].to_f < 40
 
 					consensus_info[:med_last_ten_rating] = "cold"
 
@@ -8746,7 +8817,7 @@ module MatchupsHelper
 					consensus_info[:hi_last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:hi_last_ten_prcnt].to_f > 34 && consensus_info[:hi_last_ten_prcnt].to_f < 40
+				elsif consensus_info[:hi_last_ten_prcnt].to_f > 33 && consensus_info[:hi_last_ten_prcnt].to_f < 40
 
 					consensus_info[:hi_last_ten_rating] = "cold"
 
@@ -8782,7 +8853,7 @@ module MatchupsHelper
 					consensus_info[:low_last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:low_last_twenty_prcnt].to_f > 34 && consensus_info[:low_last_twenty_prcnt].to_f < 40
+				elsif consensus_info[:low_last_twenty_prcnt].to_f > 33 && consensus_info[:low_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:low_last_twenty_rating] = "cold"
 
@@ -8818,7 +8889,7 @@ module MatchupsHelper
 					consensus_info[:med_last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:med_last_twenty_prcnt].to_f > 34 && consensus_info[:med_last_twenty_prcnt].to_f < 40
+				elsif consensus_info[:med_last_twenty_prcnt].to_f > 33 && consensus_info[:med_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:med_last_twenty_rating] = "cold"
 
@@ -8854,7 +8925,7 @@ module MatchupsHelper
 					consensus_info[:hi_last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:hi_last_twenty_prcnt].to_f > 34 && consensus_info[:hi_last_twenty_prcnt].to_f < 40
+				elsif consensus_info[:hi_last_twenty_prcnt].to_f > 33 && consensus_info[:hi_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:hi_last_twenty_rating] = "cold"
 
@@ -9131,11 +9202,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_five_wins = low_five_wins + 1
+										hi_five_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_five_losses = low_five_losses + 1
+										hi_five_losses = hi_five_losses + 1
 
 									end
 
@@ -9171,11 +9242,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_five_wins = low_five_wins + 1
+										hi_five_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_five_losses = low_five_losses + 1
+										hi_five_losses = hi_five_losses + 1
 
 									end
 
@@ -9317,7 +9388,7 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = hi_five_wins + 1
+										hi_ten_wins = hi_ten_wins + 1
 							
 									else 
 			
@@ -9403,11 +9474,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = low_five_wins + 1
+										hi_ten_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_ten_losses = low_ten_losses + 1
+										hi_ten_losses = hi_ten_losses + 1
 
 									end
 
@@ -9443,11 +9514,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = low_ten_wins + 1
+										hi_ten_wins = hi_ten_wins + 1
 							
 									else 
 			
-										hi_ten_losses = low_ten_losses + 1
+										hi_ten_losses = hi_ten_losses + 1
 
 									end
 
@@ -9675,11 +9746,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_twenty_wins = low_twenty_wins + 1
+										hi_twenty_wins = hi_twenty_wins + 1
 							
 									else 
 			
-										hi_twenty_losses = low_twenty_losses + 1
+										hi_twenty_losses = hi_twenty_losses + 1
 
 									end
 
@@ -9715,11 +9786,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_twenty_wins = low_twenty_wins + 1
+										hi_twenty_wins = hi_twenty_wins + 1
 							
 									else 
 			
-										hi_twenty_losses = low_twenty_losses + 1
+										hi_twenty_losses = hi_twenty_losses + 1
 
 									end
 
@@ -9947,11 +10018,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_five_wins = low_five_wins + 1
+										hi_five_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_five_losses = low_five_losses + 1
+										hi_five_losses = hi_five_losses + 1
 
 									end
 
@@ -9987,11 +10058,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_five_wins = low_five_wins + 1
+										hi_five_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_five_losses = low_five_losses + 1
+										hi_five_losses = hi_five_losses + 1
 
 									end
 
@@ -10133,7 +10204,7 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = hi_five_wins + 1
+										hi_ten_wins = hi_ten_wins + 1
 							
 									else 
 			
@@ -10219,11 +10290,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = low_five_wins + 1
+										hi_ten_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_ten_losses = low_ten_losses + 1
+										hi_ten_losses = hi_ten_losses + 1
 
 									end
 
@@ -10259,11 +10330,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = low_ten_wins + 1
+										hi_ten_wins = hi_ten_wins + 1
 							
 									else 
 			
-										hi_ten_losses = low_ten_losses + 1
+										hi_ten_losses = hi_ten_losses + 1
 
 									end
 
@@ -10491,11 +10562,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_twenty_wins = low_twenty_wins + 1
+										hi_twenty_wins = hi_twenty_wins + 1
 							
 									else 
 			
-										hi_twenty_losses = low_twenty_losses + 1
+										hi_twenty_losses = hi_twenty_losses + 1
 
 									end
 
@@ -10531,11 +10602,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_twenty_wins = low_twenty_wins + 1
+										hi_twenty_wins = hi_twenty_wins + 1
 							
 									else 
 			
-										hi_twenty_losses = low_twenty_losses + 1
+										hi_twenty_losses = hi_twenty_losses + 1
 
 									end
 
@@ -10763,11 +10834,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_five_wins = low_five_wins + 1
+										hi_five_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_five_losses = low_five_losses + 1
+										hi_five_losses = hi_five_losses + 1
 
 									end
 
@@ -10803,11 +10874,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_five_wins = low_five_wins + 1
+										hi_five_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_five_losses = low_five_losses + 1
+										hi_five_losses = hi_five_losses + 1
 
 									end
 
@@ -10949,7 +11020,7 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = hi_five_wins + 1
+										hi_ten_wins = hi_ten_wins + 1
 							
 									else 
 			
@@ -11035,11 +11106,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = low_five_wins + 1
+										hi_ten_wins = hi_five_wins + 1
 							
 									else 
 			
-										hi_ten_losses = low_ten_losses + 1
+										hi_ten_losses = hi_ten_losses + 1
 
 									end
 
@@ -11075,11 +11146,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_ten_wins = low_ten_wins + 1
+										hi_ten_wins = hi_ten_wins + 1
 							
 									else 
 			
-										hi_ten_losses = low_ten_losses + 1
+										hi_ten_losses = hi_ten_losses + 1
 
 									end
 
@@ -11307,11 +11378,11 @@ module MatchupsHelper
 
 									if m.total.to_f < m.home_score.to_i + m.road_score.to_i
 
-										hi_twenty_wins = low_twenty_wins + 1
+										hi_twenty_wins = hi_twenty_wins + 1
 							
 									else 
 			
-										hi_twenty_losses = low_twenty_losses + 1
+										hi_twenty_losses = hi_twenty_losses + 1
 
 									end
 
@@ -11347,11 +11418,11 @@ module MatchupsHelper
 
 									if m.total.to_f > m.home_score.to_i + m.road_score.to_i
 
-										hi_twenty_wins = low_twenty_wins + 1
+										hi_twenty_wins = hi_twenty_wins + 1
 							
 									else 
 			
-										hi_twenty_losses = low_twenty_losses + 1
+										hi_twenty_losses = hi_twenty_losses + 1
 
 									end
 
@@ -11462,7 +11533,7 @@ module MatchupsHelper
 					consensus_info[:low_last_five_rating] = "frigid"
 
 
-				elsif consensus_info[:low_last_five_prcnt].to_f > 34 && consensus_info[:low_last_five_prcnt].to_f < 40
+				elsif consensus_info[:low_last_five_prcnt].to_f > 33 && consensus_info[:low_last_five_prcnt].to_f < 40
 
 					consensus_info[:low_last_five_rating] = "cold"
 
@@ -11498,7 +11569,7 @@ module MatchupsHelper
 					consensus_info[:med_last_five_rating] = "frigid"
 
 
-				elsif consensus_info[:med_last_five_prcnt].to_f > 34 && consensus_info[:med_last_five_prcnt].to_f < 40
+				elsif consensus_info[:med_last_five_prcnt].to_f > 33 && consensus_info[:med_last_five_prcnt].to_f < 40
 
 					consensus_info[:med_last_five_rating] = "cold"
 
@@ -11533,7 +11604,7 @@ module MatchupsHelper
 
 					consensus_info[:hi_last_five_rating] = "frigid"
 
-				elsif consensus_info[:hi_last_five_prcnt].to_f > 34 && consensus_info[:hi_last_five_prcnt].to_f < 40
+				elsif consensus_info[:hi_last_five_prcnt].to_f > 33 && consensus_info[:hi_last_five_prcnt].to_f < 40
 
 					consensus_info[:hi_last_five_rating] = "cold"
 
@@ -11570,7 +11641,7 @@ module MatchupsHelper
 					consensus_info[:low_last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:low_last_ten_prcnt].to_f > 34 && consensus_info[:low_last_ten_prcnt].to_f < 40
+				elsif consensus_info[:low_last_ten_prcnt].to_f > 33 && consensus_info[:low_last_ten_prcnt].to_f < 40
 
 					consensus_info[:low_last_ten_rating] = "cold"
 
@@ -11609,7 +11680,7 @@ module MatchupsHelper
 					consensus_info[:med_last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:med_last_ten_prcnt].to_f > 34 && consensus_info[:med_last_ten_prcnt].to_f < 40
+				elsif consensus_info[:med_last_ten_prcnt].to_f > 33 && consensus_info[:med_last_ten_prcnt].to_f < 40
 
 					consensus_info[:med_last_ten_rating] = "cold"
 
@@ -11645,7 +11716,7 @@ module MatchupsHelper
 					consensus_info[:hi_last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:hi_last_ten_prcnt].to_f > 34 && consensus_info[:hi_last_ten_prcnt].to_f < 40
+				elsif consensus_info[:hi_last_ten_prcnt].to_f > 33 && consensus_info[:hi_last_ten_prcnt].to_f < 40
 
 					consensus_info[:hi_last_ten_rating] = "cold"
 
@@ -11681,7 +11752,7 @@ module MatchupsHelper
 					consensus_info[:low_last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:low_last_twenty_prcnt].to_f > 34 && consensus_info[:low_last_twenty_prcnt].to_f < 40
+				elsif consensus_info[:low_last_twenty_prcnt].to_f > 33 && consensus_info[:low_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:low_last_twenty_rating] = "cold"
 
@@ -11717,7 +11788,7 @@ module MatchupsHelper
 					consensus_info[:med_last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:med_last_twenty_prcnt].to_f > 34 && consensus_info[:med_last_twenty_prcnt].to_f < 40
+				elsif consensus_info[:med_last_twenty_prcnt].to_f > 33 && consensus_info[:med_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:med_last_twenty_rating] = "cold"
 
@@ -11753,7 +11824,7 @@ module MatchupsHelper
 					consensus_info[:hi_last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:hi_last_twenty_prcnt].to_f > 34 && consensus_info[:hi_last_twenty_prcnt].to_f < 40
+				elsif consensus_info[:hi_last_twenty_prcnt].to_f > 33 && consensus_info[:hi_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:hi_last_twenty_rating] = "cold"
 
@@ -11821,7 +11892,7 @@ module MatchupsHelper
 
 										if m.home_score.length != 0
 
-											if team = m.fav
+											if team == m.fav
 
 												user_games.push(p)
 
@@ -12099,7 +12170,7 @@ module MatchupsHelper
 					consensus_info[:last_five_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 33 && consensus_info[:over_all_last_five_prcnt].to_f < 40
 
 					consensus_info[:last_five_rating] = "cold"
 
@@ -12134,7 +12205,7 @@ module MatchupsHelper
 					consensus_info[:last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 33 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
 
 					consensus_info[:last_ten_rating] = "cold"
 
@@ -12170,7 +12241,7 @@ module MatchupsHelper
 					consensus_info[:last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 33 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:last_twenty_rating] = "cold"
 
@@ -12228,7 +12299,7 @@ module MatchupsHelper
 
 										if m.home_score.length != 0
 
-											if team = m.dog
+											if team == m.dog
 
 												user_games.push(p)
 
@@ -12490,6 +12561,7 @@ module MatchupsHelper
 
 			end
 
+
 			if five_wins + five_losses == 0
 
 				consensus_info[:over_all_last_five_prcnt] = "none"
@@ -12506,7 +12578,7 @@ module MatchupsHelper
 					consensus_info[:last_five_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 33 && consensus_info[:over_all_last_five_prcnt].to_f < 40
 
 					consensus_info[:last_five_rating] = "cold"
 
@@ -12541,7 +12613,7 @@ module MatchupsHelper
 					consensus_info[:last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 33 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
 
 					consensus_info[:last_ten_rating] = "cold"
 
@@ -12577,7 +12649,7 @@ module MatchupsHelper
 					consensus_info[:last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 33 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:last_twenty_rating] = "cold"
 
@@ -12635,7 +12707,7 @@ module MatchupsHelper
 
 										if m.home_score.length != 0
 
-											if team = "O"
+											if team == "O"
 
 												user_games.push(p)
 
@@ -12742,7 +12814,7 @@ module MatchupsHelper
 					consensus_info[:last_five_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 33 && consensus_info[:over_all_last_five_prcnt].to_f < 40
 
 					consensus_info[:last_five_rating] = "cold"
 
@@ -12777,7 +12849,7 @@ module MatchupsHelper
 					consensus_info[:last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 33 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
 
 					consensus_info[:last_ten_rating] = "cold"
 
@@ -12813,7 +12885,7 @@ module MatchupsHelper
 					consensus_info[:last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 33 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:last_twenty_rating] = "cold"
 
@@ -12871,7 +12943,7 @@ module MatchupsHelper
 
 										if m.home_score.length != 0
 
-											if team = "U"
+											if team == "U"
 
 												user_games.push(p)
 
@@ -12962,6 +13034,7 @@ module MatchupsHelper
 
 			end
 
+
 			if five_wins + five_losses == 0
 
 				consensus_info[:over_all_last_five_prcnt] = "none"
@@ -12978,7 +13051,7 @@ module MatchupsHelper
 					consensus_info[:last_five_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_five_prcnt].to_f > 34 && consensus_info[:over_all_last_five_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_five_prcnt].to_f > 33 && consensus_info[:over_all_last_five_prcnt].to_f < 40
 
 					consensus_info[:last_five_rating] = "cold"
 
@@ -13013,7 +13086,7 @@ module MatchupsHelper
 					consensus_info[:last_ten_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 34 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_ten_prcnt].to_f > 33 && consensus_info[:over_all_last_ten_prcnt].to_f < 40
 
 					consensus_info[:last_ten_rating] = "cold"
 
@@ -13049,7 +13122,7 @@ module MatchupsHelper
 					consensus_info[:last_twenty_rating] = "frigid"
 
 
-				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 34 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
+				elsif consensus_info[:over_all_last_twenty_prcnt].to_f > 33 && consensus_info[:over_all_last_twenty_prcnt].to_f < 40
 
 					consensus_info[:last_twenty_rating] = "cold"
 
