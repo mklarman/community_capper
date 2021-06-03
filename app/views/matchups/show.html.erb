@@ -636,7 +636,7 @@
 
 	<div id="adv_met"><div id="adv_met_label">ADVANCED METRICS</div>
 
-		<div class = "met_link_box">
+		<div class = "met_link_box" id= "game_metric">
 
 			<div id="last_five_sport" class="met_links"><%= @matchup.sport %> RATING FOR LAST 5 GAMES</div>
 			<div id="last_ten_sport" class="met_links"><%= @matchup.sport %> RATING FOR LAST 10 GAMES</div>
@@ -644,7 +644,7 @@
 
 		</div>
 
-		<div class = "met_link_box">
+		<div class = "met_link_box" id="spread_metric">
 
 			<% if @matchup.sport == "MLB" %>
 
@@ -662,9 +662,9 @@
 				
 				<% elsif @fav_line == "hi" %>
 
-					<div id="last_five_spread" class="met_links"><%= @matchup.sport %> RATING FOR LAST 5 HI SPREAD GAMESGAMES</div>
-					<div id="last_ten_spread" class="met_links"><%= @matchup.sport %> RATING FOR LAST 10 HI SPREAD GAMESGAMES</div>
-					<div id="last_twenty_spread" class="met_links"><%= @matchup.sport %> RATING FOR LAST 20 LOW SPREAD GAMESGAMES</div>
+					<div id="last_five_spread" class="met_links"><%= @matchup.sport %> RATING FOR LAST 5 HI SPREAD GAMES</div>
+					<div id="last_ten_spread" class="met_links"><%= @matchup.sport %> RATING FOR LAST 10 HI SPREAD GAMES</div>
+					<div id="last_twenty_spread" class="met_links"><%= @matchup.sport %> RATING FOR LAST 20 HI SPREAD GAMES</div>
 
 				<% end %>
 
@@ -695,11 +695,11 @@
 
 		</div>
 
-		<div class= "met_link_box">
+		<div class= "met_link_box" id="pos_met">
 			
-			<div id="last_five_spread" class="met_links"><%= @matchup.sport %> RATING FOR LAST 5 GAMES AS A FAV/DOG </div>
-			<div id="last_ten_spread" class="met_links"><%= @matchup.sport %> RATING FOR LAST 10 GAMES AS A FAV/DOG</div>
-			<div id="last_twenty_spread" class="met_links"><%= @matchup.sport %> RATING FOR LAST 20 GAMES AS A FAV/DOG</div>
+			<div id="last_five_spread" class="met_links"><%= @matchup.sport %> RATING FOR LAST 5 GAMES IN SPREAD POSITION </div>
+			<div id="last_ten_spread" class="met_links"><%= @matchup.sport %> RATING FOR LAST 10 GAMES IN SPREAD POSITION</div>
+			<div id="last_twenty_spread" class="met_links"><%= @matchup.sport %> RATING FOR LAST 20 GAMES IN SPREAD POSITION</div>
 
 		</div>
 
