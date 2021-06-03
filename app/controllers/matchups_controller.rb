@@ -68,6 +68,7 @@ class MatchupsController < ApplicationController
 		@fav_line
 		@dog_line
 		@spread_line
+		@total_line
 		
 		@fav_bettors_info = []
 		@dog_bettors_info = []

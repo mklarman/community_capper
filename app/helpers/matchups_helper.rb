@@ -100,6 +100,63 @@ module MatchupsHelper
 
 			end
 
+		end
+
+		if @matchup.sport == "MLB"
+
+			if @matchup.total.to_f < 8
+
+				@total_line = "low"
+
+
+			elsif @matchup.total.to_f >= 8 && @matchup.total.to_f < 10
+
+				@total_line = "med"
+
+			elsif @matchup.total.to_f >= 10
+
+				@total_line = "hi"
+
+
+			end
+
+
+		elsif @matchup.sport == "NFL"
+
+			if @matchup.total.to_f < 48
+
+				@total_line = "low"
+
+
+			elsif @matchup.total.to_f >= 48 && @matchup.total.to_f < 53
+
+				@total_line = "med"
+
+			elsif @matchup.total.to_f >= 53
+
+				@total_line = "hi"
+
+
+			end
+
+		elsif @matchup.sport == "NBA"
+
+			if @matchup.total.to_f < 220
+
+				@total_line = "low"
+
+
+			elsif @matchup.total.to_f >= 220 && @matchup.total.to_f < 228
+
+				@total_line = "med"
+
+			elsif @matchup.total.to_f >= 228
+
+				@total_line = "hi"
+
+
+			end
+
 
 		end
 
@@ -1959,7 +2016,7 @@ module MatchupsHelper
 
 				if consensus_info[:over_all_last_five_prcnt].to_f <= 33.0
 
-					consensus_info[:last_five_rating] = "ice cold"
+					consensus_info[:last_five_rating] = "frigid"
 
 
 				elsif consensus_info[:over_all_last_five_prcnt].to_f > 33 && consensus_info[:over_all_last_five_prcnt].to_f < 40
@@ -2269,7 +2326,7 @@ module MatchupsHelper
 
 				if consensus_info[:over_all_last_five_prcnt].to_f <= 33.0
 
-					consensus_info[:last_five_rating] = "ice cold"
+					consensus_info[:last_five_rating] = "frigid"
 
 
 				elsif consensus_info[:over_all_last_five_prcnt].to_f > 33 && consensus_info[:over_all_last_five_prcnt].to_f < 40
