@@ -1,1 +1,47 @@
-<%= current_user.id %> You are here
+<% self.get_join_date %>
+
+
+
+<div id="prof_cont">
+
+	<div id="prof_head"><%= current_user.username %></div>
+
+	<div class="summary">Join Date: <%= @my_date %></div>
+	<div class="summary">Total Picks Made: <%= current_user.picks.count %></div>
+
+	<div id="prof_stat_cont">
+		
+		<div id="nfl_stats" class="prof_stats">NFL
+			
+
+
+
+		</div>
+
+		<div id="nba_stats" class="prof_stats">NBA
+			
+
+
+			
+		</div>
+
+		<div id="mlb_stats" class="prof_stats">MLB
+			
+
+
+			
+		</div>
+
+		<div id="all_stats" class="prof_stats">OVERALL
+			
+
+
+			
+		</div>
+
+
+
+	</div>
+
+
+</div>

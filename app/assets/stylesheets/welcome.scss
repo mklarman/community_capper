@@ -1,3 +1,58 @@
 // Place all the styles related to the welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.main_format{
+
+	display: inline-block;
+	vertical-align: top;
+	width: 47%;
+	border: 1px solid red;
+	margin-left: 2%;
+	margin-top: 2%;
+
+}
+
+#inst_you{
+	
+	font-size: 23px;
+}
+
+#inst_site{
+
+	font-size: 23px;
+}
+
+#main_about_me{
+
+	font-size: 23px;
+}
+
+#prof_head{
+
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	margin-top: 4%;
+	font-size: 30px;
+	border: 1px solid red; 
+}
+
+#prof_cont{
+
+	height: 100%;
+	width: 100%;
+}
+
+.prof_stats{
+
+	display: inline-block;
+	vertical-align: top;
+	height: 100%;
+	width: 23%;
+	text-align: center;
+	border: 1px solid red;
+	margin-left: 1.25%;
+	margin-top: 3%;
+
+}

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
 	get "users/profile" => "welcome#users_show"
   get "matchup/list" => "matchups#matchups_list"
+  get "about/welcome" => "welcome#about"
 	
 
   
